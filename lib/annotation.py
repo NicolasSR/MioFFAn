@@ -4,7 +4,7 @@ from pathlib import Path
 from logging import Logger
 from dataclasses import asdict
 
-from lib.datatypes import MathConcept
+from lib.datatypes import MathConcept, CompoundMathConcept
 
 from lib.logger import main_logger
 
@@ -28,6 +28,7 @@ class MiAnno:
         self.anno_version: str = data.get('_anno_version', 'unknown')
         self.annotator: str = data.get('_annotator', 'unknown')
         self.occr: dict = data['mi_anno']
+        self.compound_occr: dict = data['compound_anno']
 
 
     def dump(self) -> None:
@@ -37,6 +38,7 @@ class MiAnno:
                     '_anno_version': self.anno_version,
                     '_annotator': self.annotator,
                     'mi_anno': self.occr,
+                    'compound_anno': self.compound_occr,
                 },
                 f,
             )
@@ -84,6 +86,48 @@ class McDict:
                     '_author': self.author,
                     '_mcdict_version': self.mcdict_version,
                     'concepts': concepts,
+                },
+                f,
+            )
+
+
+
+class CmcDict:
+    """Compound math concept dictionary"""
+
+    def __init__(self, file: Path, mc_dict: McDict) -> None:
+        with open(file, encoding='utf-8') as f:
+            data = json.load(f)
+
+        if data.get('_cmcdict_version', '') != '1.0':
+            logger.warning('%s: Compound math concept dict version is incompatible', file)
+
+        self.file = file
+        self.author: str = data.get('_author', 'unknown')
+        self.mcdict_version: str = data.get('_cmcdict_version', 'unknown')
+
+        compound_concepts = dict()
+        for cmc_id, cmc_obj in data['compound_concepts'].items():
+            compound_concepts[cmc_id] = CompoundMathConcept(**cmc_obj)
+
+        self.compound_concepts = compound_concepts
+
+        self.next_available_cmc_id = data['next_available_cmc_id']
+
+
+    def dump(self):
+
+        compound_concepts_dict = dict()
+        for cmc_id, cmc_obj in self.compound_concepts.items():
+            compound_concepts_dict[cmc_id]=asdict(cmc_obj)
+
+        with open(self.file, 'w') as f:
+            dump_json(
+                {
+                    '_author': self.author,
+                    '_cmcdict_version': self.cmcdict_version,
+                    'compound_concepts': compound_concepts_dict,
+                    'next_avialable_cmc_id': self.next_available_cmc_id
                 },
                 f,
             )

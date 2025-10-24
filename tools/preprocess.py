@@ -3,6 +3,7 @@ import lxml.html
 import unicodedata
 from docopt import docopt
 from pathlib import Path
+import re
 
 from lib.version import VERSION
 from lib.logger import main_logger
@@ -116,6 +117,47 @@ def remove_embed_floats(root, paper_id):
         e.insert(0, img)
 
 
+def embed_multiword_spans(e, p):
+    from lxml.html.builder import SPAN
+
+    # Define a utility function to check if text is meaningful
+    def is_meaningful_text(text):
+        if text:
+            # Check for non-whitespace and strip internal newlines/tabs
+            return re.search(r'\S', text) is not None
+        return False
+
+    unstructured_text_spans = []
+
+    # Check if there is text within div (directly at the beginning).
+    # If so, add it into a span element and remove the original
+    if is_meaningful_text(e.text):
+        s = SPAN(e.text)
+        s.attrib['class'] = 'gd_text'
+        s.attrib['id'] = '{}.{}'.format(p, 0)
+        unstructured_text_spans.append(s)
+        e.text = None
+    else:
+        unstructured_text_spans.append(None)
+
+    for i, c in enumerate(e.getchildren()):
+        # If the child's tail contains text, add it to a span. Then remove original
+        if is_meaningful_text(c.tail):
+            s = SPAN(c.tail)
+            s.attrib['class'] = 'gd_text'
+            s.attrib['id'] = '{}.{}'.format(p, i+1)
+            unstructured_text_spans.append(s)
+            c.tail = None
+        else:
+            unstructured_text_spans.append(None)
+
+    # Go in reverse and add each new span in the corresponding location.
+    for i in range(len(unstructured_text_spans) - 1, -1, -1):
+        current_span = unstructured_text_spans[i]
+        if not current_span is None:
+            e.insert(i, current_span)
+
+
 def preprocess_html(tree, paper_id, embed_floats):
     root = tree.getroot()
 
@@ -135,10 +177,45 @@ def preprocess_html(tree, paper_id, embed_floats):
             e.attrib['width'] = None
             e.attrib['height'] = None
 
+    # div containers
+    for iteration_number,e in enumerate(root.xpath('//span')):
+        parent_id = e.get('id')
+        if parent_id is None:
+            parent_id_tail = ''
+            current_element = e.getparent()
+            while current_element is not None:
+                parent_id_tail += '_sub'
+                # Get the 'id' attribute. Returns None if it doesn't exist.
+                ancestor_id = current_element.get('id')
+                # Check if an ID exists and is not an empty string.
+                if ancestor_id:
+                    ancestor_id += parent_id_tail
+                    break
+                # Move up to the next ancestor (the current element's parent).
+                current_element = current_element.getparent()
+            parent_id = ancestor_id+parent_id_tail if ancestor_id is not None else 'span_'+str(iteration_number)
+        
+        embed_multiword_spans(e,parent_id)
+
     # normal paragraphs
     for e in root.xpath('//p'):
         parent_id = e.attrib['id']
-        embed_word_span_tags(e, parent_id)
+
+        # In the original method, each individual word is separated into a new span.
+        # This seems too overcomplicated to me
+        # embed_word_span_tags(e, parent_id)
+
+        # We want to embed entire groups of words. As later we will extract the exact
+        # text selection by the starting character index in the span.
+        embed_multiword_spans(e,parent_id)
+
+    # div containers
+    for e in root.xpath('//div'):
+        if "id" in e.attrib.keys():
+            parent_id = e.attrib['id']
+        else:
+            parent_id = None
+        embed_multiword_spans(e, parent_id)
 
     # captions
     for e in root.xpath('//figcaption'):
