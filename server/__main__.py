@@ -6,7 +6,7 @@ from docopt import docopt
 from pathlib import Path
 
 from lib.version import VERSION
-from lib.annotation import MiAnno, McDict
+from lib.annotation import MiAnno, McDict, CmcDict
 from server.miogatto import MioGattoServer
 
 # meta
@@ -78,14 +78,46 @@ def routing_functions(server):
     @app.route('/mcdict.json', methods=['GET'])
     def mcdict_json():
         return server.gen_mcdict_json()
+    
+    @app.route('/_comp_concept', methods=['POST'])
+    def action_comp_concept():
+        return server.assign_comp_concept()
+    
+    @app.route('/_remove_comp_concept', methods=['POST'])
+    def action_remove_comp_concept():
+        return server.remove_comp_concept()
+
+    @app.route('/_new_comp_concept', methods=['POST'])
+    def action_new_comp_concept():
+        return server.new_comp_concept()
+
+    @app.route('/_update_comp_concept', methods=['POST'])
+    def action_update_comp_concept():
+        return server.update_comp_concept()
+    
+    @app.route('/cmcdict.json', methods=['GET'])
+    def cmcdict_json():
+        return server.gen_cmcdict_json()
 
     @app.route('/sog.json', methods=['GET'])
     def sog_json():
         return server.gen_sog_json()
+    
+    @app.route('/comp_sog.json', methods=['GET'])
+    def comp_sog_json():
+        return server.gen_comp_sog_json()
+    
+    @app.route('/hex_to_cmc_map.json', methods=['GET'])
+    def hex_to_cmc_map():
+        return server.gen_hex_to_cmc_map()
 
     @app.route('/edit_mcdict', methods=['GET'])
     def edit_mcdict():
         return server.edit_mcdict()
+    
+    @app.route('/edit_cmcdict', methods=['GET'])
+    def edit_mcdict():
+        return server.edit_cmcdict()
 
 
 def main():
@@ -100,17 +132,19 @@ def main():
 
     anno_json = data_dir / '{}_anno.json'.format(paper_id)
     mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
+    cmcdict_json = data_dir / '{}_cmcdict.json'.format(paper_id)
     source_html = sources_dir / '{}.html'.format(paper_id)
 
     # load the data
     mi_anno = MiAnno(anno_json)
     mcdict = McDict(mcdict_json)
+    cmcdict = CmcDict(cmcdict_json)
     tree = lxml.html.parse(str(source_html))
 
     # run the app
     app.debug = args['--debug']
 
-    server = MioGattoServer(paper_id, tree, mi_anno, mcdict, app.logger)
+    server = MioGattoServer(paper_id, tree, mi_anno, mcdict, cmcdict, app.logger)
     routing_functions(server)
 
     app.run(host=args['--host'], port=args['--port'])

@@ -9,8 +9,8 @@ import json
 import re
 
 from lib.version import VERSION
-from lib.annotation import MiAnno, McDict
-from lib.datatypes import MathConcept
+from lib.annotation import MiAnno, McDict, CmcDict
+from lib.datatypes import MathConcept, CompoundMathConcept
 
 # get git revision
 try:
@@ -42,6 +42,24 @@ def make_concept(res) -> Optional[MathConcept]:
 
     return MathConcept(description, arity, affixes)
 
+def make_compound_concept(res) -> Optional[CompoundMathConcept]:
+    # check arity
+    if not res.get('arity').isdigit():
+        flash('Arity must be non-negative integer.')
+        return None
+    else:
+        arity = int(res.get('arity'))
+
+    # check description
+    description = res.get('description')
+    if len(description) == 0:
+        flash('Description must be filled.')
+        return None
+
+    # get primitive concepts
+    primitive_concepts = res.get('hex_primitives_string').split(',')
+    
+    return CompoundMathConcept(description, arity, primitive_concepts)
 
 def affixes_pulldowns():
     select_tag = '''<li><select name="affixes{}">
@@ -134,16 +152,86 @@ def preprocess_mcdict(concepts):
     return mcdict
 
 
+def preprocess_cmcdict(compound_concepts):
+    # description processor
+    def process_math(math):
+
+        def construct_mi(idf_text, idf_var, concept_id):
+            mi = '<mi data-math-concept="{}"'.format(concept_id)
+
+            if idf_var == 'roman':
+                mi += ' mathvariant="normal">'
+            else:
+                mi += '>'
+
+            mi += idf_text + '</mi>'
+
+            return mi
+
+        # protect references (@x)
+        math = re.sub(r'(@\d+)', r'<mi>\1</mi>', math)
+
+        # expand \gf
+        rls = [
+            (construct_mi(m.group(1), m.group(2), int(m.group(3))), m.span())
+            for m in re.finditer(r'\\gf{(.*?)}{(.*?)}{(\d*?)}', math)
+        ]
+        for r in reversed(rls):
+            s, e = r[1]
+            math = math[:s] + r[0] + math[e:]
+
+        return '<math>' + math + '</math>'
+
+    def process_desc(desc):
+        if not desc or '$' not in desc:
+            return desc
+
+        # process maths
+        it = desc.split('$')
+        desc_new = ''.join([a + process_math(b) for a, b in zip(it[::2], it[1::2])])
+        if len(it) % 2 != 0:
+            desc_new += it[-1]
+
+        return desc_new
+
+    # initialize
+    cmcdict = dict()
+
+    for cmc_id, cmc_obj in compound_concepts.items():
+        cmcdict[cmc_id] = {
+            'description': process_desc(cmc_obj.description),
+            'arity': cmc_obj.arity,
+            'affixes': cmc_obj.affixes}
+
+    return cmcdict
+
+
 class MioGattoServer:
-    def __init__(self, paper_id: str, tree, mi_anno: MiAnno, mcdict: McDict, logger: Logger):
+    def __init__(self, paper_id: str, tree, mi_anno: MiAnno, mcdict: McDict, cmcdict: CmcDict, logger: Logger):
         self.paper_id = paper_id
         self.tree = tree
         self.mi_anno = mi_anno
         self.mcdict = mcdict
+        self.cmcdict = cmcdict
         self.logger = logger
 
         # Start with 0 (can be considered as the number of times the mcdict is edited)
         self.mcdict_edit_id = 0
+        self.cmcdict_edit_id = 0
+
+    def add_data_compound_math_concept(self, root):
+
+        for anno_tag_id, anno_obj in self.mi_anno.compound_occr.items():
+            cmc_id = anno_obj["compound_concept_id"]
+            if cmc_id is not None:
+                xpath_expression = "//{}[@id='{}']".format(anno_obj['tag_name'], anno_tag_id)
+                matches = root.xpath(xpath_expression)
+                if len(matches)!=1:
+                    flash('Either no element matching {} found, or too many'.format(xpath_expression))
+                    continue
+
+                matches[0].attrib['data-compound-math-concept'] = str(cmc_id)
+                    
 
     def index(self):
         # avoid destroying the original tree
@@ -162,18 +250,30 @@ class MioGattoServer:
 
             mi.attrib['data-math-concept'] = str(concept_id)
 
+        # add data-compound-math-concept for each compound concept element
+        self.add_data_compound_math_concept(root)
+
         # progress info
         nof_anno = len(self.mi_anno.occr)
+        nof_comp_anno = len(self.mi_anno.compound_occr)
         nof_done = sum(1 for v in self.mi_anno.occr.values() if not v['concept_id'] is None)
+        nof_comp_done = sum(1 for v in self.mi_anno.compound_occr.values() if not v['compound_concept_id'] is None)
         p_concept = '{}/{} ({:.2f}%)'.format(nof_done, nof_anno, nof_done / nof_anno * 100)
+        p_comp_concept = '{}/{} ({:.2f}%)'.format(nof_comp_done, nof_comp_anno, nof_comp_done / nof_comp_anno * 100)
 
         nof_sog = 0
         for anno in self.mi_anno.occr.values():
             for sog in anno['sog']:
                 nof_sog += 1
 
+        nof_comp_sog = 0
+        for comp_anno in self.mi_anno.compound_occr.values():
+            for comp_sog in comp_anno['sog']:
+                nof_comp_sog += 1
+
         # construction
-        title = root.xpath('//head/title')[0].text
+        # title = root.xpath('//head/title')[0].text
+        title = "deault title"
         body = root.xpath('body')[0]
         main_content = etree.tostring(body, method='html', encoding=str)
 
@@ -186,6 +286,8 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             p_concept=p_concept,
             nof_sog=nof_sog,
+            p_comp_concept=p_comp_concept,
+            nof_comp_sog=nof_comp_sog,
             affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
         )
@@ -373,6 +475,160 @@ class MioGattoServer:
         extended_data = [str(self.mcdict_edit_id), data]
 
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def assign_comp_concept(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        comp_tag_id = res['compound_tag_id']
+        cmc_id = int(res['compound_concept_id'])
+
+        if res.get('concept'):
+            # register
+            self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = cmc_id
+            self.mi_anno.dump()
+
+        return redirect('/')
+    
+    def remove_comp_concept(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        comp_tag_id = res['compound_tag_id']
+        self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = None
+        self.mi_anno.dump()
+
+        return redirect('/')
+    
+    def new_comp_concept(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        # cmc_id = str(len(self.cmcdict.compound_concepts))
+        cmc_id = str(self.cmcdict.next_available_cmc_id)
+
+        # make compound concept with checking
+        comp_concept = make_compound_concept(res)
+        if comp_concept is None:
+            return redirect('/')
+
+        # register
+        self.cmcdict.compound_concepts[cmc_id].append(comp_concept)
+        self.cmcdict.next_available_cmc_id += 1
+        self.cmcdict.dump()
+
+        self.update_cmcdict_edit_id()
+
+        return redirect('/')
+    
+    def update_comp_concept(self):
+        # register and save data_anno
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        cmc_id = res.get('cmc_id')
+
+        # make compound concept with checking
+        comp_concept = make_compound_concept(res)
+        if comp_concept is None:
+            return redirect('/')
+
+        self.cmcdict.compound_concepts[cmc_id] = comp_concept
+        self.cmcdict.dump()
+
+        self.update_cmcdict_edit_id()
+
+        return redirect('/')
+    
+    def add_comp_sog(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        comp_tag_id = res['comp_tag_id']
+        start_id, stop_id = res['start_id'], res['stop_id']
+
+        # TODO: validate the span range
+        existing_comp_sog_pos = [(s['start'], s['stop']) for s in self.mi_anno.compound_occr[comp_tag_id]['sog']]
+        if (start_id, stop_id) not in existing_comp_sog_pos:
+            self.mi_anno.compound_occr[comp_tag_id]['sog'].append({'start': start_id, 'stop': stop_id, 'type': 0})
+            self.mi_anno.dump()
+
+        return redirect('/')
+    
+    def delete_comp_sog(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        comp_tag_id = res['comp_tag_id']
+        start_id, stop_id = res['start_id'], res['stop_id']
+
+        delete_idx = None
+        for idx, sog in enumerate(self.mi_anno.compound_occr[comp_tag_id]['sog']):
+            if sog['start'] == start_id and sog['stop'] == stop_id:
+                delete_idx = idx
+                break
+
+        if delete_idx is not None:
+            del self.mi_anno.compound_occr[comp_tag_id]['sog'][delete_idx]
+            self.mi_anno.dump()
+
+        return redirect('/')
+    
+    def change_comp_sog_type(self):
+        res = request.form
+
+        # If the cmcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+        edit_id_in_request = res.get('cmcdict_edit_id')
+        if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
+            flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
+            return redirect('/')
+
+        comp_tag_id = res['comp_tag_id']
+        start_id, stop_id = res['start_id'], res['stop_id']
+        sog_type = res['sog_type']
+
+        for sog in self.mi_anno.compound_occr[comp_tag_id]['sog']:
+            if sog['start'] == start_id and sog['stop'] == stop_id:
+                sog['type'] = sog_type
+                self.mi_anno.dump()
+                break
+
+        return redirect('/')
+    
+    def gen_cmcdict_json(self):
+        data = preprocess_cmcdict(self.cmcdict.compound_concepts)
+        extended_data = [str(self.cmcdict_edit_id), data]
+        return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
     def gen_sog_json(self):
         data = {'sog': []}
@@ -383,6 +639,26 @@ class MioGattoServer:
                     {'mi_id': mi_id, 'start_id': sog['start'], 'stop_id': sog['stop'], 'type': sog['type']}
                 )
 
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def gen_comp_sog_json(self):
+        data = {'sog': []}
+
+        for comp_tag_id, anno in self.mi_anno.compound_occr.items():
+            for sog in anno['sog']:
+                data['sog'].append(
+                    {'comp_tag_id': comp_tag_id, 'start_id': sog['start'], 'stop_id': sog['stop'], 'type': sog['type']}
+                )
+
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def gen_hex_to_cmc_map(self):
+        data = {}
+        for hex_value in self.mi_anno.occr.keys():
+            data[hex_value] = []
+        for cmc_id, cmc_obj in self.cmcdict.compound_concepts.items():
+            for hex_value in cmc_obj["primitive_concepts"]:
+                data[hex_value].append(cmc_id)
         return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
     def edit_mcdict(self):
@@ -417,6 +693,12 @@ class MioGattoServer:
             affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
         )
+    
+    def edit_cmcdict(self):
+        pass
 
     def update_mcdict_edit_id(self):
         self.mcdict_edit_id += 1
+
+    def update_cmcdict_edit_id(self):
+        self.cmcdict_edit_id += 1
