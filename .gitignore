@@ -100,8 +100,6 @@ data
 doc
 static/img
 sources
-templates
-raw_sources
 
 # local stuff
 local/
