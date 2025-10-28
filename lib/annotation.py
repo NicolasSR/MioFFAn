@@ -95,7 +95,7 @@ class McDict:
 class CmcDict:
     """Compound math concept dictionary"""
 
-    def __init__(self, file: Path, mc_dict: McDict) -> None:
+    def __init__(self, file: Path) -> None:
         with open(file, encoding='utf-8') as f:
             data = json.load(f)
 
@@ -104,7 +104,7 @@ class CmcDict:
 
         self.file = file
         self.author: str = data.get('_author', 'unknown')
-        self.mcdict_version: str = data.get('_cmcdict_version', 'unknown')
+        self.cmcdict_version: str = data.get('_cmcdict_version', 'unknown')
 
         compound_concepts = dict()
         for cmc_id, cmc_obj in data['compound_concepts'].items():
@@ -127,7 +127,7 @@ class CmcDict:
                     '_author': self.author,
                     '_cmcdict_version': self.cmcdict_version,
                     'compound_concepts': compound_concepts_dict,
-                    'next_avialable_cmc_id': self.next_available_cmc_id
+                    'next_available_cmc_id': self.next_available_cmc_id
                 },
                 f,
             )

@@ -201,7 +201,7 @@ def preprocess_cmcdict(compound_concepts):
         cmcdict[cmc_id] = {
             'description': process_desc(cmc_obj.description),
             'arity': cmc_obj.arity,
-            'affixes': cmc_obj.affixes}
+            'primitive_concepts': cmc_obj.primitive_concepts}
 
     return cmcdict
 
@@ -220,7 +220,6 @@ class MioGattoServer:
         self.cmcdict_edit_id = 0
 
     def add_data_compound_math_concept(self, root):
-
         for anno_tag_id, anno_obj in self.mi_anno.compound_occr.items():
             cmc_id = anno_obj["compound_concept_id"]
             if cmc_id is not None:
@@ -231,13 +230,8 @@ class MioGattoServer:
                     continue
 
                 matches[0].attrib['data-compound-math-concept'] = str(cmc_id)
-                    
-
-    def index(self):
-        # avoid destroying the original tree
-        copied_tree = deepcopy(self.tree)
-        root = copied_tree.getroot()
-
+                
+    def initialize_main_pages(self, root):
         # add data-math-concept for each mi element
         for mi in root.xpath('//mi'):
             mi_id = mi.get('id', None)
@@ -271,6 +265,15 @@ class MioGattoServer:
             for comp_sog in comp_anno['sog']:
                 nof_comp_sog += 1
 
+        return p_concept, p_comp_concept, nof_sog, nof_comp_sog
+
+    def index(self):
+        # avoid destroying the original tree
+        copied_tree = deepcopy(self.tree)
+        root = copied_tree.getroot()
+
+        p_concept, p_comp_concept, nof_sog, nof_comp_sog = self.initialize_main_pages(root)
+
         # construction
         # title = root.xpath('//head/title')[0].text
         title = "deault title"
@@ -289,6 +292,29 @@ class MioGattoServer:
             p_comp_concept=p_comp_concept,
             nof_comp_sog=nof_comp_sog,
             affixes=Markup(affixes_pulldowns()),
+            main_content=Markup(main_content),
+        )
+    
+    def edit_compound_concepts(self):
+        # avoid destroying the original tree
+        copied_tree = deepcopy(self.tree)
+        root = copied_tree.getroot()
+
+        p_concept, p_comp_concept, nof_sog, nof_comp_sog = self.initialize_main_pages(root)
+
+        # construction
+        body = root.xpath('body')[0]
+        main_content = etree.tostring(body, method='html', encoding=str)
+        return render_template(
+            'compound_concepts_editor.html',
+            version=VERSION,
+            git_revision=GIT_REVISON,
+            paper_id=self.paper_id,
+            annotator=self.mi_anno.annotator,
+            p_concept=p_concept,
+            nof_sog=nof_sog,
+            p_comp_concept=p_comp_concept,
+            nof_comp_sog=nof_comp_sog,
             main_content=Markup(main_content),
         )
 
@@ -483,17 +509,17 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
-        comp_tag_id = res['compound_tag_id']
-        cmc_id = int(res['compound_concept_id'])
+        comp_tag_id = res['comp_tag_id']
+        cmc_id = int(res['cmc_id'])
 
-        if res.get('concept'):
+        if res.get('cmc_id'):
             # register
             self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = cmc_id
             self.mi_anno.dump()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def remove_comp_concept(self):
         res = request.form
@@ -502,13 +528,13 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
-        comp_tag_id = res['compound_tag_id']
+        comp_tag_id = res['comp_tag_id']
         self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = None
         self.mi_anno.dump()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def new_comp_concept(self):
         res = request.form
@@ -517,7 +543,7 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         # cmc_id = str(len(self.cmcdict.compound_concepts))
         cmc_id = str(self.cmcdict.next_available_cmc_id)
@@ -525,16 +551,18 @@ class MioGattoServer:
         # make compound concept with checking
         comp_concept = make_compound_concept(res)
         if comp_concept is None:
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         # register
-        self.cmcdict.compound_concepts[cmc_id].append(comp_concept)
+        print(comp_concept)
+        print(self.cmcdict.compound_concepts)
+        self.cmcdict.compound_concepts[cmc_id] = comp_concept
         self.cmcdict.next_available_cmc_id += 1
         self.cmcdict.dump()
 
         self.update_cmcdict_edit_id()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def update_comp_concept(self):
         # register and save data_anno
@@ -544,21 +572,21 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         cmc_id = res.get('cmc_id')
 
         # make compound concept with checking
         comp_concept = make_compound_concept(res)
         if comp_concept is None:
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         self.cmcdict.compound_concepts[cmc_id] = comp_concept
         self.cmcdict.dump()
 
         self.update_cmcdict_edit_id()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def add_comp_sog(self):
         res = request.form
@@ -567,7 +595,7 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         comp_tag_id = res['comp_tag_id']
         start_id, stop_id = res['start_id'], res['stop_id']
@@ -578,7 +606,7 @@ class MioGattoServer:
             self.mi_anno.compound_occr[comp_tag_id]['sog'].append({'start': start_id, 'stop': stop_id, 'type': 0})
             self.mi_anno.dump()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def delete_comp_sog(self):
         res = request.form
@@ -587,7 +615,7 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         comp_tag_id = res['comp_tag_id']
         start_id, stop_id = res['start_id'], res['stop_id']
@@ -602,7 +630,7 @@ class MioGattoServer:
             del self.mi_anno.compound_occr[comp_tag_id]['sog'][delete_idx]
             self.mi_anno.dump()
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def change_comp_sog_type(self):
         res = request.form
@@ -611,7 +639,7 @@ class MioGattoServer:
         edit_id_in_request = res.get('cmcdict_edit_id')
         if edit_id_in_request is None or str(self.cmcdict_edit_id) != edit_id_in_request:
             flash('Invalid Action!!! Reloading the page since the cmcdict has been modified.')
-            return redirect('/')
+            return redirect('/edit_compound_concepts')
 
         comp_tag_id = res['comp_tag_id']
         start_id, stop_id = res['start_id'], res['stop_id']
@@ -623,7 +651,7 @@ class MioGattoServer:
                 self.mi_anno.dump()
                 break
 
-        return redirect('/')
+        return redirect('/edit_compound_concepts')
     
     def gen_cmcdict_json(self):
         data = preprocess_cmcdict(self.cmcdict.compound_concepts)
@@ -654,10 +682,10 @@ class MioGattoServer:
     
     def gen_hex_to_cmc_map(self):
         data = {}
-        for hex_value in self.mi_anno.occr.keys():
+        for hex_value in self.mcdict.concepts.keys():
             data[hex_value] = []
         for cmc_id, cmc_obj in self.cmcdict.compound_concepts.items():
-            for hex_value in cmc_obj["primitive_concepts"]:
+            for hex_value in cmc_obj.primitive_concepts:
                 data[hex_value].append(cmc_id)
         return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 

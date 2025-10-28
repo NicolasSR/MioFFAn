@@ -119,6 +119,15 @@ export function get_comp_concept(elem: JQuery<any>) {
   }
 }
 
+export function get_comp_concept_id(elem: JQuery<any>) {
+  let cmc_id = elem.data('compound-math-concept');
+  if(cmc_id != undefined) {
+    return cmc_id;
+  } else {
+    return undefined;
+  }
+}
+
 export function get_concept_cand(idf: Identifier) {
   if(mcdict[idf.hex] != undefined)
     return mcdict[idf.hex][idf.var]; // can be undefined
@@ -126,10 +135,10 @@ export function get_concept_cand(idf: Identifier) {
 
 export function get_comp_concept_cand(elem: JQuery<any>) {
   const primitive_hex_list = get_primitive_hex_list(elem);
-  let candidates_set: Set<CompoundConcept> = new Set();
-  for(const primitive_hex in primitive_hex_list) {
-    for(const candidate in hextocmcmap[primitive_hex]){
-      candidates_set.add(cmcdict[candidate]);
+  let candidates_set: Set<string> = new Set();
+  for(const primitive_hex of primitive_hex_list) {
+    for(const candidate of hextocmcmap[primitive_hex]){
+      candidates_set.add(candidate);
     }
   }
   return Array.from(candidates_set.values());
@@ -237,6 +246,12 @@ for(let idf_hex in mcdict) {
       }
     }
   }
+}
+
+let cnt_comp = 0;
+for(let cmc_index in cmcdict) {
+  cmcdict[cmc_index].color = colors[cnt_comp % colors.length];
+  cnt_comp++;
 }
 
 // load sog from the external json file

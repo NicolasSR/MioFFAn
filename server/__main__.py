@@ -95,6 +95,10 @@ def routing_functions(server):
     def action_update_comp_concept():
         return server.update_comp_concept()
     
+    @app.route('/_add_comp_sog', methods=['POST'])
+    def action_add_comp_sog():
+        return server.add_comp_sog()
+    
     @app.route('/cmcdict.json', methods=['GET'])
     def cmcdict_json():
         return server.gen_cmcdict_json()
@@ -116,8 +120,12 @@ def routing_functions(server):
         return server.edit_mcdict()
     
     @app.route('/edit_cmcdict', methods=['GET'])
-    def edit_mcdict():
+    def edit_cmcdict():
         return server.edit_cmcdict()
+    
+    @app.route('/edit_compound_concepts', methods=['GET'])
+    def edit_compound_concepts():
+        return server.edit_compound_concepts()
 
 
 def main():

@@ -272,6 +272,19 @@ def observe_mi(tree):
     return occurences, identifiers, mi_attribs
 
 
+def observe_comp_tags(tree):
+    comp_tags_dict = dict()
+    comp_tag_attribs = set()
+
+    # initialize
+    root = tree.getroot()
+    for e in root.xpath('//msub | //msup'):
+        comp_tags_dict[e.attrib.get('id')] = e.tag
+        comp_tag_attribs.update(e.attrib)
+
+    return comp_tags_dict, comp_tag_attribs
+
+
 def idf2mc(idf_set):
     # initialize
     idf_dict = dict()
@@ -311,6 +324,7 @@ def main():
     data_dir.mkdir(parents=True, exist_ok=True)
     anno_json = data_dir / '{}_anno.json'.format(paper_id)
     mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
+    cmcdict_json = data_dir / '{}_cmcdict.json'.format(paper_id)
 
     # prevent unintentional overwriting
     if args['--overwrite'] is not True:
@@ -341,6 +355,20 @@ def main():
         for mi_id, concept_id in occurences.items()
     }
 
+
+    comp_tags_dict, comp_attribs = observe_comp_tags(tree)
+    print('# of comppund indentifiers: {}'.format(len(comp_tags_dict)))
+    print('compound tag attributes: {}'.format(', '.join(comp_attribs)))
+
+    compound_anno = {
+        comp_tag_id: {
+            "compound_concept_id": None,
+            "tag_name": comp_tag_type,
+            "sog":[]
+        }
+        for comp_tag_id, comp_tag_type in comp_tags_dict.items()
+    }
+
     # write output files
     logger.info('Writing preprocessed HTML to %s', html_out)
     tree.write(str(html_out), pretty_print=True, encoding='utf-8')
@@ -352,6 +380,7 @@ def main():
                 '_anno_version': '1.0',
                 '_annotator': 'YOUR NAME',
                 'mi_anno': mi_anno,
+                'compound_anno': compound_anno
             },
             f,
         )
@@ -363,6 +392,18 @@ def main():
                 '_author': 'YOUR NAME',
                 '_mcdict_version': '1.0',
                 'concepts': idf2mc(identifiers),
+            },
+            f,
+        )
+
+    logger.info('Writing initialized cmcdict template to %s', cmcdict_json)
+    with open(cmcdict_json, 'w') as f:
+        dump_json(
+            {
+                '_author': 'YOUR NAME',
+                '_cmcdict_version': '1.0',
+                'compound_concepts': {},
+                'next_available_cmc_id': 0
             },
             f,
         )

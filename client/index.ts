@@ -3,7 +3,7 @@
 
 import { post } from "jquery";
 import {Identifier, Concept, Source, hex2rgb, dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand} from "./common";
-
+import {WordIndexedSpan, highlight_sog_nodes, remove_highlight} from "./main_pages_utils"
 // --------------------------
 // Options
 // --------------------------
@@ -14,6 +14,7 @@ let miogatto_options: { [name: string]: boolean } = {
 }
 
 $(function() {
+
   let input_opt_hl = $('#option-limited-highlight');
   let input_opt_def = $('#option-show-definition');
 
@@ -107,16 +108,7 @@ function apply_highlight(sog_nodes: JQuery, idf: Identifier, sog: Source) {
   remove_highlight(sog_nodes);
 
   let concept = get_concept(idf);
-  if (concept == undefined || concept.color == undefined) {
-    // red underline if concept is unassigned
-    sog_nodes.css('border-bottom', 'solid 2px #FF0000');
-  } else {
-    // highlight it!
-    sog_nodes.css('background-color', `rgba(${hex2rgb(concept.color).join()},0.3)`);
-    if(miogatto_options.show_definition && sog.type == 1) {
-      sog_nodes.css('border-bottom', 'solid 3px');
-    }
-  }
+  highlight_sog_nodes(concept, sog_nodes, sog, miogatto_options.show_definition)
 
   // embed SoG information for removing
   sog_nodes.attr({
@@ -127,145 +119,6 @@ function apply_highlight(sog_nodes: JQuery, idf: Identifier, sog: Source) {
   });
 }
 
-function remove_highlight(sog_nodes: JQuery) {
-  sog_nodes.css('border-bottom', '');
-  sog_nodes.css('background-color', '');
-}
-
-// Define an interface to extend HTMLElement/HTMLSpanElement with our custom map property
-interface WordIndexedSpan extends HTMLSpanElement {
-    wordMap?: Map<number, string>;
-}
-
-function hasWordMap(element: HTMLSpanElement): element is WordIndexedSpan {
-  const potentialWordMapElement = element as WordIndexedSpan;
-  // 2. Use the 'in' operator to check if the property exists on the object
-  // This is a type guard that also tells TypeScript the element is WordIndexedSpan
-  return 'wordMap' in potentialWordMapElement;
-}
-
-function divide_and_index_text_span(e: WordIndexedSpan): void {
-  let t = e.textContent;
-  if (!t) {
-    console.warn("Parent element has no text content to split.");
-    throw new Error("Parent element has no text content to split.");
-  }
-
-  // Initialize the map on the parent element
-  e.wordMap = new Map<number, string>();
-
-  // Clear the original content
-  e.textContent = '';
-
-  // The regular expression \S+ matches one or more non-whitespace characters (a "word").
-  // The 'g' flag ensures it finds all matches.
-  const wordRegex = /\S+/g;
-  let match: RegExpExecArray | null;
-
-  // 3. Iterate and create a new span for each word
-  while ((match = wordRegex.exec(t)) !== null) {
-    const word = match[0];
-
-    // The index is the position of the first character of the word in the original string.
-    const positionIndex = match.index;
-
-    console.log(word)
-    console.log(positionIndex)
-
-    // Create the new span element
-    const wordSpan = document.createElement('span');
-
-    // Set a unique ID for the new span
-    // Combining the parent ID (if it exists) and the index/word for uniqueness
-    const uniqueId = `${e.id || 'word'}-${positionIndex}`;
-    wordSpan.id = uniqueId;
-
-    // Set the text content (the word)
-    wordSpan.textContent = word;
-
-    // Optional: Add a class for styling/identification
-    wordSpan.className = 'dyn_gd_word';
-
-    // Store the mapping: Character Position -> Child Span Node
-    e.wordMap.set(positionIndex, wordSpan.id);
-    
-    // 4. Append the new span to the original parent element
-    e.appendChild(wordSpan);
-
-    // 5. Add the whitespace that followed the word
-    // Find the index where the current word ends
-    const wordEndIndex = positionIndex + word.length;
-
-    // Find the start of the next non-whitespace character (the next word)
-    wordRegex.lastIndex = wordEndIndex; // Start searching for the next word from here
-    const nextMatch = wordRegex.exec(t);
-    
-    let spaceText = '';
-    if (nextMatch) {
-        // If there's a next word, the space is the substring between the current word's end 
-        // and the next word's start
-        spaceText = t.substring(wordEndIndex, nextMatch.index);
-        console.log('Word end', wordEndIndex)
-        console.log('New match', nextMatch.index)
-        console.log('Text', t)
-    } else {
-        // If this is the last word, the space is any trailing whitespace
-        spaceText = t.substring(wordEndIndex);
-    }
-    
-    if (spaceText.length > 0) {
-        let spaceNode = document.createElement('span');
-        spaceNode.textContent = spaceText;
-        spaceNode.className = "dyn_space";
-        e.appendChild(spaceNode);
-    }
-
-    // Reset the regex index for the next loop iteration, which will restart
-    // from the last word found's end position due to the while condition's exec call.
-    // We set lastIndex for the space logic, but the while loop's exec call
-    // will automatically use the updated lastIndex from the *previous* call.
-    // We must ensure 'match' is used for the *current* word processing.
-    if (nextMatch) {
-        wordRegex.lastIndex = nextMatch.index; // Ensure the next exec starts correctly
-    } else {
-        // No more words, stop the loop after this iteration
-        break; 
-    }
-  };
-}
-
-function get_word_id_by_index(e: WordIndexedSpan, char_index: number): string {
-  const wordMap = e.wordMap;
-
-  if (!wordMap || wordMap.size === 0) {
-    throw new Error("Word map not found or is empty.");
-  }
-
-  // 1. Check for an exact match (if the index is the start of a word)
-  if (wordMap.has(char_index)) {
-    return wordMap.get(char_index)!; // '!' assertion is safe due to .has() check
-  }
-
-  // 2. Search for the closest preceding index (if the index is within a word)
-    
-  // Get all starting indices (keys) and sort them descending
-  const sortedIndices = Array.from(wordMap.keys()).sort((a, b) => b - a);
-
-  // Iterate through the sorted indices to find the first one that is <= charIndex
-  for (const startIndex of sortedIndices) {
-      if (startIndex < char_index) {
-          return wordMap.get(startIndex)!;
-          // Check if the character index is still within the bounds of this word
-          // We use textContent.length to find the word's end position
-          // if (startIndex + node.textContent!.length > char_index) {
-          //     return node;
-          // }
-      }
-  }
-
-  // If no word is found (e.g., index is before the first word)
-  throw new Error("No corresponding word was found by index");
-}
 
 function give_sog_highlight() {
   // remove highlight
@@ -1105,6 +958,16 @@ $(function() {
   $('button#edit-mcdict').on('click', function() {
     let form = $('#edit-mcdict-form');
     form.attr('action', '/edit_mcdict');
+    form.trigger("submit");
+  });
+
+});
+
+$(function() {
+  $('button#edit-compound-concepts').button();
+  $('button#edit-compound-concepts').on('click', function() {
+    let form = $('#edit-compound-concepts-form');
+    form.attr('action', '/edit_compound_concepts');
     form.trigger("submit");
   });
 

@@ -3,9 +3,10 @@
 
 import { post } from "jquery";
 import {CompoundConceptOptionsInterface, CompoundConcept, CompoundSource, hex2rgb,
-  get_comp_concept, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
+  get_comp_concept, get_comp_concept_id, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
   cmcdict, get_comp_concept_cand, dfs_comp_tags} from "./common" ;
   // dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand} from "./common";
+import {highlight_sog_nodes} from "./main_pages_utils"
 
 // --------------------------
 // Options
@@ -17,6 +18,7 @@ let miogatto_options: { [name: string]: boolean } = {
 }
 
 $(function() {
+
   let input_opt_hl = $('#option-limited-highlight');
   let input_opt_def = $('#option-show-definition');
 
@@ -112,16 +114,7 @@ function apply_highlight(sog_nodes: JQuery, comp_tag_node: JQuery, sog: Compound
   remove_highlight(sog_nodes);
 
   let concept = get_comp_concept(comp_tag_node);
-  if (concept == undefined || concept.color == undefined) {
-    // red underline if concept is unassigned
-    sog_nodes.css('border-bottom', 'solid 2px #FF0000');
-  } else {
-    // highlight it!
-    sog_nodes.css('background-color', `rgba(${hex2rgb(concept.color).join()},0.3)`);
-    if(miogatto_options.show_definition && sog.type == 1) {
-      sog_nodes.css('border-bottom', 'solid 3px');
-    }
-  }
+  highlight_sog_nodes(concept, sog_nodes, sog, miogatto_options.show_definition)
 
   // embed SoG information for removing
   sog_nodes.attr({
@@ -132,145 +125,6 @@ function apply_highlight(sog_nodes: JQuery, comp_tag_node: JQuery, sog: Compound
   });
 }
 
-function remove_highlight(sog_nodes: JQuery) {
-  sog_nodes.css('border-bottom', '');
-  sog_nodes.css('background-color', '');
-}
-
-// Define an interface to extend HTMLElement/HTMLSpanElement with our custom map property
-interface WordIndexedSpan extends HTMLSpanElement {
-    wordMap?: Map<number, string>;
-}
-
-function hasWordMap(element: HTMLSpanElement): element is WordIndexedSpan {
-  const potentialWordMapElement = element as WordIndexedSpan;
-  // 2. Use the 'in' operator to check if the property exists on the object
-  // This is a type guard that also tells TypeScript the element is WordIndexedSpan
-  return 'wordMap' in potentialWordMapElement;
-}
-
-function divide_and_index_text_span(e: WordIndexedSpan): void {
-  let t = e.textContent;
-  if (!t) {
-    console.warn("Parent element has no text content to split.");
-    throw new Error("Parent element has no text content to split.");
-  }
-
-  // Initialize the map on the parent element
-  e.wordMap = new Map<number, string>();
-
-  // Clear the original content
-  e.textContent = '';
-
-  // The regular expression \S+ matches one or more non-whitespace characters (a "word").
-  // The 'g' flag ensures it finds all matches.
-  const wordRegex = /\S+/g;
-  let match: RegExpExecArray | null;
-
-  // 3. Iterate and create a new span for each word
-  while ((match = wordRegex.exec(t)) !== null) {
-    const word = match[0];
-
-    // The index is the position of the first character of the word in the original string.
-    const positionIndex = match.index;
-
-    console.log(word)
-    console.log(positionIndex)
-
-    // Create the new span element
-    const wordSpan = document.createElement('span');
-
-    // Set a unique ID for the new span
-    // Combining the parent ID (if it exists) and the index/word for uniqueness
-    const uniqueId = `${e.id || 'word'}-${positionIndex}`;
-    wordSpan.id = uniqueId;
-
-    // Set the text content (the word)
-    wordSpan.textContent = word;
-
-    // Optional: Add a class for styling/identification
-    wordSpan.className = 'dyn_gd_word';
-
-    // Store the mapping: Character Position -> Child Span Node
-    e.wordMap.set(positionIndex, wordSpan.id);
-    
-    // 4. Append the new span to the original parent element
-    e.appendChild(wordSpan);
-
-    // 5. Add the whitespace that followed the word
-    // Find the index where the current word ends
-    const wordEndIndex = positionIndex + word.length;
-
-    // Find the start of the next non-whitespace character (the next word)
-    wordRegex.lastIndex = wordEndIndex; // Start searching for the next word from here
-    const nextMatch = wordRegex.exec(t);
-    
-    let spaceText = '';
-    if (nextMatch) {
-        // If there's a next word, the space is the substring between the current word's end 
-        // and the next word's start
-        spaceText = t.substring(wordEndIndex, nextMatch.index);
-        console.log('Word end', wordEndIndex)
-        console.log('New match', nextMatch.index)
-        console.log('Text', t)
-    } else {
-        // If this is the last word, the space is any trailing whitespace
-        spaceText = t.substring(wordEndIndex);
-    }
-    
-    if (spaceText.length > 0) {
-        let spaceNode = document.createElement('span');
-        spaceNode.textContent = spaceText;
-        spaceNode.className = "dyn_space";
-        e.appendChild(spaceNode);
-    }
-
-    // Reset the regex index for the next loop iteration, which will restart
-    // from the last word found's end position due to the while condition's exec call.
-    // We set lastIndex for the space logic, but the while loop's exec call
-    // will automatically use the updated lastIndex from the *previous* call.
-    // We must ensure 'match' is used for the *current* word processing.
-    if (nextMatch) {
-        wordRegex.lastIndex = nextMatch.index; // Ensure the next exec starts correctly
-    } else {
-        // No more words, stop the loop after this iteration
-        break; 
-    }
-  };
-}
-
-function get_word_id_by_index(e: WordIndexedSpan, char_index: number): string {
-  const wordMap = e.wordMap;
-
-  if (!wordMap || wordMap.size === 0) {
-    throw new Error("Word map not found or is empty.");
-  }
-
-  // 1. Check for an exact match (if the index is the start of a word)
-  if (wordMap.has(char_index)) {
-    return wordMap.get(char_index)!; // '!' assertion is safe due to .has() check
-  }
-
-  // 2. Search for the closest preceding index (if the index is within a word)
-    
-  // Get all starting indices (keys) and sort them descending
-  const sortedIndices = Array.from(wordMap.keys()).sort((a, b) => b - a);
-
-  // Iterate through the sorted indices to find the first one that is <= charIndex
-  for (const startIndex of sortedIndices) {
-      if (startIndex < char_index) {
-          return wordMap.get(startIndex)!;
-          // Check if the character index is still within the bounds of this word
-          // We use textContent.length to find the word's end position
-          // if (startIndex + node.textContent!.length > char_index) {
-          //     return node;
-          // }
-      }
-  }
-
-  // If no word is found (e.g., index is before the first word)
-  throw new Error("No corresponding word was found by index");
-}
 
 function give_sog_highlight() {
   // remove highlight
@@ -418,21 +272,22 @@ $(function() {
 
 $(function() {
   // show the box for annotation in the sidebar 
-  function draw_anno_box(comp_tag_id: string, comp_concept_cand: CompoundConcept[]) {
+  function draw_anno_box(comp_tag_id: string, comp_concept_cand: string[]) {
     // construct the form with the candidate list
     let hidden = `<input type="hidden" name="comp_tag_id" value="${comp_tag_id}" />`;
     let radios = '';
 
-    for(let comp_concept_id in comp_concept_cand) {
-      let comp_concept = comp_concept_cand[comp_concept_id];
+    for(let comp_concept_radio_num in comp_concept_cand) {
+      let cand_cmc_id = comp_concept_cand[comp_concept_radio_num];
+      let cand_cmc = cmcdict[cand_cmc_id]
 
       // let check = (Number(concept_id) == idf.concept) ? 'checked' : '';
-      const check = (comp_concept == get_comp_concept($('#' + escape_selector(comp_tag_id)))) ? 'checked' : '';
-      let input = `<input type="radio" name="comp-concept" id="c${comp_concept_id}" value="${comp_concept_id}" ${check} />`;
+      const check = (cand_cmc_id == get_comp_concept_id($('#' + escape_selector(comp_tag_id)))) ? 'checked' : ''
+      let input = `<input type="radio" name="cmc_id" id="c${comp_concept_radio_num}" value="${cand_cmc_id}" ${check} />`;
 
-      let item = `${input}<span class="keep"><label for="c${comp_concept_id}">
-${comp_concept.description} <span style="color: #808080;"> (arity: ${comp_concept.arity})</span>
-(<a class="edit-comp-concept" data-comp-tag-id="${comp_tag_id}" data-comp-concept="${comp_concept_id}" href="javascript:void(0);">edit</a>)
+      let item = `${input}<span class="keep"><label for="c${comp_concept_radio_num}">
+${cand_cmc.description} <span style="color: #808080;"> (arity: ${cand_cmc.arity})</span>
+(<a class="edit-comp-concept" data-comp-tag-id="${comp_tag_id}" data-comp-concept="${cand_cmc_id}" href="javascript:void(0);">edit</a>)
 </label></span>`
       radios += item;
     }
@@ -524,11 +379,12 @@ ${comp_concept.description} <span style="color: #808080;"> (arity: ${comp_concep
 
   function new_comp_concept_button(comp_tag_id: string) {
 
-    const hex_primitives = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)));
-    const hex_primitives_string = hex_primitives.join(',');
-
     $('button#new-comp-concept').button();
     $('button#new-comp-concept').on('click', function() {
+      
+      const hex_primitives = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)));
+      const hex_primitives_string = hex_primitives.join(',');
+
       let concept_dialog = $('#comp-concept-dialog-template').clone();
       concept_dialog.attr('id', 'comp-concept-dialog');
       concept_dialog.removeClass('comp-concept-dialog');
@@ -543,7 +399,7 @@ ${comp_concept.description} <span style="color: #808080;"> (arity: ${comp_concep
           'OK': function() {
             localStorage['scroll_top'] = $(window).scrollTop();
             form.append(`<input type="hidden" name="cmcdict_edit_id" value="${cmcdict_edit_id}" />`);
-            form.append(`<input type="hidden" name="hex-primitives" value="${hex_primitives_string}" />`);
+            form.append(`<input type="hidden" name="hex_primitives_string" value="${hex_primitives_string}" />`);
             form.trigger("submit");
           },
           'Cancel': function() {
@@ -1095,6 +951,15 @@ $(function() {
     form.trigger("submit");
   });
 
+});
+
+$(function() {
+  $('button#edit-concepts').button();
+  $('button#edit-concepts').on('click', function() {
+    let form = $('#edit-concepts-form');
+    form.attr('action', '/');
+    form.trigger("submit");
+  });
 });
 
 // Set page position at the last
