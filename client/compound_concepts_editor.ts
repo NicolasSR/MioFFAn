@@ -6,7 +6,7 @@ import {CompoundConceptOptionsInterface, CompoundConcept, CompoundSource, hex2rg
   get_comp_concept, get_comp_concept_id, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
   cmcdict, get_comp_concept_cand, dfs_comp_tags} from "./common" ;
   // dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand} from "./common";
-import {highlight_sog_nodes} from "./main_pages_utils"
+import {highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_removal, sog_to_sog_nodes_for_addition, get_selection} from "./main_pages_utils"
 
 // --------------------------
 // Options
@@ -129,29 +129,8 @@ function apply_highlight(sog_nodes: JQuery, comp_tag_node: JQuery, sog: Compound
 function give_sog_highlight() {
   // remove highlight
   for(let s of comp_sog.sog) {
-    // get Compound SoG nodes
-    // Note: this code is somehow very tricky but it works
-    const start_last_dot_index = s.start_id.lastIndexOf('.');
-    const stop_last_dot_index = s.stop_id.lastIndexOf('.');
-    let start_element_id = s.start_id.slice(0, start_last_dot_index);
-    let start_offset = s.start_id.slice(start_last_dot_index +1);
-    let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
-    let stop_offset = s.stop_id.slice(stop_last_dot_index +1);
-    let sog_nodes;
-
-    // if (s.start_id == s.stop_id) {
-      // sog_nodes = $('#' + escape_selector(s.start_id));
-    if (start_element_id == stop_element_id) {
-      sog_nodes = $('#' + escape_selector(start_element_id));
-    } else {
-      // let start_node = $('#' + escape_selector(s.start_id));
-      // let stop_node = $('#' + escape_selector(s.stop_id));
-      let start_node = $('#' + escape_selector(start_element_id));
-      let stop_node = $('#' + escape_selector(stop_element_id));
-
-      // sog_nodes = start_node.nextUntil('#' + escape_selector(s.stop_id)).addBack().add(stop_node);
-      sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
-    }
+    
+    let sog_nodes = sog_to_sog_nodes_for_removal(s)
 
     // Option for limited highlighting:
     // If evaluated sog does not match currently selected sompound element, unhighlight it.
@@ -167,63 +146,7 @@ function give_sog_highlight() {
   // for(let s of ) {
   for (let sog_id = 0; sog_id < comp_sog.sog.length; sog_id++) {
     const s = comp_sog.sog[sog_id];
-    // get Compound SoG nodes
-    // Note: this code is somehow very tricky but it works
-    const start_last_dot_index = s.start_id.lastIndexOf('.');
-    const stop_last_dot_index = s.stop_id.lastIndexOf('.');
-    let start_element_id = s.start_id.slice(0, start_last_dot_index);
-    let start_offset = parseInt(s.start_id.slice(start_last_dot_index +1), 10);
-    let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
-    let stop_offset = parseInt(s.stop_id.slice(stop_last_dot_index +1), 10);
-    let sog_nodes_root, sog_nodes;
-    // if (s.start_id == s.stop_id) {
-      // sog_nodes = $('#' + escape_selector(s.start_id));
-    if (start_element_id == stop_element_id) {
-      sog_nodes_root = $('#' + escape_selector(start_element_id));
-      const start_node_element = sog_nodes_root[0];
-      let start_span_id = ''
-      let stop_span_id = ''
-
-      if (start_node_element.className == "gd_text"){
-        if (!hasWordMap(start_node_element)) {
-          divide_and_index_text_span(start_node_element);
-        }
-        start_span_id = get_word_id_by_index(start_node_element, start_offset);
-        stop_span_id = get_word_id_by_index(start_node_element, stop_offset);
-      } else {
-        throw new Error("Grounding text must start and finish in 'gd_text' class")
-      }
-
-      // newSpan.className = 'sog_selection';
-      // if (start_node_original_text !== null) {
-      //   newSpan.textContent = start_node_original_text.substring(start_offset, stop_offset);
-      //   newSpan.id = newSpan_id;
-      //   tail_text = start_node_original_text.substring(stop_offset);
-      //   sog_nodes_root[0].textContent = start_node_original_text.substring(0, start_offset)
-      // } else {
-      //   newSpan.textContent = "TEXT PLACEHOLDER";
-      //   tail_text = 'TAIL TEXT PLACEHOLDER'
-      //   console.warn("Element exists but has no text content.");
-      // }
-      // start_node_element.appendChild(newSpan);
-      // start_node_element.appendChild(document.createTextNode(tail_text))
-      
-      if (start_span_id == stop_span_id) {
-        sog_nodes = $('#' + escape_selector(start_span_id));
-      } else {
-        let start_node = $('#' + escape_selector(start_span_id));
-        let stop_node = $('#' + escape_selector(stop_span_id));
-        sog_nodes = start_node.nextUntil('#' + escape_selector(stop_span_id)).addBack().add(stop_node);
-      }
-
-    } else {
-      // let start_node = $('#' + escape_selector(s.start_id));
-      // let stop_node = $('#' + escape_selector(s.stop_id));
-      let start_node = $('#' + escape_selector(start_element_id));
-      let stop_node = $('#' + escape_selector(stop_element_id));
-
-      sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
-    }
+    let sog_nodes = sog_to_sog_nodes_for_addition(s)
 
     const sog_comp_tag_id = s.comp_tag_id;
     const comp_tag_node = $('#' + escape_selector(sog_comp_tag_id))
@@ -476,103 +399,6 @@ ${cand_cmc.description} <span style="color: #808080;"> (arity: ${cand_cmc.arity}
 // --------------------------
 // SoG Registration
 // --------------------------
-
-function cast_dyn_word_selection_into_text_span(initial_id: string, offset:number): string {
-  const last_dash_index = initial_id.lastIndexOf('-');
-  const start_id_base = initial_id.slice(0, last_dash_index);
-  const init_index = parseInt(initial_id.slice(last_dash_index+1),10);
-  return start_id_base+'.'+(init_index+offset).toString(10)
-}
-
-function get_selection(): [
-    string | undefined, string | undefined, HTMLElement | undefined] {
-  // get selection
-  let selected_text;
-  if(window.getSelection) {
-    selected_text = window.getSelection();
-  } else if(document.getSelection) {
-    selected_text = document.getSelection();
-  }
-
-  console.log("Selection Object:", selected_text);
-
-  // return undefineds for unproper cases
-  if(selected_text == undefined || selected_text.type != 'Range')
-    return [undefined, undefined, undefined];
-
-  let anchor_node = selected_text?.anchorNode?.parentElement;
-  let anchor_offset = selected_text?.anchorOffset;
-  let focus_node = selected_text?.focusNode?.parentElement;
-  let focus_offset = selected_text?.focusOffset;
-  if(anchor_node == undefined || focus_node == undefined)
-    return [undefined, undefined, undefined];
-
-  if($(anchor_node).parents('.main').length == 0 || $(focus_node).parents('.main').length == 0)
-    return [undefined, undefined, undefined];
-
-  // determine which (start|stop)_node
-  let anchor_rect = anchor_node.getBoundingClientRect();
-  let focus_rect = focus_node.getBoundingClientRect();
-
-  let start_node, stop_node;
-  let start_offset, stop_offset;
-  if(anchor_rect.top < focus_rect.top) {
-    [start_node, stop_node] = [anchor_node, focus_node];
-    [start_offset, stop_offset] = [anchor_offset, focus_offset];
-  } else if(anchor_rect.top == focus_rect.top && anchor_rect.left <= focus_rect.left) {
-    [start_node, stop_node] = [anchor_node, focus_node];
-    [start_offset, stop_offset] = [anchor_offset, focus_offset];
-  } else {
-    [start_node, stop_node] = [focus_node, anchor_node];
-    [start_offset, stop_offset] = [focus_offset, anchor_offset];
-  }
-
-  // get start_id and stop_id
-  let start_id, stop_id;
-
-  // if(start_node.className == 'gd_word') {
-  //   start_id= start_node.id;
-  // } else if(start_node.nextElementSibling?.className == 'gd_word') {
-  //   start_id = start_node.nextElementSibling.id;
-  // } else {
-  //   console.warn('Invalid span for a source of grounding');
-  // }
-
-  if(start_node.className == 'gd_text') {
-    start_id = start_node.id+'.'+start_offset;
-  } else if (start_node.className == 'dyn_gd_word') {
-    start_id = cast_dyn_word_selection_into_text_span(start_node.id, start_offset)
-  } else if (start_node.className == 'dyn_space' && start_node.nextElementSibling?.className == 'dyn_gd_word') {
-    const sibling_node_id = start_node.nextElementSibling?.id
-    start_id = cast_dyn_word_selection_into_text_span(sibling_node_id, 0)
-  } else {
-    console.warn('Invalid span for a source of grounding');
-  }
-  console.log("Start id:", start_id);
-
-  // if(stop_node.className == 'gd_word') {
-  //   stop_id = stop_node.id;
-  // } else if(stop_node.previousElementSibling?.className == 'gd_word') {
-  //   stop_id = stop_node.previousElementSibling.id;
-  // } else {
-  //   console.warn('Invalid span for a source of grounding');
-  // }
-
-  if(stop_node.className == 'gd_text') {
-    stop_id = stop_node.id+'.'+stop_offset;
-  } else if (stop_node.className == 'dyn_gd_word') {
-    stop_id = cast_dyn_word_selection_into_text_span(stop_node.id, stop_offset)
-  } else if (stop_node.className == 'dyn_space' && stop_node.previousElementSibling?.className == 'dyn_gd_word') {
-    const sibling_node_id = stop_node.previousElementSibling?.id;
-    const sibling_length = (stop_node.previousElementSibling?.textContent?? "").length
-    stop_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
-  } else {
-    console.warn('Invalid span for a source of grounding');
-  }
-  console.log("Stop id:", stop_id);
-
-  return [start_id, stop_id, start_node];
-}
 
 $(function() {
   let page_x: number;
