@@ -318,6 +318,29 @@ class MioGattoServer:
             main_content=Markup(main_content),
         )
 
+    def equations_of_interest_selector(self):
+        # avoid destroying the original tree
+        copied_tree = deepcopy(self.tree)
+        root = copied_tree.getroot()
+
+        p_concept, p_comp_concept, nof_sog, nof_comp_sog = self.initialize_main_pages(root)
+
+        # construction
+        body = root.xpath('body')[0]
+        main_content = etree.tostring(body, method='html', encoding=str)
+        return render_template(
+            'equations_of_interest_selector.html',
+            version=VERSION,
+            git_revision=GIT_REVISON,
+            paper_id=self.paper_id,
+            annotator=self.mi_anno.annotator,
+            p_concept=p_concept,
+            nof_sog=nof_sog,
+            p_comp_concept=p_comp_concept,
+            nof_comp_sog=nof_comp_sog,
+            main_content=Markup(main_content),
+        )
+
     def assign_concept(self):
         res = request.form
 
@@ -652,6 +675,30 @@ class MioGattoServer:
                 break
 
         return redirect('/edit_compound_concepts')
+
+    def add_eoi(self):
+        res = request.form
+
+        equation_id = res['equation_id']
+        if not equation_id in self.mi_anno.eoi_list:
+            self.mi_anno.eoi_list.append(equation_id)
+        else:
+            flash('Equation ID was already in the list of EoI.')
+        self.mi_anno.dump()
+
+        return redirect('/equations_of_interest_selector')
+    
+    def remove_eoi(self):
+        res = request.form
+
+        equation_id = res['equation_id']
+        if equation_id in self.mi_anno.eoi_list:
+            self.mi_anno.eoi_list.remove(equation_id)
+        else:
+            flash('Equation ID was not found in the list of EoI.')
+        self.mi_anno.dump()
+
+        return redirect('/equations_of_interest_selector')
     
     def gen_cmcdict_json(self):
         data = preprocess_cmcdict(self.cmcdict.compound_concepts)
@@ -687,6 +734,12 @@ class MioGattoServer:
         for cmc_id, cmc_obj in self.cmcdict.compound_concepts.items():
             for hex_value in cmc_obj.primitive_concepts:
                 data[hex_value].append(cmc_id)
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def gen_eoi_json(self):
+        data = {'eoi_list': []}
+        for eoi_id in self.mi_anno.eoi_list:
+            data['eoi_list'].append(eoi_id)
         return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
     def edit_mcdict(self):

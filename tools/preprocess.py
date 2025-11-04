@@ -380,7 +380,8 @@ def main():
                 '_anno_version': '1.0',
                 '_annotator': 'YOUR NAME',
                 'mi_anno': mi_anno,
-                'compound_anno': compound_anno
+                'compound_anno': compound_anno,
+                'eoi_list': [] # Will be assigned on runtime by the user
             },
             f,
         )

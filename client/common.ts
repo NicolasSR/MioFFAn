@@ -287,6 +287,17 @@ $.ajax({
   }
 });
 
+// load sog from the external json file
+export let eoi_list = {} as {eoi_list: string[]};
+$.ajax({
+  url: '/eoi.json',
+  dataType: 'json',
+  async: false,
+  success: function(data) {
+    eoi_list = data;
+  }
+});
+
 
 // --------------------------
 // Error from the server

@@ -1,4 +1,4 @@
-import {Concept, CompoundConcept, Source, CompoundSource, hex2rgb,
+import {Concept, CompoundConcept, Source, CompoundSource, hex2rgb, eoi_list,
   get_comp_concept, get_comp_concept_id, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
   cmcdict, get_comp_concept_cand, dfs_comp_tags} from "./common" ;
 
@@ -47,9 +47,6 @@ function divide_and_index_text_span(e: WordIndexedSpan): void {
     // The index is the position of the first character of the word in the original string.
     const positionIndex = match.index;
 
-    console.log(word)
-    console.log(positionIndex)
-
     // Create the new span element
     const wordSpan = document.createElement('span');
 
@@ -83,9 +80,6 @@ function divide_and_index_text_span(e: WordIndexedSpan): void {
         // If there's a next word, the space is the substring between the current word's end 
         // and the next word's start
         spaceText = t.substring(wordEndIndex, nextMatch.index);
-        console.log('Word end', wordEndIndex)
-        console.log('New match', nextMatch.index)
-        console.log('Text', t)
     } else {
         // If this is the last word, the space is any trailing whitespace
         spaceText = t.substring(wordEndIndex);
@@ -157,6 +151,13 @@ function cast_dyn_word_selection_into_text_span(initial_id: string, offset:numbe
 // Exported utilities
 // --------------------------
 
+export function give_eoi_borders() {
+  for(let eoi_id of eoi_list.eoi_list) {
+    let eoi_query = $('#'+eoi_id);
+    eoi_query.attr('style', 'border: solid 4px #dcf9fa; padding: 10px;')
+  }
+}
+
 export function highlight_sog_nodes(concept: Concept | CompoundConcept | undefined, sog_nodes: JQuery, sog: Source | CompoundSource, show_definition: boolean) {
     if (concept == undefined || concept.color == undefined) {
         // red underline if concept is unassigned
@@ -175,220 +176,248 @@ export function remove_highlight(sog_nodes: JQuery) {
     sog_nodes.css('background-color', '');
 }
 
-export function sog_to_sog_nodes_for_removal(s: Source | CompoundSource) {
-    // get SoG nodes
-    // Note: this code is somehow very tricky but it works
-    const start_last_dot_index = s.start_id.lastIndexOf('.');
-    const stop_last_dot_index = s.stop_id.lastIndexOf('.');
-    let start_element_id = s.start_id.slice(0, start_last_dot_index);
-    let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
-    let sog_nodes;
+// export function sog_to_sog_nodes_for_removal(s: Source | CompoundSource) {
+//     // get SoG nodes
+//     // Note: this code is somehow very tricky but it works
+//     const start_last_dot_index = s.start_id.lastIndexOf('.');
+//     const stop_last_dot_index = s.stop_id.lastIndexOf('.');
+//     let start_element_id = s.start_id.slice(0, start_last_dot_index);
+//     let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
+//     let sog_nodes;
 
-    // if (s.start_id == s.stop_id) {
-        // sog_nodes = $('#' + escape_selector(s.start_id));
-    if (start_element_id == stop_element_id) {
-        sog_nodes = $('#' + escape_selector(start_element_id));
-    } else {
-        // let start_node = $('#' + escape_selector(s.start_id));
-        // let stop_node = $('#' + escape_selector(s.stop_id));
-        let start_node = $('#' + escape_selector(start_element_id));
-        let stop_node = $('#' + escape_selector(stop_element_id));
+//     // if (s.start_id == s.stop_id) {
+//         // sog_nodes = $('#' + escape_selector(s.start_id));
+//     if (start_element_id == stop_element_id) {
+//         sog_nodes = $('#' + escape_selector(start_element_id));
+//     } else {
+//         // let start_node = $('#' + escape_selector(s.start_id));
+//         // let stop_node = $('#' + escape_selector(s.stop_id));
+//         let start_node = $('#' + escape_selector(start_element_id));
+//         let stop_node = $('#' + escape_selector(stop_element_id));
 
-        // sog_nodes = start_node.nextUntil('#' + escape_selector(s.stop_id)).addBack().add(stop_node);
-        sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
-    }
+//         // sog_nodes = start_node.nextUntil('#' + escape_selector(s.stop_id)).addBack().add(stop_node);
+//         sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
+//     }
 
-    return sog_nodes
-}
+//     return sog_nodes
+// }
 
 export function sog_to_sog_nodes_for_addition(s: Source | CompoundSource) {
     // get SoG nodes
     // Note: this code is somehow very tricky but it works
-    const start_last_dot_index = s.start_id.lastIndexOf('.');
-    const stop_last_dot_index = s.stop_id.lastIndexOf('.');
-    let start_element_id = s.start_id.slice(0, start_last_dot_index);
-    let start_offset = parseInt(s.start_id.slice(start_last_dot_index +1), 10);
-    let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
-    let stop_offset = parseInt(s.stop_id.slice(stop_last_dot_index +1), 10);
-    // let sog_nodes_root, sog_nodes;
-    let sog_nodes;
-    // if (s.start_id == s.stop_id) {
-        // sog_nodes = $('#' + escape_selector(s.start_id));
-    if (start_element_id == stop_element_id) {
-        // sog_nodes_root = $('#' + escape_selector(start_element_id));
-        const start_node_element = $('#' + escape_selector(start_element_id))[0];
-        let start_span_id = '';
-        let stop_span_id = '';
 
-        if (start_node_element.className == "gd_text"){
-            if (!hasWordMap(start_node_element)) {
-                divide_and_index_text_span(start_node_element);
-            }
-            start_span_id = get_word_id_by_index(start_node_element, start_offset);
-            stop_span_id = get_word_id_by_index(start_node_element, stop_offset);
-        } else {
-            throw new Error("Grounding text must start and finish in 'gd_text' class");
-        }
+    const start_last_dot_index = s.start_id.lastIndexOf('-');
+    const stop_last_dot_index = s.stop_id.lastIndexOf('-');
+    const start_node_parent_id = s.start_id.slice(0, start_last_dot_index);
+    const stop_node_parent_id = s.stop_id.slice(0, stop_last_dot_index);
 
-        // newSpan.className = 'sog_selection';
-        // if (start_node_original_text !== null) {
-        //   newSpan.textContent = start_node_original_text.substring(start_offset, stop_offset);
-        //   newSpan.id = newSpan_id;
-        //   tail_text = start_node_original_text.substring(stop_offset);
-        //   sog_nodes_root[0].textContent = start_node_original_text.substring(0, start_offset)
-        // } else {
-        //   newSpan.textContent = "TEXT PLACEHOLDER";
-        //   tail_text = 'TAIL TEXT PLACEHOLDER'
-        //   console.warn("Element exists but has no text content.");
-        // }
-        // start_node_element.appendChild(newSpan);
-        // start_node_element.appendChild(document.createTextNode(tail_text))
-        
-        if (start_span_id == stop_span_id) {
-            sog_nodes = $('#' + escape_selector(start_span_id));
-        } else {
-            let start_span_node = $('#' + escape_selector(start_span_id));
-            let stop_span_node = $('#' + escape_selector(stop_span_id));
-            sog_nodes = start_span_node.nextUntil('#' + escape_selector(stop_span_id)).addBack().add(stop_span_node);
-        }
+    const start_node_parent = $('#' + escape_selector(start_node_parent_id))[0]
+    const stop_node_parent = $('#' + escape_selector(stop_node_parent_id))[0]
 
-    } else {
-        // let start_node = $('#' + escape_selector(s.start_id));
-        // let stop_node = $('#' + escape_selector(s.stop_id));
-        let start_node = $('#' + escape_selector(start_element_id));
-        let stop_node = $('#' + escape_selector(stop_element_id));
-
-        const start_node_element = start_node[0];
-        const stop_node_element = stop_node[0];
-        let start_span_id = '';
-        let stop_span_id = '';
-
-        if (start_node_element.className == "gd_text"){
-            if (!hasWordMap(start_node_element)) {
-                divide_and_index_text_span(start_node_element);
-            }
-            start_span_id = get_word_id_by_index(start_node_element, start_offset);
-        } else {
-            throw new Error("Grounding text must start and finish in 'gd_text' class");
-        }
-
-        if (stop_node_element.className == "gd_text"){
-            if (!hasWordMap(stop_node_element)) {
-                divide_and_index_text_span(stop_node_element);
-            }
-            stop_span_id = get_word_id_by_index(stop_node_element, stop_offset);
-        } else {
-            throw new Error("Grounding text must start and finish in 'gd_text' class");
-        }
-
-        if (start_span_id == stop_span_id) {
-            sog_nodes = $('#' + escape_selector(start_span_id));
-        } else {
-            let start_span_node = $('#' + escape_selector(start_span_id));
-            let stop_span_node = $('#' + escape_selector(stop_span_id));
-            sog_nodes = start_span_node.nextAll().addBack();
-            sog_nodes = sog_nodes.add(stop_node.children().first().nextUntil('#' + escape_selector(stop_span_id)).addBack()).add(stop_span_node);
-            sog_nodes = sog_nodes.add(start_node.nextUntil('#' + escape_selector(stop_element_id)));
-        }
-        // sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
+    if (!hasWordMap(start_node_parent)) {
+        divide_and_index_text_span(start_node_parent);
+    }
+    if (!hasWordMap(stop_node_parent)) {
+        divide_and_index_text_span(stop_node_parent);
     }
 
-    return sog_nodes
+    const start_node_query = $('#' + escape_selector(s.start_id))
+    const stop_node_query = $('#' + escape_selector(s.stop_id))
+    const start_node = start_node_query[0];
+    const stop_node = stop_node_query[0];
+
+    let sog_nodes_query;
+
+    if (start_node == stop_node) {
+        sog_nodes_query = start_node_query;
+    } else if (start_node.parentNode == stop_node.parentNode) {
+        sog_nodes_query = start_node_query.nextUntil(stop_node_query).addBack().add(stop_node_query);
+    } else {
+        sog_nodes_query = start_node_query.nextAll().addBack();
+        sog_nodes_query = sog_nodes_query.add(stop_node_query.parent().children().first().nextUntil(stop_node_query).addBack()).add(stop_node_query);
+        sog_nodes_query = sog_nodes_query.add(start_node_query.parent().nextUntil(stop_node_query.parent()));
+    }
+
+    return sog_nodes_query;
 }
 
 export function get_selection(): [
     string | undefined, string | undefined, HTMLElement | undefined] {
-  // get selection
-  let selected_text;
-  if(window.getSelection) {
-    selected_text = window.getSelection();
-  } else if(document.getSelection) {
-    selected_text = document.getSelection();
-  }
+    // get selection
+    let selected_text;
+    if(window.getSelection) {
+        selected_text = window.getSelection();
+    } else if(document.getSelection) {
+        selected_text = document.getSelection();
+    }
 
-  console.log("Selection Object:", selected_text);
+    // return undefineds for unproper cases
+    if(selected_text == undefined || selected_text.type != 'Range')
+        return [undefined, undefined, undefined];
 
-  // return undefineds for unproper cases
-  if(selected_text == undefined || selected_text.type != 'Range')
-    return [undefined, undefined, undefined];
+    let anchor_node = selected_text?.anchorNode?.parentElement;
+    let anchor_offset = selected_text?.anchorOffset;
+    let focus_node = selected_text?.focusNode?.parentElement;
+    let focus_offset = selected_text?.focusOffset;
+    if(anchor_node == undefined || focus_node == undefined)
+        return [undefined, undefined, undefined];
 
-  let anchor_node = selected_text?.anchorNode?.parentElement;
-  let anchor_offset = selected_text?.anchorOffset;
-  let focus_node = selected_text?.focusNode?.parentElement;
-  let focus_offset = selected_text?.focusOffset;
-  if(anchor_node == undefined || focus_node == undefined)
-    return [undefined, undefined, undefined];
+    if($(anchor_node).parents('.main').length == 0 || $(focus_node).parents('.main').length == 0)
+        return [undefined, undefined, undefined];
 
-  if($(anchor_node).parents('.main').length == 0 || $(focus_node).parents('.main').length == 0)
-    return [undefined, undefined, undefined];
-
-  // determine which (start|stop)_node
-  let anchor_rect = anchor_node.getBoundingClientRect();
-  let focus_rect = focus_node.getBoundingClientRect();
-
-  console.log("Anchor top, left")
-  console.log(anchor_rect.top)
-  console.log(anchor_rect.left)
-  console.log("Focus top, left")
-  console.log(focus_rect.top)
-  console.log(focus_rect.left)
-
-  let start_node, stop_node;
-  let start_offset, stop_offset;
-  if(anchor_rect.top < focus_rect.top) {
-    [start_node, stop_node] = [anchor_node, focus_node];
-    [start_offset, stop_offset] = [anchor_offset, focus_offset];
-  } else if(anchor_rect.top == focus_rect.top && anchor_rect.left <= focus_rect.left) {
-    [start_node, stop_node] = [anchor_node, focus_node];
-    [start_offset, stop_offset] = [anchor_offset, focus_offset];
-  } else {
-    [start_node, stop_node] = [focus_node, anchor_node];
-    [start_offset, stop_offset] = [focus_offset, anchor_offset];
-  }
-
-  // get start_id and stop_id
-  let start_id, stop_id;
-
-  // if(start_node.className == 'gd_word') {
-  //   start_id= start_node.id;
-  // } else if(start_node.nextElementSibling?.className == 'gd_word') {
-  //   start_id = start_node.nextElementSibling.id;
-  // } else {
-  //   console.warn('Invalid span for a source of grounding');
-  // }
-
-  if(start_node.className == 'gd_text') {
-    start_id = start_node.id+'.'+start_offset;
-  } else if (start_node.className == 'dyn_gd_word') {
-    start_id = cast_dyn_word_selection_into_text_span(start_node.id, start_offset)
-  } else if (start_node.className == 'dyn_space' && start_node.nextElementSibling?.className == 'dyn_gd_word') {
-    const sibling_node_id = start_node.nextElementSibling?.id
-    start_id = cast_dyn_word_selection_into_text_span(sibling_node_id, 0)
-  } else {
-    console.warn('Invalid span for a source of grounding');
-  }
-  console.log("Start id:", start_id);
-
-  // if(stop_node.className == 'gd_word') {
-  //   stop_id = stop_node.id;
-  // } else if(stop_node.previousElementSibling?.className == 'gd_word') {
-  //   stop_id = stop_node.previousElementSibling.id;
-  // } else {
-  //   console.warn('Invalid span for a source of grounding');
-  // }
-
-  if(stop_node.className == 'gd_text') {
-    stop_id = stop_node.id+'.'+stop_offset;
-  } else if (stop_node.className == 'dyn_gd_word') {
-    stop_id = cast_dyn_word_selection_into_text_span(stop_node.id, stop_offset)
-  } else if (stop_node.className == 'dyn_space' && stop_node.previousElementSibling?.className == 'dyn_gd_word') {
-    const sibling_node_id = stop_node.previousElementSibling?.id;
-    const sibling_length = (stop_node.previousElementSibling?.textContent?? "").length
-    stop_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
-  } else {
-    console.warn('Invalid span for a source of grounding');
-  }
-  console.log("Stop id:", stop_id);
-
-  return [start_id, stop_id, start_node];
+    let anchor_id: string = '';
+    let focus_id: string = '';
+    if(anchor_node.className == 'gd_text') {
+        anchor_id = anchor_node.id+'.'+anchor_offset;
+    } else if (anchor_node.className == 'dyn_gd_word') {
+        anchor_id = cast_dyn_word_selection_into_text_span(anchor_node.id, anchor_offset)
+    } else if (anchor_node.className == 'dyn_space' && anchor_node.nextElementSibling?.className == 'dyn_gd_word') {
+        // We assume anchor node will generally be the starting one
+        const sibling_node_id = anchor_node.nextElementSibling?.id;
+        const sibling_length = (anchor_node.nextElementSibling?.textContent?? "").length
+        anchor_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
+    } else {
+        console.warn('Invalid span for a source of grounding');
+    }
+    if(focus_node.className == 'gd_text') {
+        focus_id = focus_node.id+'.'+focus_offset;
+    } else if (focus_node.className == 'dyn_gd_word') {
+        focus_id = cast_dyn_word_selection_into_text_span(focus_node.id, focus_offset)
+    } else if (focus_node.className == 'dyn_space' && focus_node.previousElementSibling?.className == 'dyn_gd_word') {
+        // We assume focus node will generally be the ending one
+        const sibling_node_id = focus_node.previousElementSibling?.id;
+        const sibling_length = (focus_node.previousElementSibling?.textContent?? "").length
+        focus_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
+    } else {
+        console.warn('Invalid span for a source of grounding');
+    }
+    
+    return [anchor_id, focus_id, anchor_node];
 }
+
+export function handle_selection_ends(anchor_id: string, focus_id: string) {
+
+    // In this fucntion we consider "global" to be referring to spans of type gd_text (parent),
+    // and "local to be referring to spans of type dyn_gd_word"
+
+    const anchor_last_dot_index = anchor_id.lastIndexOf('.');
+    const focus_last_dot_index = focus_id.lastIndexOf('.');
+    let anchor_global_id = anchor_id.slice(0, anchor_last_dot_index);
+    let anchor_global_offset = parseInt(anchor_id.slice(anchor_last_dot_index +1), 10);
+    let focus_global_id = focus_id.slice(0, focus_last_dot_index);
+    let focus_global_offset = parseInt(focus_id.slice(focus_last_dot_index +1), 10);
+
+    let anchor_global_node = $('#' + escape_selector(anchor_global_id))[0];
+    let focus_global_node = $('#' + escape_selector(focus_global_id))[0];
+
+    let anchor_local_id: string;
+    let focus_local_id: string;
+    if (anchor_global_node.className == "gd_text"){
+        if (!hasWordMap(anchor_global_node)) {
+            divide_and_index_text_span(anchor_global_node);
+        }
+        anchor_local_id = get_word_id_by_index(anchor_global_node, anchor_global_offset);
+    } else {
+        throw new Error("Grounding text must start and finish in 'gd_text' class");
+    }
+    if (focus_global_node.className == "gd_text"){
+        if (!hasWordMap(focus_global_node)) {
+            divide_and_index_text_span(focus_global_node);
+        }
+        focus_local_id = get_word_id_by_index(focus_global_node, focus_global_offset);
+    } else {
+        throw new Error("Grounding text must start and finish in 'gd_text' class");
+    }
+
+    return [anchor_local_id, focus_local_id]
+
+}
+
+export function reorder_anchor_and_focus_ids(anchor_id: string, focus_id: string) {
+    let anchor_node = $('#' + escape_selector(anchor_id));
+    let focus_node = $('#' + escape_selector(focus_id));
+
+    let start_id: string = '';
+    let stop_id: string = '';
+    if (anchor_node != undefined && focus_node != undefined) {
+        let anchor_top = anchor_node?.offset()?.top ?? 0;
+        let anchor_left = anchor_node?.offset()?.left ?? 0;
+        let focus_top = focus_node?.offset()?.top ?? 0;
+        let focus_left = focus_node?.offset()?.left ?? 0;
+        
+        if(anchor_top < focus_top) {
+            [start_id, stop_id] = [anchor_id, focus_id];
+        } else if(anchor_top == focus_top && anchor_left <= focus_left) {
+            [start_id, stop_id] = [anchor_id, focus_id];
+        } else {
+            [start_id, stop_id] = [focus_id, anchor_id];
+        }
+
+    } else {
+        console.error('Anchor or focus node not found');
+    }
+
+    return [start_id, focus_id];
+
+}
+
+//   // determine which (start|stop)_node
+//   let anchor_rect = anchor_node.getBoundingClientRect();
+//   let focus_rect = focus_node.getBoundingClientRect();
+
+//   console.log("Anchor top, left")
+//   console.log(anchor_rect.top)
+//   console.log(anchor_rect.left)
+//   console.log("Focus top, left")
+//   console.log(focus_rect.top)
+//   console.log(focus_rect.left)
+
+//   let start_node, stop_node;
+//   let start_offset, stop_offset;
+//   if(anchor_rect.top < focus_rect.top) {
+//     [start_node, stop_node] = [anchor_node, focus_node];
+//     [start_offset, stop_offset] = [anchor_offset, focus_offset];
+//   } else if(anchor_rect.top == focus_rect.top && anchor_rect.left <= focus_rect.left) {
+//     [start_node, stop_node] = [anchor_node, focus_node];
+//     [start_offset, stop_offset] = [anchor_offset, focus_offset];
+//   } else {
+//     [start_node, stop_node] = [focus_node, anchor_node];
+//     [start_offset, stop_offset] = [focus_offset, anchor_offset];
+//   }
+
+//   // get start_id and stop_id
+//   let start_id, stop_id;
+
+//   // if(start_node.className == 'gd_word') {
+//   //   start_id= start_node.id;
+//   // } else if(start_node.nextElementSibling?.className == 'gd_word') {
+//   //   start_id = start_node.nextElementSibling.id;
+//   // } else {
+//   //   console.warn('Invalid span for a source of grounding');
+//   // }
+
+  
+
+//   // if(stop_node.className == 'gd_word') {
+//   //   stop_id = stop_node.id;
+//   // } else if(stop_node.previousElementSibling?.className == 'gd_word') {
+//   //   stop_id = stop_node.previousElementSibling.id;
+//   // } else {
+//   //   console.warn('Invalid span for a source of grounding');
+//   // }
+
+//   if(stop_node.className == 'gd_text') {
+//     stop_id = stop_node.id+'.'+stop_offset;
+//   } else if (stop_node.className == 'dyn_gd_word') {
+//     stop_id = cast_dyn_word_selection_into_text_span(stop_node.id, stop_offset)
+//   } else if (stop_node.className == 'dyn_space' && stop_node.previousElementSibling?.className == 'dyn_gd_word') {
+//     const sibling_node_id = stop_node.previousElementSibling?.id;
+//     const sibling_length = (stop_node.previousElementSibling?.textContent?? "").length
+//     stop_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
+//   } else {
+//     console.warn('Invalid span for a source of grounding');
+//   }
+//   console.log("Stop id:", stop_id);
+
+//   return [start_id, stop_id, start_node];
+// }

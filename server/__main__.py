@@ -99,6 +99,15 @@ def routing_functions(server):
     def action_add_comp_sog():
         return server.add_comp_sog()
     
+    @app.route('/_add_eoi', methods=['POST'])
+    def action_add_eoi():
+        print("ADDDDD EOI ROUING")
+        return server.add_eoi()
+    
+    @app.route('/_remove_eoi', methods=['POST'])
+    def action_remove_eoi():
+        return server.remove_eoi()
+    
     @app.route('/cmcdict.json', methods=['GET'])
     def cmcdict_json():
         return server.gen_cmcdict_json()
@@ -114,6 +123,10 @@ def routing_functions(server):
     @app.route('/hex_to_cmc_map.json', methods=['GET'])
     def hex_to_cmc_map():
         return server.gen_hex_to_cmc_map()
+    
+    @app.route('/eoi.json', methods=['GET'])
+    def eoi_json():
+        return server.gen_eoi_json()
 
     @app.route('/edit_mcdict', methods=['GET'])
     def edit_mcdict():
@@ -126,6 +139,10 @@ def routing_functions(server):
     @app.route('/edit_compound_concepts', methods=['GET'])
     def edit_compound_concepts():
         return server.edit_compound_concepts()
+    
+    @app.route('/equations_of_interest_selector', methods=['GET'])
+    def equations_of_interest_selector():
+        return server.equations_of_interest_selector()
 
 
 def main():

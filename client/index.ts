@@ -2,8 +2,9 @@
 'use strict';
 
 import { post } from "jquery";
-import {Identifier, Concept, Source, hex2rgb, dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand} from "./common";
-import {highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_removal, sog_to_sog_nodes_for_addition, get_selection} from "./main_pages_utils"
+import {Identifier, Concept, Source, hex2rgb, dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand, eoi_list} from "./common";
+import {highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
+  reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders} from "./main_pages_utils"
 // --------------------------
 // Options
 // --------------------------
@@ -17,6 +18,9 @@ $(function() {
 
   let input_opt_hl = $('#option-limited-highlight');
   let input_opt_def = $('#option-show-definition');
+
+  // Mark borders of EoI
+  give_eoi_borders()
 
   // first time check
   if(localStorage['option-limited-highlight'] == 'true') {
@@ -105,7 +109,6 @@ $(function() {
 
 
 function apply_highlight(sog_nodes: JQuery, idf: Identifier, sog: Source) {
-  console.log(sog_nodes)
   remove_highlight(sog_nodes);
 
   let concept = get_concept(idf);
@@ -125,7 +128,7 @@ function give_sog_highlight() {
   // remove highlight
   for(let s of sog.sog) {
 
-    let sog_nodes = sog_to_sog_nodes_for_removal(s)
+    let sog_nodes = sog_to_sog_nodes_for_addition(s)
     
 
     let sog_idf = get_idf($('#' + escape_selector(s.mi_id)));
@@ -411,9 +414,7 @@ $(function() {
     page_y = e.pageY;
   
     $('.sog-menu').css('display', 'none');
-    let [start_id, stop_id, parent] = get_selection();
-
-    console.log("Selection data:", [start_id, stop_id, parent])
+    let [anchor_id, focus_id, parent] = get_selection();
 
     if(parent == undefined)
       return;
@@ -447,23 +448,31 @@ $(function() {
     function() {
       $('.sog-menu').css('display', 'none');
 
-      // post the data
-      let post_data = {
-        'mcdict_edit_id': mcdict_edit_id,
-        'mi_id': mi_id,
-        'start_id': start_id,
-        'stop_id': stop_id
-      };
+      if (anchor_id == undefined || focus_id == undefined){
+        console.error("Anchor or Focus node ids is undefined")
+      } else {
+        let [anchor_local_id, focus_local_id] = handle_selection_ends(anchor_id, focus_id)
+        let [start_local_id, stop_local_id] = reorder_anchor_and_focus_ids(anchor_local_id, focus_local_id)
 
-      localStorage['scroll_top'] = $(window).scrollTop();
+        // post the data
+        let post_data = {
+          'mcdict_edit_id': mcdict_edit_id,
+          'mi_id': mi_id,
+          'start_id': start_local_id,
+          'stop_id': stop_local_id
+        };
 
-      $.when($.post('/_add_sog', post_data))
-      .done(function() {
-        location.reload();
-      })
-      .fail(function() {
-        console.error('Failed to POST _add_sog!');
-      });
+        localStorage['scroll_top'] = $(window).scrollTop();
+
+        $.when($.post('/_add_sog', post_data))
+        .done(function() {
+          location.reload();
+        })
+        .fail(function() {
+          console.error('Failed to POST _add_sog!');
+        });
+      }
+      
     });
 
     // ----- SoG menu -----
@@ -586,7 +595,6 @@ $(function() {
 
 // for the identifiers that have not been annotated
 function show_border(target: JQuery) {
-  console.log(target);
   let idf = get_idf(target);
   let concept_cand = get_concept_cand(idf);
   if(target.data('math-concept') == undefined && concept_cand != undefined)
@@ -650,8 +658,6 @@ let mi_id2index: {[mi_id: string]: number} = {};
 $(function() {
   // Load mi_list.
   mi_list = dfs_mis($(":root"));
-
-  //console.log(mi_list);
 
   for (let i = 0; i < mi_list.length; i++) {
     let mi_id = mi_list[i].attr('id');
@@ -798,7 +804,15 @@ $(function() {
     form.attr('action', '/edit_compound_concepts');
     form.trigger("submit");
   });
+});
 
+$(function() {
+  $('button#edit-equations-of-interest').button();
+  $('button#edit-equations-of-interest').on('click', function() {
+    let form = $('#edit-equations-of-interest-form');
+    form.attr('action', '/equations_of_interest_selector');
+    form.trigger("submit");
+  });
 });
 
 // Set page position at the last

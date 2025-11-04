@@ -29,6 +29,7 @@ class MiAnno:
         self.annotator: str = data.get('_annotator', 'unknown')
         self.occr: dict = data['mi_anno']
         self.compound_occr: dict = data['compound_anno']
+        self.eoi_list: list = data['eoi_list']
 
 
     def dump(self) -> None:
@@ -39,6 +40,7 @@ class MiAnno:
                     '_annotator': self.annotator,
                     'mi_anno': self.occr,
                     'compound_anno': self.compound_occr,
+                    'eoi_list': self.eoi_list,
                 },
                 f,
             )
