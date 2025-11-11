@@ -4,11 +4,14 @@ import unicodedata
 from docopt import docopt
 from pathlib import Path
 import re
+import json
 
 from lib.version import VERSION
 from lib.logger import main_logger
 from lib.util import get_mi2idf
 from lib.annotation import dump_json
+
+from lxml.html.builder import SPAN
 
 # meta
 PROG_NAME = "tools.preprocess"
@@ -48,8 +51,6 @@ def hex2surface(idf_hex):
 
 # add word span tags to text directly
 def split_words_into_span_tags(text, parent_id, idx):
-    from lxml.html.builder import SPAN
-
     def word_span(w, p, i, c):
         s = SPAN(w)
         s.attrib['class'] = 'gd_word'
@@ -118,8 +119,6 @@ def remove_embed_floats(root, paper_id):
 
 
 def embed_multiword_spans(e, p):
-    from lxml.html.builder import SPAN
-
     # Define a utility function to check if text is meaningful
     def is_meaningful_text(text):
         if text:
@@ -276,9 +275,14 @@ def observe_comp_tags(tree):
     comp_tags_dict = dict()
     comp_tag_attribs = set()
 
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    
+    xpath_selector = " | ".join(['//'+tag for tag in config['COMPOUND_CONCEPT_TAGS']])
+
     # initialize
     root = tree.getroot()
-    for e in root.xpath('//msub | //msup'):
+    for e in root.xpath(xpath_selector):
         comp_tags_dict[e.attrib.get('id')] = e.tag
         comp_tag_attribs.update(e.attrib)
 
@@ -381,7 +385,9 @@ def main():
                 '_annotator': 'YOUR NAME',
                 'mi_anno': mi_anno,
                 'compound_anno': compound_anno,
-                'eoi_list': [] # Will be assigned on runtime by the user
+                'eoi_list': [], # Will be assigned on runtime by the user
+                'groups': {},
+                'next_available_group_id': 0
             },
             f,
         )

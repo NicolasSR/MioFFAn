@@ -101,12 +101,15 @@ def routing_functions(server):
     
     @app.route('/_add_eoi', methods=['POST'])
     def action_add_eoi():
-        print("ADDDDD EOI ROUING")
         return server.add_eoi()
     
     @app.route('/_remove_eoi', methods=['POST'])
     def action_remove_eoi():
         return server.remove_eoi()
+
+    @app.route('/_add_group', methods=['POST'])
+    def action_add_group():
+        return server.add_group()
     
     @app.route('/cmcdict.json', methods=['GET'])
     def cmcdict_json():
@@ -127,6 +130,10 @@ def routing_functions(server):
     @app.route('/eoi.json', methods=['GET'])
     def eoi_json():
         return server.gen_eoi_json()
+    
+    @app .route('/groups_list.json', methods=['GET'])
+    def groups_list_json():
+        return server.gen_groups_list_json()
 
     @app.route('/edit_mcdict', methods=['GET'])
     def edit_mcdict():
@@ -144,6 +151,13 @@ def routing_functions(server):
     def equations_of_interest_selector():
         return server.equations_of_interest_selector()
 
+    @app.route('/group_creator', methods=['GET'])
+    def group_creator():
+        return server.group_creator()
+    
+    @app.route('/nav', methods=['GET'])
+    def nav():
+        return server.nav()
 
 def main():
     # parse options

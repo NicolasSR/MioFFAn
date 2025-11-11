@@ -26,5 +26,9 @@ class CompoundMathConcept:
     arity: int
     primitive_concepts: list[str]
     
+@dataclass
+class Group:
+    element_ids: list[str]
+    
 
     

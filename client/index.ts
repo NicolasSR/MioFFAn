@@ -16,11 +16,11 @@ let miogatto_options: { [name: string]: boolean } = {
 
 $(function() {
 
-  let input_opt_hl = $('#option-limited-highlight');
-  let input_opt_def = $('#option-show-definition');
-
   // Mark borders of EoI
   give_eoi_borders()
+
+  let input_opt_hl = $('#option-limited-highlight');
+  let input_opt_def = $('#option-show-definition');
 
   // first time check
   if(localStorage['option-limited-highlight'] == 'true') {
@@ -86,14 +86,14 @@ $(function() {
 
 
 // --------------------------
-// mathcolor
+// text color
 // --------------------------
 
 function give_color(target: JQuery) {
   let idf = get_idf(target);
   let concept = get_concept(idf);
   if(concept != undefined && concept.color != undefined) {
-    target.attr('mathcolor', concept.color);
+    target.css('color', concept.color);
   }
 }
 
@@ -454,6 +454,10 @@ $(function() {
         let [anchor_local_id, focus_local_id] = handle_selection_ends(anchor_id, focus_id)
         let [start_local_id, stop_local_id] = reorder_anchor_and_focus_ids(anchor_local_id, focus_local_id)
 
+
+        console.log('selected local ids');
+        console.log([start_local_id, stop_local_id]);
+
         // post the data
         let post_data = {
           'mcdict_edit_id': mcdict_edit_id,
@@ -707,8 +711,8 @@ function get_prev_unannotated_mi_index(start_index: number): number | undefined 
 }
 
 $(function() {
-  $('button#jump-to-next-unannotated-mi').button();
-  $('button#jump-to-next-unannotated-mi').on('click', function() {
+  $('button#jump-to-next-mi').button();
+  $('button#jump-to-next-mi').on('click', function() {
     // First set this value so that the next mi is the first unannotated mi when mi_id is not stored.
     let current_index: number = mi_list.length - 1
 
@@ -737,8 +741,8 @@ $(function() {
     }
   });
 
-  $('button#jump-to-prev-unannotated-mi').button();
-  $('button#jump-to-prev-unannotated-mi').on('click', function() {
+  $('button#jump-to-prev-mi').button();
+  $('button#jump-to-prev-mi').on('click', function() {
     // First set this value so that the prev mi is the last unannotated mi when mi_id is not stored.
     let current_index: number = 0
 
@@ -811,6 +815,15 @@ $(function() {
   $('button#edit-equations-of-interest').on('click', function() {
     let form = $('#edit-equations-of-interest-form');
     form.attr('action', '/equations_of_interest_selector');
+    form.trigger("submit");
+  });
+});
+
+$(function() {
+  $('button#create-concept-group').button();
+  $('button#create-concept-group').on('click', function() {
+    let form = $('#create-concept-group-form');
+    form.attr('action', '/group_creator');
     form.trigger("submit");
   });
 });

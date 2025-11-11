@@ -215,6 +215,9 @@ class MioGattoServer:
         self.cmcdict = cmcdict
         self.logger = logger
 
+        with open('config.json', 'r') as f:
+            self.config = json.load(f)
+
         # Start with 0 (can be considered as the number of times the mcdict is edited)
         self.mcdict_edit_id = 0
         self.cmcdict_edit_id = 0
@@ -230,8 +233,81 @@ class MioGattoServer:
                     continue
 
                 matches[0].attrib['data-compound-math-concept'] = str(cmc_id)
+
+    def wrap_custom_group(self, root, group_id, group_info):
+
+        def check_contains_by_traversal(ancestor_element, descendant_element) -> bool:
+            """
+            Checks if ancestor_element contains (is an ancestor of) descendant_element
+            by traversing up the parent chain of the descendant.
+            """
+            current_element = descendant_element.getparent()
+            
+            # Traverse up the tree until the root (None) is reached
+            while current_element is not None:
+                if current_element is ancestor_element:
+                    return True
+                current_element = current_element.getparent()
+                
+            return False
+        
+        start_id = group_info['start_id']
+        stop_id = group_info['stop_id']
+        ancestry_level_start = group_info.get('ancestry_level_start')
+        ancestry_level_end = group_info.get('ancestry_level_end')
+
+        parent_start_path_part = "/parent::*"*ancestry_level_start if ancestry_level_start is not None else ""
+        parent_stop_path_part = "/parent::*"*ancestry_level_end if ancestry_level_end is not None else ""
+
+        start_element_list = root.xpath("//*[@id='{}']{}".format(start_id, parent_start_path_part))
+        start_element = start_element_list[0] if len(start_element_list)==1 else None
+        stop_element_list = root.xpath("//*[@id='{}']{}".format(stop_id, parent_stop_path_part))
+        stop_element = stop_element_list[0] if len(stop_element_list)==1 else None
+
+        # # Find all elements between start_id and stop_id (inclusive)
+        # xpath_expression = "//*[@id='{}']{}/following::*[preceding::*[@id='{}']{}]".format(
+        #     start_id, parent_start_path_part, stop_id, parent_stop_path_part)
+        # elements_in_group = root.xpath(xpath_expression)
+
+        if start_element is None or stop_element is None:
+            self.logger.warning('No elements found for group %s (%s to %s)', group_id, start_id, stop_id)
+            return False
+
+        # Get the parent element to wrap the group
+        parent = start_element.getparent()
+        insert_index = parent.index(start_element)
+
+        # Find all elements between start_element and stop_element (inclusive)
+        elements_in_group = []
+        current_element = start_element
+        while current_element is not None:
+            elements_in_group.append(current_element)
+            if check_contains_by_traversal(current_element, stop_element):
+                break
+            current_element = current_element.getnext()
+
+        # Create a new span element
+        mstyle = etree.Element('mstyle', id=group_id, attrib={'class': 'custom-group'})
+
+        # Move the elements into the span
+        for elem in elements_in_group:
+            parent.remove(elem)
+            mstyle.append(elem)
+
+        parent.insert(insert_index, mstyle)
+
+        print(etree.tostring(parent))
+
+        return True
+
                 
     def initialize_main_pages(self, root):
+
+        # Wrap specified custom groups in span tags
+        for group_id, group_info in self.mi_anno.groups.items():
+            if not self.wrap_custom_group(root, group_id, group_info):
+                continue
+
         # add data-math-concept for each mi element
         for mi in root.xpath('//mi'):
             mi_id = mi.get('id', None)
@@ -293,6 +369,7 @@ class MioGattoServer:
             nof_comp_sog=nof_comp_sog,
             affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
+            compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
     def edit_compound_concepts(self):
@@ -316,6 +393,7 @@ class MioGattoServer:
             p_comp_concept=p_comp_concept,
             nof_comp_sog=nof_comp_sog,
             main_content=Markup(main_content),
+            compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
 
     def equations_of_interest_selector(self):
@@ -339,6 +417,33 @@ class MioGattoServer:
             p_comp_concept=p_comp_concept,
             nof_comp_sog=nof_comp_sog,
             main_content=Markup(main_content),
+            compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
+        )
+    
+
+    def group_creator(self):
+        # avoid destroying the original tree
+        copied_tree = deepcopy(self.tree)
+        root = copied_tree.getroot()
+
+        p_concept, p_comp_concept, nof_sog, nof_comp_sog = self.initialize_main_pages(root)
+
+        # construction
+        body = root.xpath('body')[0]
+        main_content = etree.tostring(body, method='html', encoding=str)
+        return render_template(
+            'group_creator.html',
+            version=VERSION,
+            git_revision=GIT_REVISON,
+            paper_id=self.paper_id,
+            annotator=self.mi_anno.annotator,
+            main_content=Markup(main_content),
+            compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
+        )
+    
+    def nav(self):
+        return render_template(
+            'nav.html',
         )
 
     def assign_concept(self):
@@ -577,8 +682,6 @@ class MioGattoServer:
             return redirect('/edit_compound_concepts')
 
         # register
-        print(comp_concept)
-        print(self.cmcdict.compound_concepts)
         self.cmcdict.compound_concepts[cmc_id] = comp_concept
         self.cmcdict.next_available_cmc_id += 1
         self.cmcdict.dump()
@@ -700,6 +803,66 @@ class MioGattoServer:
 
         return redirect('/equations_of_interest_selector')
     
+    # def add_group(self):
+    #     res = request.json
+
+    #     element_ids = res.get('element_ids', '').split(',')
+    #     if len(element_ids) < 2:
+    #         return json.dumps({'status': 'error', 'message': 'Not enough elements to form a group.'}), 400
+
+    #     # Generate a unique ID for the new group
+    #     new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
+
+    #     # Register the new group in mi_anno.json file, then increment the ID counter
+    #     self.mi_anno.groups[new_group_id] = {
+    #         "element_ids": element_ids
+    #     }
+    #     self.mi_anno.next_available_group_id += 1
+
+    #     self.mi_anno.compound_occr[new_group_id] = {
+    #         "compound_concept_id": None,
+    #         "sog": [],
+    #         "tag_name": "span"
+    #     }
+
+    #     # Save the updated annotations
+    #     self.mi_anno.dump()
+
+    #     return redirect('/group_creator')
+    
+    def add_group(self):
+        res = request.json
+
+        # Generate a unique ID for the new group, then increment the ID counter
+        new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
+        self.mi_anno.next_available_group_id += 1
+
+        # Register the new group in mi_anno.json file within the groups section
+        self.mi_anno.groups[new_group_id] = {
+            "start_id": res.get('start_id'),
+            "stop_id": res.get('stop_id'),
+            "ancestry_level_start": res.get('ancestry_level_start'),
+            "ancestry_level_stop": res.get('ancestry_level_stop'),
+        }
+
+        # Register in compound_occr as well
+        self.mi_anno.compound_occr[new_group_id] = {
+            "compound_concept_id": None,
+            "sog": [],
+            "tag_name": "mstyle"
+        }
+
+        # Save the updated annotations
+        self.mi_anno.dump()
+
+        success_message = {
+            "status": "success",
+            "message": "Group created successfully.",
+            "group_id": new_group_id, 
+        }
+
+        return json.dumps(success_message), 200
+
     def gen_cmcdict_json(self):
         data = preprocess_cmcdict(self.cmcdict.compound_concepts)
         extended_data = [str(self.cmcdict_edit_id), data]
@@ -740,6 +903,15 @@ class MioGattoServer:
         data = {'eoi_list': []}
         for eoi_id in self.mi_anno.eoi_list:
             data['eoi_list'].append(eoi_id)
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def gen_groups_list_json(self):
+        data = {'groups_list': []}
+        for group_id, group_data in self.mi_anno.groups.items():
+            data['groups_list'].append({
+                "group_id": group_id,
+                "element_ids": group_data.get("element_ids", [])
+            })
         return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
     def edit_mcdict(self):

@@ -1,6 +1,6 @@
 import {Concept, CompoundConcept, Source, CompoundSource, hex2rgb, eoi_list,
   get_comp_concept, get_comp_concept_id, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
-  cmcdict, get_comp_concept_cand, dfs_comp_tags} from "./common" ;
+  cmcdict, get_comp_concept_cand, dfs_comp_tags, groups_list} from "./common" ;
 
 // --------------------------
 // Interfaces
@@ -34,6 +34,12 @@ function divide_and_index_text_span(e: WordIndexedSpan): void {
 
   // Clear the original content
   e.textContent = '';
+
+  // Add start marker span
+  const startSpan = document.createElement('span');
+  startSpan.id = e.id+"-start";
+  startSpan.className = 'dyn_gd_marker';
+  e.appendChild(startSpan);
 
   // The regular expression \S+ matches one or more non-whitespace characters (a "word").
   // The 'g' flag ensures it finds all matches.
@@ -104,6 +110,12 @@ function divide_and_index_text_span(e: WordIndexedSpan): void {
         break; 
     }
   };
+
+  // Add end marker span
+  const endSpan = document.createElement('span');
+  endSpan.id = e.id+"-end";
+  endSpan.className = 'dyn_gd_marker';
+  e.appendChild(endSpan);
 }
 
 
@@ -145,6 +157,117 @@ function cast_dyn_word_selection_into_text_span(initial_id: string, offset:numbe
   const start_id_base = initial_id.slice(0, last_dash_index);
   const init_index = parseInt(initial_id.slice(last_dash_index+1),10);
   return start_id_base+'.'+(init_index+offset).toString(10)
+}
+
+/**
+ * Calculates the ancestry level between an inner element and its outer container.
+ * @param $inner The jQuery object for the contained element.
+ * @param $outer The jQuery object for the containing ancestor.
+ * @returns The number of steps (levels) between them, or -1 if the outer element is not an ancestor.
+ */
+function getAncestryLevel($inner: JQuery, $outer: JQuery): number {
+    // 1. Get all parents of the inner element.
+    // The parents() method returns elements from the immediate parent upwards.
+    const $allAncestors = $inner.parents();
+    
+    // 2. Try to find the position (index) of the outer element within the ancestors list.
+    // .index() returns -1 if the element is not found.
+    const level = $allAncestors.index($outer)+1;
+    
+    // The index directly gives you the number of steps (1 = immediate parent, 2 = grandparent, etc.)
+    return level;
+}
+
+/**
+ * Locates the range of elements defined by the input IDs (in document order)
+ * and wraps them all in a new <span> element at the Nearest Common Ancestor level.
+ * @param ids An array of element IDs defining the range.
+ * @param wrapperId The ID to assign to the new wrapping <span> element.
+ * @returns The new jQuery wrapper object, or null on failure.
+ */
+function wrapRangeByUnorderedIds(ids: string[], wrapperId: string, wrapperClass: string): JQuery | null {
+    if (ids.length < 2) {
+        console.error("Please provide at least two element IDs to define a range.");
+        return null;
+    }
+    
+    const $allElements = $(ids.map(id => `#${id}`).join(', '));
+    if ($allElements.length !== ids.length) {
+        console.error("One or more elements not found.");
+        return null;
+    }
+
+    // 1. Sort elements by their position in the document (Document Order)
+    const sortedNodes = $allElements.get().sort((a, b) => {
+        const position = a.compareDocumentPosition(b);
+        if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+        if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+        return 0;
+    });
+
+    // Define the range boundaries
+    const $start = $(sortedNodes[0]);
+    const $end = $(sortedNodes[sortedNodes.length - 1]);
+    
+    // 2. Find the Nearest Common Ancestor (NCA)
+    const $nca = $start.closest($end.parents().add($end));
+    
+    if ($nca.length === 0) {
+        console.error("No common ancestor found.");
+        return null;
+    }
+    
+    // 3. Collect the elements that define the range
+    let $rangeElements = $(); // Initialize an empty jQuery collection
+    let isCollecting = false;
+
+    // Iterate over every direct child of the Nearest Common Ancestor
+    $nca.children().each(function() {
+        const $child = $(this);
+        
+        // --- A. Check for Start Point ---
+        // Check if the current child *is* the start element OR *contains* the start element
+        const containsStart = $child.is($start) || $child.has($start[0]).length > 0;
+
+        if (containsStart) {
+            isCollecting = true;
+        }
+
+        // --- B. Collection ---
+        if (isCollecting) {
+            // Add the current child to the collection
+            $rangeElements = $rangeElements.add($child);
+        }
+
+        // --- C. Check for End Point ---
+        // Check if the current child *is* the end element OR *contains* the end element
+        const containsEnd = $child.is($end) || $child.has($end[0]).length > 0;
+
+        if (containsEnd) {
+            isCollecting = false; // Stop collecting after this child is included
+            return false; // Break the .each() loop (equivalent to 'break' in a standard loop)
+        }
+    });
+
+    if ($rangeElements.length === 0) {
+        console.error("Could not find a valid range of elements to wrap.");
+        return null;
+    }
+
+    // --- 4. DOM Manipulation (The Wrapping Step) ---
+
+    // Create the new span wrapper
+    const $wrapper = $(`<span id="${wrapperId}" class="${wrapperClass}"></span>`);
+    
+    // Insert the wrapper BEFORE the first element in the range
+    $rangeElements.first().before($wrapper);
+
+    // Move all collected elements into the wrapper
+    $rangeElements.each(function() {
+        $wrapper.append($(this));
+    });
+    
+    return $wrapper;
 }
 
 // --------------------------
@@ -234,7 +357,11 @@ export function sog_to_sog_nodes_for_addition(s: Source | CompoundSource) {
         sog_nodes_query = start_node_query.nextUntil(stop_node_query).addBack().add(stop_node_query);
     } else {
         sog_nodes_query = start_node_query.nextAll().addBack();
-        sog_nodes_query = sog_nodes_query.add(stop_node_query.parent().children().first().nextUntil(stop_node_query).addBack()).add(stop_node_query);
+        if ($(stop_node_query).is(':first-child')) {
+            sog_nodes_query = sog_nodes_query.add(stop_node_query);
+        } else {
+            sog_nodes_query = sog_nodes_query.add(stop_node_query.parent().children().first().nextUntil(stop_node_query).addBack()).add(stop_node_query);
+        }
         sog_nodes_query = sog_nodes_query.add(start_node_query.parent().nextUntil(stop_node_query.parent()));
     }
 
@@ -274,10 +401,19 @@ export function get_selection(): [
     } else if (anchor_node.className == 'dyn_space' && anchor_node.nextElementSibling?.className == 'dyn_gd_word') {
         // We assume anchor node will generally be the starting one
         const sibling_node_id = anchor_node.nextElementSibling?.id;
-        const sibling_length = (anchor_node.nextElementSibling?.textContent?? "").length
+        const sibling_length = (anchor_node.nextElementSibling?.textContent?? "").length;
         anchor_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
     } else {
-        console.warn('Invalid span for a source of grounding');
+        const math_parent_node = anchor_node.closest('math');
+        if (math_parent_node !== null) {
+            const previous_text_query = $(math_parent_node).prevAll('.gd_text').first();
+            if (previous_text_query.length) {
+                // In this case we assume that the anchor will be the starting end. Therefore we get the reference
+                // of the previous gd_text sibling, if there is any.
+                const previous_text_id = previous_text_query.get(0)?.id;
+                anchor_id = previous_text_id+".end";
+            }
+        }
     }
     if(focus_node.className == 'gd_text') {
         focus_id = focus_node.id+'.'+focus_offset;
@@ -289,7 +425,23 @@ export function get_selection(): [
         const sibling_length = (focus_node.previousElementSibling?.textContent?? "").length
         focus_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
     } else {
-        console.warn('Invalid span for a source of grounding');
+        const math_parent_node = focus_node.closest('math');
+        if (math_parent_node !== null) {
+            const next_text_query = $(math_parent_node).nextAll('.gd_text').first();
+            if (next_text_query.length) {
+                // In this case we assume that the anchor will be the stopping end. Therefore we get the reference
+                // of the next gd_text sibling, if there is any.
+                const next_text_id = next_text_query.get(0)?.id
+                focus_id = next_text_id+".start"
+            }
+        }
+    }
+
+    if (!anchor_id) {
+        console.warn('Invalid span for a source of grounding. Anchor ID could not be determined.');
+    }
+    if (!focus_id) {
+        console.warn('Invalid span for a source of grounding. Focus ID could not be determined.');
     }
     
     return [anchor_id, focus_id, anchor_node];
@@ -302,29 +454,39 @@ export function handle_selection_ends(anchor_id: string, focus_id: string) {
 
     const anchor_last_dot_index = anchor_id.lastIndexOf('.');
     const focus_last_dot_index = focus_id.lastIndexOf('.');
-    let anchor_global_id = anchor_id.slice(0, anchor_last_dot_index);
-    let anchor_global_offset = parseInt(anchor_id.slice(anchor_last_dot_index +1), 10);
-    let focus_global_id = focus_id.slice(0, focus_last_dot_index);
-    let focus_global_offset = parseInt(focus_id.slice(focus_last_dot_index +1), 10);
-
-    let anchor_global_node = $('#' + escape_selector(anchor_global_id))[0];
-    let focus_global_node = $('#' + escape_selector(focus_global_id))[0];
+    const anchor_global_id = anchor_id.slice(0, anchor_last_dot_index);
+    const focus_global_id = focus_id.slice(0, focus_last_dot_index);
 
     let anchor_local_id: string;
-    let focus_local_id: string;
-    if (anchor_global_node.className == "gd_text"){
+    const anchor_global_node = $('#' + escape_selector(anchor_global_id))[0];
+    if (anchor_global_node.className == "gd_text") {
         if (!hasWordMap(anchor_global_node)) {
             divide_and_index_text_span(anchor_global_node);
         }
-        anchor_local_id = get_word_id_by_index(anchor_global_node, anchor_global_offset);
+        const anchor_id_trail = anchor_id.slice(anchor_last_dot_index +1);
+        if (anchor_id_trail == "end") {
+            anchor_local_id = anchor_global_id + "-end"
+        } else {
+            const anchor_global_offset = parseInt(anchor_id_trail, 10);
+            anchor_local_id = get_word_id_by_index(anchor_global_node, anchor_global_offset);
+        }
     } else {
         throw new Error("Grounding text must start and finish in 'gd_text' class");
     }
+
+    let focus_local_id: string;
+    const focus_global_node = $('#' + escape_selector(focus_global_id))[0];
     if (focus_global_node.className == "gd_text"){
         if (!hasWordMap(focus_global_node)) {
             divide_and_index_text_span(focus_global_node);
         }
-        focus_local_id = get_word_id_by_index(focus_global_node, focus_global_offset);
+        const focus_id_trail = focus_id.slice(focus_last_dot_index +1);
+        if (focus_id_trail == "start") {
+            focus_local_id = focus_global_id + "-start"
+        } else {
+            const focus_global_offset = parseInt(focus_id_trail, 10);
+            focus_local_id = get_word_id_by_index(focus_global_node, focus_global_offset);
+        }
     } else {
         throw new Error("Grounding text must start and finish in 'gd_text' class");
     }
@@ -360,6 +522,98 @@ export function reorder_anchor_and_focus_ids(anchor_id: string, focus_id: string
     return [start_id, focus_id];
 
 }
+
+/**
+ * Locates the range of elements defined by the input IDs (in document order)
+ * and wraps them all in a new <span> element at the Nearest Common Ancestor level.
+ * @param ids An array of element IDs defining the range.
+ * @param wrapperId The ID to assign to the new wrapping <span> element.
+ * @returns The new jQuery wrapper object, or null on failure.
+ */
+export function getGroupLimitsFromUnorderedIds(ids: string[]): [string, string, Number, Number] | null {
+    if (ids.length < 2) {
+        console.error("Please provide at least two element IDs to define a range.");
+        return null;
+    }
+    
+    const $allElements = $(ids.map(id => `#${id}`).join(', '));
+    if ($allElements.length !== ids.length) {
+        console.error("One or more elements not found.");
+        return null;
+    }
+
+    // 1. Sort elements by their position in the document (Document Order)
+    const sortedNodes = $allElements.get().sort((a, b) => {
+        const position = a.compareDocumentPosition(b);
+        if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+        if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+        return 0;
+    });
+
+    // Define the range boundaries
+    const $inner_start = $(sortedNodes[0]);
+    const $inner_stop = $(sortedNodes[sortedNodes.length - 1]);
+    const inner_start_id = $inner_start.get(0)?.id!;
+    const inner_stop_id = $inner_stop.get(0)?.id!;
+    
+    // 2. Find the Nearest Common Ancestor (NCA)
+    const $nca = $inner_start.closest($inner_stop.parents().add($inner_stop));
+    
+    if ($nca.length === 0) {
+        console.error("No common ancestor found.");
+        return null;
+    }
+    
+    // 3. Find the elements that define the range and get their ancestry levels
+    // compared to the identified elements
+    let ancestry_level_start: Number;
+    let ancestry_level_stop: Number;
+    let found_ancestry_levels = false;
+
+    // Iterate over every direct child of the Nearest Common Ancestor
+    $nca.children().each(function() {
+        const $child = $(this);
+
+        // --- A. Check for Start Point ---
+        // Check if the current child *is* the start element OR *contains* the start element
+        // Then determine the ancestry level
+        if ($child.is($inner_start)) { 
+            ancestry_level_start = 0;
+        } else if ($child.has($inner_start[0]).length > 0) {
+            ancestry_level_start = getAncestryLevel($inner_start, $child);
+        }
+
+        // --- B. Check for End Point ---
+        // Check if the current child *is* the end element OR *contains* the end element
+        // Then determine the ancestry level
+        if ($child.is($inner_stop)) { 
+            ancestry_level_stop = 0;
+        } else if ($child.has($inner_stop[0]).length > 0) {
+            ancestry_level_stop = getAncestryLevel($inner_stop, $child);
+        }
+        
+        if (ancestry_level_start !== undefined && ancestry_level_stop !== undefined) {
+            found_ancestry_levels = true;
+            return false; // Break the .each() loop (equivalent to 'break' in a standard loop)
+        }
+    });
+
+
+    if (found_ancestry_levels == false) {
+        console.error("Could not find a valid range of elements to wrap.");
+        return null;
+    }
+
+    return [inner_start_id, inner_stop_id, ancestry_level_start!, ancestry_level_stop!];
+}
+
+// export function build_custom_groups() {
+//     for (const group of groups_list.groups_list) {
+//         const group_id = group.group_id;
+//         const element_ids = group.element_ids;
+//         wrapRangeByUnorderedIds(element_ids, group_id, 'custom-group')
+//     }
+// }
 
 //   // determine which (start|stop)_node
 //   let anchor_rect = anchor_node.getBoundingClientRect();

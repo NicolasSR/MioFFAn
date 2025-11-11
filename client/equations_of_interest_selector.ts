@@ -10,7 +10,6 @@ $(function() {
 });
 
 function give_eoi_highlight(){
-  // remove highlight
   for(let eoi_id of eoi_list.eoi_list) {
     let eoi_query = $('#' + escape_selector(eoi_id));
     eoi_query.css('background-color', `rgba(#dcf9fa,0.3)`);

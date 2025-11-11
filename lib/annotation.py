@@ -30,6 +30,8 @@ class MiAnno:
         self.occr: dict = data['mi_anno']
         self.compound_occr: dict = data['compound_anno']
         self.eoi_list: list = data['eoi_list']
+        self.groups: dict = data['groups']
+        self.next_available_group_id: int = data['next_available_group_id']
 
 
     def dump(self) -> None:
@@ -41,6 +43,8 @@ class MiAnno:
                     'mi_anno': self.occr,
                     'compound_anno': self.compound_occr,
                     'eoi_list': self.eoi_list,
+                    'groups': self.groups,
+                    'next_available_group_id': self.next_available_group_id,
                 },
                 f,
             )

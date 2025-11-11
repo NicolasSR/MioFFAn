@@ -154,6 +154,10 @@ Version: 2021-10-31
     background: red;
 }
 
+.nav-form {
+    display: none;
+}
+
 table[class*="ltx_eqn_table"]  {
     display: block;
     overflow-x: scroll;
