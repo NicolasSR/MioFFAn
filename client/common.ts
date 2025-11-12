@@ -6,6 +6,7 @@ declare global {
     interface Window {
         COMPOUND_CONCEPT_TAGS: string[];
         initializeNavButtons: () => void;
+        initializeSampleNavButtons: () => void;
     }
 }
 

@@ -1,3 +1,4 @@
 {
-  "COMPOUND_CONCEPT_TAGS": ["msup", "msub", "msubsup", "mstyle.custom-group"]
+  "COMPOUND_CONCEPT_TAGS": ["msup", "msub", "msubsup", "mstyle.custom-group"],
+  "SAMPLE_SOURCE_FOLDER": "sources/"
 }

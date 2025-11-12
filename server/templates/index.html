@@ -11,6 +11,16 @@
         window.COMPOUND_CONCEPT_TAGS = {{ compound_concept_tags | tojson }};
     </script>
     <script type="text/javascript" src="/static/index.js"></script>
+    <script type="text/javascript" src="/static/sample_nav.js"></script>
+    <script>
+        fetch('sample_nav')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sample-nav').innerHTML = data;
+                window.initializeSampleNavButtons();
+            })
+            .catch(error => console.error('Error loading navigation:', error));
+    </script>
     <script type="text/javascript" src="/static/nav.js"></script>
     <script>
         fetch('nav')
@@ -81,6 +91,8 @@
 
             {{ main_content }}
         </main>
+
+        <div id="sample-nav"></div>
 
         <div class="sidebar">
             <div class="sidebar-tabs">

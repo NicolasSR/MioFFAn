@@ -1,12 +1,14 @@
 # The server implementation for MioGatto
-from flask import request, redirect, flash, render_template, Markup
+from flask import request, redirect, flash, render_template, jsonify, Markup
 from typing import Optional
 from logging import Logger
 from copy import deepcopy
+import lxml
 from lxml import etree
 import subprocess
 import json
 import re
+import os
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict, CmcDict
@@ -207,13 +209,18 @@ def preprocess_cmcdict(compound_concepts):
 
 
 class MioGattoServer:
-    def __init__(self, paper_id: str, tree, mi_anno: MiAnno, mcdict: McDict, cmcdict: CmcDict, logger: Logger):
+
+    def __init__(self, paper_id: str, tree, mi_anno: MiAnno, mcdict: McDict, cmcdict: CmcDict,
+                 logger: Logger, data_dir: str, sources_dir: str, available_ids: list):
         self.paper_id = paper_id
         self.tree = tree
         self.mi_anno = mi_anno
         self.mcdict = mcdict
         self.cmcdict = cmcdict
         self.logger = logger
+        self.data_dir = data_dir
+        self.sources_dir = sources_dir
+        self.available_ids = available_ids
 
         with open('config.json', 'r') as f:
             self.config = json.load(f)
@@ -221,6 +228,49 @@ class MioGattoServer:
         # Start with 0 (can be considered as the number of times the mcdict is edited)
         self.mcdict_edit_id = 0
         self.cmcdict_edit_id = 0
+
+    def list_sample_ids(self):
+        data = {'available_ids': self.available_ids}
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def switch_to_sample(self, new_id):
+        # Update internal state to switch to the new sample
+        if new_id not in self.available_ids:
+            flash(f'Sample ID {new_id} not found.')
+            return redirect('/')
+
+        # Update paper_id
+        self.paper_id = new_id
+
+        # Load new data
+        anno_json = self.data_dir / '{}_anno.json'.format(new_id)
+        mcdict_json = self.data_dir / '{}_mcdict.json'.format(new_id)
+        cmcdict_json = self.data_dir / '{}_cmcdict.json'.format(new_id)
+        source_html = self.sources_dir / '{}.html'.format(new_id)
+
+        # load the data
+        self.mi_anno = MiAnno(anno_json)
+        self.mcdict = McDict(mcdict_json)
+        self.cmcdict = CmcDict(cmcdict_json)
+        self.tree = lxml.html.parse(str(source_html))
+
+        # Start with 0 (can be considered as the number of times the mcdict is edited)
+        ####### PROBABLY WRONG #################
+        self.mcdict_edit_id = 0
+        self.cmcdict_edit_id = 0
+
+        return redirect('/')
+    
+    def annotate_file(self, filename):
+        samples_source_folder = self.config["SAMPLE_SOURCE_FOLDER"]
+        file_path = os.path.join(samples_source_folder, filename)
+        
+        # 1. Load the specific file content
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 2. Pass content to the annotation template
+        return render_template('annotation_page.html', file_content=content, current_file=filename)
 
     def add_data_compound_math_concept(self, root):
         for anno_tag_id, anno_obj in self.mi_anno.compound_occr.items():
@@ -295,9 +345,7 @@ class MioGattoServer:
             mstyle.append(elem)
 
         parent.insert(insert_index, mstyle)
-
-        print(etree.tostring(parent))
-
+        
         return True
 
                 
@@ -444,6 +492,11 @@ class MioGattoServer:
     def nav(self):
         return render_template(
             'nav.html',
+        )
+    
+    def sample_nav(self):
+        return render_template(
+            'sample_nav.html',
         )
 
     def assign_concept(self):

@@ -485,10 +485,10 @@ $(function () {
 
         // ----- SoG menu -----
 
-        let sog_comp_tag_id = parent.getAttribute('data-sog-comp-tag-id');
-        let sog_type_int = Number(parent.getAttribute('data-sog-type'));
-        let sog_start_id = parent.getAttribute('data-sog-start');
-        let sog_stop_id = parent.getAttribute('data-sog-stop');
+        let sog_comp_tag_id = parent.getAttribute('data-compound-sog-node-id');
+        let sog_type_int = Number(parent.getAttribute('data-compound-sog-type'));
+        let sog_start_id = parent.getAttribute('data-compound-sog-start');
+        let sog_stop_id = parent.getAttribute('data-compound-sog-stop');
 
         // Do not show sog-mod-menu when the sog is not highlighted.
         let is_sog_highlighted = true;
@@ -499,7 +499,7 @@ $(function () {
         }
 
         // show it only if SoG is selected and highlighted.
-        if (parent?.getAttribute('data-sog-comp-tag-id-sog-mi') != undefined && is_sog_highlighted) {
+        if (parent?.getAttribute('data-compound-sog-node-id') != undefined && is_sog_highlighted) {
             $('.sog-mod-menu').css('display', 'inherit');
         } else {
             $('.sog-mod-menu').css('display', 'none');
@@ -574,9 +574,9 @@ $(function () {
                 // post the data
                 let post_data = {
                     'cmcdict_edit_id': cmcdict_edit_id,
-                    'comp_tag_id': parent.getAttribute('data-sog-comp-tag-id'),
-                    'start_id': parent.getAttribute('data-sog-start'),
-                    'stop_id': parent.getAttribute('data-sog-stop'),
+                    'comp_tag_id': parent.getAttribute('data-compound-sog-node-id'),
+                    'start_id': parent.getAttribute('data-compound-sog-start'),
+                    'stop_id': parent.getAttribute('data-compound-sog-stop'),
                 };
 
                 localStorage['scroll_top'] = $(window).scrollTop();

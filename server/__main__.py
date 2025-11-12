@@ -14,7 +14,7 @@ PROG_NAME = "server"
 HELP = """The server implementation for MioGatto
 
 Usage:
-    {p} [options] ID
+    {p} [options]
 
 Options:
     -d DIR, --data=DIR
@@ -39,6 +39,14 @@ app.secret_key = os.urandom(12)
 
 
 def routing_functions(server):
+    @app.route('/list_sample_ids', methods=['GET'])
+    def list_sample_ids():
+        return server.list_sample_ids()
+    
+    @app.route('/switch_to_sample/<new_id>', methods=['GET'])
+    def switch_to_sample(new_id):
+        return server.switch_to_sample(new_id)
+
     @app.route('/', methods=['GET'])
     def index():
         return server.index()
@@ -99,6 +107,10 @@ def routing_functions(server):
     def action_add_comp_sog():
         return server.add_comp_sog()
     
+    @app.route('/_delete_comp_sog', methods=['POST'])
+    def action_delete_comp_sog():
+        return server.delete_comp_sog()
+    
     @app.route('/_add_eoi', methods=['POST'])
     def action_add_eoi():
         return server.add_eoi()
@@ -158,21 +170,36 @@ def routing_functions(server):
     @app.route('/nav', methods=['GET'])
     def nav():
         return server.nav()
+    
+    @app.route('/sample_nav', methods=['GET'])
+    def sample_nav():
+        return server.sample_nav()
+
 
 def main():
     # parse options
     args = docopt(HELP, version=VERSION)
 
-    paper_id = args['ID']
-
     # dir and files
     data_dir = Path(args['--data'])
     sources_dir = Path(args['--sources'])
 
-    anno_json = data_dir / '{}_anno.json'.format(paper_id)
-    mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
-    cmcdict_json = data_dir / '{}_cmcdict.json'.format(paper_id)
-    source_html = sources_dir / '{}.html'.format(paper_id)
+    # Get ALL available IDs from the sources directory
+    # Find all .html files and extract the ID (filename without extension)
+    available_ids = [p.stem for p in sources_dir.glob('*.html')]
+    if not available_ids:
+        print(f"Error: No .html files found in {sources_dir}")
+        return
+
+    # Use the first ID to initialize the server (original functionality)
+    initial_paper_id = available_ids[0]
+
+    print(f"Initializing server with paper ID: {initial_paper_id}")
+
+    anno_json = data_dir / '{}_anno.json'.format(initial_paper_id)
+    mcdict_json = data_dir / '{}_mcdict.json'.format(initial_paper_id)
+    cmcdict_json = data_dir / '{}_cmcdict.json'.format(initial_paper_id)
+    source_html = sources_dir / '{}.html'.format(initial_paper_id)
 
     # load the data
     mi_anno = MiAnno(anno_json)
@@ -183,7 +210,13 @@ def main():
     # run the app
     app.debug = args['--debug']
 
-    server = MioGattoServer(paper_id, tree, mi_anno, mcdict, cmcdict, app.logger)
+    # Initialize the server, passing directory context
+    server = MioGattoServer(
+        initial_paper_id, tree, mi_anno, mcdict, cmcdict, app.logger, 
+        data_dir=data_dir, 
+        sources_dir=sources_dir,
+        available_ids=available_ids # Pass the list of all available files
+    )
     routing_functions(server)
 
     app.run(host=args['--host'], port=args['--port'])
