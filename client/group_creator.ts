@@ -69,7 +69,9 @@ $(function () {
                 const text = el.text().trim().substring(0, 20);
                 selection_info += `<li>${id} (<em>${text}...</em>)</li>`;
             }
-            if (current_group.length >= 2) {
+            if (current_group.length == 1 &&  current_group[0].attr('class')=="custom-group") {
+                selection_info += '<button id="remove-group">Remove Group</button>';
+            } else if (current_group.length >= 2) {
                 selection_info += '<button id="finalize-group">Finalize Group</button>';
                 // selection_info += `<form id="form-finalize-group" method="POST">${hidden}</form>`;
             }
@@ -105,6 +107,35 @@ $(function () {
                     }
                 }).catch(error => {
                     console.error('Error submitting group:', error);
+                });
+            }
+        });
+
+        $('button#remove-group').button();
+        $('button#remove-group').on('click', function() {
+            if (current_group.length != 1) {
+                console.error('Cannot remove group if more than one or none elements are selected:');
+            }
+            const current_group_id = current_group[0].attr('id')
+            if (current_group_id !== undefined) {
+                fetch('/_remove_group', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        group_id: current_group_id,
+                    }),
+                }).then(response => {
+                    if (response.ok) {
+                        // Optionally handle success (e.g., notify user, refresh page)
+                        window.location.reload();
+                    } else {
+                        // Optionally handle error (e.g., notify user)
+                        console.error('Failed to remove group');
+                    }
+                }).catch(error => {
+                    console.error('Error removing group:', error);
                 });
             }
         });

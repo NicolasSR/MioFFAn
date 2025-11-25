@@ -367,6 +367,7 @@ function new_comp_concept_button(comp_tag_id: string) {
 }
 
 function edit_comp_concept(cmc_id: string) {
+
     let concept_dialog = $('#comp-concept-dialog-template').clone();
     concept_dialog.removeAttr('id');
     let form = concept_dialog.find('#comp-concept-form');
@@ -377,8 +378,6 @@ function edit_comp_concept(cmc_id: string) {
     form.find('textarea').text(concept.description);
     form.find('input[name="arity"]').attr('value', concept.arity);
 
-    let primitive_hex_string = concept.primitives_hex.join('')
-
     concept_dialog.dialog({
         modal: true,
         title: 'Edit Compound Concept',
@@ -386,8 +385,8 @@ function edit_comp_concept(cmc_id: string) {
         buttons: {
             'OK': function () {
                 localStorage['scroll_top'] = $(window).scrollTop();
-                form.append(`<input type="hidden" name="cmcdict_edit_id" value="${cmcdict_edit_id}" />`)
-                form.append(`<input type="hidden" name="hex-primitives" value="${primitive_hex_string}" />`);
+                form.append(`<input type="hidden" name="cmcdict_edit_id" value="${cmcdict_edit_id}" />`);
+                form.append(`<input type="hidden" name="cmc_id" value="${cmc_id}" />`);
                 form.trigger("submit");
             },
             'Cancel': function () {

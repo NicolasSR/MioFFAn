@@ -332,7 +332,7 @@ class MioGattoServer:
         current_element = start_element
         while current_element is not None:
             elements_in_group.append(current_element)
-            if check_contains_by_traversal(current_element, stop_element):
+            if current_element is stop_element or check_contains_by_traversal(current_element, stop_element):
                 break
             current_element = current_element.getnext()
 
@@ -345,7 +345,7 @@ class MioGattoServer:
             mstyle.append(elem)
 
         parent.insert(insert_index, mstyle)
-        
+
         return True
 
                 
@@ -755,12 +755,21 @@ class MioGattoServer:
 
         cmc_id = res.get('cmc_id')
 
-        # make compound concept with checking
-        comp_concept = make_compound_concept(res)
-        if comp_concept is None:
-            return redirect('/edit_compound_concepts')
+        # check arity
+        if not res.get('arity').isdigit():
+            flash('Arity must be non-negative integer.')
+            return None
+        else:
+            arity = int(res.get('arity'))
 
-        self.cmcdict.compound_concepts[cmc_id] = comp_concept
+        # check description
+        description = res.get('description')
+        if len(description) == 0:
+            flash('Description must be filled.')
+            return None
+
+        self.cmcdict.compound_concepts[cmc_id].description = description
+        self.cmcdict.compound_concepts[cmc_id].arity = arity
         self.cmcdict.dump()
 
         self.update_cmcdict_edit_id()
@@ -912,6 +921,28 @@ class MioGattoServer:
             "status": "success",
             "message": "Group created successfully.",
             "group_id": new_group_id, 
+        }
+
+        return json.dumps(success_message), 200
+    
+    def remove_group(self):
+        res = request.json
+
+        group_id = res.get('group_id')
+
+        # Delete the group from mi_anno.json file within the groups section
+        del self.mi_anno.groups[group_id]
+
+        # Delete from compound_occr as well
+        del self.mi_anno.compound_occr[group_id]
+
+        # Save the updated annotations
+        self.mi_anno.dump()
+
+        success_message = {
+            "status": "success",
+            "message": "Group removed successfully.",
+            "group_id": group_id, 
         }
 
         return json.dumps(success_message), 200

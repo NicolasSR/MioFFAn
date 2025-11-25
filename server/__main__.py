@@ -123,6 +123,10 @@ def routing_functions(server):
     def action_add_group():
         return server.add_group()
     
+    @app.route('/_remove_group', methods=['POST'])
+    def action_remove_group():
+        return server.remove_group()
+    
     @app.route('/cmcdict.json', methods=['GET'])
     def cmcdict_json():
         return server.gen_cmcdict_json()
