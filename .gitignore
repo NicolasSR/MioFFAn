@@ -102,6 +102,7 @@ static/img
 sources
 templates
 raw_sources
+annotated_data_backup
 
 # local stuff
 local/
