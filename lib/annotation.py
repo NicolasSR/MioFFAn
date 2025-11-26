@@ -32,9 +32,6 @@ class MiAnno:
         compound_occr = dict()
         for comp_tag_id, obj in data['compound_anno'].items():
             compound_occr[comp_tag_id] = Occurence(**obj)
-            print("next")
-            print(comp_tag_id)
-            print(compound_occr[comp_tag_id])
         # self.compound_occr: dict = data['compound_anno']
         self.compound_occr: dict = compound_occr
 

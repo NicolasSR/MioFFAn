@@ -699,7 +699,7 @@ class MioGattoServer:
         if res.get('cmc_id'):
             if comp_tag_id in self.mi_anno.compound_occr.keys():
                 # Simply change concept ID
-                self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = cmc_id
+                self.mi_anno.compound_occr[comp_tag_id].compound_concept_id = cmc_id
             else:
                 # Register new accurence entry
                 tag_name = res['tag_name']
