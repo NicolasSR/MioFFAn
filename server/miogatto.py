@@ -12,7 +12,7 @@ import os
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict, CmcDict
-from lib.datatypes import MathConcept, CompoundMathConcept
+from lib.datatypes import MathConcept, CompoundMathConcept, Occurence
 
 # get git revision
 try:
@@ -274,9 +274,9 @@ class MioGattoServer:
 
     def add_data_compound_math_concept(self, root):
         for anno_tag_id, anno_obj in self.mi_anno.compound_occr.items():
-            cmc_id = anno_obj["compound_concept_id"]
+            cmc_id = anno_obj.compound_concept_id
             if cmc_id is not None:
-                xpath_expression = "//{}[@id='{}']".format(anno_obj['tag_name'], anno_tag_id)
+                xpath_expression = "//{}[@id='{}']".format(anno_obj.tag_name, anno_tag_id)
                 matches = root.xpath(xpath_expression)
                 if len(matches)!=1:
                     flash('Either no element matching {} found, or too many'.format(xpath_expression))
@@ -375,7 +375,7 @@ class MioGattoServer:
         nof_anno = len(self.mi_anno.occr)
         nof_comp_anno = len(self.mi_anno.compound_occr)
         nof_done = sum(1 for v in self.mi_anno.occr.values() if not v['concept_id'] is None)
-        nof_comp_done = sum(1 for v in self.mi_anno.compound_occr.values() if not v['compound_concept_id'] is None)
+        nof_comp_done = sum(1 for v in self.mi_anno.compound_occr.values() if not v.compound_concept_id is None)
         p_concept = '{}/{} ({:.2f}%)'.format(nof_done, nof_anno, nof_done / nof_anno * 100)
         p_comp_concept = '{}/{} ({:.2f}%)'.format(nof_comp_done, nof_comp_anno, nof_comp_done / nof_comp_anno * 100)
 
@@ -386,7 +386,7 @@ class MioGattoServer:
 
         nof_comp_sog = 0
         for comp_anno in self.mi_anno.compound_occr.values():
-            for comp_sog in comp_anno['sog']:
+            for comp_sog in comp_anno.sog:
                 nof_comp_sog += 1
 
         return p_concept, p_comp_concept, nof_sog, nof_comp_sog
@@ -693,11 +693,18 @@ class MioGattoServer:
             return redirect('/edit_compound_concepts')
 
         comp_tag_id = res['comp_tag_id']
-        cmc_id = int(res['cmc_id'])
+        # cmc_id = int(res['cmc_id'])
+        cmc_id = res['cmc_id']
 
         if res.get('cmc_id'):
-            # register
-            self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = cmc_id
+            if comp_tag_id in self.mi_anno.compound_occr.keys():
+                # Simply change concept ID
+                self.mi_anno.compound_occr[comp_tag_id]['compound_concept_id'] = cmc_id
+            else:
+                # Register new accurence entry
+                tag_name = res['tag_name']
+                self.mi_anno.compound_occr[comp_tag_id] = Occurence(cmc_id, [], tag_name)
+            
             self.mi_anno.dump()
 
         return redirect('/edit_compound_concepts')
@@ -967,7 +974,7 @@ class MioGattoServer:
         data = {'sog': []}
 
         for comp_tag_id, anno in self.mi_anno.compound_occr.items():
-            for sog in anno['sog']:
+            for sog in anno.sog:
                 data['sog'].append(
                     {'comp_tag_id': comp_tag_id, 'start_id': sog['start'], 'stop_id': sog['stop'], 'type': sog['type']}
                 )

@@ -270,9 +270,11 @@ ${cand_cmc.description} <span style="color: #808080;"> (arity: ${cand_cmc.arity}
     $('button#assign-comp-concept').on('click', function () {
         let form = anno_box.find(`#form-${escape_selector(comp_tag_id)}`);
         if ($(`#form-${escape_selector(comp_tag_id)} input:checked`).length > 0) {
+            const tag_name = $('#' + escape_selector(comp_tag_id)).prop("tagName").toLowerCase();
             localStorage['scroll_top'] = $(window).scrollTop();
             form.attr('action', '/_comp_concept');
             form.append(`<input type="hidden" name="cmcdict_edit_id" value="${cmcdict_edit_id}" />`);
+            form.append(`<input type="hidden" name="tag_name" value="${tag_name}" />`);
             form.trigger("submit");
         } else {
             alert('Please select a concept.');

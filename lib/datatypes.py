@@ -29,6 +29,13 @@ class CompoundMathConcept:
 @dataclass
 class Group:
     element_ids: list[str]
+
+@dataclass
+class Occurence:
+    """Occurence of a concept within the text"""
+    compound_concept_id: str
+    sog: list
+    tag_name: str
     
 
     

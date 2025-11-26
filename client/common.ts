@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-export const COMPOUND_CONCEPT_TAGS: string[] = window.COMPOUND_CONCEPT_TAGS;
+export const COMPOUND_CONCEPT_TAGS: string[] = window.COMPOUND_CONCEPT_TAGS.concat("mi");
 
 export interface Identifier {
     hex: string;
@@ -107,12 +107,11 @@ export function get_idf(elem: JQuery<any>) {
 // }
 
 export function get_primitive_hex_list(elem: JQuery<any>) {
-    const primitives_list = elem.find("mi");
+    const primitives_list = elem.find("mi").add(elem.filter("mi"));
     let hex_list: string[] = [];
     primitives_list.each(function (index: number, mi_child: HTMLElement) {
         hex_list.push(hex_encode($(mi_child).text()));
     });
-
     return hex_list;
 }
 

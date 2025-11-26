@@ -4,7 +4,7 @@ from pathlib import Path
 from logging import Logger
 from dataclasses import asdict
 
-from lib.datatypes import MathConcept, CompoundMathConcept
+from lib.datatypes import MathConcept, CompoundMathConcept, Occurence
 
 from lib.logger import main_logger
 
@@ -28,20 +28,34 @@ class MiAnno:
         self.anno_version: str = data.get('_anno_version', 'unknown')
         self.annotator: str = data.get('_annotator', 'unknown')
         self.occr: dict = data['mi_anno']
-        self.compound_occr: dict = data['compound_anno']
+
+        compound_occr = dict()
+        for comp_tag_id, obj in data['compound_anno'].items():
+            compound_occr[comp_tag_id] = Occurence(**obj)
+            print("next")
+            print(comp_tag_id)
+            print(compound_occr[comp_tag_id])
+        # self.compound_occr: dict = data['compound_anno']
+        self.compound_occr: dict = compound_occr
+
         self.eoi_list: list = data['eoi_list']
         self.groups: dict = data['groups']
         self.next_available_group_id: int = data['next_available_group_id']
 
 
     def dump(self) -> None:
+
+        compound_occr = dict()
+        for comp_tag_id, obj in self.compound_occr.items():
+            compound_occr[comp_tag_id] = asdict(obj)
+
         with open(self.file, 'w') as f:
             dump_json(
                 {
                     '_anno_version': self.anno_version,
                     '_annotator': self.annotator,
                     'mi_anno': self.occr,
-                    'compound_anno': self.compound_occr,
+                    'compound_anno': compound_occr,
                     'eoi_list': self.eoi_list,
                     'groups': self.groups,
                     'next_available_group_id': self.next_available_group_id,
