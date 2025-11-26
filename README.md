@@ -1,4 +1,6 @@
-# MioGatto: Math Identifier-oriented Grounding Annotation Tool
+# MioKrattos: A MioGatto adaptation for FEM-related scientific text
+
+Based on MioGatto (Math Identifier-oriented Grounding Annotation Tool) and developed to help generate symbolic code for KratosMultiphysics.
 
 ## System requirements
 

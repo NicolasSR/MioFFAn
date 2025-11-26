@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ title }}</title>
+    <script type="text/javascript" src="/static/vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script type="text/javascript" src="/static/equations_of_interest_selector.js"></script>
+    <script type="text/javascript" src="/static/nav.js"></script>
+    <script>
+        fetch('nav')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('utility-box').innerHTML = data;
+                window.initializeNavButtons();
+            })
+            .catch(error => console.error('Error loading navigation:', error));
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <main class="main">
+            <!-- hidden by default -->
+            <div class="sog-menu">
+                <div class="sog-menu-wrap">
+
+                    <div class="sog-mod-menu">
+                        <div class="sog-menu-wrap">
+                            <div class="sog-mod-menu-info"></div>
+                            <div>
+                                <input class="sog-type" type="submit" value="Change type">
+                                <input class="sog-del" type="submit" value="Delete source">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sog-add-menu">
+                        <div class="sog-menu-wrap">
+                            <div class="sog-add-menu-info"></div>
+                            <div>
+                                <input class="sog-add" type="submit" value="Add source">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="concept-dialog-template" class="concept-dialog">
+                <form id="concept-form" method="POST">
+                    <p>Description:<br />
+                        <textarea name="description" rows="3" cols="40"></textarea>
+                    </p>
+                    <p>Arity: <input type="number" name="arity" value="0" /></p>
+                    <p>Affixes:<br />
+                        {{ affixes }}
+                    </p>
+                </form>
+            </div>
+
+            <div id="sog-type-dialog-template" class="sog-type-dialog">
+                <form id="sog-type-form" method="POST">
+                    <label><input type="radio" name="sog_type" value="0" /> Declaration</label><br />
+                    <label><input type="radio" name="sog_type" value="1" /> Definition</label><br />
+                    <label><input type="radio" name="sog_type" value="2" /> Others</label>
+                </form>
+            </div>
+
+            <div id="error-dialog" class="error-dialog">
+                <p id="error-message">{% for message in get_flashed_messages() %}
+                    {{ message }}
+                    {% endfor %}</p>
+            </div>
+
+            {{ main_content }}
+        </main>
+
+        <div class="sidebar">
+            <div class="sidebar-tabs">
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_miogatto" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_miogatto">MioGatto v{{ version }}</label>
+                    <div class="tab-content">
+                        <p>Revision: <span style="font-family: monospace;">{{ git_revision }}</span><br />
+                            Paper ID: <span style="font-family: monospace;">{{ paper_id }}</span><br />
+                            Annotator: {{ annotator }}<br />
+                            Links: <a href="https://github.com/wtsnjp/MioGatto/wiki/Annotator's-Guide"
+                                target="_blank">help</a>, <a href="https://github.com/wtsnjp/MioGatto/issues"
+                                target="_blank">bug reports</a></p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_options" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_options">Options</label>
+                    <div class="tab-content">
+                        <p>
+                            <label for="option-limited-highlight">
+                                <input type="checkbox" id="option-limited-highlight">
+                                Highlight only relevant SoGs
+                            </label><br />
+                            <label for="option-show-definition">
+                                <input type="checkbox" id="option-show-definition">
+                                Underline definitions
+                            </label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_utility" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_utility">Utility</label>
+                    <div id="utility-box" class="tab-content"></div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_progress" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_progress">Progress</label>
+                    <div class="tab-content">
+                        <p>Concepts: {{ p_concept }}<br />
+                            Sources: {{ nof_sog }}</p>
+                    </div>
+                    <div class="tab-content">
+                        <p>Compound Concepts: {{ p_comp_concept }}<br />
+                            Compound Sources: {{ nof_comp_sog }}</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_concept" type="checkbox" name="tabs" checked="checked">
+                    <label class="tab-title" for="tab_concept">Concept</label>
+                    <div id="anno-box" class="tab-content">
+                        <p>Please select an equation first.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

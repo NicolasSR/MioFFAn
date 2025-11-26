@@ -99,8 +99,8 @@ arxmliv
 data
 doc
 static/img
+static/*.js
 sources
-templates
 raw_sources
 annotated_data_backup
 
@@ -109,7 +109,6 @@ local/
 notebooks
 .local.vimrc
 static/img/
-static/*.js
 results/
 extra
 libextra

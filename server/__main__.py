@@ -208,7 +208,6 @@ def main():
     # load the data
     mi_anno = MiAnno(anno_json)
     mcdict = McDict(mcdict_json)
-    cmcdict = CmcDict(cmcdict_json)
     tree = lxml.html.parse(str(source_html))
 
     # run the app
