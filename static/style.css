@@ -144,7 +144,7 @@ Version: 2021-10-31
     color: #ffffff;
 }
 
-.concept-dialog, .sog-type-dialog, .error-dialog {
+.concept-dialog, .comp-concept-dialog, .sog-type-dialog, .error-dialog {
     display: none;
     list-style: none;
 }
@@ -152,6 +152,10 @@ Version: 2021-10-31
 .error-dialog .ui-dialog-titlebar {
     color: white;
     background: red;
+}
+
+.nav-form {
+    display: none;
 }
 
 table[class*="ltx_eqn_table"]  {

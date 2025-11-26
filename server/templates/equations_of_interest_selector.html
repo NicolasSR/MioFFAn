@@ -7,20 +7,7 @@
     <script type="text/javascript" src="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/style.css">
-    <script type="text/javascript">
-        window.COMPOUND_CONCEPT_TAGS = {{ compound_concept_tags | tojson }};
-    </script>
-    <script type="text/javascript" src="/static/index.js"></script>
-    <script type="text/javascript" src="/static/sample_nav.js"></script>
-    <script>
-        fetch('sample_nav')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('sample-nav').innerHTML = data;
-                window.initializeSampleNavButtons();
-            })
-            .catch(error => console.error('Error loading navigation:', error));
-    </script>
+    <script type="text/javascript" src="/static/equations_of_interest_selector.js"></script>
     <script type="text/javascript" src="/static/nav.js"></script>
     <script>
         fetch('nav')
@@ -92,8 +79,6 @@
             {{ main_content }}
         </main>
 
-        <div id="sample-nav"></div>
-
         <div class="sidebar">
             <div class="sidebar-tabs">
 
@@ -149,15 +134,8 @@
                 <div class="sidebar-tab">
                     <input class="tab-title" id="tab_concept" type="checkbox" name="tabs" checked="checked">
                     <label class="tab-title" for="tab_concept">Concept</label>
-                    <div id="concept-nav-box" class ="tab-content">
-                        <p>
-                            <button id="jump-to-next-mi">Jump to Next</button>
-                            <button id="jump-to-prev-mi">Jump to Prev</button>
-                            <button id="back-to-selected-mi">Back to Selected</button>
-                        </p>
-                    </div>
                     <div id="anno-box" class="tab-content">
-                        <p>Please select a math identifier first.</p>
+                        <p>Please select an equation first.</p>
                     </div>
                 </div>
 

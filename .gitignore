@@ -99,7 +99,10 @@ arxmliv
 data
 doc
 static/img
+static/*.js
 sources
+raw_sources
+annotated_data_backup
 
 # local stuff
 local/

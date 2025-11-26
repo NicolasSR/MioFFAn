@@ -3,11 +3,15 @@ import lxml.html
 import unicodedata
 from docopt import docopt
 from pathlib import Path
+import re
+import json
 
 from lib.version import VERSION
 from lib.logger import main_logger
 from lib.util import get_mi2idf
 from lib.annotation import dump_json
+
+from lxml.html.builder import SPAN
 
 # meta
 PROG_NAME = "tools.preprocess"
@@ -47,8 +51,6 @@ def hex2surface(idf_hex):
 
 # add word span tags to text directly
 def split_words_into_span_tags(text, parent_id, idx):
-    from lxml.html.builder import SPAN
-
     def word_span(w, p, i, c):
         s = SPAN(w)
         s.attrib['class'] = 'gd_word'
@@ -116,6 +118,45 @@ def remove_embed_floats(root, paper_id):
         e.insert(0, img)
 
 
+def embed_multiword_spans(e, p):
+    # Define a utility function to check if text is meaningful
+    def is_meaningful_text(text):
+        if text:
+            # Check for non-whitespace and strip internal newlines/tabs
+            return re.search(r'\S', text) is not None
+        return False
+
+    unstructured_text_spans = []
+
+    # Check if there is text within div (directly at the beginning).
+    # If so, add it into a span element and remove the original
+    if is_meaningful_text(e.text):
+        s = SPAN(e.text)
+        s.attrib['class'] = 'gd_text'
+        s.attrib['id'] = '{}.{}'.format(p, 0)
+        unstructured_text_spans.append(s)
+        e.text = None
+    else:
+        unstructured_text_spans.append(None)
+
+    for i, c in enumerate(e.getchildren()):
+        # If the child's tail contains text, add it to a span. Then remove original
+        if is_meaningful_text(c.tail):
+            s = SPAN(c.tail)
+            s.attrib['class'] = 'gd_text'
+            s.attrib['id'] = '{}.{}'.format(p, i+1)
+            unstructured_text_spans.append(s)
+            c.tail = None
+        else:
+            unstructured_text_spans.append(None)
+
+    # Go in reverse and add each new span in the corresponding location.
+    for i in range(len(unstructured_text_spans) - 1, -1, -1):
+        current_span = unstructured_text_spans[i]
+        if not current_span is None:
+            e.insert(i, current_span)
+
+
 def preprocess_html(tree, paper_id, embed_floats):
     root = tree.getroot()
 
@@ -135,10 +176,45 @@ def preprocess_html(tree, paper_id, embed_floats):
             e.attrib['width'] = None
             e.attrib['height'] = None
 
+    # div containers
+    for iteration_number,e in enumerate(root.xpath('//span')):
+        parent_id = e.get('id')
+        if parent_id is None:
+            parent_id_tail = ''
+            current_element = e.getparent()
+            while current_element is not None:
+                parent_id_tail += '_sub'
+                # Get the 'id' attribute. Returns None if it doesn't exist.
+                ancestor_id = current_element.get('id')
+                # Check if an ID exists and is not an empty string.
+                if ancestor_id:
+                    ancestor_id += parent_id_tail
+                    break
+                # Move up to the next ancestor (the current element's parent).
+                current_element = current_element.getparent()
+            parent_id = ancestor_id+parent_id_tail if ancestor_id is not None else 'span_'+str(iteration_number)
+        
+        embed_multiword_spans(e,parent_id)
+
     # normal paragraphs
     for e in root.xpath('//p'):
         parent_id = e.attrib['id']
-        embed_word_span_tags(e, parent_id)
+
+        # In the original method, each individual word is separated into a new span.
+        # This seems too overcomplicated to me
+        # embed_word_span_tags(e, parent_id)
+
+        # We want to embed entire groups of words. As later we will extract the exact
+        # text selection by the starting character index in the span.
+        embed_multiword_spans(e,parent_id)
+
+    # div containers
+    for e in root.xpath('//div'):
+        if "id" in e.attrib.keys():
+            parent_id = e.attrib['id']
+        else:
+            parent_id = None
+        embed_multiword_spans(e, parent_id)
 
     # captions
     for e in root.xpath('//figcaption'):
@@ -195,6 +271,24 @@ def observe_mi(tree):
     return occurences, identifiers, mi_attribs
 
 
+def observe_comp_tags(tree):
+    comp_tags_dict = dict()
+    comp_tag_attribs = set()
+
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    
+    xpath_selector = " | ".join(['//'+tag for tag in config['COMPOUND_CONCEPT_TAGS']])
+
+    # initialize
+    root = tree.getroot()
+    for e in root.xpath(xpath_selector):
+        comp_tags_dict[e.attrib.get('id')] = e.tag
+        comp_tag_attribs.update(e.attrib)
+
+    return comp_tags_dict, comp_tag_attribs
+
+
 def idf2mc(idf_set):
     # initialize
     idf_dict = dict()
@@ -234,6 +328,7 @@ def main():
     data_dir.mkdir(parents=True, exist_ok=True)
     anno_json = data_dir / '{}_anno.json'.format(paper_id)
     mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
+    cmcdict_json = data_dir / '{}_cmcdict.json'.format(paper_id)
 
     # prevent unintentional overwriting
     if args['--overwrite'] is not True:
@@ -264,6 +359,20 @@ def main():
         for mi_id, concept_id in occurences.items()
     }
 
+
+    comp_tags_dict, comp_attribs = observe_comp_tags(tree)
+    print('# of comppund indentifiers: {}'.format(len(comp_tags_dict)))
+    print('compound tag attributes: {}'.format(', '.join(comp_attribs)))
+
+    compound_anno = {
+        comp_tag_id: {
+            "compound_concept_id": None,
+            "tag_name": comp_tag_type,
+            "sog":[]
+        }
+        for comp_tag_id, comp_tag_type in comp_tags_dict.items()
+    }
+
     # write output files
     logger.info('Writing preprocessed HTML to %s', html_out)
     tree.write(str(html_out), pretty_print=True, encoding='utf-8')
@@ -275,6 +384,10 @@ def main():
                 '_anno_version': '1.0',
                 '_annotator': 'YOUR NAME',
                 'mi_anno': mi_anno,
+                'compound_anno': compound_anno,
+                'eoi_list': [], # Will be assigned on runtime by the user
+                'groups': {},
+                'next_available_group_id': 0
             },
             f,
         )
@@ -286,6 +399,18 @@ def main():
                 '_author': 'YOUR NAME',
                 '_mcdict_version': '1.0',
                 'concepts': idf2mc(identifiers),
+            },
+            f,
+        )
+
+    logger.info('Writing initialized cmcdict template to %s', cmcdict_json)
+    with open(cmcdict_json, 'w') as f:
+        dump_json(
+            {
+                '_author': 'YOUR NAME',
+                '_cmcdict_version': '1.0',
+                'compound_concepts': {},
+                'next_available_cmc_id': 0
             },
             f,
         )

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MioGatto - Group Creator</title>
+    <script type="text/javascript" src="/static/vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script type="text/javascript">
+        window.COMPOUND_CONCEPT_TAGS = {{ compound_concept_tags | tojson }};
+    </script>
+    <script type="text/javascript" src="/static/group_creator.js"></script>
+    <script type="text/javascript" src="/static/nav.js"></script>
+    <script>
+        fetch('nav')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('utility-box').innerHTML = data;
+                window.initializeNavButtons();
+            })
+            .catch(error => console.error('Error loading navigation:', error));
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <main class="main">
+            {{ main_content }}
+        </main>
+
+        <div class="sidebar">
+            <div class="sidebar-tabs">
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_miogatto" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_miogatto">MioGatto v{{ version }}</label>
+                    <div class="tab-content">
+                        <p>Revision: <span style="font-family: monospace;">{{ git_revision }}</span><br />
+                            Paper ID: <span style="font-family: monospace;">{{ paper_id }}</span><br />
+                            Annotator: {{ annotator }}<br />
+                            Links: <a href="https://github.com/wtsnjp/MioGatto/wiki/Annotator's-Guide"
+                                target="_blank">help</a>, <a href="https://github.com/wtsnjp/MioGatto/issues"
+                                target="_blank">bug reports</a></p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_options" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_options">Options</label>
+                    <div class="tab-content">
+                        <p>
+                            <label for="option-mark-eoi">
+                                <input type="checkbox" id="option-mark-eoi">
+                                Show boxes around Equations of Interest
+                            </label><br />
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_utility" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_utility">Utility</label>
+                    <div id="utility-box" class="tab-content"></div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_grouping" type="checkbox" name="tabs" checked="checked">
+                    <label class="tab-title" for="tab_grouping">Grouping</label>
+                    <div id="grouping-box" class="tab-content">
+                        <p>Please select a symbol first.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
