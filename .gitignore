@@ -109,6 +109,7 @@ local/
 notebooks
 .local.vimrc
 static/img/
+static/*.js
 results/
 extra
 libextra
