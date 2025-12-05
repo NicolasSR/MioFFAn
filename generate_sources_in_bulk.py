@@ -2,7 +2,7 @@ import os
 import glob
 import subprocess
 
-def generate_sources_in_bulk(orig_dir):
+def generate_sources_in_bulk(orig_dir, force=False):
     """Generate MioGatto source files for all HTML files in the given directory"""
     
     html_files = glob.glob(os.path.join(orig_dir, "*.html"))
@@ -10,6 +10,8 @@ def generate_sources_in_bulk(orig_dir):
 
     for html_file in html_files:
         command = ['python', '-m', 'tools.preprocess', html_file]
+        if force:
+            command.append("--overwrite")
         
         try:
             result = subprocess.run(command, check=True)
@@ -36,4 +38,8 @@ def generate_sources_in_bulk(orig_dir):
 
     print(f"\nConversion complete: {successful}/{len(html_files)} files successful")
 
-generate_sources_in_bulk("./raw_sources/")
+
+
+if __name__=="__main__":
+
+    generate_sources_in_bulk("./raw_sources/", force=True)

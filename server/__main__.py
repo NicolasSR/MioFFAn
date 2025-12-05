@@ -6,7 +6,7 @@ from docopt import docopt
 from pathlib import Path
 
 from lib.version import VERSION
-from lib.annotation import MiAnno, McDict, CmcDict
+from lib.annotation import MiAnno, McDict
 from server.miogatto import MioGattoServer
 
 # meta
@@ -51,8 +51,8 @@ def routing_functions(server):
     def index():
         return server.index()
 
-    @app.route('/_concept', methods=['POST'])
-    def action_concept():
+    @app.route('/_assign_concept', methods=['POST'])
+    def action_assign_concept():
         return server.assign_concept()
 
     @app.route('/_remove_concept', methods=['POST'])
@@ -66,10 +66,6 @@ def routing_functions(server):
     @app.route('/_update_concept', methods=['POST'])
     def action_update_concept():
         return server.update_concept()
-
-    @app.route('/_update_concept_for_edit_mcdict', methods=['POST'])
-    def action_update_concept_for_edit_mcdict():
-        return server.update_concept_for_edit_mcdict()
 
     @app.route('/_add_sog', methods=['POST'])
     def action_add_sog():
@@ -87,29 +83,9 @@ def routing_functions(server):
     def mcdict_json():
         return server.gen_mcdict_json()
     
-    @app.route('/_comp_concept', methods=['POST'])
-    def action_comp_concept():
-        return server.assign_comp_concept()
-    
-    @app.route('/_remove_comp_concept', methods=['POST'])
-    def action_remove_comp_concept():
-        return server.remove_comp_concept()
-
-    @app.route('/_new_comp_concept', methods=['POST'])
-    def action_new_comp_concept():
-        return server.new_comp_concept()
-
-    @app.route('/_update_comp_concept', methods=['POST'])
-    def action_update_comp_concept():
-        return server.update_comp_concept()
-    
-    @app.route('/_add_comp_sog', methods=['POST'])
-    def action_add_comp_sog():
-        return server.add_comp_sog()
-    
-    @app.route('/_delete_comp_sog', methods=['POST'])
-    def action_delete_comp_sog():
-        return server.delete_comp_sog()
+    @app.route('/mi_anno.json', methods=['GET'])
+    def mi_anno_json():
+        return server.gen_mi_anno_json()
     
     @app.route('/_add_eoi', methods=['POST'])
     def action_add_eoi():
@@ -126,22 +102,14 @@ def routing_functions(server):
     @app.route('/_remove_group', methods=['POST'])
     def action_remove_group():
         return server.remove_group()
-    
-    @app.route('/cmcdict.json', methods=['GET'])
-    def cmcdict_json():
-        return server.gen_cmcdict_json()
 
     @app.route('/sog.json', methods=['GET'])
     def sog_json():
         return server.gen_sog_json()
     
-    @app.route('/comp_sog.json', methods=['GET'])
-    def comp_sog_json():
-        return server.gen_comp_sog_json()
-    
-    @app.route('/hex_to_cmc_map.json', methods=['GET'])
-    def hex_to_cmc_map():
-        return server.gen_hex_to_cmc_map()
+    @app.route('/hex_to_mc_map.json', methods=['GET'])
+    def hex_to_mc_map():
+        return server.gen_hex_to_mc_map()
     
     @app.route('/eoi.json', methods=['GET'])
     def eoi_json():
@@ -154,14 +122,6 @@ def routing_functions(server):
     @app.route('/edit_mcdict', methods=['GET'])
     def edit_mcdict():
         return server.edit_mcdict()
-    
-    @app.route('/edit_cmcdict', methods=['GET'])
-    def edit_cmcdict():
-        return server.edit_cmcdict()
-    
-    @app.route('/edit_compound_concepts', methods=['GET'])
-    def edit_compound_concepts():
-        return server.edit_compound_concepts()
     
     @app.route('/equations_of_interest_selector', methods=['GET'])
     def equations_of_interest_selector():
@@ -202,13 +162,11 @@ def main():
 
     anno_json = data_dir / '{}_anno.json'.format(initial_paper_id)
     mcdict_json = data_dir / '{}_mcdict.json'.format(initial_paper_id)
-    cmcdict_json = data_dir / '{}_cmcdict.json'.format(initial_paper_id)
     source_html = sources_dir / '{}.html'.format(initial_paper_id)
 
     # load the data
     mi_anno = MiAnno(anno_json)
     mcdict = McDict(mcdict_json)
-    cmcdict = CmcDict(cmcdict_json)
     tree = lxml.html.parse(str(source_html))
 
     # run the app
@@ -216,7 +174,7 @@ def main():
 
     # Initialize the server, passing directory context
     server = MioGattoServer(
-        initial_paper_id, tree, mi_anno, mcdict, cmcdict, app.logger, 
+        initial_paper_id, tree, mi_anno, mcdict, app.logger, 
         data_dir=data_dir, 
         sources_dir=sources_dir,
         available_ids=available_ids # Pass the list of all available files

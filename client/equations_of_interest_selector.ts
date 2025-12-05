@@ -2,7 +2,17 @@
 'use strict';
 
 import { post } from "jquery";
-import {escape_selector, eoi_list} from "./common" ;
+import {COMPOUND_CONCEPT_TAGS, escape_selector, eoi_list} from "./common" ;
+
+// --------------------------
+// Get list of tags used as mathematical identifiers ffrom configuration json
+// ------------------------
+
+const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
+
+// --------------------------
+// Highlight EoIs
+// --------------------------
 
 $(function() {
   sessionStorage['equation_id'] = undefined;
@@ -10,7 +20,7 @@ $(function() {
 });
 
 function give_eoi_highlight(){
-  for(let eoi_id of eoi_list.eoi_list) {
+  for(let eoi_id of eoi_list) {
     let eoi_query = $('#' + escape_selector(eoi_id));
     eoi_query.css('background-color', `rgba(#dcf9fa,0.3)`);
   }
@@ -63,7 +73,7 @@ $(function() {
 
       let anno_box = $('#anno-box')
 
-      if (eoi_list.eoi_list.includes(current_equation_id)) {
+      if (eoi_list.includes(current_equation_id)) {
         let button_remove = '<p><button id="remove-eoi">Remove EoI</button>';
         let form_remove = `<form id="form-remove-eoi" method="POST">${hidden}</form>`;
         anno_box.html(button_remove+form_remove)
@@ -115,7 +125,7 @@ $(function() {
 function show_border(equation: JQuery) {
   let equation_id = equation.attr('id')
   if (equation_id != undefined) {
-    if (eoi_list.eoi_list.includes(equation_id) != true) {
+    if (eoi_list.includes(equation_id) != true) {
       equation.attr('mathbackground', '#D3D3D3');
     }
   }
@@ -127,26 +137,3 @@ $(function() {
     show_border(equation);
   });
 })
-
-
-// --------------------------
-// Links to other functionalities
-// --------------------------
-
-$(function() {
-  $('button#edit-concepts').button();
-  $('button#edit-concepts').on('click', function() {
-    let form = $('#edit-concepts-form');
-    form.attr('action', '/');
-    form.trigger("submit");
-  });
-});
-
-$(function() {
-  $('button#edit-compound-concepts').button();
-  $('button#edit-compound-concepts').on('click', function() {
-    let form = $('#edit-compound-concepts-form');
-    form.attr('action', '/edit_compound_concepts');
-    form.trigger("submit");
-  });
-});

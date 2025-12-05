@@ -1,9 +1,13 @@
+import json
+
 # Common utilities
 
-
 def get_mi2idf(tree):
+    raise("mi2idf deprecated. Please update code to use get_mi2hex instead.")
+
+def get_mi2hex(tree):
     root = tree.getroot()
-    mi2idf = dict()
+    mi2hex = dict()
 
     # dirty settings
     non_identifiers = [
@@ -27,15 +31,30 @@ def get_mi2idf(tree):
 
         # None if non-identifiers
         if idf_hex in non_identifiers:
-            mi2idf[mi_id] = None
+            mi2hex[mi_id] = None
             continue
 
-        # detect the idf variant
-        # Note: mathvariant is replaced (None -> default, normal -> roman)
-        idf_var = e.attrib.get('mathvariant', 'default')
-        if idf_var == 'normal':
-            idf_var = 'roman'
+        mi2hex[mi_id] = idf_hex
 
-        mi2idf[mi_id] = {'idf_hex': idf_hex, 'idf_var': idf_var}
+    return mi2hex
 
-    return mi2idf
+def check_missing_variables(variables_list):
+    if any(var is None for var in variables_list):
+        error_message = {
+            "status": "error",
+            "code": "MISSING_FIELDS",
+            "message": f"Some of the following fields were missing or None: {str(variables_list)}"
+        }
+        # Return 400 Bad Request
+        return json.dumps(error_message), 400
+    
+def check_document_edit_id(current_edit_id, edit_id_in_request):     
+    # If the mcdict used in the request differs from the latest, then redirect (i.e., reload the page).
+    if edit_id_in_request is None or str(current_edit_id) != edit_id_in_request:
+        error_message = {
+            "status": "error",
+            "code": "VERSION_MISMATCH",
+            "message": "Invalid Action! The annotation has been modified elsewhere. Reloading.",
+            "action": "reload" # Frontend can check for this string
+        }
+        return json.dumps(error_message), 409
