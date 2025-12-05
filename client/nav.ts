@@ -21,13 +21,6 @@ window.initializeNavButtons = function()  {
         form.trigger("submit");
     });
 
-    $('button#edit-compound-concepts').button();
-    $('button#edit-compound-concepts').on('click', function () {
-        let form = $('#edit-compound-concepts-form');
-        form.attr('action', '/edit_compound_concepts');
-        form.trigger("submit");
-    });
-
     $('button#create-concept-group').button();
     $('button#create-concept-group').on('click', function () {
         let form = $('#create-concept-group-form');

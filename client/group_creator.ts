@@ -1,21 +1,14 @@
 // the MioGatto client. Interface to create custom groups of concepts.
 'use strict';
 
-import { COMPOUND_CONCEPT_TAGS, escape_selector, groups_list} from "./common";
+import { COMPOUND_CONCEPT_TAGS, escape_selector} from "./common";
 import { give_eoi_borders, getGroupLimitsFromUnorderedIds} from "./main_pages_utils";
+
 
 let current_group: JQuery[] = [];
 
 
 $(function () {
-
-    function give_groups_highlight() {
-        for (let group of groups_list.groups_list) {
-            let group_query = $('#' + escape_selector(group.group_id));
-            group_query.css('background-color', `rgba(#f9dcfa,0.3)`);
-        }
-    }
-
     // If mark EoI option is checked, mark EoI borders
     let input_opt_mark_eoi = $('#option-mark-eoi');
     if (input_opt_mark_eoi.prop('checked')) {
@@ -23,11 +16,8 @@ $(function () {
         give_eoi_borders();
     }
 
-    // // Encompass custom groups in spans with proper class and id
-    // build_custom_groups();
-
-    // Mark existing groups
-    give_groups_highlight();
+    // Highlight existing groups
+    $('mstyle.custom-group').css('background-color', 'rgba(#f9dcfa,0.3)');
 });
 
 

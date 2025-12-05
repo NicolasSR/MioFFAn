@@ -3,32 +3,40 @@ from dataclasses import dataclass
 
 
 @dataclass
-class MathIdentifier:
-    """A type of Math identifier"""
+class PrimitiveSymbol:
+    """The most basic symbols that make up mathematical notation (mi elements)"""
+    text: str
+    unicode_name: str | None
 
-    hexcode: str
-    var: str
-
-
+@dataclass
+class SoG:
+    start_id: str
+    stop_id: str
+    type: str
+    
 @dataclass
 class MathConcept:
     """A single Math Concept"""
-
     description: str
-    arity: int
+    tensor_rank: int
     affixes: list[str]
-
-
-@dataclass
-class CompoundMathConcept:
-    """A single Compound Math Concept"""
-    description: str
-    arity: int
-    primitive_concepts: list[str]
+    sog_list: list[SoG]
+    primitive_symbols: list[str]
     
 @dataclass
 class Group:
-    element_ids: list[str]
+    ancestry_level_start: int
+    ancestry_level_stop: int
+    start_id: str
+    stop_id: str
+
+@dataclass
+class Occurence:
+    """Occurence of a concept within the text"""
+    mc_id: str
+    tag_name: str
+
+
     
 
     

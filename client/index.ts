@@ -2,11 +2,21 @@
 'use strict';
 
 import { post } from "jquery";
-import { Identifier, Concept, Source, hex2rgb, dfs_mis, get_idf, mcdict, mcdict_edit_id, sog, escape_selector, get_concept, get_concept_cand, eoi_list } from "./common";
+import {
+    COMPOUND_CONCEPT_TAGS, Source, dfs_comp_tags, mcdict, mcdict_edit_id, mi_anno_edit_id,
+    escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list
+} from "./common";
 import {
     highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
-    reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders
+    reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders, submit_update_concept
 } from "./main_pages_utils"
+
+// --------------------------
+// Get list of tags used as mathematical identifiers ffrom configuration json
+// --------------------------
+
+const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
+
 // --------------------------
 // Options
 // --------------------------
@@ -91,18 +101,20 @@ $(function () {
 // text color
 // --------------------------
 
-function give_color(target: JQuery) {
-    let idf = get_idf(target);
-    let concept = get_concept(idf);
-    if (concept != undefined && concept.color != undefined) {
-        target.css('color', concept.color);
+function give_color($target: JQuery) {
+    const mc_id = get_mc_id_from_query($target)
+    if (mc_id != undefined) {
+        const concept = mcdict[mc_id]
+        if (concept != undefined && concept.color != undefined) {
+            $target.css('color', concept.color);
+        }
     }
 }
 
 $(function () {
-    $('mi').each(function () {
+    $(compound_tags_selector).each(function () {
         give_color($(this));
-    })
+    });
 })
 
 // --------------------------
@@ -110,56 +122,43 @@ $(function () {
 // --------------------------
 
 
-function apply_highlight(sog_nodes: JQuery, idf: Identifier, sog: Source) {
+function apply_highlight(sog_nodes: JQuery, sog: Source, mc_id: string) {
     remove_highlight(sog_nodes);
 
-    let concept = get_concept(idf);
+    let concept = mcdict[mc_id];
     highlight_sog_nodes(concept, sog_nodes, sog, miogatto_options.show_definition)
 
     // embed SoG information for removing
     sog_nodes.attr({
-        'data-sog-mi': sog.mi_id,
+        'data-sog-mc-id': mc_id,
         'data-sog-type': sog.type,
         'data-sog-start': sog.start_id,
-        'data-sog-stop': sog.stop_id,
+        'data-sog-stop': sog.stop_id
     });
 }
 
-
 function give_sog_highlight() {
-    // remove highlight
-    for (let s of sog.sog) {
+    for (let mc_id in mcdict)  {
+        for (let s of mcdict[mc_id].sog_list) {
+            let sog_nodes = sog_to_sog_nodes_for_addition(s)
 
-        let sog_nodes = sog_to_sog_nodes_for_addition(s)
-
-
-        let sog_idf = get_idf($('#' + escape_selector(s.mi_id)));
-
-        if (miogatto_options.limited_highlight && sessionStorage['mi_id'] != undefined) {
-            let cur_mi = $('#' + escape_selector(sessionStorage['mi_id']));
-            let cur_idf = get_idf(cur_mi);
-            if (!(cur_idf.hex == sog_idf.hex && cur_idf.var == sog_idf.var)) {
-                remove_highlight(sog_nodes);
+            const sog_concept_id = mc_id;
+            if (miogatto_options.limited_highlight) {
+                // Option for limited highlighting:
+                // Only highlight sogs related to currently selected sog
+                if (sessionStorage['comp_tag_id'] != undefined) {
+                    const session_mc_id = get_mc_id_from_query($('#' + escape_selector(sessionStorage['comp_tag_id'])))
+                    if (session_mc_id == sog_concept_id) {
+                        apply_highlight(sog_nodes, s, mc_id);
+                    } else {
+                        remove_highlight(sog_nodes);
+                    }
+                } else {
+                    console.log("No mathematical element selected yet.")
+                }
+            } else {
+                apply_highlight(sog_nodes, s, mc_id)
             }
-        }
-    }
-    // apply highlight
-    // for(let s of ) {
-    for (let sog_id = 0; sog_id < sog.sog.length; sog_id++) {
-        const s = sog.sog[sog_id];
-        let sog_nodes = sog_to_sog_nodes_for_addition(s)
-
-        let sog_idf = get_idf($('#' + escape_selector(s.mi_id)));
-
-        if (miogatto_options.limited_highlight && sessionStorage['mi_id'] != undefined) {
-            let cur_mi = $('#' + escape_selector(sessionStorage['mi_id']));
-            let cur_idf = get_idf(cur_mi);
-            if (cur_idf.hex == sog_idf.hex && cur_idf.var == sog_idf.var) {
-                apply_highlight(sog_nodes, sog_idf, s);
-            }
-        } else {
-            // always apply
-            apply_highlight(sog_nodes, sog_idf, s);
         }
     }
 }
@@ -174,14 +173,13 @@ $(function () {
         hide: false,
         items: '[data-math-concept]',
         content: function () {
-            let idf = get_idf($(this));
-            let concept = get_concept(idf);
+            let concept = mcdict[get_mc_id_from_query($(this))!];
             if (concept != undefined) {
                 let args_info = 'NONE';
                 if (concept.affixes.length > 0) {
                     args_info = concept.affixes.join(', ');
                 }
-                return `${concept.description} <span style="color: #808080;">[${args_info}] (arity: ${concept.arity})</span>`;
+                return `${concept.description} <span style="color: #808080;">[${args_info}] (rank: ${concept.tensor_rank})</span>`;
             } else {
                 return '(No description)';
             }
@@ -195,217 +193,330 @@ $(function () {
 });
 
 // --------------------------
+// Comp Tag selection
+// --------------------------
+
+function select_comp_tag($comp_tag: JQuery) {
+    console.log('Selected: ', $comp_tag)
+    // if already selected, remove it
+    let old_comp_tag_id = sessionStorage.getItem('comp_tag_id');
+    if (old_comp_tag_id != undefined) {
+        $('#' + escape_selector(old_comp_tag_id)).css({'border': '', 'padding': ''});
+    }
+
+    // store id of the currently selected mi
+    sessionStorage['comp_tag_id'] = $comp_tag.attr('id');
+
+    // show the annotation box
+    show_anno_box($comp_tag);
+
+    // also update SoG highlight
+    if (localStorage['option-limited-highlight'] == 'true') {
+        miogatto_options.limited_highlight = true;
+    }
+    give_sog_highlight();
+}
+
+// --------------------------
 // Annotation box
 // --------------------------
 
-$(function () {
-    // show the box for annotation in the sidebar 
-    function draw_anno_box(mi_id: string, idf: Identifier, concept_cand: Concept[]) {
-        // construct the form with the candidate list
-        let hidden = `<input type="hidden" name="mi_id" value="${mi_id}" />`;
-        let radios = '';
+// show the box for annotation in the sidebar 
+function draw_anno_box(comp_tag_id: string, mc_candidates: string[]) {
 
-        for (let concept_id in concept_cand) {
-            let concept = concept_cand[concept_id];
+    let radios = '';
+    for (let mc_radio_num in mc_candidates) {
+        const mc_candidate_id = mc_candidates[mc_radio_num];
+        const mc_candidate = mcdict[mc_candidate_id]
+        
+        // If mc was already assigned to the comp_tag, then check the corresponding radio button
+        const check = (mc_candidate_id == get_mc_id_from_query($('#' + escape_selector(comp_tag_id)))) ? 'checked' : ''
 
-            let check = (Number(concept_id) == idf.concept) ? 'checked' : '';
-            let input = `<input type="radio" name="concept" id="c${concept_id}" value="${concept_id}" ${check} />`;
+        let radio_input = `<input type="radio" name="mc_id" id="c${mc_radio_num}" value="${mc_candidate_id}" ${check} />`;
+        
+        let args_info = 'NONE';
+        if (mc_candidate.affixes.length > 0) {
+            args_info = mc_candidate.affixes.join(', ');
+        }
 
-            let args_info = 'NONE';
-            if (concept.affixes.length > 0) {
-                args_info = concept.affixes.join(', ');
-            }
-
-            let item = `${input}<span class="keep"><label for="c${concept_id}">
-${concept.description} <span style="color: #808080;">[${args_info}] (arity: ${concept.arity})</span>
-(<a class="edit-concept" data-mi="${mi_id}" data-concept="${concept_id}" href="javascript:void(0);">edit</a>)
+        let item = `${radio_input}<span class="keep"><label for="c${mc_radio_num}">
+${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor_rank: ${mc_candidate.tensor_rank})</span>
+(<a class="edit-concept" data-mc-id="${mc_candidate_id}" href="javascript:void(0);">edit</a>)
 </label></span>`
-            radios += item;
-        }
-
-        let cand_list = `<div class="keep">${radios}</div>`;
-        let buttons = '<p><button id="assign-concept">Assign</button> <button id="remove-concept" type="button">Remove</button> <button id="new-concept" type="button">New</button></p>'
-        let form_elements = hidden + cand_list + buttons
-
-        let form_str = `<form id="form-${mi_id}" method="POST">${form_elements}</form>`;
-
-        // show the box
-        let id_span = `ID: <span style="font-family: monospace;">${mi_id}</span>`
-        let anno_box_content = `<p>${id_span}<hr color="#FFF">${form_str}</p>`
-
-        //console.debug(anno_box_content);
-
-        // write the content
-        let anno_box = $('#anno-box')
-        anno_box.html(anno_box_content);
-
-        // assign chosen concept
-        $('button#assign-concept').button();
-        $('button#assign-concept').on('click', function () {
-            let form = anno_box.find(`#form-${escape_selector(mi_id)}`);
-            if ($(`#form-${escape_selector(mi_id)} input:checked`).length > 0) {
-                localStorage['scroll_top'] = $(window).scrollTop();
-                form.attr('action', '/_concept');
-                form.append(`<input type="hidden" name="mcdict_edit_id" value="${mcdict_edit_id}" />`)
-                form.trigger("submit");
-            } else {
-                alert('Please select a concept.');
-                return false;
-            }
-        });
-
-        // remove assignment
-        $('button#remove-concept').button();
-        $('button#remove-concept').on('click', function () {
-            let form = anno_box.find(`#form-${escape_selector(mi_id)}`);
-            form.attr('action', '/_remove_concept');
-            form.append(`<input type="hidden" name="mcdict_edit_id" value="${mcdict_edit_id}" />`)
-            form.trigger("submit");
-        });
-
-        // enable concept dialogs
-        new_concept_button(idf);
-        $('a.edit-concept').on('click', function () {
-            let mi_id = $(this).attr('data-mi');
-            let concept_id = $(this).attr('data-concept');
-
-            if (mi_id != undefined && concept_id != undefined) {
-                let idf = get_idf($('#' + escape_selector(mi_id)));
-                edit_concept(idf, Number(concept_id));
-            }
-        });
-
-        // give colors at the same time
-        $('mi').each(function () {
-            give_color($(this));
-        })
+        radios += item;
     }
 
-    function show_anno_box(mi: JQuery) {
-        // highlight the selected element
-        mi.attr('style', 'border: dotted 2px #000000; padding: 10px;');
+    let candidates_list = `<div class="keep" id="mc-radio-list-${comp_tag_id}">${radios}</div>`;
+    let buttons = '<p><button id="assign-concept">Assign</button> <button id="remove-concept" type="button">Remove</button> <button id="new-concept" type="button">New</button></p>'
+    let form_elements = candidates_list + buttons
 
-        // prepare idf and get candidate concepts
-        let idf = get_idf(mi);
-        let concept_cand = get_concept_cand(idf);
+    // show the box
+    let id_span = `ID: <span style="font-family: monospace;">${comp_tag_id}</span>`
+    let anno_box_content = `<p>${id_span}<hr color="#FFF">${form_elements}</p>`
 
-        // draw the annotation box
-        let mi_id = mi.attr('id');
-        if (concept_cand != undefined && mi_id != undefined) {
-            if (concept_cand.length > 0) {
-                draw_anno_box(mi_id, idf, concept_cand);
-            } else {
-                let id_span = `ID: <span style="font-family: monospace;">${mi_id}</span>`
-                let no_concept = '<p>No concept is available.</p>'
-                let button = '<p><button id="new-concept" type="button">New</button></p>'
-                let msg = `<p>${id_span}<hr color="#FFF">${no_concept}${button}</p>`
-                $('#anno-box').html(msg);
-
-                // enable the button
-                new_concept_button(idf);
-            }
+    // write the content
+    let anno_box = $('#anno-box')
+    anno_box.html(anno_box_content);
+    
+    // assign chosen concept
+    $('button#assign-concept').button();
+    $('button#assign-concept').on('click', function () {
+        const checked_item = anno_box.find('input[name="mc_id"]:checked');
+        if (checked_item.length == 1) {
+            const mc_id = checked_item.attr('value')!
+            submit_assign_concept(comp_tag_id, mc_id)
+        } else {
+            alert('Please select a concept.');
+            return false;
         }
-    }
+    });
 
-    function new_concept_button(idf: Identifier) {
-        $('button#new-concept').button();
-        $('button#new-concept').on('click', function () {
-            let concept_dialog = $('#concept-dialog-template').clone();
-            concept_dialog.attr('id', 'concept-dialog');
-            concept_dialog.removeClass('concept-dialog');
-            let form = concept_dialog.find('#concept-form');
-            form.attr('action', '/_new_concept');
-
-            concept_dialog.dialog({
-                modal: true,
-                title: 'New Concept',
-                width: 500,
-                buttons: {
-                    'OK': function () {
-                        localStorage['scroll_top'] = $(window).scrollTop();
-                        form.append(`<input type="hidden" name="mcdict_edit_id" value="${mcdict_edit_id}" />`)
-                        form.append(`<input type="hidden" name="idf_hex" value="${idf.hex}" />`);
-                        form.append(`<input type="hidden" name="idf_var" value="${idf.var}" />`);
-                        form.trigger("submit");
-                    },
-                    'Cancel': function () {
-                        $(this).dialog('close');
-                    }
-                },
-                close: function () {
-                    $(this).remove();
+    // remove assignment
+    $('button#remove-concept').button();
+    $('button#remove-concept').on('click', function () {
+        fetch('/_remove_concept', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                mi_anno_edit_id: mi_anno_edit_id,
+                comp_tag_id: comp_tag_id
+            }),
+        }).then(async(response) => {
+            const data = await response.json()
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                if (data.action === 'reload') {
+                    alert(data.message);
+                    window.location.reload(); // Manually trigger the reload here
                 }
-            });
+                console.error("Error:", data.message);
+                alert("Error: " + data.message);
+                return;
+            }
+        }).catch(error => {
+            console.error('Error removing concept:', error);
         });
+    });
+
+    // enable concept dialogs
+    new_concept_button(comp_tag_id);
+    $('a.edit-concept').on('click', function () {
+        let mc_id = $(this).attr('data-mc-id');
+        if (mc_id != undefined) {
+            edit_concept(mc_id);
+        }
+    });
+
+    // give colors at the same time
+    $(compound_tags_selector).each(function () {
+        give_color($(this));
+    });
+}
+
+function show_anno_box($comp_tag_node: JQuery) {
+    // highlight the selected element
+    $comp_tag_node.css({'border': 'dotted 2px #000000', 'padding': '10px'});
+
+    // Get candidate concepts
+    let concept_cand = get_concept_cand($comp_tag_node);
+    console.log('concept_cand', concept_cand)
+
+    // draw the annotation box
+    let comp_tag_id = $comp_tag_node.attr('id');
+    if (concept_cand != undefined && comp_tag_id != undefined) {
+        if (concept_cand.length > 0) {
+            draw_anno_box(comp_tag_id, concept_cand);
+        } else {
+            let id_span = `ID: <span style="font-family: monospace;">${comp_tag_id}</span>`
+            let no_concept = '<p>No concept is available.</p>'
+            let button = '<p><button id="new-concept" type="button">New</button></p>'
+            let msg = `<p>${id_span}<hr color="#FFF">${no_concept}${button}</p>`
+            $('#anno-box').html(msg);
+
+            // enable the button
+            new_concept_button(comp_tag_id);
+        }
     }
+}
 
-    function edit_concept(idf: Identifier, concept_id: number) {
+function submit_assign_concept(comp_tag_id: string, mc_id: string) {
+    const tag_name: string = $('#' + escape_selector(comp_tag_id)).prop("tagName").toLowerCase()
+
+    fetch('/_assign_concept', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            mi_anno_edit_id: mi_anno_edit_id,
+            comp_tag_id: comp_tag_id,
+            mc_id: mc_id,
+            tag_name: tag_name
+        }),
+    }).then(async(response) => {
+        const data = await response.json();
+        if (response.ok) {
+            // Just reload the page
+            window.location.reload();
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error assigning concept:', error);
+    });
+}
+
+function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElement>) {
+
+    const description = concept_dialog.find('textarea[name="description"]').val()
+    const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
+    let affixes: string[] = [];
+    for (let idx = 0; idx < 10; idx++) {  // This is hardcoded for now. Should be changed.
+        const affix_value = concept_dialog.find(`select[name="affixes${idx}"]`).find(
+        `option:selected`).attr('value');
+        if (affix_value !== undefined && affix_value !== '') {
+            affixes.push(affix_value)
+        }
+    }
+    const primitive_symbols = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)))
+
+    fetch('/_new_concept', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            description: description,
+            tensor_rank: tensor_rank,
+            affixes: affixes,
+            primitive_symbols: primitive_symbols
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            // If concept is correctly created, assign it to the current comp_tag_id
+            submit_assign_concept(comp_tag_id, data.mc_id)
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error creating concept:', error);
+    });
+}
+
+function new_concept_button(comp_tag_id: string) {
+    console.log("NEW CONCEPT BUTTON entered")
+    $('button#new-concept').button();
+    $('button#new-concept').on('click', function () {
         let concept_dialog = $('#concept-dialog-template').clone();
-        concept_dialog.removeAttr('id');
-        let form = concept_dialog.find('#concept-form');
-        form.attr('action', '/_update_concept');
-
-        // put the current values
-        let concept = mcdict[idf.hex][idf.var][concept_id];
-        form.find('textarea').text(concept.description);
-        form.find('input[name="arity"]').attr('value', concept.arity);
-        concept.affixes.forEach(function (value, idx) {
-            form.find(`select[name="affixes${idx}"]`).find(
-                `option[value="${value}"]`).prop('selected', true);
-        })
+        concept_dialog.attr('id', 'concept-dialog');
+        concept_dialog.removeClass('concept-dialog');
 
         concept_dialog.dialog({
             modal: true,
-            title: 'Edit Concept',
+            title: 'New Concept',
             width: 500,
             buttons: {
-                'OK': function () {
+                'OK': function() {
                     localStorage['scroll_top'] = $(window).scrollTop();
-                    form.append(`<input type="hidden" name="mcdict_edit_id" value="${mcdict_edit_id}" />`)
-                    form.append(`<input type="hidden" name="idf_hex" value="${idf.hex}" />`)
-                    form.append(`<input type="hidden" name="idf_var" value="${idf.var}" />`)
-                    form.append(`<input type="hidden" name="concept_id" value="${concept_id}" />`)
-                    form.trigger("submit");
+                    submit_new_concept(comp_tag_id, concept_dialog);
                 },
-                'Cancel': function () {
+                'Cancel': function() {
                     $(this).dialog('close');
                 }
+            },
+            close: function() {
+                $(this).remove();
             }
         });
-    }
-
-    $('mi').on('click', function () {
-        // if already selected, remove it
-        let old_mi_id = sessionStorage.getItem('mi_id');
-        if (old_mi_id != undefined) {
-            $('#' + escape_selector(old_mi_id)).removeAttr('style');
-        }
-
-        // store id of the currently selected mi
-        sessionStorage['mi_id'] = $(this).attr('id');
-
-        // show the annotation box
-        show_anno_box($(this));
-
-        // also update SoG highlight
-        if (localStorage['option-limited-highlight'] == 'true') {
-            miogatto_options.limited_highlight = true;
-        }
-        give_sog_highlight();
     });
+}
 
-    // keep position and sidebar content after submiting the form
-    // This '$(window).scrollTop' seems redundant but somehow fixes the page position problems...
-    $(window).scrollTop(localStorage['scroll_top']);
-    let mi_id = sessionStorage['mi_id'];
-    if (mi_id != undefined) {
-        show_anno_box($('#' + escape_selector(mi_id)));
-    }
+function edit_concept(mc_id: string) {
+    let concept_dialog = $('#concept-dialog-template').clone();
+    concept_dialog.removeAttr('id');
+
+    const concept = mcdict[mc_id];
+    let $description_node = concept_dialog.find('textarea[name="description"]');
+    let $tensor_rank_node = concept_dialog.find('input[name="tensor-rank"]');
+
+    // put the current values
+    $description_node.text(concept.description);
+    $tensor_rank_node.attr('value', concept.tensor_rank);
+    concept.affixes.forEach(function (value, idx) {
+        concept_dialog.find(`select[name="affixes${idx}"]`).find(
+            `option[value="${value}"]`).prop('selected', true);
+    })
+
+    concept_dialog.dialog({
+        modal: true,
+        title: 'Edit Concept',
+        width: 500,
+        buttons: {
+            'OK': function () {
+                localStorage['scroll_top'] = $(window).scrollTop();
+                submit_update_concept(mc_id, concept_dialog)
+            },
+            'Cancel': function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+$(function () {
+    $(compound_tags_selector).on('click', function () {
+        select_comp_tag($(this));
+    });
 });
 
 // --------------------------
 // SoG Registration
 // --------------------------
+
+function submit_change_sog_type(sog_mc_id: string, sog_start_id: string, sog_stop_id: string, sog_type: string){
+    fetch('/_change_sog_type', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            mc_id: sog_mc_id,
+            start_id: sog_start_id,
+            stop_id: sog_stop_id,
+            sog_type: sog_type
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            // Just reload the page
+            window.location.reload();
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error updating type of Source of Grounding:', error);
+    });
+}
 
 $(function () {
     let page_x: number;
@@ -425,13 +536,12 @@ $(function () {
         $('.sog-menu input[type=submit]').button();
 
         // ----- Action SoG add -----
-        let mi_id = sessionStorage['mi_id'];
+        let comp_tag_id = sessionStorage['comp_tag_id'];
 
-        // show it only if an mi with concept annotation selected
-        if (mi_id != undefined) {
-            let idf = get_idf($('#' + escape_selector(mi_id)));
-            let concept = get_concept(idf);
-            if (concept != undefined) {
+        // show it only if a comp_tag with concept annotation selected
+        if (comp_tag_id != undefined) {
+            const mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)))
+            if (mc_id != undefined) {
                 $('.sog-menu').css({
                     'left': page_x,
                     'top': page_y - 20
@@ -440,8 +550,8 @@ $(function () {
         }
 
         // show the current target
-        let id_span = `<span style="font-family: monospace;">${mi_id}</span>`;
-        let add_menu_info = `<p>Selected mi: ${id_span}</p>`;
+        let id_span = `<span style="font-family: monospace;">${comp_tag_id}</span>`;
+        let add_menu_info = `<p>Selected tag: ${id_span}</p>`;
         $('.sog-add-menu-info').html(add_menu_info);
 
         // the add function
@@ -456,53 +566,56 @@ $(function () {
                     let [anchor_local_id, focus_local_id] = handle_selection_ends(anchor_id, focus_id)
                     let [start_local_id, stop_local_id] = reorder_anchor_and_focus_ids(anchor_local_id, focus_local_id)
 
-
-                    console.log('selected local ids');
-                    console.log([start_local_id, stop_local_id]);
-
-                    // post the data
-                    let post_data = {
-                        'mcdict_edit_id': mcdict_edit_id,
-                        'mi_id': mi_id,
-                        'start_id': start_local_id,
-                        'stop_id': stop_local_id
-                    };
+                    const mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)))
 
                     localStorage['scroll_top'] = $(window).scrollTop();
 
-                    $.when($.post('/_add_sog', post_data))
-                        .done(function () {
-                            location.reload();
-                        })
-                        .fail(function () {
-                            console.error('Failed to POST _add_sog!');
-                        });
+                    fetch('/_add_sog', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            mcdict_edit_id: mcdict_edit_id,
+                            mc_id: mc_id,
+                            start_id: start_local_id,
+                            stop_id: stop_local_id
+                        }),
+                    }).then(async (response) => {
+                        const data = await response.json();
+                        if (response.ok) {
+                            // Just reload the page
+                            window.location.reload();
+                        } else {
+                            if (data.action === 'reload') {
+                                alert(data.message);
+                                window.location.reload(); // Manually trigger the reload here
+                            }
+                            console.error("Error:", data.message);
+                            alert("Error: " + data.message);
+                            return;
+                        }
+                    }).catch(error => {
+                        console.error('Error adding Source of Grounding:', error);
+                    });
                 }
-
             });
 
         // ----- SoG menu -----
 
-        let sog_mi_id = parent.getAttribute('data-sog-mi');
+        let sog_mc_id = parent.getAttribute('data-sog-mc-id');
         let sog_type_int = Number(parent.getAttribute('data-sog-type'));
         let sog_start_id = parent.getAttribute('data-sog-start');
         let sog_stop_id = parent.getAttribute('data-sog-stop');
 
         // Do not show sog-mod-menu when the sog is not highlighted.
         let is_sog_highlighted = true;
-        if (miogatto_options.limited_highlight && mi_id != undefined && sog_mi_id != undefined) {
-            let cur_mi = $('#' + escape_selector(mi_id));
-            let cur_idf = get_idf(cur_mi);
-
-            let sog_idf = get_idf($('#' + escape_selector(sog_mi_id)));
-
-            if (!(cur_idf.hex == sog_idf.hex && cur_idf.var == sog_idf.var)) {
+        if (miogatto_options.limited_highlight && comp_tag_id != undefined && sog_mc_id != undefined) {
+            let cur_mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)));
+            if (!(cur_mc_id == sog_mc_id )) {
                 is_sog_highlighted = false;
             }
         }
-
         // show it only if SoG is selected and highlighted.
-        if (parent?.getAttribute('data-sog-mi') != undefined && is_sog_highlighted) {
+        if (parent?.getAttribute('data-sog-mc-id') != undefined && is_sog_highlighted) {
             $('.sog-mod-menu').css('display', 'inherit');
         } else {
             $('.sog-mod-menu').css('display', 'none');
@@ -516,8 +629,8 @@ $(function () {
         } else if (sog_type_int == 2) {
             sog_type = 'others';
         }
-        let id_span_for_sog = `<span style="font-family: monospace;">${sog_mi_id}</span>`;
-        let mod_menu_info = `<p>SoG for ${id_span_for_sog}<br/>Type: ${sog_type}</p>`;
+
+        let mod_menu_info = `<p>SoG for ${id_span}<br/>Type: ${sog_type}</p>`;
         $('.sog-mod-menu-info').html(mod_menu_info);
 
         // ----- Action SoG change type -----
@@ -535,9 +648,7 @@ $(function () {
                 sog_type_dialog.attr('id', 'sog-type-dialog');
                 sog_type_dialog.removeClass('sog-type-dialog');
 
-                let form = sog_type_dialog.find('#sog-type-form');
-                form.attr('action', '/_change_sog_type');
-
+                // Mark the initial SoG type in the form
                 sog_type_dialog.find(`input[value="${sog_type_int}"]`).prop('checked', true);
 
                 sog_type_dialog.dialog({
@@ -546,12 +657,15 @@ $(function () {
                     width: 200,
                     buttons: {
                         'OK': function () {
-                            localStorage['scroll_top'] = $(window).scrollTop();
-                            form.append(`<input type="hidden" name="mcdict_edit_id" value="${mcdict_edit_id}" />`)
-                            form.append(`<input type="hidden" name="mi_id" value="${sog_mi_id}" />`);
-                            form.append(`<input type="hidden" name="start_id" value="${sog_start_id}" />`);
-                            form.append(`<input type="hidden" name="stop_id" value="${sog_stop_id}" />`);
-                            form.trigger("submit");
+                            const checked_item = sog_type_dialog.find('input[name="sog_type"]:checked');
+                            if (checked_item.length == 1) {
+                                localStorage['scroll_top'] = $(window).scrollTop();
+                                const new_sog_type = checked_item.attr('value')!
+                                submit_change_sog_type(sog_mc_id!, sog_start_id!, sog_stop_id!, new_sog_type)
+                            } else {
+                                alert('Please select a sog type.');
+                                return false;
+                            }    
                         },
                         'Cancel': function () {
                             $(this).dialog('close');
@@ -574,23 +688,34 @@ $(function () {
                 if (parent == undefined)
                     return;
 
-                // post the data
-                let post_data = {
-                    'mcdict_edit_id': mcdict_edit_id,
-                    'mi_id': parent.getAttribute('data-sog-mi'),
-                    'start_id': parent.getAttribute('data-sog-start'),
-                    'stop_id': parent.getAttribute('data-sog-stop'),
-                };
-
                 localStorage['scroll_top'] = $(window).scrollTop();
 
-                $.when($.post('/_delete_sog', post_data))
-                    .done(function () {
-                        location.reload();
-                    })
-                    .fail(function () {
-                        console.error('Failed to POST _delete_sog!');
-                    })
+                fetch('/_delete_sog', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        mcdict_edit_id: mcdict_edit_id,
+                        mc_id: parent.getAttribute('data-sog-mc-id'),
+                        start_id: parent.getAttribute('data-sog-start'),
+                        stop_id: parent.getAttribute('data-sog-stop')
+                    }),
+                }).then(async (response) => {
+                    const data = await response.json();
+                    if (response.ok) {
+                        // Just reload the page
+                        window.location.reload();
+                    } else {
+                        if (data.action === 'reload') {
+                            alert(data.message);
+                            window.location.reload(); // Manually trigger the reload here
+                        }
+                        console.error("Error:", data.message);
+                        alert("Error: " + data.message);
+                        return;
+                    }
+                }).catch(error => {
+                    console.error('Error deleting Source of Grounding:', error);
+                });
             });
     });
 });
@@ -600,16 +725,14 @@ $(function () {
 // --------------------------
 
 // for the identifiers that have not been annotated
-function show_border(target: JQuery) {
-    let idf = get_idf(target);
-    let concept_cand = get_concept_cand(idf);
-    if (target.data('math-concept') == undefined && concept_cand != undefined)
-        target.attr('mathbackground', '#D3D3D3');
+function give_gray_background(target: JQuery) {
+    if (target.data('math-concept') == undefined)
+        target.css('background-color', '#D3D3D3');
 }
 
 $(function () {
-    $('mi').each(function () {
-        show_border($(this));
+    $(compound_tags_selector).each(function () {
+        give_gray_background($(this));
     });
 })
 
@@ -620,7 +743,7 @@ $(function () {
 function select_concept(num: number) {
     let elem = $(`#c${num - 1}`);
     if (elem[0]) {
-        $('input[name="concept"]').prop('checked', false);
+        $('input[name="mc_id"]').prop('checked', false);
         $(`#c${num - 1}`).prop('checked', true);
     }
 }
@@ -644,10 +767,10 @@ $(document).on('keydown', function (event) {
 });
 
 $(document).on('keydown', function (event) {
-    if (event.key == 'j') {
-        $('button#jump-to-next-unannotated-mi').trigger('click');
-    } else if (event.key == 'k') {
-        $('button#jump-to-prev-unannotated-mi').trigger('click');
+    if (event.key == 'k') {
+        $('button#jump-to-next-comp-tag').trigger('click');
+    } else if (event.key == 'j') {
+        $('button#jump-to-prev-comp-tag').trigger('click');
     }
 });
 
@@ -656,134 +779,87 @@ $(document).on('keydown', function (event) {
 // Utilities 
 // --------------------------
 
+let comp_tag_list: JQuery[] = [];
+let comp_tag_id2index: { [comp_tag_id: string]: number } = {};
 
-let mi_list: JQuery[] = [];
-let mi_id2index: { [mi_id: string]: number } = {};
-
-// Update mi_list after loading html.
+// Update comp_tag_list after loading html.
 $(function () {
     // Load mi_list.
-    mi_list = dfs_mis($(":root"));
+    comp_tag_list = dfs_comp_tags($(":root"));
 
-    for (let i = 0; i < mi_list.length; i++) {
-        let mi_id = mi_list[i].attr('id');
+    for (let i = 0; i < comp_tag_list.length; i++) {
+        let comp_tag_id = comp_tag_list[i].attr('id');
 
-        if (mi_id != undefined) {
-            mi_id2index[mi_id] = i;
+        if (comp_tag_id != undefined) {
+            comp_tag_id2index[comp_tag_id] = i;
         } else {
-            console.error('mi_id undefiend!');
+            console.error('comp_tag_id undefiend!');
             console.error(i);
-            console.error(mi_list[i]);
+            console.error(comp_tag_list[i]);
         }
     }
 });
 
-// Search the next unannotated mi starting from start_index.
-function get_next_unannotated_mi_index(start_index: number): number | undefined {
-    // Loop over mi_list at most once.
-    for (let count = 0; count < mi_list.length; count++) {
-        let index: number = (start_index + count) % mi_list.length;
-
-        let mi: JQuery<any> = mi_list[index];
-
-        // Check if the mi is unannotated.
-        if (get_concept(get_idf(mi)) == undefined) {
-            return index;
-        }
-    }
-    // Return undefined if there is no unannotated mi.
-    return undefined;
-}
-
-// Search the next unannotated mi starting from start_index.
-function get_prev_unannotated_mi_index(start_index: number): number | undefined {
-    // Loop over mi_list at most once.
-    for (let count = mi_list.length; count > 0; count--) {
-        let index: number = (start_index + count) % mi_list.length;
-
-        let mi: JQuery<any> = mi_list[index];
-
-        // Check if the mi is unannotated.
-        if (get_concept(get_idf(mi)) == undefined) {
-            return index;
-        }
-    }
-    // Return undefined if there is no unannotated mi.
-    return undefined;
-}
-
 $(function () {
-    $('button#jump-to-next-mi').button();
-    $('button#jump-to-next-mi').on('click', function () {
-        // First set this value so that the next mi is the first unannotated mi when mi_id is not stored.
-        let current_index: number = mi_list.length - 1
+    $('button#jump-to-next-comp-tag').button();
+    $('button#jump-to-next-comp-tag').on('click', function () {
+        // First set this value so that the next comp tag is the first one when comp_tag_id is not stored.
+        let current_index: number = comp_tag_list.length - 1;
 
-        // Use the stored mi_id if there is.
-        if ((sessionStorage['mi_id'] != undefined) && (sessionStorage['mi_id'] in mi_id2index)) {
-            current_index = mi_id2index[sessionStorage['mi_id']];
+        // Use the stored comp_tag_id if there is.
+        if ((sessionStorage['comp_tag_id'] != undefined) && (sessionStorage['comp_tag_id'] in comp_tag_id2index)) {
+            current_index = comp_tag_id2index[sessionStorage['comp_tag_id']];
         }
 
-        // Start searching the next unannotated mi from start_index.
-        let start_index: number = (current_index + 1) % mi_list.length
+        // Get next index and comp tag.
+        const next_index: number = (current_index + 1) % comp_tag_list.length;
+        const next_comp_tag = comp_tag_list[next_index];
 
-        let next_index: number | undefined = get_next_unannotated_mi_index(start_index);
+        const jump_dest = next_comp_tag?.offset()?.top;
+        const window_height = $(window).height();
+        if (jump_dest != undefined && window_height != undefined) {
+            $(window).scrollTop(jump_dest - (window_height / 2));
 
-        // Do nothing if there is no unannotated mi.
-        if (next_index != undefined) {
-            let next_unannotated_mi = mi_list[next_index]
-
-            let jump_dest = next_unannotated_mi?.offset()?.top;
-            let window_height = $(window).height();
-            if (jump_dest != undefined && window_height != undefined) {
-                $(window).scrollTop(jump_dest - (window_height / 2));
-
-                // Click the next mi.
-                next_unannotated_mi.trigger('click');
-            }
+            // Click the next mi.
+            select_comp_tag(next_comp_tag);
         }
     });
 
-    $('button#jump-to-prev-mi').button();
-    $('button#jump-to-prev-mi').on('click', function () {
-        // First set this value so that the prev mi is the last unannotated mi when mi_id is not stored.
+    $('button#jump-to-prev-comp-tag').button();
+    $('button#jump-to-prev-comp-tag').on('click', function () {
+        // First set this value so that the prev comp tag is the last one when comp_tag_id is not stored.
         let current_index: number = 0
 
-        // Use the stored mi_id if there is.
-        if ((sessionStorage['mi_id'] != undefined) && (sessionStorage['mi_id'] in mi_id2index)) {
-            current_index = mi_id2index[sessionStorage['mi_id']];
+        // Use the stored comp_tag_id if there is.
+        if ((sessionStorage['comp_tag_id'] != undefined) && (sessionStorage['comp_tag_id'] in comp_tag_id2index)) {
+            current_index = comp_tag_id2index[sessionStorage['comp_tag_id']];
         }
 
-        // Start searching the prev unannotated mi from start_index.
-        let start_index: number = (current_index + mi_list.length - 1) % mi_list.length
+        // Get previous index and comp tag.
+        const prev_index: number = (current_index + comp_tag_list.length - 1) % comp_tag_list.length;
+        const prev_comp_tag = comp_tag_list[prev_index]
 
-        let prev_index: number | undefined = get_prev_unannotated_mi_index(start_index);
+        const jump_dest = prev_comp_tag?.offset()?.top;
+        const window_height = $(window).height();
+        if (jump_dest != undefined && window_height != undefined) {
+            $(window).scrollTop(jump_dest - (window_height / 2));
 
-        // Do nothing if there is no unannotated mi.
-        if (prev_index != undefined) {
-            let prev_unannotated_mi = mi_list[prev_index]
-
-            let jump_dest = prev_unannotated_mi?.offset()?.top;
-            let window_height = $(window).height();
-            if (jump_dest != undefined && window_height != undefined) {
-                $(window).scrollTop(jump_dest - (window_height / 2));
-
-                // Click the prev mi.
-                prev_unannotated_mi.trigger('click');
-            }
+            // Click the prev mi.
+            select_comp_tag(prev_comp_tag);
         }
     });
 
 });
 
 $(function () {
-    $('button#back-to-selected-mi').button();
-    $('button#back-to-selected-mi').on('click', function () {
-        // Do nothing if no mi is stored.
-        if (sessionStorage['mi_id'] != undefined) {
-            let selected_mi = $('#' + escape_selector(sessionStorage['mi_id']))
+    $('button#back-to-selected-comp-tag').button();
+    $('button#back-to-selected-comp-tag').on('click', function () {
+        // Do nothing if no comp_tag is stored.
+        if (sessionStorage['comp_tag_id'] != undefined) {
+            const selected_comp_tag = $('#' + escape_selector(sessionStorage['comp_tag_id']))
 
-            let jump_dest = selected_mi?.offset()?.top;
-            let window_height = $(window).height();
+            const jump_dest = selected_comp_tag?.offset()?.top;
+            const window_height = $(window).height();
             if (jump_dest != undefined && window_height != undefined) {
                 $(window).scrollTop(jump_dest - (window_height / 2));
             }
@@ -793,44 +869,10 @@ $(function () {
 
 });
 
-$(function () {
-    $('button#edit-mcdict').button();
-    $('button#edit-mcdict').on('click', function () {
-        let form = $('#edit-mcdict-form');
-        form.attr('action', '/edit_mcdict');
-        form.trigger("submit");
-    });
-
-});
-
-$(function () {
-    $('button#edit-compound-concepts').button();
-    $('button#edit-compound-concepts').on('click', function () {
-        let form = $('#edit-compound-concepts-form');
-        form.attr('action', '/edit_compound_concepts');
-        form.trigger("submit");
-    });
-});
-
-$(function () {
-    $('button#edit-equations-of-interest').button();
-    $('button#edit-equations-of-interest').on('click', function () {
-        let form = $('#edit-equations-of-interest-form');
-        form.attr('action', '/equations_of_interest_selector');
-        form.trigger("submit");
-    });
-});
-
-$(function () {
-    $('button#create-concept-group').button();
-    $('button#create-concept-group').on('click', function () {
-        let form = $('#create-concept-group-form');
-        form.attr('action', '/group_creator');
-        form.trigger("submit");
-    });
-});
-
+// ------------------------------
 // Set page position at the last
+// ------------------------------
+
 $(function () {
     $(window).scrollTop(localStorage['scroll_top']);
 })

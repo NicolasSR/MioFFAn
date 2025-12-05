@@ -8,7 +8,7 @@ import json
 
 from lib.version import VERSION
 from lib.logger import main_logger
-from lib.util import get_mi2idf
+from lib.util import get_mi2hex
 from lib.annotation import dump_json
 
 from lxml.html.builder import SPAN
@@ -45,6 +45,8 @@ def hex2surface(idf_hex):
 
     if len(idf_text) < 2:
         surface['unicode_name'] = unicodedata.name(idf_text)
+    else:
+        surface['unicode_name'] = None
 
     return surface
 
@@ -238,37 +240,24 @@ def preprocess_html(tree, paper_id, embed_floats):
 
 def observe_mi(tree):
     # initialize
-    identifiers = set()
-    occurences = dict()
-    mi_attribs = set()
+    hex_set = set()
 
     # the process
-    mi2idf = get_mi2idf(tree)
+    mi2hex = get_mi2hex(tree)
     root = tree.getroot()
 
     for e in root.xpath('//mi'):
         # get mi_id and idf
         mi_id = e.attrib.get('id')
-        idf = mi2idf.get(mi_id)
+        hex = mi2hex.get(mi_id)
 
-        if mi_id is None:
+        if mi_id is None or hex is None:
             # wired but to avoid errors
             continue
 
-        if idf is not None:
-            idf_hex = idf['idf_hex']
-            idf_var = idf['idf_var']
-        else:
-            continue
+        hex_set.add(hex)
 
-        # check for the attrib
-        mi_attribs.update(e.attrib)
-
-        occurences[mi_id] = None
-
-        identifiers.add((idf_hex, idf_var))
-
-    return occurences, identifiers, mi_attribs
+    return hex_set
 
 
 def observe_comp_tags(tree):
@@ -289,22 +278,12 @@ def observe_comp_tags(tree):
     return comp_tags_dict, comp_tag_attribs
 
 
-def idf2mc(idf_set):
-    # initialize
-    idf_dict = dict()
+def list_hex_info(hex_set):
 
-    # organize the identifiers
-    for idf in idf_set:
-        idf_hex, idf_var = idf
-        if idf_hex not in idf_dict:
-            idf_dict[idf_hex] = [idf_var]
-        else:
-            idf_dict[idf_hex].append(idf_var)
+    hex_set_sorted = sorted(hex_set)
 
-    idf_sorted = sorted(idf_dict.items(), key=lambda x: x[0])
-
-    # construct a list of grounding functions
-    return {idf[0]: {'_surface': hex2surface(idf[0]), 'identifiers': {v: [] for v in idf[1]}} for idf in idf_sorted}
+    # construct a list of primitive symbols
+    return {hex: hex2surface(hex) for hex in hex_set_sorted}
 
 
 def main():
@@ -328,7 +307,6 @@ def main():
     data_dir.mkdir(parents=True, exist_ok=True)
     anno_json = data_dir / '{}_anno.json'.format(paper_id)
     mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
-    cmcdict_json = data_dir / '{}_cmcdict.json'.format(paper_id)
 
     # prevent unintentional overwriting
     if args['--overwrite'] is not True:
@@ -345,33 +323,8 @@ def main():
     preprocess_html(tree, paper_id, embed_floats)
 
     # extract formulae information
-    occurences, identifiers, attribs = observe_mi(tree)
-    print('#indentifiers: {}'.format(len(identifiers)))
-    print('#occurences: {}'.format(len(occurences)))
-    print('mi attributes: {}'.format(', '.join(attribs)))
-
-    # make the annotation structure
-    mi_anno = {
-        mi_id: {
-            'concept_id': concept_id,
-            'sog': [],
-        }
-        for mi_id, concept_id in occurences.items()
-    }
-
-
-    comp_tags_dict, comp_attribs = observe_comp_tags(tree)
-    print('# of comppund indentifiers: {}'.format(len(comp_tags_dict)))
-    print('compound tag attributes: {}'.format(', '.join(comp_attribs)))
-
-    compound_anno = {
-        comp_tag_id: {
-            "compound_concept_id": None,
-            "tag_name": comp_tag_type,
-            "sog":[]
-        }
-        for comp_tag_id, comp_tag_type in comp_tags_dict.items()
-    }
+    hex_set = observe_mi(tree)
+    print('#primitive values: {}'.format(len(hex_set)))
 
     # write output files
     logger.info('Writing preprocessed HTML to %s', html_out)
@@ -383,8 +336,7 @@ def main():
             {
                 '_anno_version': '1.0',
                 '_annotator': 'YOUR NAME',
-                'mi_anno': mi_anno,
-                'compound_anno': compound_anno,
+                'primitive_symbols': list_hex_info(hex_set),
                 'eoi_list': [], # Will be assigned on runtime by the user
                 'groups': {},
                 'next_available_group_id': 0
@@ -398,19 +350,9 @@ def main():
             {
                 '_author': 'YOUR NAME',
                 '_mcdict_version': '1.0',
-                'concepts': idf2mc(identifiers),
-            },
-            f,
-        )
-
-    logger.info('Writing initialized cmcdict template to %s', cmcdict_json)
-    with open(cmcdict_json, 'w') as f:
-        dump_json(
-            {
-                '_author': 'YOUR NAME',
-                '_cmcdict_version': '1.0',
-                'compound_concepts': {},
-                'next_available_cmc_id': 0
+                'concepts': {},
+                'next_available_mc_id': 0,
+                'occurences': {}
             },
             f,
         )

@@ -10,51 +10,44 @@ declare global {
     }
 }
 
-export const COMPOUND_CONCEPT_TAGS: string[] = window.COMPOUND_CONCEPT_TAGS;
+export const COMPOUND_CONCEPT_TAGS: string[] = window.COMPOUND_CONCEPT_TAGS.concat("mi");
 
-export interface Identifier {
-    hex: string;
-    var: string;
-    concept?: number;
-}
-
-export interface CompoundConceptOptionsInterface {
-    compound_concept_candidates: string[];
-    chosen_compound_concept?: number;
+export interface Source {
+    start_id: string;
+    stop_id: string;
+    type: number;  // 0: declaration, 1: definition, 2: others
 }
 
 export interface Concept {
     affixes: string[];
-    arity: number;
+    tensor_rank: number;
     description: string;
+    primitive_symbols: string[];
+    sog_list: Source[];
     color?: string;
 }
 
-export interface CompoundConcept {
-    arity: number;
-    description: string;
-    color?: string;
-    primitives_hex: string[];
+// --------------------------
+// Internal functions
+// --------------------------
+
+// convert UTF-8 string to hex string
+function hex_encode(str: string) {
+    let arr = Array.from((new TextEncoder()).encode(str)).map(
+        v => v.toString(16));
+    return arr.join('');
 }
 
-export interface Source {
-    mi_id: string;
-    start_id: string;
-    stop_id: string;
-    type: number;  // 0: declaration, 1: definition, 2: others
-}
-
-export interface CompoundSource {
-    comp_tag_id: string;
-    start_id: string;
-    stop_id: string;
-    type: number;  // 0: declaration, 1: definition, 2: others
-}
-
-export interface Group {
-    group_id: string;
-    element_ids: string[];
-}
+// load hextocmcmap from the external json file
+let hextocmcmap = {} as { [key: string]: string[] };
+$.ajax({
+    url: '/hex_to_mc_map.json',
+    dataType: 'json',
+    async: false,
+    success: function (data) {
+        hextocmcmap = data;
+    }
+});
 
 // --------------------------
 // utility
@@ -65,97 +58,46 @@ export function escape_selector(raw: string) {
     return raw.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, "\\$&");
 }
 
-// convert UTF-8 string to hex string
-export function hex_encode(str: string) {
-    let arr = Array.from((new TextEncoder()).encode(str)).map(
-        v => v.toString(16));
-    return arr.join('');
-}
-
-// construct the idf dict from a mi element
 export function get_idf(elem: JQuery<any>) {
-    let idf = {} as Identifier;
-    idf.hex = hex_encode(elem.text());
-    idf.var = 'default';
-
-    let var_cand = elem.attr('mathvariant');
-    if (var_cand != undefined) {
-        if (var_cand == 'normal') {
-            idf.var = 'roman';
-        } else {
-            idf.var = var_cand;
-        }
-    }
-
-    let concept_cand = elem.data('math-concept');
-    if (concept_cand != undefined)
-        idf.concept = Number(concept_cand);
-
-    return idf;
+    console.error("get_idf is deprecated. Please use get_primitive_hex_list instead")    
 }
-
-// // construct the get_comp_idf dict from a math element
-// export function get_comp_idf(elem: JQuery<any>) {
-//   let comp_idf = {} as CompoundIdentifier;
-//   comp_idf.cmc_id = hex_encode(elem.html());
-
-//   let comp_concept_cand = elem.data('compound-math-concept');
-//   if(comp_concept_cand != undefined)
-//     comp_idf.compound_concept = Number(comp_concept_cand);
-
-//   return idf;
-// }
 
 export function get_primitive_hex_list(elem: JQuery<any>) {
-    const primitives_list = elem.find("mi");
+    const primitives_list = elem.find("mi").add(elem.filter("mi"));
     let hex_list: string[] = [];
     primitives_list.each(function (index: number, mi_child: HTMLElement) {
         hex_list.push(hex_encode($(mi_child).text()));
     });
-
     return hex_list;
 }
 
+export function get_concept(idf: any) {
+    console.error("get_concept is deprecated. Use get_mc_id_from_query instead")
+}
+
 // accessors
-export function get_concept(idf: Identifier) {
-    if (idf.concept != undefined) {
-        return mcdict[idf.hex][idf.var][idf.concept];
+export function get_mc_id_from_query($elem: JQuery<any>):string | undefined {
+    let mc_id = $elem.data('math-concept')
+    if (mc_id !== undefined) {
+        return mc_id.toString();
     } else {
         return undefined;
     }
 }
 
-export function get_comp_concept(elem: JQuery<any>) {
-    let cmc_id = elem.data('compound-math-concept');
-    if (cmc_id != undefined) {
-        return cmcdict[cmc_id];
-    } else {
-        return undefined;
-    }
-}
-
-export function get_comp_concept_id(elem: JQuery<any>) {
-    let cmc_id = elem.data('compound-math-concept');
-    if (cmc_id != undefined) {
-        return cmc_id;
-    } else {
-        return undefined;
-    }
-}
-
-export function get_concept_cand(idf: Identifier) {
-    if (mcdict[idf.hex] != undefined)
-        return mcdict[idf.hex][idf.var]; // can be undefined
-}
-
-export function get_comp_concept_cand(elem: JQuery<any>) {
+export function get_concept_cand(elem: JQuery<any>) {
     const primitive_hex_list = get_primitive_hex_list(elem);
+    console.log('primitive_hex_list', primitive_hex_list)
+    console.log('hextocmcmap', hextocmcmap)
     let candidates_set: Set<string> = new Set();
     for (const primitive_hex of primitive_hex_list) {
-        for (const candidate of hextocmcmap[primitive_hex]) {
-            candidates_set.add(candidate);
+        if (hextocmcmap[primitive_hex] !== undefined) {
+            for (const candidate of hextocmcmap[primitive_hex]) {
+                candidates_set.add(candidate);
+            }
         }
     }
+    console.log('candidates', Array.from(candidates_set.values()))
     return Array.from(candidates_set.values());
 }
 
@@ -173,26 +115,6 @@ export function hex2rgb(hex: string) {
     });
 }
 
-// Deep First Search for mi elements
-export function dfs_mis(cur_node: JQuery<any>): JQuery<any>[] {
-
-    let obtained_mis: JQuery<any>[] = [];
-
-    // Add current node if its mi.
-    // Only consider the mis in mcdict.
-    if ((cur_node.is('mi')) && (get_concept_cand(get_idf(cur_node)) != undefined)) {
-        obtained_mis = [cur_node];
-    }
-
-    // DFS search the children.
-    for (let i = 0; i < cur_node.children().length; i++) {
-        let child = cur_node.children().eq(i);
-        obtained_mis = obtained_mis.concat(dfs_mis(child));
-    }
-
-    return obtained_mis;
-}
-
 // Deep First Search for compound concept tags
 export function dfs_comp_tags(cur_node: JQuery<any>): JQuery<any>[] {
 
@@ -201,7 +123,7 @@ export function dfs_comp_tags(cur_node: JQuery<any>): JQuery<any>[] {
     // Add current node if its a compound tag.
     // Only consider the compound tags in cmcdict.
     const is_compound_tag = COMPOUND_CONCEPT_TAGS.some(tag => cur_node.is(tag));
-    if (is_compound_tag && get_comp_concept_cand(cur_node) != undefined) {
+    if (is_compound_tag && get_concept_cand(cur_node) != undefined) {
         obtained_comp_tags = [cur_node];
     }
 
@@ -218,9 +140,10 @@ export function dfs_comp_tags(cur_node: JQuery<any>): JQuery<any>[] {
 // Prepare the data
 // --------------------------
 
-// load from the external json file
+// load mcdict info from the external json file
 export let mcdict_edit_id: number = 0;
-export let mcdict = {} as { [key: string]: { [key: string]: Concept[] } };
+export let mcdict = {} as { [key: string]: Concept };
+// export let occdict = {} as { [key: string]: Occurence };
 $.ajax({
     url: '/mcdict.json',
     dataType: 'json',
@@ -232,17 +155,18 @@ $.ajax({
     }
 });
 
-// Same for cmcdict
-export let cmcdict_edit_id: number = 0;
-export let cmcdict = {} as { [key: string]: CompoundConcept };
+// load mio_anno info from the external json file
+// For now only eoi_list and groups_list info is needed.
+export let mi_anno_edit_id: number = 0;;
+export let eoi_list = [] as string[];
 $.ajax({
-    url: '/cmcdict.json',
+    url: '/mi_anno.json',
     dataType: 'json',
     async: false,
     success: function (data) {
-        // Data is extended to include mcdict version.
-        cmcdict_edit_id = data[0];
-        cmcdict = data[1];
+        // Data is extended to include mi_anno version.
+        mi_anno_edit_id = data[0];
+        eoi_list = data[1]['eoi_list'];
     }
 });
 
@@ -255,78 +179,21 @@ let colors = [
 ];
 
 let cnt = 0;
-for (let idf_hex in mcdict) {
-    for (let idf_var in mcdict[idf_hex]) {
-        for (let concept in mcdict[idf_hex][idf_var]) {
-            if (mcdict[idf_hex][idf_var][concept].description != undefined) {
-                mcdict[idf_hex][idf_var][concept].color = colors[cnt % colors.length];
-                cnt++;
-            }
-        }
-    }
+for (let mc_index in mcdict) {
+    mcdict[mc_index].color = colors[cnt % colors.length];
+    cnt++;
 }
 
-let cnt_comp = 0;
-for (let cmc_index in cmcdict) {
-    cmcdict[cmc_index].color = colors[cnt_comp % colors.length];
-    cnt_comp++;
-}
-
-// load sog from the external json file
-export let sog = {} as { sog: Source[] };
-$.ajax({
-    url: '/sog.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        sog = data;
-    }
-});
-
-// load comp_sog from the external json file
-export let comp_sog = {} as { sog: CompoundSource[] };
-$.ajax({
-    url: '/comp_sog.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        comp_sog = data;
-    }
-});
-
-// load hextocmcmap from the external json file
-export let hextocmcmap = {} as { [key: string]: string[] };
-$.ajax({
-    url: '/hex_to_cmc_map.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        hextocmcmap = data;
-    }
-});
-
-// load eoi from the external json file
-export let eoi_list = {} as { eoi_list: string[] };
-$.ajax({
-    url: '/eoi.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        eoi_list = data;
-    }
-});
-
-// load groups from the external json file
-export let groups_list = {} as { groups_list: Group[] };
-$.ajax({
-    url: '/groups_list.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        groups_list = data;
-    }
-});
-
+// // load sog from the external json file
+// export let sog = {} as { sog: Source[] };
+// $.ajax({
+//     url: '/sog.json',
+//     dataType: 'json',
+//     async: false,
+//     success: function (data) {
+//         sog = data;
+//     }
+// });
 
 // --------------------------
 // Error from the server

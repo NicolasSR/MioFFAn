@@ -3,7 +3,6 @@ module.exports = {
   entry: {
     'index': './index.ts',
     'edit_mcdict': './edit_mcdict.ts',
-    'compound_concepts_editor': './compound_concepts_editor.ts',
     'equations_of_interest_selector': './equations_of_interest_selector.ts',
     'group_creator': './group_creator.ts',
     'nav': './nav.ts',

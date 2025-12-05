@@ -4,7 +4,7 @@ from pathlib import Path
 from logging import Logger
 from dataclasses import asdict
 
-from lib.datatypes import MathConcept, CompoundMathConcept
+from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG
 
 from lib.logger import main_logger
 
@@ -13,6 +13,18 @@ def dump_json(data, fp):
     fp.write('\n')
 
 logger = main_logger.getChild('annotation')
+
+def cast_dicts_to_dataclass(dict_of_dicts: dict, dataclass):
+    out_dict = dict()
+    for id, obj in dict_of_dicts.items():
+        out_dict[id] = dataclass(**obj)
+    return out_dict
+
+def cast_dataclass_to_dicts(dict_of_dataclass: dict):
+    out_dict = dict()
+    for id, obj in dict_of_dataclass.items():
+        out_dict[id] = asdict(obj)
+    return out_dict
 
 class MiAnno:
     """Math identifier annotation"""
@@ -27,23 +39,22 @@ class MiAnno:
         self.file = file
         self.anno_version: str = data.get('_anno_version', 'unknown')
         self.annotator: str = data.get('_annotator', 'unknown')
-        self.occr: dict = data['mi_anno']
-        self.compound_occr: dict = data['compound_anno']
         self.eoi_list: list = data['eoi_list']
-        self.groups: dict = data['groups']
         self.next_available_group_id: int = data['next_available_group_id']
 
+        self.primitive_symbols: dict[str, PrimitiveSymbol] = cast_dicts_to_dataclass(data['primitive_symbols'], PrimitiveSymbol)
+        self.groups: dict[str, Group] = cast_dicts_to_dataclass(data['groups'], Group)
 
     def dump(self) -> None:
+
         with open(self.file, 'w') as f:
             dump_json(
                 {
                     '_anno_version': self.anno_version,
                     '_annotator': self.annotator,
-                    'mi_anno': self.occr,
-                    'compound_anno': self.compound_occr,
+                    'primitive_symbols': cast_dataclass_to_dicts(self.primitive_symbols),
                     'eoi_list': self.eoi_list,
-                    'groups': self.groups,
+                    'groups': cast_dataclass_to_dicts(self.groups),
                     'next_available_group_id': self.next_available_group_id,
                 },
                 f,
@@ -51,7 +62,7 @@ class MiAnno:
 
 
 class McDict:
-    """Math concept dictionariy"""
+    """Math concept dictionary"""
 
     def __init__(self, file: Path) -> None:
         with open(file, encoding='utf-8') as f:
@@ -63,77 +74,28 @@ class McDict:
         self.file = file
         self.author: str = data.get('_author', 'unknown')
         self.mcdict_version: str = data.get('_mcdict_version', 'unknown')
+        self.next_available_mc_id = data['next_available_mc_id']
 
-        concepts, surfaces = dict(), dict()
-        for idf_hex, obj in data['concepts'].items():
-            concepts[idf_hex] = dict()
-            surfaces[idf_hex] = obj['_surface']
+        # self.concepts: dict[str, MathConcept] = cast_dicts_to_dataclass(data['concepts'], MathConcept)
+        concepts = dict()
+        for id, obj in data['concepts'].items():
+            obj["sog_list"] = [SoG(**sog) for sog in obj["sog_list"]]
+            concepts[id] = MathConcept(**obj)
+        self.concepts: dict[str, MathConcept] = concepts
 
-            for idf_var, cls in obj['identifiers'].items():
-                concepts[idf_hex][idf_var] = [MathConcept(**c) for c in cls]
+        self.occurences: dict[str, Occurence] = cast_dicts_to_dataclass(data['occurences'], Occurence)
 
-        self.concepts = concepts
-        self.surfaces = surfaces
 
     def dump(self):
-        concepts = dict()
-        for idf_hex, s in self.surfaces.items():
-            concepts[idf_hex] = {
-                '_surface': s,
-                'identifiers': dict(),
-            }
-
-            for idf_var, cls in self.concepts[idf_hex].items():
-                concepts[idf_hex]['identifiers'][idf_var] = [asdict(c) for c in cls]
 
         with open(self.file, 'w') as f:
             dump_json(
                 {
                     '_author': self.author,
                     '_mcdict_version': self.mcdict_version,
-                    'concepts': concepts,
-                },
-                f,
-            )
-
-
-
-class CmcDict:
-    """Compound math concept dictionary"""
-
-    def __init__(self, file: Path) -> None:
-        with open(file, encoding='utf-8') as f:
-            data = json.load(f)
-
-        if data.get('_cmcdict_version', '') != '1.0':
-            logger.warning('%s: Compound math concept dict version is incompatible', file)
-
-        self.file = file
-        self.author: str = data.get('_author', 'unknown')
-        self.cmcdict_version: str = data.get('_cmcdict_version', 'unknown')
-
-        compound_concepts = dict()
-        for cmc_id, cmc_obj in data['compound_concepts'].items():
-            compound_concepts[cmc_id] = CompoundMathConcept(**cmc_obj)
-
-        self.compound_concepts = compound_concepts
-
-        self.next_available_cmc_id = data['next_available_cmc_id']
-
-
-    def dump(self):
-
-        compound_concepts_dict = dict()
-        for cmc_id, cmc_obj in self.compound_concepts.items():
-            compound_concepts_dict[cmc_id]=asdict(cmc_obj)
-
-        with open(self.file, 'w') as f:
-            dump_json(
-                {
-                    '_author': self.author,
-                    '_cmcdict_version': self.cmcdict_version,
-                    'compound_concepts': compound_concepts_dict,
-                    'next_available_cmc_id': self.next_available_cmc_id
+                    'concepts': cast_dataclass_to_dicts(self.concepts),
+                    'next_available_mc_id': self.next_available_mc_id,
+                    'occurences': cast_dataclass_to_dicts(self.occurences)
                 },
                 f,
             )

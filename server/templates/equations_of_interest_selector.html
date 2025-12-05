@@ -7,6 +7,9 @@
     <script type="text/javascript" src="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/style.css">
+    <script type="text/javascript">
+        window.COMPOUND_CONCEPT_TAGS = {{ compound_concept_tags | tojson }};
+    </script>
     <script type="text/javascript" src="/static/equations_of_interest_selector.js"></script>
     <script type="text/javascript" src="/static/nav.js"></script>
     <script>
@@ -55,7 +58,7 @@
                     <p>Description:<br />
                         <textarea name="description" rows="3" cols="40"></textarea>
                     </p>
-                    <p>Arity: <input type="number" name="arity" value="0" /></p>
+                    <p>Tensor Rank: <input type="number" name="tensor-rank" value="0" /></p>
                     <p>Affixes:<br />
                         {{ affixes }}
                     </p>
@@ -84,7 +87,7 @@
 
                 <div class="sidebar-tab">
                     <input class="tab-title" id="tab_miogatto" type="checkbox" name="tabs">
-                    <label class="tab-title" for="tab_miogatto">MioGatto v{{ version }}</label>
+                    <label class="tab-title" for="tab_miogatto">Kratos Annotator v{{ version }}</label>
                     <div class="tab-content">
                         <p>Revision: <span style="font-family: monospace;">{{ git_revision }}</span><br />
                             Paper ID: <span style="font-family: monospace;">{{ paper_id }}</span><br />
@@ -122,12 +125,19 @@
                     <input class="tab-title" id="tab_progress" type="checkbox" name="tabs">
                     <label class="tab-title" for="tab_progress">Progress</label>
                     <div class="tab-content">
-                        <p>Concepts: {{ p_concept }}<br />
-                            Sources: {{ nof_sog }}</p>
-                    </div>
-                    <div class="tab-content">
-                        <p>Compound Concepts: {{ p_comp_concept }}<br />
-                            Compound Sources: {{ nof_comp_sog }}</p>
+                        <p>EoIs: <span id="progress_nof_eois"></span>
+                        <br />
+                        Concepts: <span id="progress_nof_concepts"></span>
+                        <br />
+                        Occurences: <span id="progress_nof_occ"></span>
+                        <br />
+                        Sources: <span id="progress_nof_sog"></span></p>
+                        <script type="text/javascript">
+                            document.getElementById('progress_nof_eois').textContent = {{ progress_data | tojson }}.nof_eois;
+                            document.getElementById('progress_nof_concepts').textContent = {{ progress_data | tojson }}.nof_concepts;
+                            document.getElementById('progress_nof_occ').textContent = {{ progress_data | tojson }}.nof_occ;
+                            document.getElementById('progress_nof_sog').textContent = {{ progress_data | tojson }}.nof_sog;
+                        </script>
                     </div>
                 </div>
 

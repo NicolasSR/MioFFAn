@@ -1,6 +1,4 @@
-import {Concept, CompoundConcept, Source, CompoundSource, hex2rgb, eoi_list,
-  get_comp_concept, get_comp_concept_id, cmcdict_edit_id, comp_sog, escape_selector, get_primitive_hex_list,
-  cmcdict, get_comp_concept_cand, dfs_comp_tags, groups_list} from "./common" ;
+import {Concept, Source, hex2rgb, eoi_list, escape_selector, mcdict, mcdict_edit_id} from "./common" ;
 
 // --------------------------
 // Interfaces
@@ -178,110 +176,18 @@ function getAncestryLevel($inner: JQuery, $outer: JQuery): number {
     return level;
 }
 
-/**
- * Locates the range of elements defined by the input IDs (in document order)
- * and wraps them all in a new <span> element at the Nearest Common Ancestor level.
- * @param ids An array of element IDs defining the range.
- * @param wrapperId The ID to assign to the new wrapping <span> element.
- * @returns The new jQuery wrapper object, or null on failure.
- */
-function wrapRangeByUnorderedIds(ids: string[], wrapperId: string, wrapperClass: string): JQuery | null {
-    if (ids.length < 2) {
-        console.error("Please provide at least two element IDs to define a range.");
-        return null;
-    }
-    
-    const $allElements = $(ids.map(id => `#${id}`).join(', '));
-    if ($allElements.length !== ids.length) {
-        console.error("One or more elements not found.");
-        return null;
-    }
-
-    // 1. Sort elements by their position in the document (Document Order)
-    const sortedNodes = $allElements.get().sort((a, b) => {
-        const position = a.compareDocumentPosition(b);
-        if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-        if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-        return 0;
-    });
-
-    // Define the range boundaries
-    const $start = $(sortedNodes[0]);
-    const $end = $(sortedNodes[sortedNodes.length - 1]);
-    
-    // 2. Find the Nearest Common Ancestor (NCA)
-    const $nca = $start.closest($end.parents().add($end));
-    
-    if ($nca.length === 0) {
-        console.error("No common ancestor found.");
-        return null;
-    }
-    
-    // 3. Collect the elements that define the range
-    let $rangeElements = $(); // Initialize an empty jQuery collection
-    let isCollecting = false;
-
-    // Iterate over every direct child of the Nearest Common Ancestor
-    $nca.children().each(function() {
-        const $child = $(this);
-        
-        // --- A. Check for Start Point ---
-        // Check if the current child *is* the start element OR *contains* the start element
-        const containsStart = $child.is($start) || $child.has($start[0]).length > 0;
-
-        if (containsStart) {
-            isCollecting = true;
-        }
-
-        // --- B. Collection ---
-        if (isCollecting) {
-            // Add the current child to the collection
-            $rangeElements = $rangeElements.add($child);
-        }
-
-        // --- C. Check for End Point ---
-        // Check if the current child *is* the end element OR *contains* the end element
-        const containsEnd = $child.is($end) || $child.has($end[0]).length > 0;
-
-        if (containsEnd) {
-            isCollecting = false; // Stop collecting after this child is included
-            return false; // Break the .each() loop (equivalent to 'break' in a standard loop)
-        }
-    });
-
-    if ($rangeElements.length === 0) {
-        console.error("Could not find a valid range of elements to wrap.");
-        return null;
-    }
-
-    // --- 4. DOM Manipulation (The Wrapping Step) ---
-
-    // Create the new span wrapper
-    const $wrapper = $(`<span id="${wrapperId}" class="${wrapperClass}"></span>`);
-    
-    // Insert the wrapper BEFORE the first element in the range
-    $rangeElements.first().before($wrapper);
-
-    // Move all collected elements into the wrapper
-    $rangeElements.each(function() {
-        $wrapper.append($(this));
-    });
-    
-    return $wrapper;
-}
-
 // --------------------------
 // Exported utilities
 // --------------------------
 
 export function give_eoi_borders() {
-  for(let eoi_id of eoi_list.eoi_list) {
+  for(let eoi_id of eoi_list) {
     let eoi_query = $('#'+eoi_id);
     eoi_query.attr('style', 'border: solid 4px #dcf9fa; padding: 10px;')
   }
 }
 
-export function highlight_sog_nodes(concept: Concept | CompoundConcept | undefined, sog_nodes: JQuery, sog: Source | CompoundSource, show_definition: boolean) {
+export function highlight_sog_nodes(concept: Concept | undefined, sog_nodes: JQuery, sog: Source, show_definition: boolean) {
     if (concept == undefined || concept.color == undefined) {
         // red underline if concept is unassigned
         sog_nodes.css('border-bottom', 'solid 2px #FF0000');
@@ -299,33 +205,7 @@ export function remove_highlight(sog_nodes: JQuery) {
     sog_nodes.css('background-color', '');
 }
 
-// export function sog_to_sog_nodes_for_removal(s: Source | CompoundSource) {
-//     // get SoG nodes
-//     // Note: this code is somehow very tricky but it works
-//     const start_last_dot_index = s.start_id.lastIndexOf('.');
-//     const stop_last_dot_index = s.stop_id.lastIndexOf('.');
-//     let start_element_id = s.start_id.slice(0, start_last_dot_index);
-//     let stop_element_id = s.stop_id.slice(0, stop_last_dot_index);
-//     let sog_nodes;
-
-//     // if (s.start_id == s.stop_id) {
-//         // sog_nodes = $('#' + escape_selector(s.start_id));
-//     if (start_element_id == stop_element_id) {
-//         sog_nodes = $('#' + escape_selector(start_element_id));
-//     } else {
-//         // let start_node = $('#' + escape_selector(s.start_id));
-//         // let stop_node = $('#' + escape_selector(s.stop_id));
-//         let start_node = $('#' + escape_selector(start_element_id));
-//         let stop_node = $('#' + escape_selector(stop_element_id));
-
-//         // sog_nodes = start_node.nextUntil('#' + escape_selector(s.stop_id)).addBack().add(stop_node);
-//         sog_nodes = start_node.nextUntil('#' + escape_selector(stop_element_id)).addBack().add(stop_node);
-//     }
-
-//     return sog_nodes
-// }
-
-export function sog_to_sog_nodes_for_addition(s: Source | CompoundSource) {
+export function sog_to_sog_nodes_for_addition(s: Source) {
     // get SoG nodes
     // Note: this code is somehow very tricky but it works
 
@@ -607,71 +487,45 @@ export function getGroupLimitsFromUnorderedIds(ids: string[]): [string, string, 
     return [inner_start_id, inner_stop_id, ancestry_level_start!, ancestry_level_stop!];
 }
 
-// export function build_custom_groups() {
-//     for (const group of groups_list.groups_list) {
-//         const group_id = group.group_id;
-//         const element_ids = group.element_ids;
-//         wrapRangeByUnorderedIds(element_ids, group_id, 'custom-group')
-//     }
-// }
 
-//   // determine which (start|stop)_node
-//   let anchor_rect = anchor_node.getBoundingClientRect();
-//   let focus_rect = focus_node.getBoundingClientRect();
+export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTMLElement>) {
+    const description = concept_dialog.find('textarea[name="description"]').text()
+    const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
+    let affixes: string[] = [];
+    for (let idx = 0; idx < 10; idx++) {  // This is hardcoded for now. Should be changed.
+        const affix_value = concept_dialog.find(`select[name="affixes${idx}"]`).find(
+        `option:selected`).attr('value');
+        if (affix_value !== undefined && affix_value !== '') {
+            affixes.push(affix_value)
+        }
+    }
 
-//   console.log("Anchor top, left")
-//   console.log(anchor_rect.top)
-//   console.log(anchor_rect.left)
-//   console.log("Focus top, left")
-//   console.log(focus_rect.top)
-//   console.log(focus_rect.left)
-
-//   let start_node, stop_node;
-//   let start_offset, stop_offset;
-//   if(anchor_rect.top < focus_rect.top) {
-//     [start_node, stop_node] = [anchor_node, focus_node];
-//     [start_offset, stop_offset] = [anchor_offset, focus_offset];
-//   } else if(anchor_rect.top == focus_rect.top && anchor_rect.left <= focus_rect.left) {
-//     [start_node, stop_node] = [anchor_node, focus_node];
-//     [start_offset, stop_offset] = [anchor_offset, focus_offset];
-//   } else {
-//     [start_node, stop_node] = [focus_node, anchor_node];
-//     [start_offset, stop_offset] = [focus_offset, anchor_offset];
-//   }
-
-//   // get start_id and stop_id
-//   let start_id, stop_id;
-
-//   // if(start_node.className == 'gd_word') {
-//   //   start_id= start_node.id;
-//   // } else if(start_node.nextElementSibling?.className == 'gd_word') {
-//   //   start_id = start_node.nextElementSibling.id;
-//   // } else {
-//   //   console.warn('Invalid span for a source of grounding');
-//   // }
-
-  
-
-//   // if(stop_node.className == 'gd_word') {
-//   //   stop_id = stop_node.id;
-//   // } else if(stop_node.previousElementSibling?.className == 'gd_word') {
-//   //   stop_id = stop_node.previousElementSibling.id;
-//   // } else {
-//   //   console.warn('Invalid span for a source of grounding');
-//   // }
-
-//   if(stop_node.className == 'gd_text') {
-//     stop_id = stop_node.id+'.'+stop_offset;
-//   } else if (stop_node.className == 'dyn_gd_word') {
-//     stop_id = cast_dyn_word_selection_into_text_span(stop_node.id, stop_offset)
-//   } else if (stop_node.className == 'dyn_space' && stop_node.previousElementSibling?.className == 'dyn_gd_word') {
-//     const sibling_node_id = stop_node.previousElementSibling?.id;
-//     const sibling_length = (stop_node.previousElementSibling?.textContent?? "").length
-//     stop_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
-//   } else {
-//     console.warn('Invalid span for a source of grounding');
-//   }
-//   console.log("Stop id:", stop_id);
-
-//   return [start_id, stop_id, start_node];
-// }
+    fetch('/_update_concept', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            mc_id: mc_id,
+            description: description,
+            tensor_rank: tensor_rank,
+            affixes: affixes,
+            primitive_symbols: mcdict[mc_id].primitive_symbols
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            // Just reload the page
+            window.location.reload();
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error updating concept:', error);
+    });
+}
