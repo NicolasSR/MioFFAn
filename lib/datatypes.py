@@ -31,6 +31,10 @@ class Group:
     stop_id: str
 
 @dataclass
+class EoI:
+    symbolic_code: str
+
+@dataclass
 class Occurence:
     """Occurence of a concept within the text"""
     mc_id: str

@@ -1,4 +1,4 @@
-import {Concept, Source, hex2rgb, eoi_list, escape_selector, mcdict, mcdict_edit_id} from "./common" ;
+import {Concept, Source, hex2rgb, eoi_dict, escape_selector, mcdict, mcdict_edit_id} from "./common" ;
 
 // --------------------------
 // Interfaces
@@ -181,7 +181,7 @@ function getAncestryLevel($inner: JQuery, $outer: JQuery): number {
 // --------------------------
 
 export function give_eoi_borders() {
-  for(let eoi_id of eoi_list) {
+  for(let eoi_id in eoi_dict) {
     let eoi_query = $('#'+eoi_id);
     eoi_query.attr('style', 'border: solid 4px #dcf9fa; padding: 10px;')
   }

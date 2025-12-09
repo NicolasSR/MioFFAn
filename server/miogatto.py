@@ -13,7 +13,7 @@ from dataclasses import asdict
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
-from lib.datatypes import MathConcept, Occurence, SoG, Group
+from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import check_missing_variables, check_document_edit_id
 
 # get git revision
@@ -88,7 +88,7 @@ def preprocess_mcdict(concepts: dict[str, MathConcept]):
     # description processor
     def process_math(math):
         def construct_mi(idf_text, idf_var, concept_id):
-            mi = '<mi data-math-concept="{}"'.format(concept_id)
+            mi = '<mi data-mc-id="{}"'.format(concept_id)
 
             if idf_var == 'roman':
                 mi += ' mathvariant="normal">'
@@ -210,7 +210,7 @@ class MioGattoServer:
                     flash('Either no element matching {} found, or too many'.format(xpath_expression))
                     continue
 
-                matches[0].attrib['data-math-concept'] = str(mc_id)
+                matches[0].attrib['data-mc-id'] = str(mc_id)
 
     def wrap_custom_group(self, root, group_id, group_info: Group):
 
@@ -284,7 +284,7 @@ class MioGattoServer:
             if not self.wrap_custom_group(root, group_id, group_info):
                 continue
 
-        # add data-math-concept for each annotated comp_tag element
+        # add data-mc-id for each annotated comp_tag element
         self.add_data_math_concept(root)
         
         # progress info
@@ -293,7 +293,7 @@ class MioGattoServer:
             for sog in concept.sog_list:
                 nof_sog += 1
         progress_dict = {
-            'nof_eois': len(self.mi_anno.eoi_list),
+            'nof_eois': len(self.mcdict.eoi_dict),
             'nof_concepts': len(self.mcdict.concepts),
             'nof_occ': len(self.mcdict.occurences),
             'nof_sog': nof_sog
@@ -365,6 +365,27 @@ class MioGattoServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
+            main_content=Markup(main_content),
+            compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
+        )
+    
+    def symbolic_code_assigner(self):
+        # avoid destroying the original tree
+        copied_tree = deepcopy(self.tree)
+        root = copied_tree.getroot()
+
+        progress_data = self.initialize_main_pages(root)
+
+        # construction
+        body = root.xpath('body')[0]
+        main_content = etree.tostring(body, method='html', encoding=str)
+        return render_template(
+            'symbolic_code_assigner.html',
+            version=VERSION,
+            git_revision=GIT_REVISON,
+            paper_id=self.paper_id,
+            annotator=self.mi_anno.annotator,
+            progress_data=progress_data,
             main_content=Markup(main_content),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
@@ -555,14 +576,14 @@ class MioGattoServer:
         return json.dumps(success_message), 200
 
     def gen_mcdict_json(self):
-        data = preprocess_mcdict(self.mcdict.concepts)
+        data = dict()
+        data['mcdict'] = preprocess_mcdict(self.mcdict.concepts)
+        data['eoi_dict'] = {eoi_id: asdict(eoi_obj) for eoi_id, eoi_obj in self.mcdict.eoi_dict.items()}
         extended_data = [str(self.mcdict_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
     
     def gen_mi_anno_json(self):
-        data = {'eoi_list': []}
-        for eoi_id in self.mi_anno.eoi_list:
-            data['eoi_list'].append(eoi_id)
+        data = {}
         extended_data = [str(self.mi_anno_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
@@ -570,13 +591,13 @@ class MioGattoServer:
         res = request.form
 
         equation_id = res['equation_id']
-        if not equation_id in self.mi_anno.eoi_list:
-            self.mi_anno.eoi_list.append(equation_id)
+        if not equation_id in self.mcdict.eoi_dict.keys():
+            self.mcdict.eoi_dict[equation_id] = EoI(symbolic_code="")
         else:
             flash('Equation ID was already in the list of EoI.')
-        self.mi_anno.dump()
+        self.mcdict.dump()
 
-        self.update_mi_anno_edit_id()
+        self.update_mcdict_edit_id()
 
         return redirect('/equations_of_interest_selector')
     
@@ -584,18 +605,20 @@ class MioGattoServer:
         res = request.form
 
         equation_id = res['equation_id']
-        if equation_id in self.mi_anno.eoi_list:
-            self.mi_anno.eoi_list.remove(equation_id)
+        if equation_id in self.mcdict.eoi_dict.keys():
+            del self.mcdict.eoi_dict[equation_id]
         else:
             flash('Equation ID was not found in the list of EoI.')
-        self.mi_anno.dump()
+        self.mcdict.dump()
 
-        self.update_mi_anno_edit_id()
+        self.update_mcdict_edit_id()
 
         return redirect('/equations_of_interest_selector')
     
     def add_group(self):
         res = request.json
+
+        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
         # Generate a unique ID for the new group, then increment the ID counter
         new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
@@ -626,7 +649,11 @@ class MioGattoServer:
     def remove_group(self):
         res = request.json
 
+        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
         group_id = res.get('group_id')
+
+        check_missing_variables([group_id])
 
         # Delete the group from mi_anno.json file within the groups section
         del self.mi_anno.groups[group_id]
@@ -642,6 +669,30 @@ class MioGattoServer:
             "group_id": group_id, 
         }
 
+        return json.dumps(success_message), 200
+    
+    def edit_symbolic_code(self):
+        res = request.json
+
+        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+
+        eoi_id = res.get('eoi_id')
+        symbolic_code = res.get('symbolic_code')
+
+        check_missing_variables([eoi_id,symbolic_code])
+        
+        if eoi_id in self.mcdict.eoi_dict.keys():
+            self.mcdict.eoi_dict[eoi_id].symbolic_code = symbolic_code
+            self.mcdict.dump()
+        else:
+            flash('Equation ID was not found in the list of EoI.')
+
+        self.update_mcdict_edit_id()
+
+        success_message = {
+            "status": "success",
+            "message": "Symbolic code updated successfully."
+        }
         return json.dumps(success_message), 200
     
     def gen_hex_to_mc_map(self):

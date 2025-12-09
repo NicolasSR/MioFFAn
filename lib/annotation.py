@@ -4,7 +4,7 @@ from pathlib import Path
 from logging import Logger
 from dataclasses import asdict
 
-from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG
+from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG, EoI
 
 from lib.logger import main_logger
 
@@ -39,7 +39,6 @@ class MiAnno:
         self.file = file
         self.anno_version: str = data.get('_anno_version', 'unknown')
         self.annotator: str = data.get('_annotator', 'unknown')
-        self.eoi_list: list = data['eoi_list']
         self.next_available_group_id: int = data['next_available_group_id']
 
         self.primitive_symbols: dict[str, PrimitiveSymbol] = cast_dicts_to_dataclass(data['primitive_symbols'], PrimitiveSymbol)
@@ -53,7 +52,6 @@ class MiAnno:
                     '_anno_version': self.anno_version,
                     '_annotator': self.annotator,
                     'primitive_symbols': cast_dataclass_to_dicts(self.primitive_symbols),
-                    'eoi_list': self.eoi_list,
                     'groups': cast_dataclass_to_dicts(self.groups),
                     'next_available_group_id': self.next_available_group_id,
                 },
@@ -84,6 +82,7 @@ class McDict:
         self.concepts: dict[str, MathConcept] = concepts
 
         self.occurences: dict[str, Occurence] = cast_dicts_to_dataclass(data['occurences'], Occurence)
+        self.eoi_dict: dict[str, EoI] = cast_dicts_to_dataclass(data['eoi_dict'], EoI)
 
 
     def dump(self):
@@ -95,7 +94,8 @@ class McDict:
                     '_mcdict_version': self.mcdict_version,
                     'concepts': cast_dataclass_to_dicts(self.concepts),
                     'next_available_mc_id': self.next_available_mc_id,
-                    'occurences': cast_dataclass_to_dicts(self.occurences)
+                    'occurences': cast_dataclass_to_dicts(self.occurences),
+                    'eoi_dict': cast_dataclass_to_dicts(self.eoi_dict)
                 },
                 f,
             )

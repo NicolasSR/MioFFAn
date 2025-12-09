@@ -27,6 +27,13 @@ window.initializeNavButtons = function()  {
         form.attr('action', '/group_creator');
         form.trigger("submit");
     });
+
+    $('button#edit-symbolic-code').button();
+    $('button#edit-symbolic-code').on('click', function () {
+        let form = $('#edit-symbolic-code-form');
+        form.attr('action', '/symbolic-code-assigner');
+        form.trigger("submit");
+    });
     
     $('button#edit-mcdict').button();
     $('button#edit-mcdict').on('click', function () {

@@ -102,22 +102,14 @@ def routing_functions(server):
     @app.route('/_remove_group', methods=['POST'])
     def action_remove_group():
         return server.remove_group()
-
-    @app.route('/sog.json', methods=['GET'])
-    def sog_json():
-        return server.gen_sog_json()
+    
+    @app.route('/_edit_symbolic_code', methods=['POST'])
+    def edit_symbolic_code():
+        return server.edit_symbolic_code()
     
     @app.route('/hex_to_mc_map.json', methods=['GET'])
     def hex_to_mc_map():
         return server.gen_hex_to_mc_map()
-    
-    @app.route('/eoi.json', methods=['GET'])
-    def eoi_json():
-        return server.gen_eoi_json()
-    
-    @app .route('/groups_list.json', methods=['GET'])
-    def groups_list_json():
-        return server.gen_groups_list_json()
 
     @app.route('/edit_mcdict', methods=['GET'])
     def edit_mcdict():
@@ -126,6 +118,10 @@ def routing_functions(server):
     @app.route('/equations_of_interest_selector', methods=['GET'])
     def equations_of_interest_selector():
         return server.equations_of_interest_selector()
+    
+    @app.route('/symbolic-code-assigner', methods=['GET'])
+    def symbolic_code_assigner():
+        return server.symbolic_code_assigner()
 
     @app.route('/group_creator', methods=['GET'])
     def group_creator():

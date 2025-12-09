@@ -7,5 +7,6 @@
   },
   //"include": ["./index.ts", "./edit_mcdict.ts",
   // "./equations_of_interest_selector.js", "./group_creator.js", "./nav.js",
+  // "./symbolic_code_assigner.js",
   // "./main_pages_utils.js", "./common.js", "./sample_nav.js"],
 }
