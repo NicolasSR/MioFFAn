@@ -337,7 +337,6 @@ def main():
                 '_anno_version': '1.0',
                 '_annotator': 'YOUR NAME',
                 'primitive_symbols': list_hex_info(hex_set),
-                'eoi_list': [], # Will be assigned on runtime by the user
                 'groups': {},
                 'next_available_group_id': 0
             },
@@ -352,7 +351,8 @@ def main():
                 '_mcdict_version': '1.0',
                 'concepts': {},
                 'next_available_mc_id': 0,
-                'occurences': {}
+                'occurences': {},
+                'eoi_dict': {}
             },
             f,
         )

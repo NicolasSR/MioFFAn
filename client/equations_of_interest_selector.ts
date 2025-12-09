@@ -2,7 +2,7 @@
 'use strict';
 
 import { post } from "jquery";
-import {COMPOUND_CONCEPT_TAGS, escape_selector, eoi_list} from "./common" ;
+import {COMPOUND_CONCEPT_TAGS, escape_selector, eoi_dict} from "./common" ;
 
 // --------------------------
 // Get list of tags used as mathematical identifiers ffrom configuration json
@@ -20,7 +20,7 @@ $(function() {
 });
 
 function give_eoi_highlight(){
-  for(let eoi_id of eoi_list) {
+  for(let eoi_id in eoi_dict) {
     let eoi_query = $('#' + escape_selector(eoi_id));
     eoi_query.css('background-color', `rgba(#dcf9fa,0.3)`);
   }
@@ -73,7 +73,7 @@ $(function() {
 
       let anno_box = $('#anno-box')
 
-      if (eoi_list.includes(current_equation_id)) {
+      if (current_equation_id in eoi_dict) {
         let button_remove = '<p><button id="remove-eoi">Remove EoI</button>';
         let form_remove = `<form id="form-remove-eoi" method="POST">${hidden}</form>`;
         anno_box.html(button_remove+form_remove)
@@ -125,7 +125,7 @@ $(function() {
 function show_border(equation: JQuery) {
   let equation_id = equation.attr('id')
   if (equation_id != undefined) {
-    if (eoi_list.includes(equation_id) != true) {
+    if (equation_id in eoi_dict != true) {
       equation.attr('mathbackground', '#D3D3D3');
     }
   }

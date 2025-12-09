@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ title }}</title>
+    <script type="text/javascript" src="/static/vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/static/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script type="text/javascript">
+        window.COMPOUND_CONCEPT_TAGS = {{ compound_concept_tags | tojson }};
+    </script>
+    <script type="text/javascript" src="/static/symbolic_code_assigner.js"></script>
+    <script type="text/javascript" src="/static/sample_nav.js"></script>
+    <script>
+        fetch('sample_nav')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sample-nav').innerHTML = data;
+                window.initializeSampleNavButtons();
+            })
+            .catch(error => console.error('Error loading navigation:', error));
+    </script>
+    <script type="text/javascript" src="/static/nav.js"></script>
+    <script>
+        fetch('nav')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('utility-box').innerHTML = data;
+                window.initializeNavButtons();
+            })
+            .catch(error => console.error('Error loading navigation:', error));
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <main class="main">
+            <!-- hidden by default -->
+
+            <div id="symbolic-code-dialog-template" class="symbolic-code-dialog">
+                <p>Code:<br />
+                    <textarea name="symbolic-code" rows="3" cols="40"></textarea>
+                </p>
+            </div>
+
+            <div id="error-dialog" class="error-dialog">
+                <p id="error-message">{% for message in get_flashed_messages() %}
+                    {{ message }}
+                    {% endfor %}</p>
+            </div>
+
+            {{ main_content }}
+        </main>
+
+        <div id="sample-nav"></div>
+
+        <div class="sidebar">
+            <div class="sidebar-tabs">
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_miogatto" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_miogatto">Kratos Annotator v{{ version }}</label>
+                    <div class="tab-content">
+                        <p>Revision: <span style="font-family: monospace;">{{ git_revision }}</span><br />
+                            Paper ID: <span style="font-family: monospace;">{{ paper_id }}</span><br />
+                            Annotator: {{ annotator }}<br />
+                            Links: <a href="https://github.com/wtsnjp/MioGatto/wiki/Annotator's-Guide"
+                                target="_blank">help</a>, <a href="https://github.com/wtsnjp/MioGatto/issues"
+                                target="_blank">bug reports</a></p>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_options" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_options">Options</label>
+                    <div class="tab-content">
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_utility" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_utility">Utility</label>
+                    <div id="utility-box" class="tab-content"></div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_progress" type="checkbox" name="tabs">
+                    <label class="tab-title" for="tab_progress">Progress</label>
+                    <div class="tab-content">
+                        <p>EoIs: <span id="progress_nof_eois"></span>
+                        <br />
+                        Concepts: <span id="progress_nof_concepts"></span>
+                        <br />
+                        Occurences: <span id="progress_nof_occ"></span>
+                        <br />
+                        Sources: <span id="progress_nof_sog"></span></p>
+                        <script type="text/javascript">
+                            document.getElementById('progress_nof_eois').textContent = {{ progress_data | tojson }}.nof_eois;
+                            document.getElementById('progress_nof_concepts').textContent = {{ progress_data | tojson }}.nof_concepts;
+                            document.getElementById('progress_nof_occ').textContent = {{ progress_data | tojson }}.nof_occ;
+                            document.getElementById('progress_nof_sog').textContent = {{ progress_data | tojson }}.nof_sog;
+                        </script>
+                    </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_concept" type="checkbox" name="tabs" checked="checked">
+                    <label class="tab-title" for="tab_concept">Concept</label>
+                    <div id="concept-nav-box" class ="tab-content">
+                        <p>
+                            <button id="jump-to-next-eoi">Jump to Next</button>
+                            <button id="jump-to-prev-eoi">Jump to Prev</button>
+                            <button id="back-to-selected-eoi">Back to Selected</button>
+                        </p>
+                    </div>
+                    <div id="anno-box" class="tab-content">
+                        <p>Please select and Equation of Interest first.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

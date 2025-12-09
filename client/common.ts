@@ -27,6 +27,10 @@ export interface Concept {
     color?: string;
 }
 
+export interface EoI {
+    symbolic_code: string;
+}
+
 // --------------------------
 // Internal functions
 // --------------------------
@@ -77,7 +81,7 @@ export function get_concept(idf: any) {
 
 // accessors
 export function get_mc_id_from_query($elem: JQuery<any>):string | undefined {
-    let mc_id = $elem.data('math-concept')
+    let mc_id = $elem.data('mc-id')
     if (mc_id !== undefined) {
         return mc_id.toString();
     } else {
@@ -143,6 +147,7 @@ export function dfs_comp_tags(cur_node: JQuery<any>): JQuery<any>[] {
 // load mcdict info from the external json file
 export let mcdict_edit_id: number = 0;
 export let mcdict = {} as { [key: string]: Concept };
+export let eoi_dict = {} as { [key: string]: EoI };
 // export let occdict = {} as { [key: string]: Occurence };
 $.ajax({
     url: '/mcdict.json',
@@ -151,14 +156,13 @@ $.ajax({
     success: function (data) {
         // Data is extended to include mcdict version.
         mcdict_edit_id = data[0];
-        mcdict = data[1];
+        mcdict = data[1]['mcdict'];
+        eoi_dict = data[1]['eoi_dict'];
     }
 });
 
 // load mio_anno info from the external json file
-// For now only eoi_list and groups_list info is needed.
-export let mi_anno_edit_id: number = 0;;
-export let eoi_list = [] as string[];
+export let mi_anno_edit_id: number = 0;
 $.ajax({
     url: '/mi_anno.json',
     dataType: 'json',
@@ -166,7 +170,6 @@ $.ajax({
     success: function (data) {
         // Data is extended to include mi_anno version.
         mi_anno_edit_id = data[0];
-        eoi_list = data[1]['eoi_list'];
     }
 });
 

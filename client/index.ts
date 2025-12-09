@@ -171,7 +171,7 @@ $(function () {
     $(document).tooltip({
         show: false,
         hide: false,
-        items: '[data-math-concept]',
+        items: '[data-mc-id]',
         content: function () {
             let concept = mcdict[get_mc_id_from_query($(this))!];
             if (concept != undefined) {
@@ -726,7 +726,7 @@ $(function () {
 
 // for the identifiers that have not been annotated
 function give_gray_background(target: JQuery) {
-    if (target.data('math-concept') == undefined)
+    if (target.data('mc-id') == undefined)
         target.css('background-color', '#D3D3D3');
 }
 

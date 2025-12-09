@@ -4,6 +4,7 @@ module.exports = {
     'index': './index.ts',
     'edit_mcdict': './edit_mcdict.ts',
     'equations_of_interest_selector': './equations_of_interest_selector.ts',
+    'symbolic_code_assigner': './symbolic_code_assigner.ts',
     'group_creator': './group_creator.ts',
     'nav': './nav.ts',
     'sample_nav': './sample_nav.ts',
