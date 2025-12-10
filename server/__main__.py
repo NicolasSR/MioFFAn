@@ -61,11 +61,11 @@ def routing_functions(server):
 
     @app.route('/_new_concept', methods=['POST'])
     def action_new_concept():
-        return server.new_concept()
+        return server.register_concept(is_new=True)
 
     @app.route('/_update_concept', methods=['POST'])
     def action_update_concept():
-        return server.update_concept()
+        return server.register_concept(is_new=False)
 
     @app.route('/_add_sog', methods=['POST'])
     def action_add_sog():

@@ -14,10 +14,12 @@ function edit_concept(mc_id: string) {
     concept_dialog.removeAttr('id');
 
     const concept = mcdict[mc_id];
+    let $code_var_name_node = concept_dialog.find('textarea[name="code-var-name"]');
     let $description_node = concept_dialog.find('textarea[name="description"]');
     let $tensor_rank_node = concept_dialog.find('input[name="tensor-rank"]');
 
     // put the current values
+    $code_var_name_node.text(concept.code_var_name);
     $description_node.text(concept.description);
     $tensor_rank_node.attr('value', concept.tensor_rank);
     concept.affixes.forEach(function (value, idx) {

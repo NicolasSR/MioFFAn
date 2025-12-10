@@ -19,6 +19,7 @@ export interface Source {
 }
 
 export interface Concept {
+    code_var_name: string;
     affixes: string[];
     tensor_rank: number;
     description: string;
@@ -144,35 +145,6 @@ export function dfs_comp_tags(cur_node: JQuery<any>): JQuery<any>[] {
 // Prepare the data
 // --------------------------
 
-// load mcdict info from the external json file
-export let mcdict_edit_id: number = 0;
-export let mcdict = {} as { [key: string]: Concept };
-export let eoi_dict = {} as { [key: string]: EoI };
-// export let occdict = {} as { [key: string]: Occurence };
-$.ajax({
-    url: '/mcdict.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        // Data is extended to include mcdict version.
-        mcdict_edit_id = data[0];
-        mcdict = data[1]['mcdict'];
-        eoi_dict = data[1]['eoi_dict'];
-    }
-});
-
-// load mio_anno info from the external json file
-export let mi_anno_edit_id: number = 0;
-$.ajax({
-    url: '/mi_anno.json',
-    dataType: 'json',
-    async: false,
-    success: function (data) {
-        // Data is extended to include mi_anno version.
-        mi_anno_edit_id = data[0];
-    }
-});
-
 // define color for each concept
 let colors = [
     '#008b8b', '#ff7f50', '#ff4500', '#2f4f4f', '#006400', '#dc143c',
@@ -181,10 +153,82 @@ let colors = [
     '#a0522d', '#800000', '#9400d3', '#556b2f', '#4b0082', '#808000'
 ];
 
-let cnt = 0;
-for (let mc_index in mcdict) {
-    mcdict[mc_index].color = colors[cnt % colors.length];
-    cnt++;
+// load mcdict info from the external json file
+export let mcdict_edit_id: number = 0;
+export let mcdict = {} as { [key: string]: Concept };
+export let eoi_dict = {} as { [key: string]: EoI };
+// export let occdict = {} as { [key: string]: Occurence };
+
+// Load data immediately when the app starts. Assign the promise to
+// a variable so that other modules can await it.
+export const dataLoadingPromise = (async () => {
+    console.log("Start loading data...");
+    await fetch_mcdict_json_data();
+    await fetch_mi_anno_json_data();
+    console.log("Data loading complete!");
+
+    let cnt = 0;
+    for (let mc_index in mcdict) {
+        mcdict[mc_index].color = colors[cnt % colors.length];
+        cnt++;
+    }
+})();
+
+export function fetch_mcdict_json_data(onSuccess?: () => void) {
+    return $.ajax({
+        url: '/mcdict.json',
+        dataType: 'json',
+        async: true,
+        success: function (data) {
+            // Data is extended to include mcdict version.
+            mcdict_edit_id = data[0];
+            mcdict = data[1]['mcdict'];
+            eoi_dict = data[1]['eoi_dict'];
+            console.log("MCDict refreshed successfully!");
+            
+            // CRITICAL STEP: 
+            // Updating variables doesn't automatically update the HTML.
+            // You must call your render function here.
+            if (onSuccess) {
+                onSuccess();
+            } else {
+                // If you have a global render function, call it here:
+                // updateUI(); 
+            }
+        },
+        error: function(err) {
+            console.error("Failed to fetch MCDict", err);
+        }
+    });
+}
+
+// load mio_anno info from the external json file
+export let mi_anno_edit_id: number = 0;
+
+export function fetch_mi_anno_json_data(onSuccess?: () => void) {
+    return $.ajax({
+        url: '/mi_anno.json',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            // Data is extended to include mi_anno version.
+            mi_anno_edit_id = data[0];
+            console.log("MiAnno refreshed successfully!");
+            
+            // CRITICAL STEP: 
+            // Updating variables doesn't automatically update the HTML.
+            // You must call your render function here.
+            if (onSuccess) {
+                onSuccess();
+            } else {
+                // If you have a global render function, call it here:
+                // updateUI(); 
+            }
+        },
+        error: function(err) {
+            console.error("Failed to fetch MiAnno", err);
+        }
+    });
 }
 
 // // load sog from the external json file

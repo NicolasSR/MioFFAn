@@ -489,7 +489,8 @@ export function getGroupLimitsFromUnorderedIds(ids: string[]): [string, string, 
 
 
 export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTMLElement>) {
-    const description = concept_dialog.find('textarea[name="description"]').text()
+    const code_var_name = concept_dialog.find('textarea[name="code-var-name"]').val()
+    const description = concept_dialog.find('textarea[name="description"]').val()
     const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
     let affixes: string[] = [];
     for (let idx = 0; idx < 10; idx++) {  // This is hardcoded for now. Should be changed.
@@ -506,6 +507,7 @@ export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTML
         body: JSON.stringify({
             mcdict_edit_id: mcdict_edit_id,
             mc_id: mc_id,
+            code_var_name: code_var_name,
             description: description,
             tensor_rank: tensor_rank,
             affixes: affixes,
@@ -517,13 +519,9 @@ export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTML
             // Just reload the page
             window.location.reload();
         } else {
-            if (data.action === 'reload') {
-                alert(data.message);
-                window.location.reload(); // Manually trigger the reload here
-            }
             console.error("Error:", data.message);
             alert("Error: " + data.message);
-            return;
+            window.location.reload();
         }
     }).catch(error => {
         console.error('Error updating concept:', error);

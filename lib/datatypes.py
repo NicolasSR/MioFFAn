@@ -17,6 +17,7 @@ class SoG:
 @dataclass
 class MathConcept:
     """A single Math Concept"""
+    code_var_name: str
     description: str
     tensor_rank: int
     affixes: list[str]
