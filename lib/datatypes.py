@@ -20,7 +20,7 @@ class MathConcept:
     code_var_name: str
     description: str
     tensor_rank: int
-    affixes: list[str]
+    options: list[str]
     sog_list: list[SoG]
     primitive_symbols: list[str]
     
@@ -40,6 +40,7 @@ class Occurence:
     """Occurence of a concept within the text"""
     mc_id: str
     tag_name: str
+    options: list[str]
 
 
     

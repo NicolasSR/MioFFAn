@@ -3,14 +3,15 @@
 
 import { post } from "jquery";
 import {
-    COMPOUND_CONCEPT_TAGS, dataLoadingPromise, Source, dfs_comp_tags, mcdict, mcdict_edit_id,
-    escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list,
+    COMPOUND_CONCEPT_TAGS, dataLoadingPromise, Source, dfs_comp_tags, mcdict, occurences_dict,
+    mcdict_edit_id, escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list,
     fetch_mcdict_json_data
 } from "./common";
 import {
     highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
     reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders, submit_update_concept
 } from "./main_pages_utils"
+import {new_edit_occurence_properties_button, get_properties_options_html} from "./properties_assignment";
 
 // --------------------------
 // Get list of tags used as mathematical identifiers ffrom configuration json
@@ -107,12 +108,9 @@ $(function () {
 // --------------------------
 
 function give_color($target: JQuery) {
-    console.log('give_color target', $target)
     const mc_id = get_mc_id_from_query($target)
-    console.log('give_color mc_id', mc_id)
     if (mc_id != undefined) {
         const concept = mcdict[mc_id]
-        console.log('color', concept.color)
         if (concept != undefined && concept.color != undefined) {
             $target.css('color', concept.color);
         }
@@ -187,8 +185,8 @@ $(function () {
                 let concept = mcdict[get_mc_id_from_query($(this))!];
                 if (concept != undefined) {
                     let args_info = 'NONE';
-                    if (concept.affixes.length > 0) {
-                        args_info = concept.affixes.join(', ');
+                    if (concept.options.length > 0) {
+                        args_info = concept.options.join(', ');
                     }
                     return `${concept.description} <span style="color: #808080;">[${args_info}] (rank: ${concept.tensor_rank})</span>`;
                 } else {
@@ -247,8 +245,8 @@ function draw_anno_box(comp_tag_id: string, mc_candidates: string[]) {
         let radio_input = `<input type="radio" name="mc_id" id="c${mc_radio_num}" value="${mc_candidate_id}" ${check} />`;
         
         let args_info = 'NONE';
-        if (mc_candidate.affixes.length > 0) {
-            args_info = mc_candidate.affixes.join(', ');
+        if (mc_candidate.options.length > 0) {
+            args_info = mc_candidate.options.join(', ');
         }
 
         let item = `${radio_input}<span class="keep"><label for="c${mc_radio_num}">
@@ -260,6 +258,12 @@ ${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor
 
     let candidates_list = `<div class="keep" id="mc-radio-list-${comp_tag_id}">${radios}</div>`;
     let buttons = '<p><button id="assign-concept">Assign</button> <button id="remove-concept" type="button">Remove</button> <button id="new-concept" type="button">New</button></p>'
+
+    console.log('occurences_dict', occurences_dict)
+    if (comp_tag_id in occurences_dict) {
+        buttons += '<p><button id="edit-occurence-properties">Edit occurence prop.</button></p>';
+    }
+
     let form_elements = candidates_list + buttons
 
     // show the box
@@ -315,6 +319,7 @@ ${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor
 
     // enable concept dialogs
     new_concept_button(comp_tag_id);
+    new_edit_occurence_properties_button(comp_tag_id);
     $('a.edit-concept').on('click', function () {
         let mc_id = $(this).attr('data-mc-id');
         if (mc_id != undefined) {
@@ -391,14 +396,26 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
     const code_var_name = concept_dialog.find('textarea[name="code-var-name"]').val()
     const description = concept_dialog.find('textarea[name="description"]').val()
     const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
-    let affixes: string[] = [];
-    for (let idx = 0; idx < 10; idx++) {  // This is hardcoded for now. Should be changed.
-        const affix_value = concept_dialog.find(`select[name="affixes${idx}"]`).find(
-        `option:selected`).attr('value');
-        if (affix_value !== undefined && affix_value !== '') {
-            affixes.push(affix_value)
+
+    let selected_options: string[] = [];
+    concept_dialog.find('select').each(function() {
+        const select_name = $(this).attr('name');
+        const selected_value = $(this).val() as string;
+        if (select_name !== undefined && selected_value !== '') {
+            selected_options.push(selected_value);
         }
     }
+    );
+    concept_dialog.find('input[type="checkbox"]').each(function() {
+        const checkbox_name = $(this).attr('id');
+        if (checkbox_name !== undefined) {
+            if ($(this).is(':checked')) {
+                selected_options.push(checkbox_name);
+            }
+        }
+    }
+    );
+
     const primitive_symbols = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)))
 
     fetch('/_new_concept', {
@@ -409,7 +426,7 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
             code_var_name: code_var_name,
             description: description,
             tensor_rank: tensor_rank,
-            affixes: affixes,
+            options: selected_options,
             primitive_symbols: primitive_symbols
         }),
     }).then(async (response) => {
@@ -430,12 +447,32 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
 }
 
 function new_concept_button(comp_tag_id: string) {
-    console.log("NEW CONCEPT BUTTON entered")
     $('button#new-concept').button();
-    $('button#new-concept').on('click', function () {
+    $('button#new-concept').on('click', async function () {
         let concept_dialog = $('#concept-dialog-template').clone();
         concept_dialog.attr('id', 'concept-dialog');
         concept_dialog.removeClass('concept-dialog');
+        
+        // 2. Locate the relevant elements inside the cloned dialog
+        let $tensor_rank_node = concept_dialog.find('input[name="tensor-rank"]');
+        let $options_box = concept_dialog.find('#concept-properties-options-box');
+
+        const updateOptions = async () => {
+            const current_rank = $tensor_rank_node.val()?.toString(); // Get the number entered
+            
+            // Show a loading state (optional but recommended)
+            $options_box.html('<p>Loading options...</p>');
+
+            // Get appropriate pulldown and checkbox HTML for the case.
+            const options_html = await get_properties_options_html('concept', {'mc_id': '', 'tensor_rank': current_rank!});
+            
+            $options_box.html(options_html);
+        };
+
+        $tensor_rank_node.on('change', async function() {
+            await updateOptions();
+        });
+        await updateOptions();
 
         concept_dialog.dialog({
             modal: true,
@@ -457,7 +494,7 @@ function new_concept_button(comp_tag_id: string) {
     });
 }
 
-function edit_concept(mc_id: string) {
+async function edit_concept(mc_id: string) {
     let concept_dialog = $('#concept-dialog-template').clone();
     concept_dialog.removeAttr('id');
 
@@ -470,10 +507,26 @@ function edit_concept(mc_id: string) {
     $code_var_name_node.text(concept.code_var_name);
     $description_node.text(concept.description);
     $tensor_rank_node.attr('value', concept.tensor_rank);
-    concept.affixes.forEach(function (value, idx) {
-        concept_dialog.find(`select[name="affixes${idx}"]`).find(
-            `option[value="${value}"]`).prop('selected', true);
-    })
+    
+    // 2. Locate the relevant elements inside the cloned dialog
+    let $options_box = concept_dialog.find('#concept-properties-options-box');
+
+    const updateOptions = async () => {
+        const current_rank = $tensor_rank_node.val()?.toString(); // Get the number entered
+        
+        // Show a loading state (optional but recommended)
+        $options_box.html('<p>Loading options...</p>');
+
+        // Get appropriate pulldown and checkbox HTML for the case.
+        const options_html = await get_properties_options_html('concept', {'mc_id': mc_id, 'tensor_rank': current_rank!});
+        
+        $options_box.html(options_html);
+    };
+
+    $tensor_rank_node.on('change', async function() {
+        await updateOptions();
+    });
+    await updateOptions();
 
     concept_dialog.dialog({
         modal: true,

@@ -3,13 +3,14 @@
 
 import {mcdict, mcdict_edit_id} from "./common";
 import {submit_update_concept} from "./main_pages_utils"
+import {get_properties_options_html} from "./properties_assignment";
 
 // --------------------------
 // Edit mcdict
 // --------------------------
 
 // Sending a form specific to edit_mcdict
-function edit_concept(mc_id: string) {
+async function edit_concept(mc_id: string) {
     let concept_dialog = $('#concept-dialog-template').clone();
     concept_dialog.removeAttr('id');
 
@@ -22,11 +23,27 @@ function edit_concept(mc_id: string) {
     $code_var_name_node.text(concept.code_var_name);
     $description_node.text(concept.description);
     $tensor_rank_node.attr('value', concept.tensor_rank);
-    concept.affixes.forEach(function (value, idx) {
-        concept_dialog.find(`select[name="affixes${idx}"]`).find(
-            `option[value="${value}"]`).prop('selected', true);
-    })
 
+    // 2. Locate the relevant elements inside the cloned dialog
+    let $options_box = concept_dialog.find('#concept-properties-options-box');
+
+    const updateOptions = async () => {
+        const current_rank = $tensor_rank_node.val()?.toString(); // Get the number entered
+        
+        // Show a loading state (optional but recommended)
+        $options_box.html('<p>Loading options...</p>');
+
+        // Get appropriate pulldown and checkbox HTML for the case.
+        const options_html = await get_properties_options_html('concept', {'mc_id': mc_id, 'tensor_rank': current_rank!});
+        
+        $options_box.html(options_html);
+    };
+
+    $tensor_rank_node.on('change', async function() {
+        await updateOptions();
+    });
+    await updateOptions();
+    
     concept_dialog.dialog({
         modal: true,
         title: 'Edit Concept',
@@ -76,10 +93,10 @@ $(function () {
         }
         primitive_symbols_decoded += "</math>";
 
-        const affixes_string = mc_obj.affixes.join(', ')
+        const options_string = mc_obj.options.join(', ')
 
         let concept_row = `<tr><td>${mc_obj.description}</td><td>${mc_obj.tensor_rank}</td><td>${primitive_symbols_decoded}</td>
-            <td>${affixes_string}</td><td>${mc_obj.sog_list.length}</td><td><a class="edit-concept-mcdict" data-mc-id="${mc_id}" href="javascript:void(0);">edit</a></td></tr>`;
+            <td>${options_string}</td><td>${mc_obj.sog_list.length}</td><td><a class="edit-concept-mcdict" data-mc-id="${mc_id}" href="javascript:void(0);">edit</a></td></tr>`;
 
         table_content += concept_row
     }

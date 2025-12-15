@@ -20,7 +20,7 @@ export interface Source {
 
 export interface Concept {
     code_var_name: string;
-    affixes: string[];
+    options: string[];
     tensor_rank: number;
     description: string;
     primitive_symbols: string[];
@@ -30,6 +30,12 @@ export interface Concept {
 
 export interface EoI {
     symbolic_code: string;
+}
+
+export interface Occurence {
+    mc_id: string;
+    tag_name: string;
+    options: string[];
 }
 
 // --------------------------
@@ -156,6 +162,7 @@ let colors = [
 // load mcdict info from the external json file
 export let mcdict_edit_id: number = 0;
 export let mcdict = {} as { [key: string]: Concept };
+export let occurences_dict = {} as { [key: string]: Occurence };
 export let eoi_dict = {} as { [key: string]: EoI };
 // export let occdict = {} as { [key: string]: Occurence };
 
@@ -183,6 +190,7 @@ export function fetch_mcdict_json_data(onSuccess?: () => void) {
             // Data is extended to include mcdict version.
             mcdict_edit_id = data[0];
             mcdict = data[1]['mcdict'];
+            occurences_dict = data[1]['occurences_dict'];
             eoi_dict = data[1]['eoi_dict'];
             console.log("MCDict refreshed successfully!");
             

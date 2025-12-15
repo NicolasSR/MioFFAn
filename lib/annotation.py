@@ -81,7 +81,7 @@ class McDict:
             concepts[id] = MathConcept(**obj)
         self.concepts: dict[str, MathConcept] = concepts
 
-        self.occurences: dict[str, Occurence] = cast_dicts_to_dataclass(data['occurences'], Occurence)
+        self.occurences_dict: dict[str, Occurence] = cast_dicts_to_dataclass(data['occurences_dict'], Occurence)
         self.eoi_dict: dict[str, EoI] = cast_dicts_to_dataclass(data['eoi_dict'], EoI)
 
 
@@ -94,7 +94,7 @@ class McDict:
                     '_mcdict_version': self.mcdict_version,
                     'concepts': cast_dataclass_to_dicts(self.concepts),
                     'next_available_mc_id': self.next_available_mc_id,
-                    'occurences': cast_dataclass_to_dicts(self.occurences),
+                    'occurences_dict': cast_dataclass_to_dicts(self.occurences_dict),
                     'eoi_dict': cast_dataclass_to_dicts(self.eoi_dict)
                 },
                 f,

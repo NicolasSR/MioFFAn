@@ -134,6 +134,18 @@ def routing_functions(server):
     @app.route('/sample_nav', methods=['GET'])
     def sample_nav():
         return server.sample_nav()
+    
+    @app.route('/_get_occurence_properties_options_html', methods=['GET'])
+    def get_occurence_properties_options_html():
+        return server.get_occurence_properties_options_html()
+    
+    @app.route('/_get_concept_properties_options_html', methods=['GET'])
+    def get_concept_properties_options_html():
+        return server.get_concept_properties_options_html()
+    
+    @app.route('/_edit_occurence_properties', methods=['POST'])
+    def edit_occurence_properties():
+        return server.edit_occurence_properties()
 
 
 def main():

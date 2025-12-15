@@ -15,6 +15,7 @@ from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import check_missing_variables, check_document_edit_id, PostRequestError
+from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
 
 # get git revision
 try:
@@ -42,51 +43,15 @@ def make_concept(res) -> Optional[MathConcept]:
         flash('Description must be filled.')
         return None
 
-    # get affixes
-    affixes = res.get('affixes')
+    # get options (properties)
+    options = res.get('options')
 
     # Prepare empty list for SoGs
     sog_list = []
 
     primitive_symbols = res.get('primitive_symbols')
 
-    return MathConcept(code_var_name, description, tensor_rank, affixes, sog_list, primitive_symbols)
-
-def affixes_pulldowns():
-    select_tag = '''<li><select name="affixes{}">
-<option value="">-----</option>
-<option value="subscript">Subscript</option>
-<option value="superscript">Superscript</option>
-<option value="comma">Comma</option>
-<option value="semicolon">Semicolon</option>
-<option value="colon">Colon</option>
-<option value="prime">Prime</option>
-<option value="asterisk">Asterisk</option>
-<option value="circle">Circle</option>
-<option value="hat">Hat</option>
-<option value="tilde">Tilde</option>
-<option value="bar">Bar</option>
-<option value="over">Over</option>
-<option value="over right arrow">Over right arrow</option>
-<option value="over left arrow">Over left arrow</option>
-<option value="dot">Dot</option>
-<option value="double dot">Double dot</option>
-<option value="dagger">Dagger</option>
-<option value="double dagger">Double dagger</option>
-<option value="open parenthesis">Open parenthesis</option>
-<option value="close parenthesis">Close parenthesis</option>
-<option value="open bracket">Open bracket</option>
-<option value="close bracket">Close bracket</option>
-<option value="open brace">Open brace</option>
-<option value="close brace">Close brace</option>
-<option value="vertical bar">Vertical bar</option>
-<option value="leftside argument">Leftside argument</option>
-<option value="rightside argument">Rightside argument</option>
-<option value="leftside base">Leftside base</option>
-</select></li>'''
-    items = '\n'.join([select_tag.format(i) for i in range(10)])
-
-    return '<ol>{}</ol>'.format(items)
+    return MathConcept(code_var_name, description, tensor_rank, options, sog_list, primitive_symbols)
 
 
 def preprocess_mcdict(concepts: dict[str, MathConcept]):
@@ -138,7 +103,7 @@ def preprocess_mcdict(concepts: dict[str, MathConcept]):
             'code_var_name': mc_obj.code_var_name,
             'description': process_desc(mc_obj.description),
             'tensor_rank': mc_obj.tensor_rank,
-            'affixes': mc_obj.affixes,
+            'options': mc_obj.options,
             'primitive_symbols': mc_obj.primitive_symbols,
             'sog_list': [asdict(sog) for sog in mc_obj.sog_list]
         }
@@ -207,7 +172,7 @@ class MioGattoServer:
         return render_template('annotation_page.html', file_content=content, current_file=filename)
 
     def add_data_math_concept(self, root):
-        for comp_tag_id, annotation_obj in self.mcdict.occurences.items():
+        for comp_tag_id, annotation_obj in self.mcdict.occurences_dict.items():
             mc_id = annotation_obj.mc_id
             if mc_id is not None:
                 xpath_expression = "//{}[@id='{}']".format(annotation_obj.tag_name, comp_tag_id)
@@ -301,7 +266,7 @@ class MioGattoServer:
         progress_dict = {
             'nof_eois': len(self.mcdict.eoi_dict),
             'nof_concepts': len(self.mcdict.concepts),
-            'nof_occ': len(self.mcdict.occurences),
+            'nof_occ': len(self.mcdict.occurences_dict),
             'nof_sog': nof_sog
         }
 
@@ -328,7 +293,6 @@ class MioGattoServer:
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
-            affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
@@ -419,7 +383,7 @@ class MioGattoServer:
             check_missing_variables(comp_tag_id=comp_tag_id,mc_id=mc_id,tag_name=tag_name)
 
             # register
-            self.mcdict.occurences[comp_tag_id] = Occurence(mc_id, tag_name)
+            self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, [])
             self.mcdict.dump()
 
             self.update_mcdict_edit_id()
@@ -443,7 +407,7 @@ class MioGattoServer:
             comp_tag_id = res.get('comp_tag_id')
             check_missing_variables(comp_tag_id=comp_tag_id)
 
-            del self.mcdict.occurences[comp_tag_id]
+            del self.mcdict.occurences_dict[comp_tag_id]
             self.mcdict.dump()
 
             self.update_mcdict_edit_id()
@@ -591,6 +555,7 @@ class MioGattoServer:
         data = dict()
         data['mcdict'] = preprocess_mcdict(self.mcdict.concepts)
         data['eoi_dict'] = {eoi_id: asdict(eoi_obj) for eoi_id, eoi_obj in self.mcdict.eoi_dict.items()}
+        data['occurences_dict'] = {comp_tag_id: asdict(occ_obj) for comp_tag_id, occ_obj in self.mcdict.occurences_dict.items()}
         extended_data = [str(self.mcdict_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
     
@@ -748,10 +713,106 @@ class MioGattoServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
-            affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
+
+    def get_occurence_properties_options_html(self):
+        try:
+            comp_tag_id = request.args.get('comp_tag_id', '')
+
+            if comp_tag_id not in self.mcdict.occurences_dict:
+                raise PostRequestError(
+                    code="INVALID_IDENTIFIER",
+                    message=f"Identifier comp_tag_id: {comp_tag_id} missing in internal occurences dictionary.",
+                    http_status=404
+                )
+            
+            occurence = self.mcdict.occurences_dict[comp_tag_id]
+            concept = self.mcdict.concepts.get(occurence.mc_id, None)
+            if concept is None:
+                raise PostRequestError(
+                    code="INVALID_IDENTIFIER",
+                    message=f"Identifier mc_id: {occurence.mc_id} did not yield a valid concept object.",
+                    http_status=404
+                )
+            
+            out_html = build_occurence_properties_options_html(concept.tensor_rank,occurence.options)
+            
+            success_message = {
+                    "status": "success",
+                    "message": "Occurence properties options HTML generated successfully.",
+                    "out_html": out_html
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+    def edit_occurence_properties(self):
+        try:
+            res = request.json
+
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+
+            comp_tag_id = res.get('comp_tag_id')
+            selected_options = res.get('selected_options')
+
+            check_missing_variables(comp_tag_id=comp_tag_id,selected_options=selected_options)
+            
+            self.mcdict.occurences_dict[comp_tag_id].options = selected_options
+            self.mcdict.dump()
+
+            self.update_mcdict_edit_id()
+
+            success_message = {
+                "status": "success",
+                "message": "Occurence properties edited successfully."
+            }
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+
+    def get_concept_properties_options_html(self):
+        try:
+            mc_id = request.args.get('mc_id', '')
+            tensor_rank = request.args.get('tensor_rank', '')
+
+            if mc_id != '':
+                if mc_id not in self.mcdict.concepts:
+                    raise PostRequestError(
+                        code="INVALID_IDENTIFIER",
+                        message=f"Identifier mc_id: {mc_id} missing in internal concepts dictionary.",
+                        http_status=404
+                    )
+            
+                concept = self.mcdict.concepts.get(mc_id, None)
+                if concept is None:
+                    raise PostRequestError(
+                        code="INVALID_IDENTIFIER",
+                        message=f"Identifier mc_id: {mc_id} did not yield a valid concept object.",
+                        http_status=404
+                    )
+                
+                previous_options = concept.options
+            else:
+                previous_options = []
+            
+            out_html = build_concept_properties_options_html(tensor_rank, previous_options)
+            
+            success_message = {
+                    "status": "success",
+                    "message": "Occurence properties options HTML generated successfully.",
+                    "out_html": out_html
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def update_mi_anno_edit_id(self):
         self.mi_anno_edit_id += 1

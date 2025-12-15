@@ -492,14 +492,25 @@ export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTML
     const code_var_name = concept_dialog.find('textarea[name="code-var-name"]').val()
     const description = concept_dialog.find('textarea[name="description"]').val()
     const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
-    let affixes: string[] = [];
-    for (let idx = 0; idx < 10; idx++) {  // This is hardcoded for now. Should be changed.
-        const affix_value = concept_dialog.find(`select[name="affixes${idx}"]`).find(
-        `option:selected`).attr('value');
-        if (affix_value !== undefined && affix_value !== '') {
-            affixes.push(affix_value)
+
+    let selected_options: string[] = [];
+    concept_dialog.find('select').each(function() {
+        const select_name = $(this).attr('name');
+        const selected_value = $(this).val() as string;
+        if (select_name !== undefined && selected_value !== '') {
+            selected_options.push(selected_value);
         }
     }
+    );
+    concept_dialog.find('input[type="checkbox"]').each(function() {
+        const checkbox_name = $(this).attr('id');
+        if (checkbox_name !== undefined) {
+            if ($(this).is(':checked')) {
+                selected_options.push(checkbox_name);
+            }
+        }
+    }
+    );
 
     fetch('/_update_concept', {
         method: 'POST',
@@ -510,7 +521,7 @@ export function submit_update_concept(mc_id: string, concept_dialog: JQuery<HTML
             code_var_name: code_var_name,
             description: description,
             tensor_rank: tensor_rank,
-            affixes: affixes,
+            options: selected_options,
             primitive_symbols: mcdict[mc_id].primitive_symbols
         }),
     }).then(async (response) => {
