@@ -351,7 +351,7 @@ def main():
                 '_mcdict_version': '1.0',
                 'concepts': {},
                 'next_available_mc_id': 0,
-                'occurences': {},
+                'occurences_dict': {},
                 'eoi_dict': {}
             },
             f,

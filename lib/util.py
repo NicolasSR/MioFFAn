@@ -38,23 +38,35 @@ def get_mi2hex(tree):
 
     return mi2hex
 
-def check_missing_variables(variables_list):
-    if any(var is None for var in variables_list):
-        error_message = {
+class PostRequestError(Exception):
+    """Custom exception for handling POST request errors."""
+    def __init__(self, code: str, message: str, http_status: int = 400):
+        self.code = code
+        self.message = message
+        self.http_status = http_status
+        super().__init__(message)
+
+    def to_dict(self):
+        return {
             "status": "error",
-            "code": "MISSING_FIELDS",
-            "message": f"Some of the following fields were missing or None: {str(variables_list)}"
+            "code": self.code,
+            "message": self.message
         }
-        # Return 400 Bad Request
-        return json.dumps(error_message), 400
+
+def check_missing_variables(**kwargs):
+    missing_vars = [name for name, value in kwargs.items() if value is None]
+    if missing_vars:
+        raise PostRequestError(
+            code="MISSING_FIELDS",
+            message=f"The following fields were missing: {', '.join(missing_vars)}",
+            http_status=400
+        )
     
 def check_document_edit_id(current_edit_id, edit_id_in_request):     
     # If the mcdict used in the request differs from the latest, then redirect (i.e., reload the page).
     if edit_id_in_request is None or str(current_edit_id) != edit_id_in_request:
-        error_message = {
-            "status": "error",
-            "code": "VERSION_MISMATCH",
-            "message": "Invalid Action! The annotation has been modified elsewhere. Reloading.",
-            "action": "reload" # Frontend can check for this string
-        }
-        return json.dumps(error_message), 409
+        raise PostRequestError(
+            code="VERSION_MISMATCH",
+            message=f"Annotation version mismatch. Server:{current_edit_id} vs Request:{edit_id_in_request}.",
+            http_status=400
+        )

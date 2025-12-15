@@ -14,16 +14,20 @@ from dataclasses import asdict
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
-from lib.util import check_missing_variables, check_document_edit_id
+from lib.util import check_missing_variables, check_document_edit_id, PostRequestError
+from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
 
 # get git revision
 try:
     GIT_REVISON = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip().decode('ascii')
 except OSError:
     GIT_REVISON = 'Unknown'
-
-
+    
 def make_concept(res) -> Optional[MathConcept]:
+    if not res.get('code_var_name').isidentifier():
+        flash('Variable name must be compliant with Python identifier rules.')
+        return None
+    
     # check tensor rank
     if not res.get('tensor_rank').isdigit():
         flash('Tensor rank must be non-negative integer.')
@@ -31,57 +35,23 @@ def make_concept(res) -> Optional[MathConcept]:
     else:
         tensor_rank = int(res.get('tensor_rank'))
 
+    code_var_name = res.get('code_var_name')
+
     # check description
     description = res.get('description')
     if len(description) == 0:
         flash('Description must be filled.')
         return None
 
-    # get affixes
-    affixes = res.get('affixes')
+    # get options (properties)
+    options = res.get('options')
 
     # Prepare empty list for SoGs
     sog_list = []
 
     primitive_symbols = res.get('primitive_symbols')
 
-    return MathConcept(description, tensor_rank, affixes, sog_list, primitive_symbols)
-
-def affixes_pulldowns():
-    select_tag = '''<li><select name="affixes{}">
-<option value="">-----</option>
-<option value="subscript">Subscript</option>
-<option value="superscript">Superscript</option>
-<option value="comma">Comma</option>
-<option value="semicolon">Semicolon</option>
-<option value="colon">Colon</option>
-<option value="prime">Prime</option>
-<option value="asterisk">Asterisk</option>
-<option value="circle">Circle</option>
-<option value="hat">Hat</option>
-<option value="tilde">Tilde</option>
-<option value="bar">Bar</option>
-<option value="over">Over</option>
-<option value="over right arrow">Over right arrow</option>
-<option value="over left arrow">Over left arrow</option>
-<option value="dot">Dot</option>
-<option value="double dot">Double dot</option>
-<option value="dagger">Dagger</option>
-<option value="double dagger">Double dagger</option>
-<option value="open parenthesis">Open parenthesis</option>
-<option value="close parenthesis">Close parenthesis</option>
-<option value="open bracket">Open bracket</option>
-<option value="close bracket">Close bracket</option>
-<option value="open brace">Open brace</option>
-<option value="close brace">Close brace</option>
-<option value="vertical bar">Vertical bar</option>
-<option value="leftside argument">Leftside argument</option>
-<option value="rightside argument">Rightside argument</option>
-<option value="leftside base">Leftside base</option>
-</select></li>'''
-    items = '\n'.join([select_tag.format(i) for i in range(10)])
-
-    return '<ol>{}</ol>'.format(items)
+    return MathConcept(code_var_name, description, tensor_rank, options, sog_list, primitive_symbols)
 
 
 def preprocess_mcdict(concepts: dict[str, MathConcept]):
@@ -130,9 +100,10 @@ def preprocess_mcdict(concepts: dict[str, MathConcept]):
 
     for mc_id, mc_obj in concepts.items():
         mcdict[mc_id] = {
+            'code_var_name': mc_obj.code_var_name,
             'description': process_desc(mc_obj.description),
             'tensor_rank': mc_obj.tensor_rank,
-            'affixes': mc_obj.affixes,
+            'options': mc_obj.options,
             'primitive_symbols': mc_obj.primitive_symbols,
             'sog_list': [asdict(sog) for sog in mc_obj.sog_list]
         }
@@ -201,7 +172,7 @@ class MioGattoServer:
         return render_template('annotation_page.html', file_content=content, current_file=filename)
 
     def add_data_math_concept(self, root):
-        for comp_tag_id, annotation_obj in self.mcdict.occurences.items():
+        for comp_tag_id, annotation_obj in self.mcdict.occurences_dict.items():
             mc_id = annotation_obj.mc_id
             if mc_id is not None:
                 xpath_expression = "//{}[@id='{}']".format(annotation_obj.tag_name, comp_tag_id)
@@ -295,7 +266,7 @@ class MioGattoServer:
         progress_dict = {
             'nof_eois': len(self.mcdict.eoi_dict),
             'nof_concepts': len(self.mcdict.concepts),
-            'nof_occ': len(self.mcdict.occurences),
+            'nof_occ': len(self.mcdict.occurences_dict),
             'nof_sog': nof_sog
         }
 
@@ -322,7 +293,6 @@ class MioGattoServer:
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
-            affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
@@ -401,184 +371,191 @@ class MioGattoServer:
         )
 
     def assign_concept(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        comp_tag_id = res.get('comp_tag_id')
-        mc_id = res.get('mc_id')
-        tag_name = res.get('tag_name')
+            comp_tag_id = res.get('comp_tag_id')
+            mc_id = res.get('mc_id')
+            tag_name = res.get('tag_name')
 
-        check_missing_variables([comp_tag_id,mc_id,tag_name])
+            check_missing_variables(comp_tag_id=comp_tag_id,mc_id=mc_id,tag_name=tag_name)
 
-        # register
-        self.mcdict.occurences[comp_tag_id] = Occurence(mc_id, tag_name)
-        self.mcdict.dump()
+            # register
+            self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, [])
+            self.mcdict.dump()
 
-        self.update_mcdict_edit_id()
+            self.update_mcdict_edit_id()
 
-        success_message = {
-            "status": "success",
-            "message": "Concept assigned successfully."
-        }
+            success_message = {
+                "status": "success",
+                "message": "Concept assigned successfully."
+            }
 
-        return json.dumps(success_message), 200
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def remove_concept(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        comp_tag_id = res.get('comp_tag_id')
-        check_missing_variables([comp_tag_id])
+            comp_tag_id = res.get('comp_tag_id')
+            check_missing_variables(comp_tag_id=comp_tag_id)
 
-        del self.mcdict.occurences[comp_tag_id]
-        self.mcdict.dump()
+            del self.mcdict.occurences_dict[comp_tag_id]
+            self.mcdict.dump()
 
-        self.update_mcdict_edit_id()
+            self.update_mcdict_edit_id()
 
-        success_message = {
-            "status": "success",
-            "message": "Concept removed successfully."
-        }
+            success_message = {
+                "status": "success",
+                "message": "Concept removed successfully."
+            }
 
-        return json.dumps(success_message), 200
-
-    def new_concept(self):
-        res = request.json
-
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
-
-        # make concept with checking
-        concept = make_concept(res)
-        check_missing_variables([concept])
+            return json.dumps(success_message), 200
         
-        mc_id = str(self.mcdict.next_available_mc_id)
-
-        # register
-        self.mcdict.concepts[mc_id] = concept
-        self.mcdict.next_available_mc_id += 1
-        self.mcdict.dump()
-
-        self.update_mcdict_edit_id()
-
-        success_message = {
-            "status": "success",
-            "message": "Concept created successfully.",
-            "mc_id": mc_id
-        }
-
-        return json.dumps(success_message), 200
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
     
 
-    def update_concept(self):
-        res = request.json
+    def register_concept(self, is_new=False):
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        # make concept with checking
-        concept = make_concept(res)
-        check_missing_variables([concept])
+            if is_new:
+                mc_id = str(self.mcdict.next_available_mc_id)
+                self.mcdict.next_available_mc_id += 1
+            else:
+                mc_id = res.get('mc_id')
+
+            # make concept with checking
+            concept = make_concept(res)
+
+            check_missing_variables(concept=concept,mc_id=mc_id)
+
+            # register
+            self.mcdict.concepts[mc_id] = concept
+            self.mcdict.dump()
+
+            self.update_mcdict_edit_id()
+
+            success_message = {
+                "status": "success",
+                "message": "Concept registered successfully.",
+                "mc_id": mc_id
+            }
+
+            return json.dumps(success_message), 200
         
-        mc_id = res.get('mc_id')
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
-        # register
-        self.mcdict.concepts[mc_id] = concept
-        self.mcdict.dump()
 
-        self.update_mcdict_edit_id()
-
-        success_message = {
-            "status": "success",
-            "message": "Concept updated successfully."
-        }
-
-        return json.dumps(success_message), 200
 
     def add_sog(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            
+            mc_id = res['mc_id']
+            start_id, stop_id = res['start_id'], res['stop_id']
+
+            check_missing_variables(mc_id=mc_id,start_id=start_id,stop_id=stop_id)
+
+            # TODO: validate the span range
+            existing_sog_pos = [(s.start_id, s.stop_id) for s in self.mcdict.concepts[mc_id].sog_list]
+            if (start_id, stop_id) not in existing_sog_pos:
+                self.mcdict.concepts[mc_id].sog_list.append(SoG(start_id, stop_id, 0))
+                self.mcdict.dump()
+
+            self.update_mcdict_edit_id()
+            
+            success_message = {
+                "status": "success",
+                "message": "SoG added successfully."
+            }
+
+            return json.dumps(success_message), 200
         
-        mc_id = res['mc_id']
-        start_id, stop_id = res['start_id'], res['stop_id']
-
-        check_missing_variables([mc_id,start_id,stop_id])
-
-        # TODO: validate the span range
-        existing_sog_pos = [(s.start_id, s.stop_id) for s in self.mcdict.concepts[mc_id].sog_list]
-        if (start_id, stop_id) not in existing_sog_pos:
-            self.mcdict.concepts[mc_id].sog_list.append(SoG(start_id, stop_id, 0))
-            self.mcdict.dump()
-
-        self.update_mcdict_edit_id()
-        
-        success_message = {
-            "status": "success",
-            "message": "SoG added successfully."
-        }
-
-        return json.dumps(success_message), 200
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def delete_sog(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        mc_id = res['mc_id']
-        start_id, stop_id = res['start_id'], res['stop_id']
+            mc_id = res['mc_id']
+            start_id, stop_id = res['start_id'], res['stop_id']
 
-        check_missing_variables([mc_id,start_id,stop_id])
+            check_missing_variables(mc_id=mc_id,start_id=start_id,stop_id=stop_id)
 
-        delete_idx = None
-        for idx, sog in enumerate(self.mcdict.concepts[mc_id].sog_list):
-            if sog.start_id == start_id and sog.stop_id == stop_id:
-                delete_idx = idx
-                break
+            delete_idx = None
+            for idx, sog in enumerate(self.mcdict.concepts[mc_id].sog_list):
+                if sog.start_id == start_id and sog.stop_id == stop_id:
+                    delete_idx = idx
+                    break
 
-        if delete_idx is not None:
-            del self.mcdict.concepts[mc_id].sog_list[delete_idx]
-            self.mcdict.dump()
+            if delete_idx is not None:
+                del self.mcdict.concepts[mc_id].sog_list[delete_idx]
+                self.mcdict.dump()
+            
+            self.update_mcdict_edit_id()
+            
+            success_message = {
+                "status": "success",
+                "message": "SoG deleted successfully."
+            }
+
+            return json.dumps(success_message), 200
         
-        self.update_mcdict_edit_id()
-        
-        success_message = {
-            "status": "success",
-            "message": "SoG deleted successfully."
-        }
-
-        return json.dumps(success_message), 200
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def change_sog_type(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        mc_id = res['mc_id']
-        start_id, stop_id = res['start_id'], res['stop_id']
-        sog_type = res['sog_type']
+            mc_id = res['mc_id']
+            start_id, stop_id = res['start_id'], res['stop_id']
+            sog_type = res['sog_type']
 
-        check_missing_variables([mc_id,start_id,stop_id,sog_type])
+            check_missing_variables(mc_id=mc_id,start_id=start_id,stop_id=stop_id,sog_type=sog_type)
 
-        for sog in self.mcdict.concepts[mc_id].sog_list:
-            if sog.start_id == start_id and sog.stop_id == stop_id:
-                sog.type = sog_type
-                self.mcdict.dump()
-                break
+            for sog in self.mcdict.concepts[mc_id].sog_list:
+                if sog.start_id == start_id and sog.stop_id == stop_id:
+                    sog.type = sog_type
+                    self.mcdict.dump()
+                    break
 
-        self.update_mcdict_edit_id()
+            self.update_mcdict_edit_id()
+            
+            success_message = {
+                "status": "success",
+                "message": "SoG added successfully."
+            }
+
+            return json.dumps(success_message), 200
         
-        success_message = {
-            "status": "success",
-            "message": "SoG added successfully."
-        }
-
-        return json.dumps(success_message), 200
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def gen_mcdict_json(self):
         data = dict()
         data['mcdict'] = preprocess_mcdict(self.mcdict.concepts)
         data['eoi_dict'] = {eoi_id: asdict(eoi_obj) for eoi_id, eoi_obj in self.mcdict.eoi_dict.items()}
+        data['occurences_dict'] = {comp_tag_id: asdict(occ_obj) for comp_tag_id, occ_obj in self.mcdict.occurences_dict.items()}
         extended_data = [str(self.mcdict_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
     
@@ -616,84 +593,96 @@ class MioGattoServer:
         return redirect('/equations_of_interest_selector')
     
     def add_group(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-        # Generate a unique ID for the new group, then increment the ID counter
-        new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
-        self.mi_anno.next_available_group_id += 1
+            # Generate a unique ID for the new group, then increment the ID counter
+            new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
+            self.mi_anno.next_available_group_id += 1
 
-        # Register the new group in mi_anno.json file within the groups section
-        group_info = {
-            "start_id": res.get('start_id'),
-            "stop_id": res.get('stop_id'),
-            "ancestry_level_start": res.get('ancestry_level_start'),
-            "ancestry_level_stop": res.get('ancestry_level_stop'),
-        }
-        self.mi_anno.groups[new_group_id] = Group(**group_info)
+            # Register the new group in mi_anno.json file within the groups section
+            group_info = {
+                "start_id": res.get('start_id'),
+                "stop_id": res.get('stop_id'),
+                "ancestry_level_start": res.get('ancestry_level_start'),
+                "ancestry_level_stop": res.get('ancestry_level_stop'),
+            }
+            self.mi_anno.groups[new_group_id] = Group(**group_info)
 
-        # Save the updated annotations
-        self.mi_anno.dump()
+            # Save the updated annotations
+            self.mi_anno.dump()
 
-        self.update_mi_anno_edit_id()
+            self.update_mi_anno_edit_id()
 
-        success_message = {
-            "status": "success",
-            "message": "Group created successfully.",
-            "group_id": new_group_id, 
-        }
+            success_message = {
+                "status": "success",
+                "message": "Group created successfully.",
+                "group_id": new_group_id, 
+            }
 
-        return json.dumps(success_message), 200
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
     
     def remove_group(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-        group_id = res.get('group_id')
+            group_id = res.get('group_id')
 
-        check_missing_variables([group_id])
+            check_missing_variables(group_id=group_id)
 
-        # Delete the group from mi_anno.json file within the groups section
-        del self.mi_anno.groups[group_id]
+            # Delete the group from mi_anno.json file within the groups section
+            del self.mi_anno.groups[group_id]
 
-        # Save the updated annotations
-        self.mi_anno.dump()
+            # Save the updated annotations
+            self.mi_anno.dump()
 
-        self.update_mi_anno_edit_id()
+            self.update_mi_anno_edit_id()
 
-        success_message = {
-            "status": "success",
-            "message": "Group removed successfully.",
-            "group_id": group_id, 
-        }
+            success_message = {
+                "status": "success",
+                "message": "Group removed successfully.",
+                "group_id": group_id, 
+            }
 
-        return json.dumps(success_message), 200
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
     
     def edit_symbolic_code(self):
-        res = request.json
+        try:
+            res = request.json
 
-        check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-        eoi_id = res.get('eoi_id')
-        symbolic_code = res.get('symbolic_code')
+            eoi_id = res.get('eoi_id')
+            symbolic_code = res.get('symbolic_code')
 
-        check_missing_variables([eoi_id,symbolic_code])
+            check_missing_variables(eoi_id=eoi_id,symbolic_code=symbolic_code)
+            
+            if eoi_id in self.mcdict.eoi_dict.keys():
+                self.mcdict.eoi_dict[eoi_id].symbolic_code = symbolic_code
+                self.mcdict.dump()
+            else:
+                flash('Equation ID was not found in the list of EoI.')
+
+            self.update_mcdict_edit_id()
+
+            success_message = {
+                "status": "success",
+                "message": "Symbolic code updated successfully."
+            }
+            return json.dumps(success_message), 200
         
-        if eoi_id in self.mcdict.eoi_dict.keys():
-            self.mcdict.eoi_dict[eoi_id].symbolic_code = symbolic_code
-            self.mcdict.dump()
-        else:
-            flash('Equation ID was not found in the list of EoI.')
-
-        self.update_mcdict_edit_id()
-
-        success_message = {
-            "status": "success",
-            "message": "Symbolic code updated successfully."
-        }
-        return json.dumps(success_message), 200
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
     
     def gen_hex_to_mc_map(self):
         data = {}
@@ -724,10 +713,106 @@ class MioGattoServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
-            affixes=Markup(affixes_pulldowns()),
             main_content=Markup(main_content),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
+
+    def get_occurence_properties_options_html(self):
+        try:
+            comp_tag_id = request.args.get('comp_tag_id', '')
+
+            if comp_tag_id not in self.mcdict.occurences_dict:
+                raise PostRequestError(
+                    code="INVALID_IDENTIFIER",
+                    message=f"Identifier comp_tag_id: {comp_tag_id} missing in internal occurences dictionary.",
+                    http_status=404
+                )
+            
+            occurence = self.mcdict.occurences_dict[comp_tag_id]
+            concept = self.mcdict.concepts.get(occurence.mc_id, None)
+            if concept is None:
+                raise PostRequestError(
+                    code="INVALID_IDENTIFIER",
+                    message=f"Identifier mc_id: {occurence.mc_id} did not yield a valid concept object.",
+                    http_status=404
+                )
+            
+            out_html = build_occurence_properties_options_html(concept.tensor_rank,occurence.options)
+            
+            success_message = {
+                    "status": "success",
+                    "message": "Occurence properties options HTML generated successfully.",
+                    "out_html": out_html
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+    def edit_occurence_properties(self):
+        try:
+            res = request.json
+
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+
+            comp_tag_id = res.get('comp_tag_id')
+            selected_options = res.get('selected_options')
+
+            check_missing_variables(comp_tag_id=comp_tag_id,selected_options=selected_options)
+            
+            self.mcdict.occurences_dict[comp_tag_id].options = selected_options
+            self.mcdict.dump()
+
+            self.update_mcdict_edit_id()
+
+            success_message = {
+                "status": "success",
+                "message": "Occurence properties edited successfully."
+            }
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+
+    def get_concept_properties_options_html(self):
+        try:
+            mc_id = request.args.get('mc_id', '')
+            tensor_rank = request.args.get('tensor_rank', '')
+
+            if mc_id != '':
+                if mc_id not in self.mcdict.concepts:
+                    raise PostRequestError(
+                        code="INVALID_IDENTIFIER",
+                        message=f"Identifier mc_id: {mc_id} missing in internal concepts dictionary.",
+                        http_status=404
+                    )
+            
+                concept = self.mcdict.concepts.get(mc_id, None)
+                if concept is None:
+                    raise PostRequestError(
+                        code="INVALID_IDENTIFIER",
+                        message=f"Identifier mc_id: {mc_id} did not yield a valid concept object.",
+                        http_status=404
+                    )
+                
+                previous_options = concept.options
+            else:
+                previous_options = []
+            
+            out_html = build_concept_properties_options_html(tensor_rank, previous_options)
+            
+            success_message = {
+                    "status": "success",
+                    "message": "Occurence properties options HTML generated successfully.",
+                    "out_html": out_html
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
     def update_mi_anno_edit_id(self):
         self.mi_anno_edit_id += 1

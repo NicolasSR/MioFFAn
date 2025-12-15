@@ -3,7 +3,7 @@
 
 import { post } from "jquery";
 import {
-    COMPOUND_CONCEPT_TAGS, mcdict, mcdict_edit_id, eoi_dict,
+    COMPOUND_CONCEPT_TAGS, dataLoadingPromise, mcdict, mcdict_edit_id, eoi_dict,
     escape_selector, get_mc_id_from_query
 } from "./common";
 import { give_eoi_borders } from "./main_pages_utils"
@@ -19,9 +19,10 @@ const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 // --------------------------
 
 $(function () {
-
-    // Mark borders of EoI
-    give_eoi_borders()
+    dataLoadingPromise.then(() => {
+        // Mark borders of EoI
+        give_eoi_borders()
+    });
 });
 
 // --------------------------
@@ -29,18 +30,20 @@ $(function () {
 // --------------------------
 
 $(function () {
-    $('.sidebar-tab input.tab-title').each(function () {
-        let tab_name = this.id;
-        if (localStorage[tab_name] == 'true') {
-            $(`#${tab_name}`).prop('checked', true);
-        }
-
-        $(`#${tab_name}`).on('change', function () {
-            if ($(this).prop('checked')) {
-                localStorage[tab_name] = true;
-            } else {
-                localStorage[tab_name] = false;
+    dataLoadingPromise.then(() => {
+        $('.sidebar-tab input.tab-title').each(function () {
+            let tab_name = this.id;
+            if (localStorage[tab_name] == 'true') {
+                $(`#${tab_name}`).prop('checked', true);
             }
+
+            $(`#${tab_name}`).on('change', function () {
+                if ($(this).prop('checked')) {
+                    localStorage[tab_name] = true;
+                } else {
+                    localStorage[tab_name] = false;
+                }
+            });
         });
     });
 });
@@ -61,8 +64,10 @@ function give_color($target: JQuery) {
 }
 
 $(function () {
-    $(compound_tags_selector).each(function () {
-        give_color($(this));
+    dataLoadingPromise.then(() => {
+        $(compound_tags_selector).each(function () {
+            give_color($(this));
+        });
     });
 })
 
@@ -101,41 +106,43 @@ function remove_selection_box(equation_id: string) {
 }
 
 $(function () {
-    // show the box for annotation in the sidebar 
-    function show_anno_box(current_equation: JQuery) {
-        // highlight the selected element
-        let current_equation_id = current_equation.attr('id')
-        if (current_equation_id != undefined && current_equation_id in eoi_dict) {
-            sessionStorage["equation_id"] = current_equation_id
-            current_equation.attr('style', 'border: dotted 2px #000000; padding: 10px;');
+    dataLoadingPromise.then(() => {
+        // show the box for annotation in the sidebar 
+        function show_anno_box(current_equation: JQuery) {
+            // highlight the selected element
+            let current_equation_id = current_equation.attr('id')
+            if (current_equation_id != undefined && current_equation_id in eoi_dict) {
+                sessionStorage["equation_id"] = current_equation_id
+                current_equation.attr('style', 'border: dotted 2px #000000; padding: 10px;');
 
-            let anno_box = $('#anno-box')
+                let anno_box = $('#anno-box')
 
-            let button_edit_symbolic_code = '<p><button id="edit-symbolic-code">Edit code</button></p>';
-            anno_box.html(button_edit_symbolic_code)
-            $('button#edit-symbolic-code').button();
-            $('button#edit-symbolic-code').on('click', function () {
-                edit_symbolic_code(current_equation_id!)
-            });
-        } else {
-            console.warn("Selected equation does not have an ID")
+                let button_edit_symbolic_code = '<p><button id="edit-symbolic-code">Edit code</button></p>';
+                anno_box.html(button_edit_symbolic_code)
+                $('button#edit-symbolic-code').button();
+                $('button#edit-symbolic-code').on('click', function () {
+                    edit_symbolic_code(current_equation_id!)
+                });
+            } else {
+                console.warn("Selected equation does not have an ID")
+            }
         }
-    }
 
-    $('math').on('click', function () {
-        // if already selected, remove it
-        let equation = get_equation_from_math($(this));
-        remove_selection_box(sessionStorage['equation_id']);
-        show_anno_box(equation);
+        $('math').on('click', function () {
+            // if already selected, remove it
+            let equation = get_equation_from_math($(this));
+            remove_selection_box(sessionStorage['equation_id']);
+            show_anno_box(equation);
+        });
+
+        // keep position and sidebar content after submiting the form
+        // This '$(window).scrollTop' seems redundant but somehow fixes the page position problems...
+        $(window).scrollTop(localStorage['scroll_top']);
+        let equation_id = sessionStorage['equation_id'];
+        if (equation_id != undefined) {
+            show_anno_box($('#' + escape_selector(equation_id)));
+        }
     });
-
-    // keep position and sidebar content after submiting the form
-    // This '$(window).scrollTop' seems redundant but somehow fixes the page position problems...
-    $(window).scrollTop(localStorage['scroll_top']);
-    let equation_id = sessionStorage['equation_id'];
-    if (equation_id != undefined) {
-        show_anno_box($('#' + escape_selector(equation_id)));
-    }
 });
 
 function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<HTMLElement>) {
