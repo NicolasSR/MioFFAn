@@ -26,6 +26,10 @@ concept_pulldown_properties_dict = {
         'all': [
             ['trial-function', 'Trial Function'],
             ['test-function', 'Test Function'],
+            ['nodal-variable', 'Nodal Variable'],
+            ['symbolic-variable', 'Symbolic Variable'],
+            ['undefined-function', 'Undefined Function'],
+            ['function', 'Function']
         ]
     }
 }
