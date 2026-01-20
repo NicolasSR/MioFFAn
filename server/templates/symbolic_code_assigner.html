@@ -38,11 +38,22 @@
 
         <main class="main">
             <!-- hidden by default -->
-
             <div id="symbolic-code-dialog-template" class="symbolic-code-dialog">
                 <p>Code:<br />
-                    <textarea name="symbolic-code" rows="3" cols="40"></textarea>
+                    <textarea id="code-input" name="symbolic-code" rows="3" cols="40"></textarea>
                 </p>
+                
+                <div class="controls-container">
+                    <div class="list-section">
+                        <small>Variables:</small>
+                        <div id="var-list-container" class="button-list"></div>
+                    </div>
+                    
+                    <div class="list-section">
+                        <small>Operators:</small>
+                        <div id="op-list-container" class="button-list"></div>
+                    </div>
+                </div>
             </div>
 
             <div id="error-dialog" class="error-dialog">

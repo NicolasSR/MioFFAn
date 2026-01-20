@@ -176,11 +176,17 @@ function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<
 }
 
 function edit_symbolic_code(eoi_id: string) {
+
     let symbolic_code_dialog = $('#symbolic-code-dialog-template').clone();
     symbolic_code_dialog.removeAttr('id');
 
     const eoi = eoi_dict[eoi_id];
+    
+    // Initialize interactive lists of variables and operators
     let $symbolic_code_node = symbolic_code_dialog.find('textarea[name="symbolic-code"]');
+    const $var_container = symbolic_code_dialog.find('div[id=var-list-container]');
+    const $op_container = symbolic_code_dialog.find('div[id=op-list-container]');
+    initEquationBuilder($symbolic_code_node, $var_container, $op_container);
 
     // put the current values
     $symbolic_code_node.text(eoi.symbolic_code);
@@ -201,6 +207,102 @@ function edit_symbolic_code(eoi_id: string) {
     });
 }
 
+/**
+ * Helper function to create a button for a snippet and attach the click event
+ */
+function createTokenButton(token: string, $symbolic_code_node: JQuery): HTMLButtonElement {
+    const btn = document.createElement('button');
+    btn.textContent = token;
+    btn.className = 'token-btn';
+    btn.type = 'button'; // Prevent form submission if inside a form
+    
+    // Add click listener
+    btn.addEventListener('click', () => {
+        insertAtCursor(token, $symbolic_code_node);
+    });
+    
+    return btn;
+}
+
+/**
+ * The core logic: Inserts text where the user's cursor currently is
+ */
+function insertAtCursor(textToInsert: string, $symbolic_code_node: JQuery): void {
+    let symbolic_code_node = $symbolic_code_node.get(0) as HTMLTextAreaElement
+
+    if (symbolic_code_node === undefined) return;
+
+    const startPos = symbolic_code_node.selectionStart;
+    const endPos = symbolic_code_node.selectionEnd;
+
+    // Insert the text between the start and end of the selection
+    // (This works even if nothing is selected, effectively just inserting)
+    symbolic_code_node.setRangeText(textToInsert, startPos, endPos, 'end');
+
+    // UX Polish: Immediately bring focus back to the textarea so the user 
+    // can keep typing or click another button without clicking the box again.
+    symbolic_code_node.focus();
+}
+
+/**
+ * Initialization function to populate the UI
+ */
+function initEquationBuilder($symbolic_code_node: JQuery, $var_container: JQuery, $op_container: JQuery): void {
+    let var_container = $var_container.get(0)
+    let op_container = $op_container.get(0)
+
+    if (var_container === undefined || op_container === undefined) return;
+
+    const var_list = prepare_var_list();
+    const op_list = prepare_op_list();
+
+    // Clear existing content if re-initializing
+    var_container.innerHTML = '';
+    op_container.innerHTML = '';
+
+    // Populate Variables
+    var_list.forEach(token => {
+        var_container!.appendChild(createTokenButton(token, $symbolic_code_node));
+    });
+
+    // Populate Operators
+    op_list.forEach(token => {
+        op_container!.appendChild(createTokenButton(token, $symbolic_code_node));
+    });
+    
+}
+
+function prepare_var_list(): string[]{
+    let var_list: string[] = [];
+    for (let mc_id in mcdict) {
+        var_list.push(mcdict[mc_id].code_var_name);
+        }
+    return var_list
+}
+
+function prepare_op_list(): string[]{
+    const op_list: string[] = [
+        '+',
+        '-',
+        '*',
+        'norm()',
+        'dot_prod()',
+        'contract()',
+        'double_contract()',
+        'grad()',
+        'sym_grad()',
+        'div()',
+        'matrix_prod()',
+        'matrix_transpose()',
+        'matrix_vector_prod()',
+        'matrix_determinant()',
+        'matrix_inverse()',
+        'matrix_cofactor()',
+        'vector_cross_prod()',
+        'vector_outer_prod()'
+    ];
+    return op_list;
+}
 
 // --------------------------
 // Keybord shortcuts
