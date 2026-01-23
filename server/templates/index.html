@@ -76,6 +76,10 @@
                         <p>No content found</p>
                     </div>
                 </p>
+                <p>
+                    <input type="checkbox" id="llm_placeholder_flag" name="llm_placeholder_flag"/>
+                    <label for="llm_placeholder_flag">Mark as LLM concept placeholder</label>
+                </p>
             </div>
 
             <div id="occurence-properties-dialog-template" class="occurence-properties-dialog">
@@ -177,6 +181,15 @@
                     </div>
                 </div>
 
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab_llm" type="checkbox" name="tabs" checked="checked">
+                    <label class="tab-title" for="tab_llm">LLM utilities</label>
+                    <div id="llm-nav-box" class="tab-content">
+                        <p>
+                            <button id="auto_segment_symbols">Automatic Segmentation</button>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 

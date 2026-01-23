@@ -5,7 +5,8 @@ import { post } from "jquery";
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, Source, dfs_comp_tags, mcdict, occurences_dict,
     mcdict_edit_id, escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list,
-    fetch_mcdict_json_data
+    fetch_mcdict_json_data,
+    mi_anno_edit_id
 } from "./common";
 import {
     highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
@@ -398,7 +399,8 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
     const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
 
     let selected_options: string[] = [];
-    concept_dialog.find('select').each(function() {
+    const $options_box = concept_dialog.find('#concept-properties-options-box')
+    $options_box.find('select').each(function() {
         const select_name = $(this).attr('name');
         const selected_value = $(this).val() as string;
         if (select_name !== undefined && selected_value !== '') {
@@ -406,7 +408,7 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
         }
     }
     );
-    concept_dialog.find('input[type="checkbox"]').each(function() {
+    $options_box.find('input[type="checkbox"]').each(function() {
         const checkbox_name = $(this).attr('id');
         if (checkbox_name !== undefined) {
             if ($(this).is(':checked')) {
@@ -415,6 +417,9 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
         }
     }
     );
+
+    const llm_placeholder_flag_checkbox = concept_dialog.find('input[type="checkbox"][id="llm_placeholder_flag"]')
+    const llm_placeholder_flag = llm_placeholder_flag_checkbox.is(":checked")
 
     const primitive_symbols = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)))
 
@@ -427,7 +432,8 @@ function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElem
             description: description,
             tensor_rank: tensor_rank,
             options: selected_options,
-            primitive_symbols: primitive_symbols
+            primitive_symbols: primitive_symbols,
+            llm_placeholder_flag: llm_placeholder_flag
         }),
     }).then(async (response) => {
         const data = await response.json();
@@ -945,6 +951,45 @@ $(function () {
     });
 
 });
+
+//-------------------------------
+//LLM utilities
+//-------------------------------
+$(function () {
+    dataLoadingPromise.then(() => {
+        $('button#auto_segment_symbols').button();
+        $('button#auto_segment_symbols').on('click', function () {
+            // localStorage['scroll_top'] = $(window).scrollTop();
+            
+            fetch('/_auto_segment_symbols', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    mi_anno_edit_id: mi_anno_edit_id,
+                    mcdict_edit_id: mcdict_edit_id,
+                }),
+            }).then(async (response) => {
+                const data = await response.json();
+                if (response.ok) {
+                    // Just reload the page
+                    window.location.reload();
+                } else {
+                    if (data.action === 'reload') {
+                        alert(data.message);
+                        window.location.reload(); // Manually trigger the reload here
+                    }
+                    console.error("Error:", data.message);
+                    alert("Error: " + data.message);
+                    return;
+                }
+            }).catch(error => {
+                console.error('Error segmenting symbols:', error);
+            });
+        });
+
+    });
+});
+
 
 // ------------------------------
 // Set page position at the last

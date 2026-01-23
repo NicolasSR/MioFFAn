@@ -16,6 +16,7 @@ from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
+from lib.llm_interface import auto_segment_symbols
 
 # get git revision
 try:
@@ -382,11 +383,7 @@ class MioGattoServer:
 
             check_missing_variables(comp_tag_id=comp_tag_id,mc_id=mc_id,tag_name=tag_name)
 
-            # register
-            self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, [])
-            self.mcdict.dump()
-
-            self.update_mcdict_edit_id()
+            self.assign_concept_inner(comp_tag_id, mc_id, tag_name)
 
             success_message = {
                 "status": "success",
@@ -397,6 +394,12 @@ class MioGattoServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        
+    def assign_concept_inner(self, comp_tag_id, mc_id, tag_name):
+        # register
+        self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, [])
+        self.mcdict.dump()
+        self.update_mcdict_edit_id()
 
     def remove_concept(self):
         try:
@@ -430,21 +433,16 @@ class MioGattoServer:
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
             if is_new:
-                mc_id = str(self.mcdict.next_available_mc_id)
-                self.mcdict.next_available_mc_id += 1
+                if res.get('llm_placeholder_flag'):
+                    variable_name = res.get('code_var_name')
+                    mc_id = f"llm_placeholder_concept_{variable_name}"                   
+                else:
+                    mc_id = str(self.mcdict.next_available_mc_id)
+                    self.mcdict.next_available_mc_id += 1
             else:
                 mc_id = res.get('mc_id')
 
-            # make concept with checking
-            concept = make_concept(res)
-
-            check_missing_variables(concept=concept,mc_id=mc_id)
-
-            # register
-            self.mcdict.concepts[mc_id] = concept
-            self.mcdict.dump()
-
-            self.update_mcdict_edit_id()
+            self.register_concept_inner(res, mc_id)
 
             success_message = {
                 "status": "success",
@@ -456,7 +454,18 @@ class MioGattoServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        
+    def register_concept_inner(self, res, mc_id: str):
+        # make concept with checking
+        concept = make_concept(res)
 
+        check_missing_variables(concept=concept,mc_id=mc_id)
+
+        # register
+        self.mcdict.concepts[mc_id] = concept
+        self.mcdict.dump()
+
+        self.update_mcdict_edit_id()
 
 
     def add_sog(self):
@@ -598,10 +607,6 @@ class MioGattoServer:
 
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            # Generate a unique ID for the new group, then increment the ID counter
-            new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
-            self.mi_anno.next_available_group_id += 1
-
             # Register the new group in mi_anno.json file within the groups section
             group_info = {
                 "start_id": res.get('start_id'),
@@ -609,12 +614,8 @@ class MioGattoServer:
                 "ancestry_level_start": res.get('ancestry_level_start'),
                 "ancestry_level_stop": res.get('ancestry_level_stop'),
             }
-            self.mi_anno.groups[new_group_id] = Group(**group_info)
 
-            # Save the updated annotations
-            self.mi_anno.dump()
-
-            self.update_mi_anno_edit_id()
+            new_group_id = self.add_group_inner(group_info)
 
             success_message = {
                 "status": "success",
@@ -626,6 +627,20 @@ class MioGattoServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        
+    def add_group_inner(self, group_info):
+        # Generate a unique ID for the new group, then increment the ID counter
+        new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
+        self.mi_anno.next_available_group_id += 1
+
+        self.mi_anno.groups[new_group_id] = Group(**group_info)
+
+        # Save the updated annotations
+        self.mi_anno.dump()
+
+        self.update_mi_anno_edit_id()
+
+        return new_group_id
     
     def remove_group(self):
         try:
@@ -813,6 +828,74 @@ class MioGattoServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+    
+    
+    #############################
+    # LLM UTILITIES
+    #############################
+
+    def auto_segment_symbols(self):
+        try:
+            res = request.json
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
+            copied_tree = deepcopy(self.tree)
+            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
+
+            new_occurences_dict, new_groups_dict = auto_segment_symbols(copied_tree, eoi_ids_list)
+
+            for variable_name, group_info_list in new_groups_dict.items():
+                new_occurences_dict[variable_name] = []
+                for group_info in group_info_list:
+                    group_primitive_symbols = group_info["primitive_symbols"]
+                    del group_info["primitive_symbols"]
+                    new_group_id = self.add_group_inner(group_info)
+                    new_occurences_dict[variable_name].append({
+                        "comp_tag_id": new_group_id,
+                        "tag_name": "mstyle",
+                        "primitive_symbols": group_primitive_symbols
+                        })
+            
+            for variable_name, new_occurences_list in new_occurences_dict.items():
+                concept_primitive_symbols = set()
+                for occurrence_info in new_occurences_list:
+                    concept_primitive_symbols.update(occurrence_info['primitive_symbols'])
+                    del occurrence_info['primitive_symbols']
+                placeholder_concept_id = f"llm_placeholder_concept_{variable_name}"
+                placeholder_concept_info = {
+                    "code_var_name": variable_name,
+                    "description": f"Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: {variable_name}",
+                    "tensor_rank": "0",
+                    "options": [],
+                    "sog_list": [],
+                    "primitive_symbols": list(deepcopy(concept_primitive_symbols)),
+                }
+                if placeholder_concept_id not in self.mcdict.concepts:
+                    self.register_concept_inner(placeholder_concept_info, mc_id = placeholder_concept_id)
+                else:
+                    self.logger.info('Concept with mc_id %s already exists. Skipping.', placeholder_concept_id)
+                for occurrence_info in new_occurences_list:
+                    comp_tag_id = occurrence_info['comp_tag_id']
+                    if comp_tag_id not in self.mcdict.occurences_dict:
+                        self.assign_concept_inner(comp_tag_id, placeholder_concept_id, occurrence_info['tag_name'])
+                    else:
+                        self.logger.info('Occurrence with comp_tag_id %s already exists. Skipping.', comp_tag_id)
+            
+            success_message = {
+                    "status": "success",
+                    "message": "Occurence properties options HTML generated successfully.",
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+
+
+    #############################
+    # EDIT ID UPDATERS
+    #############################
 
     def update_mi_anno_edit_id(self):
         self.mi_anno_edit_id += 1
