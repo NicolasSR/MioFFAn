@@ -146,7 +146,10 @@ def routing_functions(server):
     @app.route('/_edit_occurence_properties', methods=['POST'])
     def edit_occurence_properties():
         return server.edit_occurence_properties()
-
+    
+    @app.route('/_auto_segment_symbols', methods=['POST'])
+    def auto_segment_symbols():
+        return server.auto_segment_symbols()
 
 def main():
     # parse options
