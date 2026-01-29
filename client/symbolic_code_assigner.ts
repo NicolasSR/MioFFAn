@@ -275,7 +275,9 @@ function initEquationBuilder($symbolic_code_node: JQuery, $var_container: JQuery
 function prepare_var_list(): string[]{
     let var_list: string[] = [];
     for (let mc_id in mcdict) {
-        var_list.push(mcdict[mc_id].code_var_name);
+        if (!mc_id.includes("llm_placeholder_concept")) {
+            var_list.push(mcdict[mc_id].code_var_name);
+            }
         }
     return var_list
 }

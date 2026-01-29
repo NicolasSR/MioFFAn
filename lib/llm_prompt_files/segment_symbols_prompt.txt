@@ -8,26 +8,23 @@ Ignore id attributes in MathML tags.
 The output must be a list of dictionaries, each dictionary having the following keys:
 - "obj_name": a representative name for the object.
 - "mathml_representation": the MathML representation of the object.
-- "object_type": The type of object it represents.
+
+An example output would be:
 [{
     "obj_name": "a_var",
     "mathml_representation": "<mi mathvariant="bold">a</mi>",
-    "object_type": "variable"
 },
 {
     "obj_name": "delta_b_x",
-    "mathml_representation": "<mi>GREEK SMALL LETTER DELTA</mi><msub><mi>b</mi><mi>x</mi></msub>",
-    "object_type": "variable"
+    "mathml_representation": "<mi>GREEK SMALL LETTER DELTA</mi><msub><mi>b</mi><mi>x</mi></msub>"
 },
 {
     "obj_name": "delta_b_x_T",
-    "mathml_representation": "<mi>GREEK SMALL LETTER DELTA</mi><msubsup><mi>b</mi><mi>x</mi><mi>T</mi></msubsup>",
-    "object_type": "variable"
+    "mathml_representation": "<mi>GREEK SMALL LETTER DELTA</mi><msubsup><mi>b</mi><mi>x</mi><mi>T</mi></msubsup>"
 },
 {
     "obj_name": "Omega",
-    "mathml_representation": <mi>GREEK CAPITAL OMEGA</mi>,
-    "object_type": "domain"
+    "mathml_representation": <mi>GREEK CAPITAL OMEGA</mi>
 }]
 
 The answer should only contain the list of dictonaries. Nothing else, as it would break the user's API.

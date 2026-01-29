@@ -223,3 +223,12 @@ def get_primitive_hex_set(elem, html_tree_raw):
         mi_text = html_tree_raw.xpath(f"//*[@id='{mi_elem_id}']")[0].text
         hex_set.add(mi_text.encode('utf-8').hex())
     return hex_set
+
+
+def check_if_tag_with_id_in_tree(html_tree, tag_name, id):
+    xpath_pattern = f".//*[@id='{id}']"
+    node_with_id_list = html_tree.xpath(xpath_pattern)
+    if node_with_id_list is not None and len(node_with_id_list)==1:
+        if get_local_name(node_with_id_list[0].tag)==tag_name:
+            return True
+    return False

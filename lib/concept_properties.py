@@ -28,8 +28,12 @@ concept_pulldown_properties_dict = {
             ['test-function', 'Test Function'],
             ['nodal-variable', 'Nodal Variable'],
             ['symbolic-variable', 'Symbolic Variable'],
+            ['numerical-variable', 'Numerical Variable'],
             ['undefined-function', 'Undefined Function'],
-            ['function', 'Function']
+            ['operator', 'Operator'],
+            ['domain', 'Domain'],
+            ['integration-var', 'Integration var.'],
+            ['other', 'Other']
         ]
     }
 }

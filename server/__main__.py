@@ -150,6 +150,15 @@ def routing_functions(server):
     @app.route('/_auto_segment_symbols', methods=['POST'])
     def auto_segment_symbols():
         return server.auto_segment_symbols()
+    
+    @app.route('/_auto_assign_concepts', methods=['POST'])
+    def auto_assign_concepts():
+        return server.auto_assign_concepts()
+    
+    @app.route('/_auto_highlight_sources', methods=['POST'])
+    def auto_highlight_sources():
+        return server.auto_highlight_sources()
+    
 
 def main():
     # parse options

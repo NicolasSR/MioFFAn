@@ -217,10 +217,10 @@ export function sog_to_sog_nodes_for_addition(s: Source) {
     const start_node_parent = $('#' + escape_selector(start_node_parent_id))[0]
     const stop_node_parent = $('#' + escape_selector(stop_node_parent_id))[0]
 
-    if (!hasWordMap(start_node_parent)) {
+    if (start_node_parent instanceof HTMLSpanElement && !hasWordMap(start_node_parent)) {
         divide_and_index_text_span(start_node_parent);
     }
-    if (!hasWordMap(stop_node_parent)) {
+    if (stop_node_parent instanceof HTMLSpanElement && !hasWordMap(stop_node_parent)) {
         divide_and_index_text_span(stop_node_parent);
     }
 
@@ -284,8 +284,12 @@ export function get_selection(): [
         const sibling_length = (anchor_node.nextElementSibling?.textContent?? "").length;
         anchor_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
     } else {
+        const formula_parent_node = anchor_node.closest('.formula');
         const math_parent_node = anchor_node.closest('math');
-        if (math_parent_node !== null) {
+        if (formula_parent_node !== null) {
+            const formula_parent_node_id = $(formula_parent_node).get(0)?.id;
+            anchor_id = formula_parent_node_id+".start";
+        } else if (math_parent_node !== null) {
             const previous_text_query = $(math_parent_node).prevAll('.gd_text').first();
             if (previous_text_query.length) {
                 // In this case we assume that the anchor will be the starting end. Therefore we get the reference
@@ -305,8 +309,12 @@ export function get_selection(): [
         const sibling_length = (focus_node.previousElementSibling?.textContent?? "").length
         focus_id = cast_dyn_word_selection_into_text_span(sibling_node_id, sibling_length);
     } else {
+        const formula_parent_node = focus_node.closest('.formula');
         const math_parent_node = focus_node.closest('math');
-        if (math_parent_node !== null) {
+        if (formula_parent_node !== null) {
+            const formula_parent_node_id = $(formula_parent_node).get(0)?.id;
+            focus_id = formula_parent_node_id+".end";
+        } else if (math_parent_node !== null) {
             const next_text_query = $(math_parent_node).nextAll('.gd_text').first();
             if (next_text_query.length) {
                 // In this case we assume that the anchor will be the stopping end. Therefore we get the reference
@@ -350,8 +358,10 @@ export function handle_selection_ends(anchor_id: string, focus_id: string) {
             const anchor_global_offset = parseInt(anchor_id_trail, 10);
             anchor_local_id = get_word_id_by_index(anchor_global_node, anchor_global_offset);
         }
+    } else if (anchor_global_node.className == "formula") {
+        anchor_local_id = anchor_global_id
     } else {
-        throw new Error("Grounding text must start and finish in 'gd_text' class");
+        throw new Error("Grounding text must start and finish in 'gd_text' or 'formula' class");
     }
 
     let focus_local_id: string;
@@ -367,8 +377,10 @@ export function handle_selection_ends(anchor_id: string, focus_id: string) {
             const focus_global_offset = parseInt(focus_id_trail, 10);
             focus_local_id = get_word_id_by_index(focus_global_node, focus_global_offset);
         }
+    } else if (focus_global_node.className == "formula") {
+        focus_local_id = focus_global_id
     } else {
-        throw new Error("Grounding text must start and finish in 'gd_text' class");
+        throw new Error("Grounding text must start and finish in 'gd_text' or 'formula' class");
     }
 
     return [anchor_local_id, focus_local_id]
@@ -399,7 +411,7 @@ export function reorder_anchor_and_focus_ids(anchor_id: string, focus_id: string
         console.error('Anchor or focus node not found');
     }
 
-    return [start_id, focus_id];
+    return [start_id, stop_id];
 
 }
 

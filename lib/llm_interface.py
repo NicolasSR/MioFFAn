@@ -10,7 +10,8 @@ import requests
 from lxml import etree
 from openai import OpenAI
 
-from lib.llm_utilities import find_first_match_info, find_mathml_occurrences, get_all_ids_as_set, find_relationships_through_contained_ids, get_primitive_hex_set
+from lib.llm_utilities import find_first_match_info, find_mathml_occurrences, get_all_ids_as_set, find_relationships_through_contained_ids
+from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tree
 
 """
 To run this script, a vllm server needs to be running. Call it via:
@@ -202,17 +203,19 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
                     primitive_hex_set.update(get_primitive_hex_set(element, html_tree_raw))
                 print(match_str)
                 identifier_info_first = find_first_match_info(match[0])
+                if identifier_info_first is None:
+                    continue
                 start_id = identifier_info_first['id']
                 tag_name = identifier_info_first['tag_name']
                 ancestry_level_start = identifier_info_first['depth']
-                all_id_sets.append({
-                    "variable_name": variable_name,
-                    "representative_id": start_id,
-                    "ids_set": match_ids_set,
-                    "ids_count": len(match_ids_set),
-                    "mathml": match_str
-                })
                 if len(match) == 1:
+                    all_id_sets.append({
+                        "variable_name": variable_name,
+                        "representative_id": start_id,
+                        "ids_set": match_ids_set,
+                        "ids_count": len(match_ids_set),
+                        "mathml": match_str
+                    })
                     occurrence_info = {
                             "comp_tag_id": start_id,
                             "tag_name": tag_name,
@@ -224,8 +227,17 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
                         new_occurences_dict[variable_name]=[occurrence_info]
                 else:
                     identifier_info_last = find_first_match_info(match[-1])
+                    if identifier_info_last is None:
+                        continue
                     stop_id = identifier_info_last['id']
                     ancestry_level_stop = identifier_info_last['depth']
+                    all_id_sets.append({
+                        "variable_name": variable_name,
+                        "representative_id": start_id,
+                        "ids_set": match_ids_set,
+                        "ids_count": len(match_ids_set),
+                        "mathml": match_str
+                    })
                     group_info = {
                         "ancestry_level_start": ancestry_level_start,
                         "ancestry_level_stop": ancestry_level_stop,
@@ -312,3 +324,429 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
             new_occurences_dict[child_var_name] = new_occurences_list_filtered
 
     return new_groups_dict, new_occurences_dict
+
+
+def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdict_concepts, eoi_ids_list):
+
+    raw_segmented_symbols_dict = dict()
+    for occurence_name, occurence_info in mcdict_occurences_dict.items():
+        concept_name = occurence_info.mc_id
+        if "llm_placeholder_concept_" in concept_name:
+            tag_id = occurence_name
+            symbol_subtree = html_tree_raw.xpath(f".//*[@id='{tag_id}']")[0]
+            symbol_mathml_string = etree.tostring(symbol_subtree, encoding='unicode')
+            if concept_name in raw_segmented_symbols_dict.keys():
+                raw_segmented_symbols_dict[concept_name]["mathml_representations_list"].append(symbol_mathml_string) 
+            else:
+                raw_segmented_symbols_dict[concept_name] = {
+                    "obj_name": mcdict_concepts[concept_name].code_var_name,
+                    "mathml_representations_list": [symbol_mathml_string]
+                }
+
+    concepts_list = auto_define_concepts(html_tree_raw, raw_segmented_symbols_dict, eoi_ids_list)
+
+    # concepts_list = [
+    # {'name': 'virtual_displacement', 'type': 'VARIABLE', 'description': 'Virtual displacement vector used in the principle of virtual work.', 'justification': 'Explicitly defined as the test function value vector (virtual displacement) in the principle of virtual work. Appears in the weak form equation (Eq. (3)) as δu and in the element-level form as δu_e.'},
+    # {'name': 'd_Omega', 'type': 'INTEGRATION_VAR', 'description': 'Differential volume element over the domain Ω in the integration process.', 'justification': 'Appears in integrals over the domain Ω in equations (3) and (8), denoted as dΩ and dΩ_e, indicating integration over the physical domain or element.'},
+    # {'name': 'd_Gamma', 'type': 'INTEGRATION_VAR', 'description': 'Differential surface element over the boundary Γ in the integration process.', 'justification': 'Appears in boundary integrals over Γ_N in equations (3) and (8), denoted as dΓ and dΓ_e, indicating integration over the boundary surface.'},
+    # {'name': 'physical_domain', 'type': 'DOMAIN', 'description': 'Main computational domain (physical domain) of the elastic body.', 'justification': 'Repeatedly referred to as Ω in the paper, describing the volume of the elastic body bounded by Γ_D and Γ_N.'},
+    # {'name': 'constitutive_matrix', 'type': 'OPERATOR', 'description': 'Constitutive matrix relating stress and strain in the material model.', 'justification': 'Defined as the constitutive matrix in equation (3), relating stress and strain through the symmetric strain tensor.'},
+    # {'name': 'displacement', 'type': 'VARIABLE', 'description': 'Nodal displacement vector of the finite element solution.', 'justification': 'Defined as the displacement vector in the weak form and discretized as u_e in equation (5), representing the actual displacement field.'},
+    # {'name': 'body_force', 'type': 'VARIABLE', 'description': 'Body force vector applied within the domain.', 'justification': 'Explicitly mentioned as the body force vector in the equilibrium equation (Eq. (1)) and integrated over the domain in the weak form.'},
+    # {'name': 'traction', 'type': 'VARIABLE', 'description': 'Imposed traction vector on the Neumann boundary Γ_N.', 'justification': 'Defined as the traction on Γ_N in boundary conditions (Eq. (2)) and appears in the weak form integral over Γ_N with dΓ.'},
+    # {'name': 'neumann_boundary', 'type': 'DOMAIN', 'description': 'Neumann boundary of the domain where traction boundary conditions are applied.', 'justification': 'Explicitly defined as the boundary where traction (Neumann) conditions are imposed, denoted as Γ_N in equations (2) and (3).'},
+    # {'name': 'symmetric_grad', 'type': 'OPERATOR', 'description': 'Symmetric gradient operator used to compute the strain tensor from displacement.', 'justification': 'Defined as ∇_sym u in equation (4) and used in the strain matrix expression, representing the symmetric part of the gradient of displacement.'}
+    # ]
+
+    segmented_symbols_list = []
+    segmented_symbols_dict = dict()
+    for segmented_info_name, segmented_symbol_info in raw_segmented_symbols_dict.items():
+        ## FOR NOW WE ARE ONLY USING THE FIRST INSTANCE OF THE MATHML REPRESENTATION. THIS MAY BE CHANGED IN THE FUTURE
+        mathml_representation_example = segmented_symbol_info["mathml_representations_list"][0]
+        segmented_symbols_list.append({
+            "obj_name": segmented_symbol_info["obj_name"],
+            "mathml_representation": mathml_representation_example
+        })
+        segmented_symbols_dict[segmented_symbol_info["obj_name"]] = mathml_representation_example
+
+    concept_assignments = auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list)
+
+    # Get properties for concepts marked as "VARIABLE":
+    variable_concepts_list = [deepcopy(concept) for concept in concepts_list if concept["type"]=="VARIABLE"]
+    for variable in variable_concepts_list:
+        corresponding_symbols = [symbol for symbol, concept in concept_assignments.items() if concept==variable["name"]]
+        del variable["type"]
+        variable["representative_mathml"] = segmented_symbols_dict[corresponding_symbols[0]]
+    
+    variable_concepts_with_properties = auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list)
+
+    print(variable_concepts_with_properties)
+
+    final_concepts_dict = dict()
+    for concept in concepts_list:
+        primitive_concepts_set = set()
+        corresponding_symbols = [symbol for symbol, concept in concept_assignments.items() if concept==variable["name"]]
+        for symbol in corresponding_symbols:
+            placeholder_concept_name = f"llm_placeholder_concept_{symbol}"
+            primitive_concepts_set.update(set(mcdict_concepts[placeholder_concept_name].primitive_symbols))
+        if concept["name"] in variable_concepts_with_properties.keys():
+            variable_concept = variable_concepts_with_properties[concept["name"]]
+            final_concepts_dict[concept["name"]] = {
+                "code_var_name": concept["name"],
+                "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
+                "options": [variable_concept["type"]],
+                "primitive_symbols": list(primitive_concepts_set),
+                "sog_list": [],
+                "tensor_rank": variable_concept["tensor_rank"]
+            }
+        else:
+            type_dict = {
+                "OPERATOR": "operator",
+                "DOMAIN": "domain",
+                "INTEGRATION_VAR": "integration-var",
+                "OTHER": "other"
+            }
+            final_concepts_dict[concept["name"]] = {
+                "code_var_name": concept["name"],
+                "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
+                "options": [type_dict.get(concept["type"],"OTHER")],
+                "primitive_symbols": list(primitive_concepts_set),
+                "sog_list": [],
+                "tensor_rank": "0"
+            }
+    
+    final_occurrences_dict = dict()
+    for symbol, concept in concept_assignments.items():
+        placeholder_concept_name = f"llm_placeholder_concept_{symbol}"
+        for occurence_id, occurence_info in mcdict_occurences_dict.items():
+            if occurence_info.mc_id==placeholder_concept_name:
+                final_occurrences_dict[occurence_id] = concept
+
+    return final_concepts_dict, final_occurrences_dict
+
+def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list):
+    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+    full_html_text = replace_with_unicode_name(full_html_text_raw)
+    full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
+
+    ## FOR NOW WE ARE ONLY USING THE FIRST EoI AS REFERENCE TO SHORTEN CONTEXT. THIS SHOULD BE CHANGED TO A BETTER STRATEGY
+    eoi_id = eoi_ids_list[0]
+    weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
+    weak_form_string = etree.tostring(weak_form, encoding='unicode')
+
+    html_text = full_html_text
+    
+    fits_in_context = False
+    while fits_in_context == False:
+
+        with open("lib/llm_prompt_files/define_concepts_prompt.txt", "r") as prompt_file:
+            system_prompt_define_concepts = prompt_file.read()
+        messages=[
+                {"role": "system", "content": system_prompt_define_concepts},
+                {"role": "user", "content": f"Paper section to study: {html_text}. Segmented symbols are: {segmented_symbols_list}. Build the concepts list."}
+            ]
+    
+        tokens_count, max_model_len = check_token_usage(messages)
+        max_model_len = max_context_length_ratio * max_model_len
+        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        print(f"Current html text length: {len(html_text)} characters.")
+        if tokens_count >= max_model_len:
+            print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            reduction_length_total = int(len(html_text) * excess_ratio)
+            print(f"Reducing context length by approximately {reduction_length_total} characters.")
+            html_text_divided = html_text.split(weak_form_string)
+            if len(html_text_divided) == 2:
+                len_html_text_back = len(html_text_divided[1])
+                kept_chars_in_back = max(1000, len_html_text_back - reduction_length_total)
+                html_text_back_reduced = html_text_divided[1][:kept_chars_in_back]
+                print(f"Reducing from the back by approximately {len_html_text_back - kept_chars_in_back} characters.")
+                reduction_length_front = max(0,reduction_length_total - (len_html_text_back - kept_chars_in_back))
+                if len(html_text_divided[0]) - reduction_length_front < 1000:
+                    print("Error: Unable to remove enough context to fit in the LLM's max context length.")
+                    messages = None
+                    break
+                print(f"Reducing from the front by approximately {reduction_length_front} characters.")
+                html_text_front_reduced = html_text_divided[0][reduction_length_front:]
+                html_text_reduced = html_text_front_reduced + weak_form_string + html_text_back_reduced
+            else:
+                print("Error: Unable to split HTML text properly for context length reduction.")
+                messages = None
+                break
+            html_text = html_text_reduced
+        else:
+            fits_in_context = True
+
+    if messages is None:
+        raise("Got None as message")
+    
+    chat_response = client.chat.completions.create(
+        # model="Qwen/Qwen3-4B-Instruct-2507",
+        model=get_running_model_name(),
+        messages=messages
+    )
+
+    time.sleep(5)
+    chat_response_string = chat_response.choices[0].message.content
+    concepts_list = json.loads(chat_response_string)
+
+    print(concepts_list)
+
+    return concepts_list
+
+
+def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list):    
+    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+    full_html_text = replace_with_unicode_name(full_html_text_raw)
+    full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
+
+    ## FOR NOW WE ARE ONLY USING THE FIRST EoI AS REFERENCE TO SHORTEN CONTEXT. THIS SHOULD BE CHANGED TO A BETTER STRATEGY
+    eoi_id = eoi_ids_list[0]
+    weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
+    weak_form_string = etree.tostring(weak_form, encoding='unicode')
+
+    html_text = full_html_text
+    
+    fits_in_context = False
+    while fits_in_context == False:
+
+        with open("lib/llm_prompt_files/assign_concepts_prompt.txt", "r") as prompt_file:
+            system_prompt_assign_concepts = prompt_file.read()
+        messages=[
+                {"role": "system", "content": system_prompt_assign_concepts},
+                {"role": "user", "content": f"Paper section to study: {html_text}. Segmented symbols are: {segmented_symbols_list}. Defined concepts are: {concepts_list}. Build the concept assignment dictionary."}
+            ]
+
+        tokens_count, max_model_len = check_token_usage(messages)
+        max_model_len = max_context_length_ratio * max_model_len
+        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        print(f"Current html text length: {len(html_text)} characters.")
+        if tokens_count >= max_model_len:
+            print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            reduction_length_total = int(len(html_text) * excess_ratio)
+            print(f"Reducing context length by approximately {reduction_length_total} characters.")
+            html_text_divided = html_text.split(weak_form_string)
+            if len(html_text_divided) == 2:
+                len_html_text_back = len(html_text_divided[1])
+                kept_chars_in_back = max(1000, len_html_text_back - reduction_length_total)
+                html_text_back_reduced = html_text_divided[1][:kept_chars_in_back]
+                print(f"Reducing from the back by approximately {len_html_text_back - kept_chars_in_back} characters.")
+                reduction_length_front = max(0,reduction_length_total - (len_html_text_back - kept_chars_in_back))
+                if len(html_text_divided[0]) - reduction_length_front < 1000:
+                    print("Error: Unable to remove enough context to fit in the LLM's max context length.")
+                    messages = None
+                    break
+                print(f"Reducing from the front by approximately {reduction_length_front} characters.")
+                html_text_front_reduced = html_text_divided[0][reduction_length_front:]
+                html_text_reduced = html_text_front_reduced + weak_form_string + html_text_back_reduced
+            else:
+                print("Error: Unable to split HTML text properly for context length reduction.")
+                messages = None
+                break
+            html_text = html_text_reduced
+        else:
+            fits_in_context = True
+
+    if messages is None:
+        raise("Got None as message")
+    
+    chat_response = client.chat.completions.create(
+        # model="Qwen/Qwen3-4B-Instruct-2507",
+        model=get_running_model_name(),
+        messages=messages
+    )
+
+    time.sleep(5)
+    chat_response_string = chat_response.choices[0].message.content
+    concept_assignment_dict = json.loads(chat_response_string)
+
+    print(concept_assignment_dict)
+
+    return concept_assignment_dict
+
+
+def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list):
+    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+    full_html_text = replace_with_unicode_name(full_html_text_raw)
+    full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
+
+    ## FOR NOW WE ARE ONLY USING THE FIRST EoI AS REFERENCE TO SHORTEN CONTEXT. THIS SHOULD BE CHANGED TO A BETTER STRATEGY
+    eoi_id = eoi_ids_list[0]
+    weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
+    weak_form_string = etree.tostring(weak_form, encoding='unicode')
+
+    html_text = full_html_text
+    
+    fits_in_context = False
+    while fits_in_context == False:
+
+        with open("lib/llm_prompt_files/assign_variable_properties.txt", "r") as prompt_file:
+            system_prompt_assign_variable_properties = prompt_file.read()
+        messages=[
+                {"role": "system", "content": system_prompt_assign_variable_properties},
+                {"role": "user", "content": f"Paper section to study: {html_text}. List of variables is: {variable_concepts_list}. Build variable properties dictionary."}
+            ]
+
+        tokens_count, max_model_len = check_token_usage(messages)
+        max_model_len = max_context_length_ratio * max_model_len
+        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        print(f"Current html text length: {len(html_text)} characters.")
+        if tokens_count >= max_model_len:
+            print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            reduction_length_total = int(len(html_text) * excess_ratio)
+            print(f"Reducing context length by approximately {reduction_length_total} characters.")
+            html_text_divided = html_text.split(weak_form_string)
+            if len(html_text_divided) == 2:
+                len_html_text_back = len(html_text_divided[1])
+                kept_chars_in_back = max(1000, len_html_text_back - reduction_length_total)
+                html_text_back_reduced = html_text_divided[1][:kept_chars_in_back]
+                print(f"Reducing from the back by approximately {len_html_text_back - kept_chars_in_back} characters.")
+                reduction_length_front = max(0,reduction_length_total - (len_html_text_back - kept_chars_in_back))
+                if len(html_text_divided[0]) - reduction_length_front < 1000:
+                    print("Error: Unable to remove enough context to fit in the LLM's max context length.")
+                    messages = None
+                    break
+                print(f"Reducing from the front by approximately {reduction_length_front} characters.")
+                html_text_front_reduced = html_text_divided[0][reduction_length_front:]
+                html_text_reduced = html_text_front_reduced + weak_form_string + html_text_back_reduced
+            else:
+                print("Error: Unable to split HTML text properly for context length reduction.")
+                messages = None
+                break
+            html_text = html_text_reduced
+        else:
+            fits_in_context = True
+
+    if messages is None:
+        raise("Got None as message")
+    
+    chat_response = client.chat.completions.create(
+        # model="Qwen/Qwen3-4B-Instruct-2507",
+        model=get_running_model_name(),
+        messages=messages
+    )
+
+    time.sleep(5)
+    chat_response_string = chat_response.choices[0].message.content
+    properties_assignment = json.loads(chat_response_string)
+
+    print(properties_assignment)
+
+    return properties_assignment
+
+
+def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
+    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+    full_html_text = replace_with_unicode_name(full_html_text_raw)
+    full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
+
+    ## FOR NOW WE ARE ONLY USING THE FIRST EoI AS REFERENCE TO SHORTEN CONTEXT. THIS SHOULD BE CHANGED TO A BETTER STRATEGY
+    eoi_id = eoi_ids_list[0]
+    weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
+    weak_form_string = etree.tostring(weak_form, encoding='unicode')
+
+    html_text = full_html_text
+
+    with open("lib/llm_prompt_files/identify_text_sources.txt", "r") as prompt_file:
+            system_prompt_identify_text_sources = prompt_file.read()
+    def get_messsages(system_prompt, context, justifications_list):
+        messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"Paper section to study: {context}.The concept and justifications to ground are: {justifications_list}. Build the specific passages list."}
+            ]
+        return messages
+    
+    fits_in_context = False
+    while fits_in_context == False:
+        messages = get_messsages(system_prompt_identify_text_sources, html_text, "")
+        tokens_count, max_model_len = check_token_usage(messages)
+        max_model_len = max_context_length_ratio * max_model_len
+        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        print(f"Current html text length: {len(html_text)} characters.")
+        if tokens_count >= max_model_len:
+            print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            reduction_length_total = int(len(html_text) * excess_ratio)
+            print(f"Reducing context length by approximately {reduction_length_total} characters.")
+            html_text_divided = html_text.split(weak_form_string)
+            if len(html_text_divided) == 2:
+                len_html_text_back = len(html_text_divided[1])
+                kept_chars_in_back = max(1000, len_html_text_back - reduction_length_total)
+                html_text_back_reduced = html_text_divided[1][:kept_chars_in_back]
+                print(f"Reducing from the back by approximately {len_html_text_back - kept_chars_in_back} characters.")
+                reduction_length_front = max(0,reduction_length_total - (len_html_text_back - kept_chars_in_back))
+                if len(html_text_divided[0]) - reduction_length_front < 1000:
+                    print("Error: Unable to remove enough context to fit in the LLM's max context length.")
+                    messages = None
+                    break
+                print(f"Reducing from the front by approximately {reduction_length_front} characters.")
+                html_text_front_reduced = html_text_divided[0][reduction_length_front:]
+                html_text_reduced = html_text_front_reduced + weak_form_string + html_text_back_reduced
+            else:
+                print("Error: Unable to split HTML text properly for context length reduction.")
+                messages = None
+                break
+            html_text = html_text_reduced
+        else:
+            fits_in_context = True
+
+    if messages is None:
+        raise("Got None as message")
+    
+    grounding_ids_dict = dict()
+    matched_grounding_ids_dict = dict()
+    for concept_id, concept_info in mcdict_concepts.items():
+        justifications_splitting = concept_info.description.split("JUSTIFICATION")
+        if len(justifications_splitting) > 1:
+            justifications_dict = {
+                "concept_name": concept_info.code_var_name,
+                "description": justifications_splitting[0],
+                "justifications": "\n".join(justifications_splitting[1:])
+            }
+            messages = get_messsages(system_prompt_identify_text_sources, html_text, justifications_dict)
+    
+            chat_response = client.chat.completions.create(
+                # model="Qwen/Qwen3-4B-Instruct-2507",
+                model=get_running_model_name(),
+                messages=messages
+            )
+
+            time.sleep(5)
+            chat_response_string = chat_response.choices[0].message.content
+            grounding_ids_raw = json.loads(chat_response_string)
+
+            grounding_ids_dict[concept_id] = grounding_ids_raw
+            matched_grounding_ids_dict[concept_id] = {
+                'spans': [],
+                'divs': []
+            }
+            for id in grounding_ids_raw:
+                matching_spans_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'span', id)
+                matching_eqns_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'div', id)
+                if matching_spans_flag:
+                    matched_grounding_ids_dict[concept_id]["spans"].append(id)
+                elif matching_eqns_flag:
+                    matched_grounding_ids_dict[concept_id]["divs"].append(id)
+                else:
+                    continue
+
+    print(matched_grounding_ids_dict)
+
+    formal_sogs_list = []
+    for concept_id, sog_ids_div in matched_grounding_ids_dict.items():
+        for sog_id in sog_ids_div["spans"]:
+            formal_sogs_list.append({
+                "mc_id": concept_id,
+                "start_id": sog_id+'-start',
+                "stop_id": sog_id+'-end'
+            })
+        for sog_id in sog_ids_div["divs"]:
+            formal_sogs_list.append({
+                "mc_id": concept_id,
+                "start_id": sog_id,
+                "stop_id": sog_id
+            })
+
+    return formal_sogs_list

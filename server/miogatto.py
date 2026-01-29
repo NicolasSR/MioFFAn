@@ -16,7 +16,7 @@ from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
-from lib.llm_interface import auto_segment_symbols
+from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
 
 # get git revision
 try:
@@ -395,9 +395,9 @@ class MioGattoServer:
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
         
-    def assign_concept_inner(self, comp_tag_id, mc_id, tag_name):
+    def assign_concept_inner(self, comp_tag_id, mc_id, tag_name, options = []):
         # register
-        self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, [])
+        self.mcdict.occurences_dict[comp_tag_id] = Occurence(mc_id, tag_name, options)
         self.mcdict.dump()
         self.update_mcdict_edit_id()
 
@@ -479,13 +479,7 @@ class MioGattoServer:
 
             check_missing_variables(mc_id=mc_id,start_id=start_id,stop_id=stop_id)
 
-            # TODO: validate the span range
-            existing_sog_pos = [(s.start_id, s.stop_id) for s in self.mcdict.concepts[mc_id].sog_list]
-            if (start_id, stop_id) not in existing_sog_pos:
-                self.mcdict.concepts[mc_id].sog_list.append(SoG(start_id, stop_id, 0))
-                self.mcdict.dump()
-
-            self.update_mcdict_edit_id()
+            self.add_sog_inner(mc_id, start_id, stop_id)
             
             success_message = {
                 "status": "success",
@@ -496,6 +490,17 @@ class MioGattoServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        
+    def add_sog_inner(self, mc_id, start_id, stop_id):
+            
+        # TODO: validate the span range
+        existing_sog_pos = [(s.start_id, s.stop_id) for s in self.mcdict.concepts[mc_id].sog_list]
+        if (start_id, stop_id) not in existing_sog_pos:
+            self.mcdict.concepts[mc_id].sog_list.append(SoG(start_id, stop_id, 0))
+            self.mcdict.dump()
+
+        self.update_mcdict_edit_id()
+    
 
     def delete_sog(self):
         try:
@@ -884,13 +889,77 @@ class MioGattoServer:
             
             success_message = {
                     "status": "success",
-                    "message": "Occurence properties options HTML generated successfully.",
+                    "message": "Automatic segmentation of symbols successful.",
                 }
             
             return json.dumps(success_message), 200
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        
+    
+    def auto_assign_concepts(self):
+
+        try:
+            res = request.json
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
+            copied_tree = deepcopy(self.tree)
+
+            # Wrap specified custom groups in span tags
+            for group_id, group_info in self.mi_anno.groups.items():
+                if not self.wrap_custom_group(copied_tree, group_id, group_info):
+                    continue
+
+            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
+
+            final_concepts_dict, final_occurrences_dict = auto_define_and_assign_concepts(copied_tree, self.mcdict.occurences_dict, self.mcdict.concepts, eoi_ids_list)
+
+            for concept_id, concept_info in final_concepts_dict.items():
+                self.register_concept_inner(concept_info, mc_id = concept_id)
+
+            for occurrence_id, concept_to_assign in final_occurrences_dict.items():
+                tag_name = self.mcdict.occurences_dict[occurrence_id].tag_name
+                self.assign_concept_inner(occurrence_id, concept_to_assign, tag_name)
+
+            success_message = {
+                    "status": "success",
+                    "message": "Automatic assignment of concepts successful.",
+                }
+                
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+
+    def auto_highlight_sources(self):
+        try:
+            res = request.json
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
+            copied_tree = deepcopy(self.tree)
+
+            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
+
+            new_sogs_list = auto_highlight_sources(copied_tree, self.mcdict.concepts, eoi_ids_list)
+
+            for new_sog in new_sogs_list:
+                self.add_sog_inner(new_sog["mc_id"],new_sog["start_id"],new_sog["stop_id"])
+
+            success_message = {
+                    "status": "success",
+                    "message": "Automatic assignment of concepts successful.",
+                }
+            
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+
+
 
 
     #############################
