@@ -148,8 +148,11 @@ function apply_highlight(sog_nodes: JQuery, sog: Source, mc_id: string) {
 
 function give_sog_highlight() {
     for (let mc_id in mcdict)  {
+        console.log("Highlighting concept ", mc_id)
         for (let s of mcdict[mc_id].sog_list) {
+            console.log(s)
             let sog_nodes = sog_to_sog_nodes_for_addition(s)
+            console.log(sog_nodes)
 
             const sog_concept_id = mc_id;
             if (miogatto_options.limited_highlight) {
@@ -303,6 +306,7 @@ ${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor
         }).then(async(response) => {
             const data = await response.json()
             if (response.ok) {
+                localStorage['scroll_top'] = $(window).scrollTop();
                 window.location.reload();
             } else {
                 if (data.action === 'reload') {
@@ -959,8 +963,7 @@ $(function () {
     dataLoadingPromise.then(() => {
         $('button#auto_segment_symbols').button();
         $('button#auto_segment_symbols').on('click', function () {
-            // localStorage['scroll_top'] = $(window).scrollTop();
-            
+            localStorage['scroll_top'] = $(window).scrollTop();
             fetch('/_auto_segment_symbols', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -984,6 +987,64 @@ $(function () {
                 }
             }).catch(error => {
                 console.error('Error segmenting symbols:', error);
+            });
+        });
+
+        $('button#auto_assign_concepts').button();
+        $('button#auto_assign_concepts').on('click', function () {
+            localStorage['scroll_top'] = $(window).scrollTop();
+            fetch('/_auto_assign_concepts', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    mi_anno_edit_id: mi_anno_edit_id,
+                    mcdict_edit_id: mcdict_edit_id,
+                }),
+            }).then(async (response) => {
+                const data = await response.json();
+                if (response.ok) {
+                    // Just reload the page
+                    window.location.reload();
+                } else {
+                    if (data.action === 'reload') {
+                        alert(data.message);
+                        window.location.reload(); // Manually trigger the reload here
+                    }
+                    console.error("Error:", data.message);
+                    alert("Error: " + data.message);
+                    return;
+                }
+            }).catch(error => {
+                console.error('Error assigning concepts automtically:', error);
+            });
+        });
+
+        $('button#auto_highlight_sources').button();
+        $('button#auto_highlight_sources').on('click', function () {
+            localStorage['scroll_top'] = $(window).scrollTop();
+            fetch('/_auto_highlight_sources', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    mi_anno_edit_id: mi_anno_edit_id,
+                    mcdict_edit_id: mcdict_edit_id,
+                }),
+            }).then(async (response) => {
+                const data = await response.json();
+                if (response.ok) {
+                    // Just reload the page
+                    window.location.reload();
+                } else {
+                    if (data.action === 'reload') {
+                        alert(data.message);
+                        window.location.reload(); // Manually trigger the reload here
+                    }
+                    console.error("Error:", data.message);
+                    alert("Error: " + data.message);
+                    return;
+                }
+            }).catch(error => {
+                console.error('Error assigning concepts automtically:', error);
             });
         });
 
