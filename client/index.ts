@@ -25,7 +25,6 @@ const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 // --------------------------
 
 let miogatto_options: { [name: string]: boolean } = {
-    limited_highlight: false,
     show_definition: false,
 }
 
@@ -35,17 +34,9 @@ $(function () {
         // Mark borders of EoI
         give_eoi_borders()
 
-        let input_opt_hl = $('#option-limited-highlight');
         let input_opt_def = $('#option-show-definition');
 
         // first time check
-        if (localStorage['option-limited-highlight'] == 'true') {
-            input_opt_hl.prop('checked', true);
-            miogatto_options.limited_highlight = true
-        } else {
-            miogatto_options.limited_highlight = false
-        }
-
         if (localStorage['option-show-definition'] == 'true') {
             input_opt_def.prop('checked', true);
             miogatto_options.show_definition = true
@@ -54,18 +45,6 @@ $(function () {
         }
 
         give_sog_highlight();
-
-        // toggle
-        input_opt_hl.on('click', function () {
-            if ($(this).prop('checked')) {
-                localStorage['option-limited-highlight'] = 'true';
-                miogatto_options.limited_highlight = true
-            } else {
-                localStorage['option-limited-highlight'] = 'false';
-                miogatto_options.limited_highlight = false
-            }
-            give_sog_highlight();
-        });
 
         input_opt_def.on('click', function () {
             if ($(this).prop('checked')) {
@@ -147,31 +126,27 @@ function apply_highlight(sog_nodes: JQuery, sog: Source, mc_id: string) {
 }
 
 function give_sog_highlight() {
-    for (let mc_id in mcdict)  {
-        console.log("Highlighting concept ", mc_id)
-        for (let s of mcdict[mc_id].sog_list) {
-            console.log(s)
-            let sog_nodes = sog_to_sog_nodes_for_addition(s)
-            console.log(sog_nodes)
 
-            const sog_concept_id = mc_id;
-            if (miogatto_options.limited_highlight) {
-                // Option for limited highlighting:
-                // Only highlight sogs related to currently selected sog
-                if (sessionStorage['comp_tag_id'] != undefined) {
-                    const session_mc_id = get_mc_id_from_query($('#' + escape_selector(sessionStorage['comp_tag_id'])))
-                    if (session_mc_id == sog_concept_id) {
-                        apply_highlight(sog_nodes, s, mc_id);
-                    } else {
-                        remove_highlight(sog_nodes);
-                    }
-                } else {
-                    console.log("No mathematical element selected yet.")
-                }
-            } else {
-                apply_highlight(sog_nodes, s, mc_id)
+    const current_occurrence_id = sessionStorage['comp_tag_id'];
+
+    // First remove all highlights
+    for (let mc_id in mcdict)  {
+        for (let sog of mcdict[mc_id].sog_list) {
+            const sog_nodes = sog_to_sog_nodes_for_addition(sog);
+            remove_highlight(sog_nodes);
+        }
+    }
+
+    if (current_occurrence_id != undefined) {
+        const session_mc_id = get_mc_id_from_query($('#' + escape_selector(current_occurrence_id)));
+        if (session_mc_id !== undefined) {
+            for (let sog of mcdict[session_mc_id].sog_list) {
+                const sog_nodes = sog_to_sog_nodes_for_addition(sog);
+                apply_highlight(sog_nodes, sog, session_mc_id);
             }
         }
+    } else {
+        console.log("No mathematical element selected yet.");
     }
 }
 
@@ -223,11 +198,6 @@ function select_comp_tag($comp_tag: JQuery) {
 
     // show the annotation box
     show_anno_box($comp_tag);
-
-    // also update SoG highlight
-    if (localStorage['option-limited-highlight'] == 'true') {
-        miogatto_options.limited_highlight = true;
-    }
     give_sog_highlight();
 }
 
