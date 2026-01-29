@@ -345,19 +345,6 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
 
     concepts_list = auto_define_concepts(html_tree_raw, raw_segmented_symbols_dict, eoi_ids_list)
 
-    # concepts_list = [
-    # {'name': 'virtual_displacement', 'type': 'VARIABLE', 'description': 'Virtual displacement vector used in the principle of virtual work.', 'justification': 'Explicitly defined as the test function value vector (virtual displacement) in the principle of virtual work. Appears in the weak form equation (Eq. (3)) as δu and in the element-level form as δu_e.'},
-    # {'name': 'd_Omega', 'type': 'INTEGRATION_VAR', 'description': 'Differential volume element over the domain Ω in the integration process.', 'justification': 'Appears in integrals over the domain Ω in equations (3) and (8), denoted as dΩ and dΩ_e, indicating integration over the physical domain or element.'},
-    # {'name': 'd_Gamma', 'type': 'INTEGRATION_VAR', 'description': 'Differential surface element over the boundary Γ in the integration process.', 'justification': 'Appears in boundary integrals over Γ_N in equations (3) and (8), denoted as dΓ and dΓ_e, indicating integration over the boundary surface.'},
-    # {'name': 'physical_domain', 'type': 'DOMAIN', 'description': 'Main computational domain (physical domain) of the elastic body.', 'justification': 'Repeatedly referred to as Ω in the paper, describing the volume of the elastic body bounded by Γ_D and Γ_N.'},
-    # {'name': 'constitutive_matrix', 'type': 'OPERATOR', 'description': 'Constitutive matrix relating stress and strain in the material model.', 'justification': 'Defined as the constitutive matrix in equation (3), relating stress and strain through the symmetric strain tensor.'},
-    # {'name': 'displacement', 'type': 'VARIABLE', 'description': 'Nodal displacement vector of the finite element solution.', 'justification': 'Defined as the displacement vector in the weak form and discretized as u_e in equation (5), representing the actual displacement field.'},
-    # {'name': 'body_force', 'type': 'VARIABLE', 'description': 'Body force vector applied within the domain.', 'justification': 'Explicitly mentioned as the body force vector in the equilibrium equation (Eq. (1)) and integrated over the domain in the weak form.'},
-    # {'name': 'traction', 'type': 'VARIABLE', 'description': 'Imposed traction vector on the Neumann boundary Γ_N.', 'justification': 'Defined as the traction on Γ_N in boundary conditions (Eq. (2)) and appears in the weak form integral over Γ_N with dΓ.'},
-    # {'name': 'neumann_boundary', 'type': 'DOMAIN', 'description': 'Neumann boundary of the domain where traction boundary conditions are applied.', 'justification': 'Explicitly defined as the boundary where traction (Neumann) conditions are imposed, denoted as Γ_N in equations (2) and (3).'},
-    # {'name': 'symmetric_grad', 'type': 'OPERATOR', 'description': 'Symmetric gradient operator used to compute the strain tensor from displacement.', 'justification': 'Defined as ∇_sym u in equation (4) and used in the strain matrix expression, representing the symmetric part of the gradient of displacement.'}
-    # ]
-
     segmented_symbols_list = []
     segmented_symbols_dict = dict()
     for segmented_info_name, segmented_symbol_info in raw_segmented_symbols_dict.items():
