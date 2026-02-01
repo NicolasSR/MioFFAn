@@ -1,0 +1,473 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "C": {
+            "code_var_name": "C",
+            "description": "Constitutive matrix that relates stress and strain in the material model.\nJUSTIFICATION:\nDefined as the constitutive matrix in equation (3), relating the stress tensor to the strain tensor via the material properties.",
+            "options": [
+                "operator"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Neumann boundary of the domain, where traction boundary conditions are applied.\nJUSTIFICATION:\nExplicitly defined as the boundary Γ_N in equations (2) and (3), where traction conditions are imposed.",
+            "options": [
+                "domain"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "Omega": {
+            "code_var_name": "Omega",
+            "description": "Main computational domain (volume) over which the equilibrium equation is defined.\nJUSTIFICATION:\nReferred to as Ω in the initial domain description and in equations (1), (3), and (8), representing the two-dimensional elastic body volume.",
+            "options": [
+                "domain"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "para0008.0-start",
+                    "stop_id": "para0008.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0001",
+                    "stop_id": "eqn0001",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0009",
+                    "stop_id": "eqn0009",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 0
+        },
+        "b": {
+            "code_var_name": "b",
+            "description": "Body force vector acting within the domain, such as gravity or inertial forces.\nJUSTIFICATION:\nDefined as the body force vector in equation (1), appearing in the weak form as the source term in the integral over Ω.",
+            "options": [
+                "numerical-variable"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "eqn0001",
+                    "stop_id": "eqn0001",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Surface element of integration over the boundary Γ.\nJUSTIFICATION:\nAppears in the surface integral over Γ_N in equation (3) and (8), denoted as dΓ, representing the differential surface element for boundary integration.",
+            "options": [
+                "integration-var"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Volume element of integration over the domain Ω.\nJUSTIFICATION:\nAppears in integrals over the domain Ω in equations (3) and (8), denoted as dΩ, representing the differential volume element for integration.",
+            "options": [
+                "integration-var"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "delta_u": {
+            "code_var_name": "delta_u",
+            "description": "Virtual displacement vector used in the principle of virtual work.\nJUSTIFICATION:\nExplicitly defined as the test function value vector (virtual displacement) in the principle of virtual work. Appears in the weak form as δu in equations (3) and (7).",
+            "options": [
+                "test-function"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "para0009.0-start",
+                    "stop_id": "para0009.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "delta_u_T": {
+            "code_var_name": "delta_u_T",
+            "description": "Transposed virtual displacement vector, used in the dot product with force vectors in the weak form.\nJUSTIFICATION:\nExplicitly appears as δu^T in equations (3) and (8), where the transpose of the virtual displacement vector is used in inner products with stress and body force terms.",
+            "options": [
+                "symbolic-variable"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 1
+        },
+        "llm_placeholder_concept_C": {
+            "code_var_name": "C",
+            "description": "Placeholder C",
+            "options": [],
+            "primitive_symbols": [
+                "43"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Placeholder Gamma_N",
+            "options": [],
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "options": [],
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder b",
+            "options": [],
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "options": [],
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "options": [],
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_delta_u": {
+            "code_var_name": "delta_u",
+            "description": "Placeholder delta_u",
+            "options": [],
+            "primitive_symbols": [
+                "ceb4",
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_delta_u_T": {
+            "code_var_name": "delta_u_T",
+            "description": "Placeholder delta_u_T",
+            "options": [],
+            "primitive_symbols": [
+                "ceb4",
+                "75",
+                "54"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_nabla_sym": {
+            "code_var_name": "nabla_sym",
+            "description": "Placeholder nabla_sym",
+            "options": [],
+            "primitive_symbols": [
+                "e28887",
+                "73",
+                "79",
+                "6d"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_subscr_T": {
+            "code_var_name": "subscr_T",
+            "description": "Placeholder subscr_T",
+            "options": [],
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_t_macron": {
+            "code_var_name": "t_macron",
+            "description": "Placeholder t_macron",
+            "options": [],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "options": [],
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "nabla_sym": {
+            "code_var_name": "nabla_sym",
+            "description": "Symmetric gradient operator used to compute the strain tensor from displacement.\nJUSTIFICATION:\nDefined as ∇sym in equation (4) and used in the strain matrix expression as the symmetric gradient of displacement u.",
+            "options": [
+                "operator"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "subscr_T": {
+            "code_var_name": "subscr_T",
+            "description": "Transpose operator applied to vectors in the weak formulation.\nJUSTIFICATION:\nExplicitly used as superscript T in δu^T and N^T in equations (3) and (8), indicating the transpose operation on vectors.",
+            "options": [
+                "operator"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 0
+        },
+        "t_macron": {
+            "code_var_name": "t_macron",
+            "description": "Imposed traction vector on the Neumann boundary Γ_N.\nJUSTIFICATION:\nDefined as the traction on Γ_N in boundary conditions (2), and appears in the weak form as the surface load term on Γ_N.",
+            "options": [
+                "numerical-variable"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "sec0004.8-start",
+                    "stop_id": "sec0004.8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0002",
+                    "stop_id": "eqn0002",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "u": {
+            "code_var_name": "u",
+            "description": "Nodal displacement vector representing the actual displacement field in the finite element model.\nJUSTIFICATION:\nDefined as the displacement vector in equations (5) and (6), and appears in the strain expression as the primary unknown in the weak form.",
+            "options": [
+                "nodal-variable"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "eqn0005",
+                    "stop_id": "eqn0005",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0006",
+                    "stop_id": "eqn0006",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0007",
+                    "stop_id": "eqn0007",
+                    "type": 0
+                },
+                {
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        }
+    },
+    "eoi_dict": {
+        "eqn0003": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "delta_u",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "d_Omega",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "delta_u_T",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "d_Omega",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "delta_u_T",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-5": {
+            "mc_id": "d_Gamma",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "mathml_mi_id_15": {
+            "mc_id": "Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_22": {
+            "mc_id": "subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_23": {
+            "mc_id": "C",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_28": {
+            "mc_id": "u",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_31": {
+            "mc_id": "Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_34": {
+            "mc_id": "subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_35": {
+            "mc_id": "b",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_42": {
+            "mc_id": "subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_43": {
+            "mc_id": "t_macron",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_msub_id_4": {
+            "mc_id": "Gamma_N",
+            "options": [],
+            "tag_name": "msub"
+        },
+        "mathml_msup_id_2": {
+            "mc_id": "nabla_sym",
+            "options": [],
+            "tag_name": "msup"
+        },
+        "mathml_msup_id_3": {
+            "mc_id": "nabla_sym",
+            "options": [],
+            "tag_name": "msup"
+        }
+    }
+}

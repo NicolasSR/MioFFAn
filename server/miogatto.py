@@ -14,9 +14,9 @@ from dataclasses import asdict
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
-from lib.util import check_missing_variables, check_document_edit_id, PostRequestError
+from lib.util import wrap_custom_group, check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
-from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
+from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources, get_or_create_llm_log_file
 
 # get git revision
 try:
@@ -184,76 +184,12 @@ class MioGattoServer:
 
                 matches[0].attrib['data-mc-id'] = str(mc_id)
 
-    def wrap_custom_group(self, root, group_id, group_info: Group):
-
-        def check_contains_by_traversal(ancestor_element, descendant_element) -> bool:
-            """
-            Checks if ancestor_element contains (is an ancestor of) descendant_element
-            by traversing up the parent chain of the descendant.
-            """
-            current_element = descendant_element.getparent()
-            
-            # Traverse up the tree until the root (None) is reached
-            while current_element is not None:
-                if current_element is ancestor_element:
-                    return True
-                current_element = current_element.getparent()
-                
-            return False
-        
-        start_id = group_info.start_id
-        stop_id = group_info.stop_id
-        ancestry_level_start = group_info.ancestry_level_start
-        ancestry_level_stop = group_info.ancestry_level_stop
-
-        parent_start_path_part = "/parent::*"*ancestry_level_start if ancestry_level_start is not None else ""
-        parent_stop_path_part = "/parent::*"*ancestry_level_stop if ancestry_level_stop is not None else ""
-
-        start_element_list = root.xpath("//*[@id='{}']{}".format(start_id, parent_start_path_part))
-        start_element = start_element_list[0] if len(start_element_list)==1 else None
-        stop_element_list = root.xpath("//*[@id='{}']{}".format(stop_id, parent_stop_path_part))
-        stop_element = stop_element_list[0] if len(stop_element_list)==1 else None
-
-        # # Find all elements between start_id and stop_id (inclusive)
-        # xpath_expression = "//*[@id='{}']{}/following::*[preceding::*[@id='{}']{}]".format(
-        #     start_id, parent_start_path_part, stop_id, parent_stop_path_part)
-        # elements_in_group = root.xpath(xpath_expression)
-
-        if start_element is None or stop_element is None:
-            self.logger.warning('No elements found for group %s (%s to %s)', group_id, start_id, stop_id)
-            return False
-
-        # Get the parent element to wrap the group
-        parent = start_element.getparent()
-        insert_index = parent.index(start_element)
-
-        # Find all elements between start_element and stop_element (inclusive)
-        elements_in_group = []
-        current_element = start_element
-        while current_element is not None:
-            elements_in_group.append(current_element)
-            if current_element is stop_element or check_contains_by_traversal(current_element, stop_element):
-                break
-            current_element = current_element.getnext()
-
-        # Create a new span element
-        mstyle = etree.Element('mstyle', id=group_id, attrib={'class': 'custom-group'})
-
-        # Move the elements into the span
-        for elem in elements_in_group:
-            parent.remove(elem)
-            mstyle.append(elem)
-
-        parent.insert(insert_index, mstyle)
-
-        return True
-
                 
     def initialize_main_pages(self, root):
 
         # Wrap specified custom groups in span tags
         for group_id, group_info in self.mi_anno.groups.items():
-            if not self.wrap_custom_group(root, group_id, group_info):
+            if not wrap_custom_group(root, group_id, group_info):
                 continue
 
         # add data-mc-id for each annotated comp_tag element
@@ -840,6 +776,8 @@ class MioGattoServer:
     #############################
 
     def auto_segment_symbols(self):
+        log_file = get_or_create_llm_log_file(self.paper_id)
+
         try:
             res = request.json
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
@@ -848,18 +786,21 @@ class MioGattoServer:
             copied_tree = deepcopy(self.tree)
             eoi_ids_list = list(self.mcdict.eoi_dict.keys())
 
-            new_occurences_dict, new_groups_dict = auto_segment_symbols(copied_tree, eoi_ids_list)
+            new_occurences_dict, new_groups_dict = auto_segment_symbols(copied_tree, eoi_ids_list, llm_log_file=log_file)
 
             for variable_name, group_info_list in new_groups_dict.items():
                 new_occurences_dict[variable_name] = []
                 for group_info in group_info_list:
                     group_primitive_symbols = group_info["primitive_symbols"]
+                    group_ids_set = group_info["ids_set"]
                     del group_info["primitive_symbols"]
+                    del group_info["ids_set"]
                     new_group_id = self.add_group_inner(group_info)
                     new_occurences_dict[variable_name].append({
                         "comp_tag_id": new_group_id,
                         "tag_name": "mstyle",
-                        "primitive_symbols": group_primitive_symbols
+                        "primitive_symbols": group_primitive_symbols,
+                        "ids_set": group_ids_set
                         })
             
             for variable_name, new_occurences_list in new_occurences_dict.items():
@@ -899,6 +840,7 @@ class MioGattoServer:
         
     
     def auto_assign_concepts(self):
+        log_file = get_or_create_llm_log_file(self.paper_id)
 
         try:
             res = request.json
@@ -909,12 +851,12 @@ class MioGattoServer:
 
             # Wrap specified custom groups in span tags
             for group_id, group_info in self.mi_anno.groups.items():
-                if not self.wrap_custom_group(copied_tree, group_id, group_info):
+                if not wrap_custom_group(copied_tree, group_id, group_info):
                     continue
 
             eoi_ids_list = list(self.mcdict.eoi_dict.keys())
 
-            final_concepts_dict, final_occurrences_dict = auto_define_and_assign_concepts(copied_tree, self.mcdict.occurences_dict, self.mcdict.concepts, eoi_ids_list)
+            final_concepts_dict, final_occurrences_dict = auto_define_and_assign_concepts(copied_tree, self.mcdict.occurences_dict, self.mcdict.concepts, eoi_ids_list, llm_log_file=log_file)
 
             for concept_id, concept_info in final_concepts_dict.items():
                 self.register_concept_inner(concept_info, mc_id = concept_id)
@@ -935,6 +877,7 @@ class MioGattoServer:
         
 
     def auto_highlight_sources(self):
+        log_file = get_or_create_llm_log_file(self.paper_id)
         try:
             res = request.json
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
@@ -944,7 +887,7 @@ class MioGattoServer:
 
             eoi_ids_list = list(self.mcdict.eoi_dict.keys())
 
-            new_sogs_list = auto_highlight_sources(copied_tree, self.mcdict.concepts, eoi_ids_list)
+            new_sogs_list = auto_highlight_sources(copied_tree, self.mcdict.concepts, eoi_ids_list, llm_log_file=log_file)
 
             for new_sog in new_sogs_list:
                 self.add_sog_inner(new_sog["mc_id"],new_sog["start_id"],new_sog["stop_id"])

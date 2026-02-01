@@ -2,6 +2,7 @@ import json
 import time
 import re
 import unicodedata
+from pathlib import Path
 
 from copy import deepcopy
 from collections import OrderedDict
@@ -105,8 +106,24 @@ def replace_with_unicode_name(html_snippet):
 
     return re.sub(pattern, process_content, html_snippet)
 
+def get_or_create_llm_log_file(paper_id):
+    output_log_file_path = Path(f"./llm_outputs/{paper_id}_llm_log.json")
+    output_log_file_path.parent.mkdir(exist_ok=True, parents=True)
+    if not output_log_file_path.exists():
+        with open(output_log_file_path, 'w') as file:
+            init_dict = {
+                "paper_id": paper_id
+            }
+            json.dump(init_dict, file)
+    return output_log_file_path
 
-def auto_segment_symbols(html_tree_raw, eoi_ids_list):
+class SetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        return json.JSONEncoder.default(self, obj)
+
+def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
@@ -114,7 +131,11 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
     multi_eoi_new_groups_dict = dict()
     multi_eoi_new_occurences_dict = dict()
 
+    log_json = dict()
+
     for eoi_id in eoi_ids_list:
+        log_json[eoi_id] = dict()
+
         weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
         weak_form_string = etree.tostring(weak_form, encoding='unicode')
 
@@ -174,6 +195,8 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
         chat_response_string = chat_response.choices[0].message.content
         objects_list = json.loads(chat_response_string)
 
+        log_json[eoi_id]["initial_output"] = objects_list
+
         deduplicated_objects_list = []
         seen_variable_names = set()
         for obj in objects_list:
@@ -183,6 +206,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
         objects_list = deduplicated_objects_list
 
         print(objects_list)
+        log_json[eoi_id]["deduplicated_list"] = objects_list
 
         new_occurences_dict = dict()
         new_groups_dict = dict()
@@ -219,7 +243,8 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
                     occurrence_info = {
                             "comp_tag_id": start_id,
                             "tag_name": tag_name,
-                            "primitive_symbols": deepcopy(primitive_hex_set)
+                            "primitive_symbols": deepcopy(primitive_hex_set),
+                            "ids_set": match_ids_set
                         }
                     if variable_name in new_occurences_dict:
                         new_occurences_dict[variable_name].append(occurrence_info)
@@ -243,20 +268,27 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
                         "ancestry_level_stop": ancestry_level_stop,
                         "start_id": start_id,
                         "stop_id": stop_id,
-                        "primitive_symbols": deepcopy(primitive_hex_set)
+                        "primitive_symbols": deepcopy(primitive_hex_set),
+                        "ids_set": match_ids_set
                     }
                     if variable_name in new_groups_dict:
                         new_groups_dict[variable_name].append(group_info)
                     else:
                         new_groups_dict[variable_name]=[group_info]
 
+        log_json[eoi_id]["new_groups_dict"] = new_groups_dict
+        log_json[eoi_id]["new_occurences_dict"] = new_occurences_dict
+        log_json[eoi_id]["all_id_sets"] = all_id_sets
+
         # Check for conflicts in symbol segmentation
         conflicts_list_raw = find_relationships_through_contained_ids(all_id_sets)
         print(conflicts_list_raw)
+        log_json[eoi_id]["conflicts_list"] = conflicts_list_raw
         if conflicts_list_raw:
             print("Conflicts detected in symbol segmentation:")
-            new_groups_dict, new_occurences_dict = disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, conflicts_list_raw, new_groups_dict, new_occurences_dict)
-
+            new_groups_dict, new_occurences_dict, log_json = disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, conflicts_list_raw, new_groups_dict, new_occurences_dict, log_json)
+            log_json[eoi_id]["disambiguated_new_groups_dict"] = new_groups_dict
+            log_json[eoi_id]["disambiguated_new_occurences_dict"] = new_occurences_dict
         multi_eoi_new_groups_dict[eoi_id] = new_groups_dict
         multi_eoi_new_occurences_dict[eoi_id] = new_occurences_dict
 
@@ -278,10 +310,23 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list):
             else:
                 final_new_groups_dict[variable_name] = groups_list
 
+    log_json["total"] = {
+        "final_new_groups_dict": final_new_groups_dict,
+        "final_new_occurences_dict": final_new_occurences_dict
+    }
+
+    print(log_json)
+
+    with open(llm_log_file, 'r') as log_file:
+        llm_log = json.load(log_file)
+    llm_log["AUTO_SEGMENT_SYMBOLS"] = log_json
+    with open(llm_log_file, 'w') as log_file:
+        json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
+
     return final_new_occurences_dict, final_new_groups_dict
     
 
-def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, conflicts_list_raw, new_groups_dict, new_occurences_dict):
+def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, conflicts_list_raw, new_groups_dict, new_occurences_dict, log_json):
     conflicts_dict = OrderedDict()
     for i, conflict_raw in enumerate(conflicts_list_raw):
         case_name = f"case_{i+1}"
@@ -309,6 +354,7 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
     chat_response_string = chat_response.choices[0].message.content
     print(chat_response_string)
     disambiguation_results_json = json.loads(chat_response_string)
+    log_json[eoi_id]["conflicts_resolution"] = disambiguation_results_json
 
     for case_name, result in disambiguation_results_json.items():
         i = int(case_name.split("_")[1]) - 1
@@ -323,10 +369,11 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
             new_occurences_list_filtered = [occurrence_info for occurrence_info in new_occurences_list if not (occurrence_info["comp_tag_id"] == child_representative_id)]
             new_occurences_dict[child_var_name] = new_occurences_list_filtered
 
-    return new_groups_dict, new_occurences_dict
+    return new_groups_dict, new_occurences_dict, log_json
 
 
-def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdict_concepts, eoi_ids_list):
+def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdict_concepts, eoi_ids_list, llm_log_file = None):
+    log_json = dict()
 
     raw_segmented_symbols_dict = dict()
     for occurence_name, occurence_info in mcdict_occurences_dict.items():
@@ -343,7 +390,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
                     "mathml_representations_list": [symbol_mathml_string]
                 }
 
-    concepts_list = auto_define_concepts(html_tree_raw, raw_segmented_symbols_dict, eoi_ids_list)
+    concepts_list, log_json = auto_define_concepts(html_tree_raw, raw_segmented_symbols_dict, eoi_ids_list, log_json)
 
     segmented_symbols_list = []
     segmented_symbols_dict = dict()
@@ -356,7 +403,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
         })
         segmented_symbols_dict[segmented_symbol_info["obj_name"]] = mathml_representation_example
 
-    concept_assignments = auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list)
+    concept_assignments, log_json = auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list, log_json)
 
     # Get properties for concepts marked as "VARIABLE":
     variable_concepts_list = [deepcopy(concept) for concept in concepts_list if concept["type"]=="VARIABLE"]
@@ -365,7 +412,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
         del variable["type"]
         variable["representative_mathml"] = segmented_symbols_dict[corresponding_symbols[0]]
     
-    variable_concepts_with_properties = auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list)
+    variable_concepts_with_properties, log_json = auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list, log_json)
 
     print(variable_concepts_with_properties)
 
@@ -409,9 +456,18 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
             if occurence_info.mc_id==placeholder_concept_name:
                 final_occurrences_dict[occurence_id] = concept
 
+    log_json["final_concepts"] = final_concepts_dict
+    log_json["final_occurrences"] = final_occurrences_dict
+
+    with open(llm_log_file, 'r') as log_file:
+        llm_log = json.load(log_file)
+    llm_log["AUTO_DEFINE_AND_ASSIGN_CONCEPTS"] = log_json
+    with open(llm_log_file, 'w') as log_file:
+        json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
+
     return final_concepts_dict, final_occurrences_dict
 
-def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list):
+def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, log_json):
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
@@ -479,10 +535,13 @@ def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list):
 
     print(concepts_list)
 
-    return concepts_list
+    log_json["segmented_symbols_list"] = segmented_symbols_list
+    log_json["concepts_list"] = concepts_list
+
+    return concepts_list, log_json
 
 
-def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list):    
+def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list, log_json):    
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
@@ -549,11 +608,12 @@ def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, e
     concept_assignment_dict = json.loads(chat_response_string)
 
     print(concept_assignment_dict)
+    log_json["concept_assignments"] = concept_assignment_dict
 
-    return concept_assignment_dict
+    return concept_assignment_dict, log_json
 
 
-def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list):
+def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list, log_json):
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
@@ -621,10 +681,14 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
 
     print(properties_assignment)
 
-    return properties_assignment
+    log_json["properties_assignment"] = properties_assignment
+
+    return properties_assignment, log_json
 
 
-def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
+def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log_file = None):
+    log_json = dict()
+
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
@@ -687,6 +751,8 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
     for concept_id, concept_info in mcdict_concepts.items():
         justifications_splitting = concept_info.description.split("JUSTIFICATION")
         if len(justifications_splitting) > 1:
+            log_json[concept_id] = dict()
+
             justifications_dict = {
                 "concept_name": concept_info.code_var_name,
                 "description": justifications_splitting[0],
@@ -704,6 +770,9 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
             chat_response_string = chat_response.choices[0].message.content
             grounding_ids_raw = json.loads(chat_response_string)
 
+            log_json[concept_id]["justifications"] = justifications_dict
+            log_json[concept_id]["grounding_ids_raw"] = grounding_ids_raw
+
             grounding_ids_dict[concept_id] = grounding_ids_raw
             matched_grounding_ids_dict[concept_id] = {
                 'spans': [],
@@ -720,6 +789,9 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
                     continue
 
     print(matched_grounding_ids_dict)
+    log_json["total"] = {
+        "matched_grounding_ids": matched_grounding_ids_dict
+    }
 
     formal_sogs_list = []
     for concept_id, sog_ids_div in matched_grounding_ids_dict.items():
@@ -735,5 +807,13 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list):
                 "start_id": sog_id,
                 "stop_id": sog_id
             })
+
+    log_json["total"]["formal_sogs_list"] = formal_sogs_list
+    with open(llm_log_file, 'r') as log_file:
+        llm_log = json.load(log_file)
+    llm_log["AUTO_HIGHLIGHT_SOURCES"] = log_json
+    with open(llm_log_file, 'w') as log_file:
+        json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
+
 
     return formal_sogs_list

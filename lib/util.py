@@ -1,6 +1,74 @@
 import json
 
+from lxml import etree
+
+from lib.datatypes import Group
+
 # Common utilities
+
+def wrap_custom_group(root, group_id, group_info: Group):
+
+        def check_contains_by_traversal(ancestor_element, descendant_element) -> bool:
+            """
+            Checks if ancestor_element contains (is an ancestor of) descendant_element
+            by traversing up the parent chain of the descendant.
+            """
+            current_element = descendant_element.getparent()
+            
+            # Traverse up the tree until the root (None) is reached
+            while current_element is not None:
+                if current_element is ancestor_element:
+                    return True
+                current_element = current_element.getparent()
+                
+            return False
+        
+        start_id = group_info.start_id
+        stop_id = group_info.stop_id
+        ancestry_level_start = group_info.ancestry_level_start
+        ancestry_level_stop = group_info.ancestry_level_stop
+
+        parent_start_path_part = "/parent::*"*ancestry_level_start if ancestry_level_start is not None else ""
+        parent_stop_path_part = "/parent::*"*ancestry_level_stop if ancestry_level_stop is not None else ""
+
+        start_element_list = root.xpath("//*[@id='{}']{}".format(start_id, parent_start_path_part))
+        start_element = start_element_list[0] if len(start_element_list)==1 else None
+        stop_element_list = root.xpath("//*[@id='{}']{}".format(stop_id, parent_stop_path_part))
+        stop_element = stop_element_list[0] if len(stop_element_list)==1 else None
+
+        # # Find all elements between start_id and stop_id (inclusive)
+        # xpath_expression = "//*[@id='{}']{}/following::*[preceding::*[@id='{}']{}]".format(
+        #     start_id, parent_start_path_part, stop_id, parent_stop_path_part)
+        # elements_in_group = root.xpath(xpath_expression)
+
+        if start_element is None or stop_element is None:
+            print('No elements found for group %s (%s to %s)', group_id, start_id, stop_id)
+            return False
+
+        # Get the parent element to wrap the group
+        parent = start_element.getparent()
+        insert_index = parent.index(start_element)
+
+        # Find all elements between start_element and stop_element (inclusive)
+        elements_in_group = []
+        current_element = start_element
+        while current_element is not None:
+            elements_in_group.append(current_element)
+            if current_element is stop_element or check_contains_by_traversal(current_element, stop_element):
+                break
+            current_element = current_element.getnext()
+
+        # Create a new span element
+        mstyle = etree.Element('mstyle', id=group_id, attrib={'class': 'custom-group'})
+
+        # Move the elements into the span
+        for elem in elements_in_group:
+            parent.remove(elem)
+            mstyle.append(elem)
+
+        parent.insert(insert_index, mstyle)
+
+        return True
 
 def get_mi2idf(tree):
     raise("mi2idf deprecated. Please update code to use get_mi2hex instead.")

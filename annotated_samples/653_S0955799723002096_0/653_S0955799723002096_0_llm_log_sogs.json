@@ -1,0 +1,313 @@
+{
+    "paper_id": "653_S0955799723002096_0",
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "C": {
+            "justifications": {
+                "concept_name": "C",
+                "description": "Constitutive matrix that relates stress and strain in the material model.\n",
+                "justifications": ":\nDefined as the constitutive matrix in equation (3), relating the stress tensor to the strain tensor via the material properties."
+            },
+            "grounding_ids_raw": [
+                "eqn0003.20"
+            ]
+        },
+        "Gamma_N": {
+            "justifications": {
+                "concept_name": "Gamma_N",
+                "description": "Neumann boundary of the domain, where traction boundary conditions are applied.\n",
+                "justifications": ":\nExplicitly defined as the boundary \u0393_N in equations (2) and (3), where traction conditions are imposed."
+            },
+            "grounding_ids_raw": [
+                "eqn0002.0",
+                "eqn0003.0"
+            ]
+        },
+        "Omega": {
+            "justifications": {
+                "concept_name": "Omega",
+                "description": "Main computational domain (volume) over which the equilibrium equation is defined.\n",
+                "justifications": ":\nReferred to as \u03a9 in the initial domain description and in equations (1), (3), and (8), representing the two-dimensional elastic body volume."
+            },
+            "grounding_ids_raw": [
+                "para0008.0",
+                "eqn0001",
+                "eqn0003",
+                "eqn0009"
+            ]
+        },
+        "b": {
+            "justifications": {
+                "concept_name": "b",
+                "description": "Body force vector acting within the domain, such as gravity or inertial forces.\n",
+                "justifications": ":\nDefined as the body force vector in equation (1), appearing in the weak form as the source term in the integral over \u03a9."
+            },
+            "grounding_ids_raw": [
+                "eqn0001",
+                "eqn0003"
+            ]
+        },
+        "d_Gamma": {
+            "justifications": {
+                "concept_name": "d_Gamma",
+                "description": "Surface element of integration over the boundary \u0393.\n",
+                "justifications": ":\nAppears in the surface integral over \u0393_N in equation (3) and (8), denoted as d\u0393, representing the differential surface element for boundary integration."
+            },
+            "grounding_ids_raw": [
+                "eqn0003.20",
+                "eqn0008.20"
+            ]
+        },
+        "d_Omega": {
+            "justifications": {
+                "concept_name": "d_Omega",
+                "description": "Volume element of integration over the domain \u03a9.\n",
+                "justifications": ":\nAppears in integrals over the domain \u03a9 in equations (3) and (8), denoted as d\u03a9, representing the differential volume element for integration."
+            },
+            "grounding_ids_raw": [
+                "eqn0003.0",
+                "eqn0008.0"
+            ]
+        },
+        "delta_u": {
+            "justifications": {
+                "concept_name": "delta_u",
+                "description": "Virtual displacement vector used in the principle of virtual work.\n",
+                "justifications": ":\nExplicitly defined as the test function value vector (virtual displacement) in the principle of virtual work. Appears in the weak form as \u03b4u in equations (3) and (7)."
+            },
+            "grounding_ids_raw": [
+                "para0009.0",
+                "eqn0003",
+                "eqn0008"
+            ]
+        },
+        "delta_u_T": {
+            "justifications": {
+                "concept_name": "delta_u_T",
+                "description": "Transposed virtual displacement vector, used in the dot product with force vectors in the weak form.\n",
+                "justifications": ":\nExplicitly appears as \u03b4u^T in equations (3) and (8), where the transpose of the virtual displacement vector is used in inner products with stress and body force terms."
+            },
+            "grounding_ids_raw": [
+                "eqn0003.0",
+                "eqn0008.0"
+            ]
+        },
+        "nabla_sym": {
+            "justifications": {
+                "concept_name": "nabla_sym",
+                "description": "Symmetric gradient operator used to compute the strain tensor from displacement.\n",
+                "justifications": ":\nDefined as \u2207sym in equation (4) and used in the strain matrix expression as the symmetric gradient of displacement u."
+            },
+            "grounding_ids_raw": [
+                "eqn0003.12",
+                "eqn0004.12"
+            ]
+        },
+        "subscr_T": {
+            "justifications": {
+                "concept_name": "subscr_T",
+                "description": "Transpose operator applied to vectors in the weak formulation.\n",
+                "justifications": ":\nExplicitly used as superscript T in \u03b4u^T and N^T in equations (3) and (8), indicating the transpose operation on vectors."
+            },
+            "grounding_ids_raw": [
+                "eqn0003",
+                "eqn0008"
+            ]
+        },
+        "t_macron": {
+            "justifications": {
+                "concept_name": "t_macron",
+                "description": "Imposed traction vector on the Neumann boundary \u0393_N.\n",
+                "justifications": ":\nDefined as the traction on \u0393_N in boundary conditions (2), and appears in the weak form as the surface load term on \u0393_N."
+            },
+            "grounding_ids_raw": [
+                "sec0004.8",
+                "eqn0002",
+                "eqn0003"
+            ]
+        },
+        "u": {
+            "justifications": {
+                "concept_name": "u",
+                "description": "Nodal displacement vector representing the actual displacement field in the finite element model.\n",
+                "justifications": ":\nDefined as the displacement vector in equations (5) and (6), and appears in the strain expression as the primary unknown in the weak form."
+            },
+            "grounding_ids_raw": [
+                "eqn0005",
+                "eqn0006",
+                "eqn0007",
+                "eqn0008"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "C": {
+                    "spans": [],
+                    "divs": []
+                },
+                "Gamma_N": {
+                    "spans": [],
+                    "divs": []
+                },
+                "Omega": {
+                    "spans": [
+                        "para0008.0"
+                    ],
+                    "divs": [
+                        "eqn0001",
+                        "eqn0003",
+                        "eqn0009"
+                    ]
+                },
+                "b": {
+                    "spans": [],
+                    "divs": [
+                        "eqn0001",
+                        "eqn0003"
+                    ]
+                },
+                "d_Gamma": {
+                    "spans": [],
+                    "divs": []
+                },
+                "d_Omega": {
+                    "spans": [],
+                    "divs": []
+                },
+                "delta_u": {
+                    "spans": [
+                        "para0009.0"
+                    ],
+                    "divs": [
+                        "eqn0003",
+                        "eqn0008"
+                    ]
+                },
+                "delta_u_T": {
+                    "spans": [],
+                    "divs": []
+                },
+                "nabla_sym": {
+                    "spans": [],
+                    "divs": []
+                },
+                "subscr_T": {
+                    "spans": [],
+                    "divs": [
+                        "eqn0003",
+                        "eqn0008"
+                    ]
+                },
+                "t_macron": {
+                    "spans": [
+                        "sec0004.8"
+                    ],
+                    "divs": [
+                        "eqn0002",
+                        "eqn0003"
+                    ]
+                },
+                "u": {
+                    "spans": [],
+                    "divs": [
+                        "eqn0005",
+                        "eqn0006",
+                        "eqn0007",
+                        "eqn0008"
+                    ]
+                }
+            },
+            "formal_sogs_list": [
+                {
+                    "mc_id": "Omega",
+                    "start_id": "para0008.0-start",
+                    "stop_id": "para0008.0-end"
+                },
+                {
+                    "mc_id": "Omega",
+                    "start_id": "eqn0001",
+                    "stop_id": "eqn0001"
+                },
+                {
+                    "mc_id": "Omega",
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003"
+                },
+                {
+                    "mc_id": "Omega",
+                    "start_id": "eqn0009",
+                    "stop_id": "eqn0009"
+                },
+                {
+                    "mc_id": "b",
+                    "start_id": "eqn0001",
+                    "stop_id": "eqn0001"
+                },
+                {
+                    "mc_id": "b",
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003"
+                },
+                {
+                    "mc_id": "delta_u",
+                    "start_id": "para0009.0-start",
+                    "stop_id": "para0009.0-end"
+                },
+                {
+                    "mc_id": "delta_u",
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003"
+                },
+                {
+                    "mc_id": "delta_u",
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008"
+                },
+                {
+                    "mc_id": "subscr_T",
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003"
+                },
+                {
+                    "mc_id": "subscr_T",
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008"
+                },
+                {
+                    "mc_id": "t_macron",
+                    "start_id": "sec0004.8-start",
+                    "stop_id": "sec0004.8-end"
+                },
+                {
+                    "mc_id": "t_macron",
+                    "start_id": "eqn0002",
+                    "stop_id": "eqn0002"
+                },
+                {
+                    "mc_id": "t_macron",
+                    "start_id": "eqn0003",
+                    "stop_id": "eqn0003"
+                },
+                {
+                    "mc_id": "u",
+                    "start_id": "eqn0005",
+                    "stop_id": "eqn0005"
+                },
+                {
+                    "mc_id": "u",
+                    "start_id": "eqn0006",
+                    "stop_id": "eqn0006"
+                },
+                {
+                    "mc_id": "u",
+                    "start_id": "eqn0007",
+                    "stop_id": "eqn0007"
+                },
+                {
+                    "mc_id": "u",
+                    "start_id": "eqn0008",
+                    "stop_id": "eqn0008"
+                }
+            ]
+        }
+    }
+}

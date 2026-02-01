@@ -1,0 +1,233 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_C": {
+            "code_var_name": "C",
+            "description": "Placeholder C",
+            "options": [],
+            "primitive_symbols": [
+                "43"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Placeholder Gamma_N",
+            "options": [],
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "options": [],
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder b",
+            "options": [],
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "options": [],
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "options": [],
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_delta_u": {
+            "code_var_name": "delta_u",
+            "description": "Placeholder delta_u",
+            "options": [],
+            "primitive_symbols": [
+                "ceb4",
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_delta_u_T": {
+            "code_var_name": "delta_u_T",
+            "description": "Placeholder delta_u_T",
+            "options": [],
+            "primitive_symbols": [
+                "ceb4",
+                "75",
+                "54"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_nabla_sym": {
+            "code_var_name": "nabla_sym",
+            "description": "Placeholder nabla_sym",
+            "options": [],
+            "primitive_symbols": [
+                "e28887",
+                "73",
+                "79",
+                "6d"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_subscr_T": {
+            "code_var_name": "subscr_T",
+            "description": "Placeholder subscr_T",
+            "options": [],
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_t_macron": {
+            "code_var_name": "t_macron",
+            "description": "Placeholder t_macron",
+            "options": [],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "options": [],
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        }
+    },
+    "eoi_dict": {
+        "eqn0003": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_delta_u",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "llm_placeholder_concept_delta_u_T",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "llm_placeholder_concept_delta_u_T",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-5": {
+            "mc_id": "llm_placeholder_concept_d_Gamma",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "mathml_mi_id_15": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_22": {
+            "mc_id": "llm_placeholder_concept_subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_23": {
+            "mc_id": "llm_placeholder_concept_C",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_28": {
+            "mc_id": "llm_placeholder_concept_u",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_31": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_34": {
+            "mc_id": "llm_placeholder_concept_subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_35": {
+            "mc_id": "llm_placeholder_concept_b",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_42": {
+            "mc_id": "llm_placeholder_concept_subscr_T",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_43": {
+            "mc_id": "llm_placeholder_concept_t_macron",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_msub_id_4": {
+            "mc_id": "llm_placeholder_concept_Gamma_N",
+            "options": [],
+            "tag_name": "msub"
+        },
+        "mathml_msup_id_2": {
+            "mc_id": "llm_placeholder_concept_nabla_sym",
+            "options": [],
+            "tag_name": "msup"
+        },
+        "mathml_msup_id_3": {
+            "mc_id": "llm_placeholder_concept_nabla_sym",
+            "options": [],
+            "tag_name": "msup"
+        }
+    }
+}

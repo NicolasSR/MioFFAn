@@ -1,0 +1,325 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "domain_Omega",
+            "description": "Domain Omega",
+            "options": [
+                "domain"
+            ],
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "para0008.0-29",
+                    "stop_id": "para0008.0-50",
+                    "type": 0
+                },
+                {
+                    "start_id": "para0008.5-3",
+                    "stop_id": "eqn0001",
+                    "type": 0
+                },
+                {
+                    "start_id": "para0009.2-24",
+                    "stop_id": "para0009.2-44",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 0
+        },
+        "1": {
+            "code_var_name": "sym_grad",
+            "description": "Symmetric gradient",
+            "options": [
+                "operator"
+            ],
+            "primitive_symbols": [
+                "e28887",
+                "73",
+                "79",
+                "6d"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "sec0004.12-51",
+                    "stop_id": "sec0004.13-start",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 0
+        },
+        "10": {
+            "code_var_name": "d_Gamma",
+            "description": "Integration var for Neumann boundary of Omega domain",
+            "options": [
+                "domain"
+            ],
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "2": {
+            "code_var_name": "transpose_op",
+            "description": "Transpose operator",
+            "options": [
+                "operator"
+            ],
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "3": {
+            "code_var_name": "const_tensor",
+            "description": "Tensor characterizing the constitutive law",
+            "options": [
+                "symbolic-variable"
+            ],
+            "primitive_symbols": [
+                "43"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "sec0004.12-0",
+                    "stop_id": "sec0004.12-36",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 4
+        },
+        "4": {
+            "code_var_name": "u",
+            "description": "Trial function. Displacement.",
+            "options": [
+                "trial-function"
+            ],
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "eqn0002",
+                    "stop_id": "eqn0002",
+                    "type": 0
+                },
+                {
+                    "start_id": "sec0004.5-0",
+                    "stop_id": "sec0004.7-21",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "5": {
+            "code_var_name": "neumann_boundary",
+            "description": "Neumann boundary of Omega domain",
+            "options": [
+                "domain"
+            ],
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "para0008.0-0",
+                    "stop_id": "para0008.4-3",
+                    "type": 0
+                },
+                {
+                    "start_id": "sec0004.3-64",
+                    "stop_id": "eqn0002",
+                    "type": 0
+                },
+                {
+                    "start_id": "sec0004.8-17",
+                    "stop_id": "sec0004.9-19",
+                    "type": 0
+                },
+                {
+                    "start_id": "para0009.2-24",
+                    "stop_id": "para0009.2-94",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 0
+        },
+        "6": {
+            "code_var_name": "delta_u",
+            "description": "Test function for displacement (u)",
+            "options": [
+                "trial-function"
+            ],
+            "primitive_symbols": [
+                "ceb4",
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "para0009.0-0",
+                    "stop_id": "para0009.0-106",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "7": {
+            "code_var_name": "traction",
+            "description": "Traction at boundary",
+            "options": [
+                "nodal-variable"
+            ],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "sec0004.7-32",
+                    "stop_id": "sec0004.9-19",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "8": {
+            "code_var_name": "b",
+            "description": "Source vector b",
+            "options": [
+                "nodal-variable"
+            ],
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "sec0004.3-39",
+                    "stop_id": "sec0004.3-56",
+                    "type": 0
+                }
+            ],
+            "tensor_rank": 1
+        },
+        "9": {
+            "code_var_name": "d_Omega",
+            "description": "Integration var for Omega domain",
+            "options": [
+                "integration-var"
+            ],
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        }
+    },
+    "eoi_dict": {
+        "eqn0003": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 11,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "6",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "6",
+            "options": [
+                "transpose"
+            ],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "6",
+            "options": [
+                "transpose"
+            ],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "9",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "9",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-5": {
+            "mc_id": "10",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "mathml_mi_id_15": {
+            "mc_id": "0",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_22": {
+            "mc_id": "2",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_23": {
+            "mc_id": "3",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_28": {
+            "mc_id": "4",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_31": {
+            "mc_id": "0",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_34": {
+            "mc_id": "2",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_35": {
+            "mc_id": "8",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_42": {
+            "mc_id": "2",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_43": {
+            "mc_id": "7",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_msub_id_4": {
+            "mc_id": "5",
+            "options": [],
+            "tag_name": "msub"
+        },
+        "mathml_msup_id_2": {
+            "mc_id": "1",
+            "options": [],
+            "tag_name": "msup"
+        },
+        "mathml_msup_id_3": {
+            "mc_id": "1",
+            "options": [],
+            "tag_name": "msup"
+        }
+    }
+}

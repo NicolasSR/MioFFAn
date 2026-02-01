@@ -1,0 +1,160 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_C": {
+            "code_var_name": "C",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: C",
+            "options": [],
+            "primitive_symbols": [
+                "43"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: Omega",
+            "options": [],
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: b",
+            "options": [],
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_delta_u": {
+            "code_var_name": "delta_u",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: delta_u",
+            "options": [],
+            "primitive_symbols": [
+                "ceb4",
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_nabla": {
+            "code_var_name": "nabla",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: nabla",
+            "options": [],
+            "primitive_symbols": [
+                "e28887"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: t",
+            "options": [],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_t_bar": {
+            "code_var_name": "t_bar",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: t_bar",
+            "options": [],
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: u",
+            "options": [],
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "tensor_rank": 0
+        }
+    },
+    "eoi_dict": {
+        "eqn0003": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_delta_u",
+            "options": [],
+            "tag_name": "mstyle"
+        },
+        "mathml_mi_id_15": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_16": {
+            "mc_id": "llm_placeholder_concept_nabla",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_23": {
+            "mc_id": "llm_placeholder_concept_C",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_24": {
+            "mc_id": "llm_placeholder_concept_nabla",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_28": {
+            "mc_id": "llm_placeholder_concept_u",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_30": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_31": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_33": {
+            "mc_id": "llm_placeholder_concept_u",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_35": {
+            "mc_id": "llm_placeholder_concept_b",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_37": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_41": {
+            "mc_id": "llm_placeholder_concept_u",
+            "options": [],
+            "tag_name": "mi"
+        },
+        "mathml_mi_id_43": {
+            "mc_id": "llm_placeholder_concept_t",
+            "options": [],
+            "tag_name": "mi"
+        }
+    }
+}
