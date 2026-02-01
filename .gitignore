@@ -103,6 +103,7 @@ static/*.js
 sources
 raw_sources
 annotated_data_backup
+annotated_samples
 
 # local stuff
 local/
