@@ -10,6 +10,7 @@ from lib.version import VERSION
 from lib.logger import main_logger
 from lib.util import get_mi2hex
 from lib.annotation import dump_json
+from tools.inject_tag_ids import add_ids_to_html
 
 from lxml.html.builder import SPAN
 
@@ -320,6 +321,8 @@ def main():
 
     # load the HTML and modify the DOM tree
     tree = lxml.html.parse(str(html_in))
+
+    add_ids_to_html(tree)
     preprocess_html(tree, paper_id, embed_floats)
 
     # extract formulae information
