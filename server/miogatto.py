@@ -783,7 +783,7 @@ class MioGattoServer:
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            copied_tree = deepcopy(self.tree)
+            copied_tree = deepcopy(self.tree.xpath("//body"))
             eoi_ids_list = list(self.mcdict.eoi_dict.keys())
 
             new_occurences_dict, new_groups_dict = auto_segment_symbols(copied_tree, eoi_ids_list, llm_log_file=log_file)
@@ -847,7 +847,7 @@ class MioGattoServer:
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            copied_tree = deepcopy(self.tree)
+            copied_tree = deepcopy(self.tree.xpath("//body"))
 
             # Wrap specified custom groups in span tags
             for group_id, group_info in self.mi_anno.groups.items():
@@ -883,7 +883,7 @@ class MioGattoServer:
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            copied_tree = deepcopy(self.tree)
+            copied_tree = deepcopy(self.tree.xpath("//body"))
 
             eoi_ids_list = list(self.mcdict.eoi_dict.keys())
 
