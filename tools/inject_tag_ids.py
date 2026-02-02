@@ -64,4 +64,4 @@ def add_ids_to_html(html_tree):
             class_name = tag_and_class[1]
         else:
             print(f"Could not get tag name and class from '{tag_name}'")
-        find_tag_and_add_ID(html_tree, tag_name)
+        find_tag_and_add_ID(html_tree, tag_name, class_name)
