@@ -6,11 +6,16 @@ import json
 from lxml import etree as ET
 from lxml.etree import HTMLParser
 
-def find_tag_and_add_ID(tree, tag_name):
+def find_tag_and_add_ID(tree, tag_name, class_name=None):
     # 4. Find all MathML identifier tags <mi> using XPath.
     # We use local-name()='mi' to find <mi> tags regardless of how their
     # MathML namespace (http://www.w3.org/1998/Math/MathML) is prefixed in the source document.
-    xpath_expr = f"//*[local-name()='{tag_name}']"
+    if class_name is None:
+        xpath_expr = f"//*[local-name()='{tag_name}']"
+        identifier = tag_name
+    else:
+        xpath_expr = f"//*[local-name()='{tag_name}' and @class='{class_name}']"
+        identifier = class_name
     matching_tags = tree.xpath(xpath_expr)
     
     print(f"Found {len(matching_tags)} <{tag_name}> tags to inspect.")
@@ -24,7 +29,7 @@ def find_tag_and_add_ID(tree, tag_name):
         if not tag.get('id'):
         # if True:
             # Generate a new unique ID
-            new_id = f"{tag_name}_id_{tags_counter}"
+            new_id = f"{identifier}_{tags_counter}"
             
             # Assign the new ID using the .set() method
             tag.set('id', new_id)
@@ -50,4 +55,13 @@ def add_ids_to_html(html_tree):
     
     tags_to_process = ['p','div.formula','mi'] + config['COMPOUND_CONCEPT_TAGS']
     for tag_name in tags_to_process:
+        tag_and_class = tag_name.split('.')
+        if len(tag_and_class) == 1:
+            tag_name = tag_and_class[0]
+            class_name = None
+        elif len(tag_and_class) == 2:
+            tag_name = tag_and_class[0]
+            class_name = tag_and_class[1]
+        else:
+            print(f"Could not get tag name and class from '{tag_name}'")
         find_tag_and_add_ID(html_tree, tag_name)
