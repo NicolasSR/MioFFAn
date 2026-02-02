@@ -48,6 +48,6 @@ def add_ids_to_html(html_tree):
     with open('config.json', 'r') as f:
         config = json.load(f)
     
-    tags_to_process = ['p','mi'] + config['COMPOUND_CONCEPT_TAGS']
+    tags_to_process = ['p','div.formula','mi'] + config['COMPOUND_CONCEPT_TAGS']
     for tag_name in tags_to_process:
         find_tag_and_add_ID(html_tree, tag_name)
