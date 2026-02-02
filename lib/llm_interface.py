@@ -24,7 +24,7 @@ with open("config.json", "r") as config_file:
     config=json.load(config_file)
     openai_api_key = config["OPENAI_API_KEY"]
     openai_api_base = config["OPENAI_API_BASE"]
-    max_context_length_ratio = config["MAX_CONTEXT_LENGTH_RATIO"]
+    max_context_length = config["MAX_CONTEXT_LENGTH"]
 
 client = OpenAI(
     api_key=openai_api_key,
@@ -152,12 +152,12 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                 ]
         
             tokens_count, max_model_len = check_token_usage(messages)
-            max_model_len = max_context_length_ratio * max_model_len
-            print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+            max_token_len = min(max_context_length,max_model_len)
+            print(f"Token count for prompt: {tokens_count}, Max token count: {max_context_length}, Model's max context length: {max_model_len}")
             print(f"Current html text length: {len(html_text)} characters.")
-            if tokens_count >= max_model_len:
+            if tokens_count >= max_token_len:
                 print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
-                excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+                excess_ratio = (tokens_count-max_token_len)/tokens_count
                 reduction_length_total = int(len(html_text) * excess_ratio)
                 print(f"Reducing context length by approximately {reduction_length_total} characters.")
                 html_text_divided = html_text.split(weak_form_string)
@@ -490,12 +490,12 @@ def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, lo
             ]
     
         tokens_count, max_model_len = check_token_usage(messages)
-        max_model_len = max_context_length_ratio * max_model_len
-        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        max_token_len = min(max_context_length,max_model_len)
+        print(f"Token count for prompt: {tokens_count}, Max token count: {max_context_length}, Model's max context length: {max_model_len}")
         print(f"Current html text length: {len(html_text)} characters.")
-        if tokens_count >= max_model_len:
+        if tokens_count >= max_token_len:
             print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
-            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            excess_ratio = (tokens_count-max_token_len)/tokens_count
             reduction_length_total = int(len(html_text) * excess_ratio)
             print(f"Reducing context length by approximately {reduction_length_total} characters.")
             html_text_divided = html_text.split(weak_form_string)
@@ -564,12 +564,12 @@ def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, e
             ]
 
         tokens_count, max_model_len = check_token_usage(messages)
-        max_model_len = max_context_length_ratio * max_model_len
-        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        max_token_len = min(max_context_length,max_model_len)
+        print(f"Token count for prompt: {tokens_count}, Max token count: {max_context_length}, Model's max context length: {max_model_len}")
         print(f"Current html text length: {len(html_text)} characters.")
-        if tokens_count >= max_model_len:
+        if tokens_count >= max_token_len:
             print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
-            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            excess_ratio = (tokens_count-max_token_len)/tokens_count
             reduction_length_total = int(len(html_text) * excess_ratio)
             print(f"Reducing context length by approximately {reduction_length_total} characters.")
             html_text_divided = html_text.split(weak_form_string)
@@ -636,12 +636,12 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
             ]
 
         tokens_count, max_model_len = check_token_usage(messages)
-        max_model_len = max_context_length_ratio * max_model_len
-        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        max_token_len = min(max_context_length,max_model_len)
+        print(f"Token count for prompt: {tokens_count}, Max token count: {max_context_length}, Model's max context length: {max_model_len}")
         print(f"Current html text length: {len(html_text)} characters.")
-        if tokens_count >= max_model_len:
+        if tokens_count >= max_token_len:
             print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
-            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            excess_ratio = (tokens_count-max_token_len)/tokens_count
             reduction_length_total = int(len(html_text) * excess_ratio)
             print(f"Reducing context length by approximately {reduction_length_total} characters.")
             html_text_divided = html_text.split(weak_form_string)
@@ -713,12 +713,12 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
     while fits_in_context == False:
         messages = get_messsages(system_prompt_identify_text_sources, html_text, "")
         tokens_count, max_model_len = check_token_usage(messages)
-        max_model_len = max_context_length_ratio * max_model_len
-        print(f"Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
+        max_token_len = min(max_context_length,max_model_len)
+        print(f"Token count for prompt: {tokens_count}, Max token count: {max_context_length}, Model's max context length: {max_model_len}")
         print(f"Current html text length: {len(html_text)} characters.")
-        if tokens_count >= max_model_len:
+        if tokens_count >= max_token_len:
             print(f"Error: The prompt exceeds the model's context length. Token count for prompt: {tokens_count}, Model max context length: {max_model_len}")
-            excess_ratio = (tokens_count-0.8*max_model_len)/tokens_count
+            excess_ratio = (tokens_count-max_token_len)/tokens_count
             reduction_length_total = int(len(html_text) * excess_ratio)
             print(f"Reducing context length by approximately {reduction_length_total} characters.")
             html_text_divided = html_text.split(weak_form_string)
