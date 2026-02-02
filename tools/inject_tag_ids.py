@@ -24,7 +24,7 @@ def find_tag_and_add_ID(tree, tag_name):
         if not tag.get('id'):
         # if True:
             # Generate a new unique ID
-            new_id = f"mathml_{tag_name}_id_{tags_counter}"
+            new_id = f"{tag_name}_id_{tags_counter}"
             
             # Assign the new ID using the .set() method
             tag.set('id', new_id)
@@ -48,6 +48,6 @@ def add_ids_to_html(html_tree):
     with open('config.json', 'r') as f:
         config = json.load(f)
     
-    tags_to_process = ['mi'] + config['COMPOUND_CONCEPT_TAGS']
+    tags_to_process = ['p','mi'] + config['COMPOUND_CONCEPT_TAGS']
     for tag_name in tags_to_process:
         find_tag_and_add_ID(html_tree, tag_name)
