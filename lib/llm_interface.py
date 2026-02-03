@@ -364,7 +364,7 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
             if child_var_name in new_groups_dict.keys():
                 new_groups_list = new_groups_dict[child_var_name]
                 new_groups_list_filtered = [group_info for group_info in new_groups_list if not (group_info["start_id"] == child_representative_id)]
-                new_groups_dict[child_var_name] = new_groups_list_filtered
+                new_occurences_dict[child_var_name] = new_groups_list_filtered
             new_occurences_list = new_occurences_dict[child_var_name]
             new_occurences_list_filtered = [occurrence_info for occurrence_info in new_occurences_list if not (occurrence_info["comp_tag_id"] == child_representative_id)]
             new_occurences_dict[child_var_name] = new_occurences_list_filtered
