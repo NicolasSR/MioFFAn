@@ -233,7 +233,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
-            main_content_style=Markup(main_content_style)
+            main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
 
@@ -258,7 +258,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
-            main_content_style=Markup(main_content_style)
+            main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
@@ -283,7 +283,7 @@ class MioGattoServer:
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
             main_content=Markup(main_content),
-            main_content_style=Markup(main_content_style)
+            main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
@@ -308,7 +308,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
-            main_content_style=Markup(main_content_style)
+            main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
