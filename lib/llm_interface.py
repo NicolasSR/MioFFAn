@@ -775,18 +775,29 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
 
             grounding_ids_dict[concept_id] = grounding_ids_raw
             matched_grounding_ids_dict[concept_id] = {
-                'spans': [],
-                'divs': []
+                'spans': set(),
+                'divs': set()
             }
             for id in grounding_ids_raw:
+                matching_paras_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'p', id)
                 matching_spans_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'span', id)
                 matching_eqns_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'div', id)
-                if matching_spans_flag:
-                    matched_grounding_ids_dict[concept_id]["spans"].append(id)
+                if matching_paras_flag:
+                    gd_text_spans_in_div = html_tree_raw.xpath(f"//*[local-name()='p' and @id='{id}']//*[local-name()='span' and @class='gd_text']")
+                    for gd_text in gd_text_spans_in_div:
+                        matched_grounding_ids_dict[concept_id]["spans"].add(gd_text.get('id'))
+                elif matching_spans_flag:
+                    span_element = html_tree_raw.xpath(f"//*[local-name()='span' and @id='{id}']")[0]
+                    if span_element.get('class') == 'gd_text':
+                        matched_grounding_ids_dict[concept_id]["spans"].add(id)
                 elif matching_eqns_flag:
-                    matched_grounding_ids_dict[concept_id]["divs"].append(id)
+                    div_element = html_tree_raw.xpath(f"//*[local-name()='div' and @id='{id}']")[0]
+                    if div_element.get('class') == 'formula':
+                        matched_grounding_ids_dict[concept_id]["divs"].add(id)
                 else:
                     continue
+            matched_grounding_ids_dict[concept_id]['spans'] = list(matched_grounding_ids_dict[concept_id]['spans'])
+            matched_grounding_ids_dict[concept_id]['divs'] = list(matched_grounding_ids_dict[concept_id]['divs'])
 
     print(matched_grounding_ids_dict)
     log_json["total"] = {
