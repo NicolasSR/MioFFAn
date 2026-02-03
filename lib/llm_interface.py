@@ -419,7 +419,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
     final_concepts_dict = dict()
     for concept in concepts_list:
         primitive_concepts_set = set()
-        corresponding_symbols = [symbol for symbol, concept in concept_assignments.items() if concept==variable["name"]]
+        corresponding_symbols = [current_symbol for current_symbol, current_concept in concept_assignments.items() if current_concept==concept["name"]]
         for symbol in corresponding_symbols:
             placeholder_concept_name = f"llm_placeholder_concept_{symbol}"
             primitive_concepts_set.update(set(mcdict_concepts[placeholder_concept_name].primitive_symbols))
@@ -429,7 +429,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
                 "code_var_name": concept["name"],
                 "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
                 "options": [variable_concept["type"]],
-                "primitive_symbols": list(primitive_concepts_set),
+                "primitive_symbols": list(deepcopy(primitive_concepts_set)),
                 "sog_list": [],
                 "tensor_rank": variable_concept["tensor_rank"]
             }
@@ -444,7 +444,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
                 "code_var_name": concept["name"],
                 "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
                 "options": [type_dict.get(concept["type"],"OTHER")],
-                "primitive_symbols": list(primitive_concepts_set),
+                "primitive_symbols": list(deepcopy(primitive_concepts_set)),
                 "sog_list": [],
                 "tensor_rank": "0"
             }
