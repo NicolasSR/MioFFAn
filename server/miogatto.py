@@ -386,7 +386,8 @@ class MioGattoServer:
             if is_new:
                 if res.get('llm_placeholder_flag'):
                     variable_name = res.get('code_var_name')
-                    mc_id = f"llm_placeholder_concept_{variable_name}"                   
+                    mc_id = f"llm_placeholder_concept_{variable_name}" 
+                    res.set('description', f'Placeholder {variable_name}') 
                 else:
                     mc_id = str(self.mcdict.next_available_mc_id)
                     self.mcdict.next_available_mc_id += 1
