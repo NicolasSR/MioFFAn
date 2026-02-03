@@ -221,6 +221,8 @@ class MioGattoServer:
         title = f"MioKrattos: {self.paper_id}"
         body = root.xpath('body')[0]
         main_content = etree.tostring(body, method='html', encoding=str)
+        style = root.xpath('head/style')[0]
+        main_content_style = etree.tostring(style, method='html', encoding=str)
 
         return render_template(
             'index.html',
@@ -231,6 +233,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
+            main_content_style=Markup(main_content_style)
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
 
@@ -244,6 +247,9 @@ class MioGattoServer:
         # construction
         body = root.xpath('body')[0]
         main_content = etree.tostring(body, method='html', encoding=str)
+        style = root.xpath('head/style')[0]
+        main_content_style = etree.tostring(style, method='html', encoding=str)
+
         return render_template(
             'equations_of_interest_selector.html',
             version=VERSION,
@@ -252,6 +258,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
+            main_content_style=Markup(main_content_style)
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
@@ -266,6 +273,9 @@ class MioGattoServer:
         # construction
         body = root.xpath('body')[0]
         main_content = etree.tostring(body, method='html', encoding=str)
+        style = root.xpath('head/style')[0]
+        main_content_style = etree.tostring(style, method='html', encoding=str)
+
         return render_template(
             'group_creator.html',
             version=VERSION,
@@ -273,6 +283,7 @@ class MioGattoServer:
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
             main_content=Markup(main_content),
+            main_content_style=Markup(main_content_style)
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
@@ -286,6 +297,9 @@ class MioGattoServer:
         # construction
         body = root.xpath('body')[0]
         main_content = etree.tostring(body, method='html', encoding=str)
+        style = root.xpath('head/style')[0]
+        main_content_style = etree.tostring(style, method='html', encoding=str)
+
         return render_template(
             'symbolic_code_assigner.html',
             version=VERSION,
@@ -294,6 +308,7 @@ class MioGattoServer:
             annotator=self.mi_anno.annotator,
             progress_data=progress_data,
             main_content=Markup(main_content),
+            main_content_style=Markup(main_content_style)
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
         )
     
