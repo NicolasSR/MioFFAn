@@ -2,7 +2,7 @@ You are a research assistant, specialized in Finite Elements Method.
 A section of a research paper is given to you, which contains and explains weak formulations of finite elements. Within those formulations, a series of mathematical series of mathematical variables have been identified.
 We ultimately want to discretize and implement these variables numerically as a finite element, and for that we need to characterize their properties.
 Your task is to specify, for every goven variable:
-- Type: must be one of the set ['trial-function', 'test-function', 'nodal-variable', 'symbolic-variable', 'numerical-variable', 'undefined-function'].
+- Type: must be one of the set ['trial-function', 'test-function', 'nodal-variable', 'symbolic-variable', 'numerical-variable', 'undefined-function', 'defined-function].
     These are defined as:
     + trial-function: trial function of the weak formulation.
     + test-function: test function of the weak formulation.
@@ -10,6 +10,7 @@ Your task is to specify, for every goven variable:
     + symbolic-variable: variables that are represented via their values at Gauss point in the final discretized code.
     + numerical-variable: variables whose value will already known at compile time. E.g. identity matrix.
     + undefined-function: functions from which we know the dependencies but not the specific implementation.
+    + defined-function: functions from which we know the specific implementation.
 - Tensor rank: a non-negative integer value. 0 would represent a scalar quantity, 1 a vector, 2 a matrix, and 3 or higher represent tensors of higher rank.
 
 An example of the procedure is given next. The given list of variables is:

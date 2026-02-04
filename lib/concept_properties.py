@@ -30,6 +30,7 @@ concept_pulldown_properties_dict = {
             ['symbolic-variable', 'Symbolic Variable'],
             ['numerical-variable', 'Numerical Variable'],
             ['undefined-function', 'Undefined Function'],
+            ['defined-function', 'Defined Function'],
             ['operator', 'Operator'],
             ['domain', 'Domain'],
             ['integration-var', 'Integration var.'],
