@@ -9,8 +9,8 @@ occurence_pulldown_properties_dict = {
     },
     'applied_operator_options': {
         'all': [],
-        'rank0': [],
-        'rank124': [
+        'rank0': ['exponent', 'Exponent'],
+        'rank24': [
             ['transpose','Transpose']
         ]
     }
