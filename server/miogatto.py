@@ -24,7 +24,7 @@ try:
 except OSError:
     GIT_REVISON = 'Unknown'
     
-def make_concept(res) -> Optional[MathConcept]:
+def make_concept(res,sog_list = []) -> Optional[MathConcept]:
     if not res.get('code_var_name').isidentifier():
         flash('Variable name must be compliant with Python identifier rules.')
         return None
@@ -46,9 +46,6 @@ def make_concept(res) -> Optional[MathConcept]:
 
     # get options (properties)
     options = res.get('options')
-
-    # Prepare empty list for SoGs
-    sog_list = []
 
     primitive_symbols = res.get('primitive_symbols')
 
@@ -391,10 +388,12 @@ class MioGattoServer:
                 else:
                     mc_id = str(self.mcdict.next_available_mc_id)
                     self.mcdict.next_available_mc_id += 1
+                sog_list = []
             else:
                 mc_id = res.get('mc_id')
+                sog_list = self.mcdict.concepts["mc_id"].sog_list
 
-            self.register_concept_inner(res, mc_id)
+            self.register_concept_inner(res, mc_id, sog_list=sog_list)
 
             success_message = {
                 "status": "success",
@@ -407,9 +406,9 @@ class MioGattoServer:
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
         
-    def register_concept_inner(self, res, mc_id: str):
+    def register_concept_inner(self, res, mc_id: str, sog_list = []):
         # make concept with checking
-        concept = make_concept(res)
+        concept = make_concept(res, sog_list=sog_list)
 
         check_missing_variables(concept=concept,mc_id=mc_id)
 
