@@ -405,6 +405,9 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
 
     concept_assignments, log_json = auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list, log_json)
 
+    # Remove concepts that didn't get any assigned symbol:
+    concepts_list = [c for c in concepts_list if c["name"] in concept_assignments.values()]
+    
     # Get properties for concepts marked as "VARIABLE":
     variable_concepts_list = [deepcopy(concept) for concept in concepts_list if concept["type"]=="VARIABLE"]
     for variable in variable_concepts_list:

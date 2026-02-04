@@ -13,9 +13,9 @@ The given concept and justification might be:
 
 An example of the output could be:
 [
-    "para0011.0",
-    "sec0005.20",
-    "eqn0003"
+    "p_19_3",
+    "p_4",
+    "formula_16"
 ]
 
 The answer should only contain the list. Nothing else, as it would break the user's API.
