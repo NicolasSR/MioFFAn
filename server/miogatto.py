@@ -391,7 +391,7 @@ class MioGattoServer:
                 sog_list = []
             else:
                 mc_id = res.get('mc_id')
-                sog_list = self.mcdict.concepts["mc_id"].sog_list
+                sog_list = self.mcdict.concepts[mc_id].sog_list
 
             self.register_concept_inner(res, mc_id, sog_list=sog_list)
 
