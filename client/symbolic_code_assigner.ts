@@ -193,7 +193,7 @@ function edit_symbolic_code(eoi_id: string) {
 
     symbolic_code_dialog.dialog({
         modal: true,
-        title: 'Edit Concept',
+        title: 'Edit Code',
         width: 500,
         buttons: {
             'OK': function () {
