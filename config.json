@@ -4,7 +4,6 @@
 
   "OPENAI_API_KEY": "EMPTY",
   "OPENAI_API_BASE": "http://localhost:8000/v1",
-
   "MAX_CONTEXT_LENGTH": 20000,
 
   "CONLL_SCORER_DIR": "./../CoNLL_scorer"

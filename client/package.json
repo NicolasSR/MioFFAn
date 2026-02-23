@@ -1,5 +1,5 @@
 {
-  "name": "MioGatto-client",
+  "name": "MioFFAn-client",
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "build": "webpack"
   },
   "keywords": [],
-  "author": "Takuto Asakura",
+  "author": "Nicolas Sibuet Ruiz",
   "license": "MIT",
   "description": "",
   "devDependencies": {
