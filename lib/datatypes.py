@@ -1,5 +1,6 @@
 # Data type definitions
 from dataclasses import dataclass
+from typing import Dict
 
 
 @dataclass
@@ -19,8 +20,8 @@ class MathConcept:
     """A single Math Concept"""
     code_var_name: str
     description: str
-    tensor_rank: int
-    options: list[str]
+    concept_category: str
+    properties: Dict[str, str]
     sog_list: list[SoG]
     primitive_symbols: list[str]
     
@@ -40,7 +41,7 @@ class Occurence:
     """Occurence of a concept within the text"""
     mc_id: str
     tag_name: str
-    options: list[str]
+    properties: Dict[str,str]
 
 
     

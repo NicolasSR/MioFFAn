@@ -2,6 +2,7 @@
 'use strict';
 
 import { post } from "jquery";
+
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, Source, dfs_comp_tags, mcdict, occurences_dict,
     mcdict_edit_id, escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list,
@@ -10,9 +11,11 @@ import {
 } from "./common";
 import {
     highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
-    reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders, submit_update_concept
+    reorder_anchor_and_focus_ids, handle_selection_ends, give_eoi_borders
 } from "./main_pages_utils"
-import {new_edit_occurence_properties_button, get_properties_options_html} from "./properties_assignment";
+import {renderPropertiesForm, refreshFormLogic, getFilteredFormData} from "./properties_assignment";
+
+import projectConfig from '../config.json';
 
 // --------------------------
 // Get list of tags used as mathematical identifiers ffrom configuration json
@@ -164,10 +167,10 @@ $(function () {
                 let concept = mcdict[get_mc_id_from_query($(this))!];
                 if (concept != undefined) {
                     let args_info = 'NONE';
-                    if (concept.options.length > 0) {
-                        args_info = concept.options.join(', ');
+                    if (Object.keys(concept.properties).length > 0) {
+                        args_info = Object.entries(concept.properties).map(([key, value]) => `${key}: ${value}`).join(', ');
                     }
-                    return `${concept.description} <span style="color: #808080;">[${args_info}] (rank: ${concept.tensor_rank})</span>`;
+                    return `${concept.description} <span style="color: #808080;">[${args_info}]</span>`;
                 } else {
                     return '(No description)';
                 }
@@ -219,12 +222,12 @@ function draw_anno_box(comp_tag_id: string, mc_candidates: string[]) {
         let radio_input = `<input type="radio" name="mc_id" id="c${mc_radio_num}" value="${mc_candidate_id}" ${check} />`;
         
         let args_info = 'NONE';
-        if (mc_candidate.options.length > 0) {
-            args_info = mc_candidate.options.join(', ');
+        if (Object.keys(mc_candidate.properties).length > 0) {
+            args_info = Object.entries(mc_candidate.properties).map(([key, value]) => `${key}: ${value}`).join(', ');
         }
 
         let item = `${radio_input}<span class="keep"><label for="c${mc_radio_num}">
-${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor_rank: ${mc_candidate.tensor_rank})</span>
+${mc_candidate.description} <span style="color: #808080;">[${args_info}]</span>
 (<a class="edit-concept" data-mc-id="${mc_candidate_id}" href="javascript:void(0);">edit</a>)
 </label></span>`
         radios += item;
@@ -294,7 +297,7 @@ ${mc_candidate.description} <span style="color: #808080;">[${args_info}] (tensor
 
     // enable concept dialogs
     new_concept_button(comp_tag_id);
-    new_edit_occurence_properties_button(comp_tag_id);
+    edit_occurence_properties_button(comp_tag_id);
     $('a.edit-concept').on('click', function () {
         let mc_id = $(this).attr('data-mc-id');
         if (mc_id != undefined) {
@@ -367,160 +370,268 @@ function submit_assign_concept(comp_tag_id: string, mc_id: string) {
     });
 }
 
-function submit_new_concept(comp_tag_id: string, concept_dialog: JQuery<HTMLElement>) {
-    const code_var_name = concept_dialog.find('textarea[name="code-var-name"]').val()
-    const description = concept_dialog.find('textarea[name="description"]').val()
-    const tensor_rank = concept_dialog.find('input[name="tensor-rank"]').val()
+async function submit_concept($concept_dialog: JQuery, primitive_symbols: string[], mc_id: string | undefined): Promise<string | undefined> {
 
-    let selected_options: string[] = [];
-    const $options_box = concept_dialog.find('#concept-properties-options-box')
-    $options_box.find('select').each(function() {
-        const select_name = $(this).attr('name');
-        const selected_value = $(this).val() as string;
-        if (select_name !== undefined && selected_value !== '') {
-            selected_options.push(selected_value);
-        }
-    }
-    );
-    $options_box.find('input[type="checkbox"]').each(function() {
-        const checkbox_name = $(this).attr('id');
-        if (checkbox_name !== undefined) {
-            if ($(this).is(':checked')) {
-                selected_options.push(checkbox_name);
-            }
-        }
-    }
-    );
-
-    const llm_placeholder_flag_checkbox = concept_dialog.find('input[type="checkbox"][id="llm_placeholder_flag"]')
+    const llm_placeholder_flag_checkbox = $concept_dialog.find('input[type="checkbox"][id="llm_placeholder_flag"]')
     const llm_placeholder_flag = llm_placeholder_flag_checkbox.is(":checked")
 
-    const primitive_symbols = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)))
+    const concept_data = {
+        mcdict_edit_id: mcdict_edit_id,
+        mc_id: mc_id,
+        code_var_name: $concept_dialog.find('textarea[name="code-var-name"]').val(),
+        description: $concept_dialog.find('textarea[name="description"]').val(),
+        concept_category: $concept_dialog.find('select[name="concept-category"]').val(),
+        properties: getFilteredFormData($concept_dialog.find('#concept-properties-form')),
+        primitive_symbols: primitive_symbols,
+        llm_placeholder_flag: llm_placeholder_flag
+    }
 
-    fetch('/_new_concept', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            mcdict_edit_id: mcdict_edit_id,
-            code_var_name: code_var_name,
-            description: description,
-            tensor_rank: tensor_rank,
-            options: selected_options,
-            primitive_symbols: primitive_symbols,
-            llm_placeholder_flag: llm_placeholder_flag
-        }),
-    }).then(async (response) => {
+    try {
+        const response = await fetch('/_register_concept', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(concept_data),
+        });
+
         const data = await response.json();
         if (response.ok) {
-            // If concept is correctly created, assign it to the current comp_tag_id
-            // First refresh MCDICT data to have the version with the new concept
-            await fetch_mcdict_json_data();
-            submit_assign_concept(comp_tag_id, data.mc_id);
+            return data.mc_id;
         } else {
             console.error("Error:", data.message);
             alert("Error: " + data.message);
-            window.location.reload(); // Manually trigger the reload here
+            return undefined;
         }
-    }).catch(error => {
+    } catch(error) {
         console.error('Error creating concept:', error);
+        return undefined;
+    }
+}
+
+function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: string) => void, mc_id: string | undefined = undefined) {
+    // 1. Prepare the Dialog Node
+    // Use a <div> if the template is just a hidden skeleton
+    let $dialog = $('#concept-dialog-template')
+        .clone()
+        .attr('id', 'concept-dialog')
+        .appendTo('body') // Move it into the DOM so it's "real"
+        .show(); 
+
+    const $categoryContainer = $dialog.find('#concept-category-selector');
+    const $propertiesForm = $dialog.find('#concept-properties-form');
+
+    // 2. Setup Category Dropdown
+    const taxonomy = projectConfig.CONCEPT_TAXONOMY;
+    const categories = Object.keys(taxonomy) as Array<keyof typeof taxonomy>;
+    
+    const options = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+    $categoryContainer.html(`<select name="concept-category" class="form-control">${options}</select>`);
+    
+    const $select = $categoryContainer.find('select');
+
+    let previous_properties: {[key: string]: string} | undefined = undefined;
+    if (mc_id) {
+        const concept = mcdict[mc_id];
+        if (concept) { 
+            $dialog.find('textarea[name="code-var-name"]').val(concept.code_var_name);
+            $dialog.find('textarea[name="description"]').val(concept.description);
+            $select.val(concept.concept_category);
+            if (concept.code_var_name.startsWith("llm_placeholder_concept_")) {
+                $dialog.find('input[name="llm_placeholder_flag"]').prop('checked', "true");
+            }
+            previous_properties = concept.properties;
+        } else {
+            console.warn(`Concept with mc_id ${mc_id} not found in mcdict.`);
+        }
+
+    }
+
+    // 3. Define the "Update" behavior
+    const updateUI = (init: boolean = false) => {
+        const selected = $select.val() as keyof typeof taxonomy;
+        const config = taxonomy[selected].concept_fields;
+        
+        // Re-render the HTML fields
+        renderPropertiesForm($propertiesForm, config);
+
+        if (previous_properties && init) {
+            for (const [key, value] of Object.entries(previous_properties)) {
+                const $input = $propertiesForm.find(`[name="${key}"]`);
+                if ($input.length > 0) {
+                    if ($input.attr('type') === 'checkbox' && value === "on") {
+                        $input.prop('checked', 'on');
+                    } else {
+                        $input.val(value);
+                    }
+                }
+            }
+        }
+
+        // Apply the JSON-Logic (hiding/showing fields)
+        refreshFormLogic($propertiesForm, config);
+    };
+
+    // 4. Attach Listeners
+    // Change category -> Re-render everything
+    $select.on('change', () => updateUI());
+
+    // Change an input -> Only refresh logic (much faster)
+    // $propertiesForm.on('change', 'input, select, textarea', () => {
+    $propertiesForm.on('change', () => {
+        const selected = $select.val() as keyof typeof taxonomy;
+        refreshFormLogic($propertiesForm, taxonomy[selected].concept_fields);
+    });
+
+    // 5. Initialize & Open
+    updateUI(true); // Build the initial state
+
+    $dialog.dialog({
+        modal: true,
+        title: 'New Concept',
+        width: 500,
+        buttons: {
+            'OK': async function() {
+                const $this = $(this);
+                // Disable button to prevent double-clicks
+                $this.parent().find('button:contains("OK")').prop('disabled', true);
+                const assigned_mc_id = await submit_concept($dialog, primitive_symbols, mc_id);
+                if (assigned_mc_id) {
+                    await fetch_mcdict_json_data();
+                    onSuccess(assigned_mc_id); // Run the assignment here!
+                    $this.dialog('close');
+                    window.location.reload();
+                }
+            },
+            'Cancel': function() { $(this).dialog('close'); }
+        },
+        close: function() { $(this).remove(); } // Cleanup DOM after close
+    });
+}
+
+async function submit_occurrence_properties(comp_tag_id: string, $occurrence_dialog: JQuery): Promise<boolean> {
+
+    const occurrence_data = {
+        mcdict_edit_id: mcdict_edit_id,
+        comp_tag_id: comp_tag_id,
+        properties: getFilteredFormData($occurrence_dialog.find('#occurrence-properties-form'))
+    }
+
+    try {
+        const response = await fetch('/_edit_occurence_properties', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(occurrence_data),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            return true
+        } else {
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return false
+        }
+    } catch(error) {
+        console.error('Error creating concept:', error);
+        return false;
+    }
+}
+
+function render_occurrence_dialog(comp_tag_id: string) {
+
+    const occurrence = occurences_dict[comp_tag_id];
+    if (occurrence === undefined) {
+        console.warn(`No occurrence found for comp_tag_id ${comp_tag_id}`);
+        return;
+    }
+    const mc_id = occurrence ? occurrence.mc_id : undefined;
+    if (mc_id === undefined) {
+        console.warn(`No mc_id found for occurrence with comp_tag_id ${comp_tag_id}`);
+        return;
+    }
+
+    // Prepare the Dialog Node
+    // Use a <div> if the template is just a hidden skeleton
+    let $dialog = $('#occurrence-dialog-template')
+        .clone()
+        .attr('id', 'occurrence-dialog')
+        .appendTo('body') // Move it into the DOM so it's "real"
+        .show(); 
+
+    const taxonomy = projectConfig.CONCEPT_TAXONOMY;
+    const mc_category = mcdict[mc_id].concept_category as keyof typeof taxonomy;
+    const mc_properties = mcdict[mc_id].properties;
+    
+    const $propertiesForm = $dialog.find('#occurrence-properties-form');
+    const previous_properties = occurrence.properties;
+    const config = taxonomy[mc_category].occurrence_fields;
+    
+    renderPropertiesForm($propertiesForm, config, mc_properties);
+    
+    if (previous_properties) {
+        for (const [key, value] of Object.entries(previous_properties)) {
+            const $input = $propertiesForm.find(`[name="${key}"]`);
+            if ($input.length > 0) {
+                if ($input.attr('type') === 'checkbox' && value === "on") {
+                    $input.prop('checked', 'on');
+                } else {
+                    $input.val(value);
+                }
+            }
+        }
+    }
+
+    // Apply the JSON-Logic (hiding/showing fields)
+    refreshFormLogic($propertiesForm, config, mc_properties);
+
+    // Change an input -> Only refresh logic (much faster)
+    // $propertiesForm.on('change', 'input, select, textarea', () => {
+    $propertiesForm.on('change', () => {
+        refreshFormLogic($propertiesForm, config, mc_properties);
+    });
+
+    $dialog.dialog({
+        modal: true,
+        title: 'New Concept',
+        width: 500,
+        buttons: {
+            'OK': async function() {
+                const $this = $(this);
+                // Disable button to prevent double-clicks
+                $this.parent().find('button:contains("OK")').prop('disabled', true);
+                const success = await submit_occurrence_properties(comp_tag_id, $dialog);
+                if (success) {
+                    await fetch_mcdict_json_data();
+                    $this.dialog('close');
+                    window.location.reload();
+                } else {
+                    alert("Unsuccessful Occurrence Properties Submission")
+                }
+            },
+            'Cancel': function() { $(this).dialog('close'); }
+        },
+        close: function() { $(this).remove(); } // Cleanup DOM after close
     });
 }
 
 function new_concept_button(comp_tag_id: string) {
-    $('button#new-concept').button();
-    $('button#new-concept').on('click', async function () {
-        let concept_dialog = $('#concept-dialog-template').clone();
-        concept_dialog.attr('id', 'concept-dialog');
-        concept_dialog.removeClass('concept-dialog');
-        
-        // 2. Locate the relevant elements inside the cloned dialog
-        let $tensor_rank_node = concept_dialog.find('input[name="tensor-rank"]');
-        let $options_box = concept_dialog.find('#concept-properties-options-box');
-
-        const updateOptions = async () => {
-            const current_rank = $tensor_rank_node.val()?.toString(); // Get the number entered
-            
-            // Show a loading state (optional but recommended)
-            $options_box.html('<p>Loading options...</p>');
-
-            // Get appropriate pulldown and checkbox HTML for the case.
-            const options_html = await get_properties_options_html('concept', {'mc_id': '', 'tensor_rank': current_rank!});
-            
-            $options_box.html(options_html);
-        };
-
-        $tensor_rank_node.on('change', async function() {
-            await updateOptions();
-        });
-        await updateOptions();
-
-        concept_dialog.dialog({
-            modal: true,
-            title: 'New Concept',
-            width: 500,
-            buttons: {
-                'OK': function() {
-                    localStorage['scroll_top'] = $(window).scrollTop();
-                    submit_new_concept(comp_tag_id, concept_dialog);
-                },
-                'Cancel': function() {
-                    $(this).dialog('close');
-                }
-            },
-            close: function() {
-                $(this).remove();
-            }
+    const primitive_symbols = get_primitive_hex_list($('#' + escape_selector(comp_tag_id)))
+    const $btn = $('button#new-concept').button();
+    $btn.on('click', function () {
+        render_concept_dialog(primitive_symbols, (assigned_mc_id) => {
+            submit_assign_concept(comp_tag_id, assigned_mc_id);
         });
     });
 }
 
-async function edit_concept(mc_id: string) {
-    let concept_dialog = $('#concept-dialog-template').clone();
-    concept_dialog.removeAttr('id');
-
-    const concept = mcdict[mc_id];
-    let $code_var_name_node = concept_dialog.find('textarea[name="code-var-name"]');
-    let $description_node = concept_dialog.find('textarea[name="description"]');
-    let $tensor_rank_node = concept_dialog.find('input[name="tensor-rank"]');
-
-    // put the current values
-    $code_var_name_node.text(concept.code_var_name);
-    $description_node.text(concept.description);
-    $tensor_rank_node.attr('value', concept.tensor_rank);
-    
-    // 2. Locate the relevant elements inside the cloned dialog
-    let $options_box = concept_dialog.find('#concept-properties-options-box');
-
-    const updateOptions = async () => {
-        const current_rank = $tensor_rank_node.val()?.toString(); // Get the number entered
-        
-        // Show a loading state (optional but recommended)
-        $options_box.html('<p>Loading options...</p>');
-
-        // Get appropriate pulldown and checkbox HTML for the case.
-        const options_html = await get_properties_options_html('concept', {'mc_id': mc_id, 'tensor_rank': current_rank!});
-        
-        $options_box.html(options_html);
+function edit_concept(mc_id: string) {
+    const primitive_symbols = mcdict[mc_id].primitive_symbols
+    render_concept_dialog(primitive_symbols, (assigned_mc_id) => {}, mc_id);
     };
 
-    $tensor_rank_node.on('change', async function() {
-        await updateOptions();
-    });
-    await updateOptions();
-
-    concept_dialog.dialog({
-        modal: true,
-        title: 'Edit Concept',
-        width: 500,
-        buttons: {
-            'OK': function () {
-                localStorage['scroll_top'] = $(window).scrollTop();
-                submit_update_concept(mc_id, concept_dialog)
-            },
-            'Cancel': function () {
-                $(this).dialog('close');
-            }
-        }
+function edit_occurence_properties_button(comp_tag_id: string) {
+    const $btn = $('button#edit-occurence-properties').button();
+    $btn.on('click', function () { 
+        render_occurrence_dialog(comp_tag_id);
     });
 }
 

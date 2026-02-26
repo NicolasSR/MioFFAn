@@ -5,6 +5,7 @@ from logging import Logger
 from dataclasses import asdict
 
 from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG, EoI
+from lib.concept_properties import validate_properties
 
 from lib.logger import main_logger
 
@@ -74,14 +75,37 @@ class McDict:
         self.mcdict_version: str = data.get('_mcdict_version', 'unknown')
         self.next_available_mc_id = data['next_available_mc_id']
 
+        with open('config.json', 'r') as f:
+            taxonomy_config = json.load(f)["CONCEPT_TAXONOMY"]
+
         # self.concepts: dict[str, MathConcept] = cast_dicts_to_dataclass(data['concepts'], MathConcept)
         concepts = dict()
         for id, obj in data['concepts'].items():
             obj["sog_list"] = [SoG(**sog) for sog in obj["sog_list"]]
+            category = obj["concept_category"]
+            category_config = taxonomy_config.get(category)
+            if not category_config:
+                raise ValueError(f"Unknown category: {category}")
+            is_valid, error_msg = validate_properties(category_config.get('concept_fields', {}), obj["properties"])
+            if not is_valid:
+                raise ValueError(f"Invalid concept properties for concept {id}: {error_msg}")
             concepts[id] = MathConcept(**obj)
         self.concepts: dict[str, MathConcept] = concepts
 
-        self.occurences_dict: dict[str, Occurence] = cast_dicts_to_dataclass(data['occurences_dict'], Occurence)
+        occurrences = dict()
+        for id, obj in data['occurences_dict'].items():
+            mc_category = self.concepts[obj['mc_id']].concept_category
+            category_config = taxonomy_config.get(mc_category)
+            if not category_config:
+                raise ValueError(f"Unknown category: {mc_category}")
+            total_properties = self.concepts[obj['mc_id']].properties.copy()
+            total_properties.update(obj["properties"])
+            is_valid, error_msg = validate_properties(category_config.get('occurrence_fields', {}), total_properties)
+            if not is_valid:
+                raise ValueError(f"Invalid concept properties for concept {id}: {error_msg}")
+            occurrences[id] = Occurence(**obj)
+        self.occurences_dict: dict[str, Occurence] = occurrences
+
         self.eoi_dict: dict[str, EoI] = cast_dicts_to_dataclass(data['eoi_dict'], EoI)
 
 

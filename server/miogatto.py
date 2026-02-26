@@ -15,7 +15,7 @@ from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import wrap_custom_group, check_missing_variables, check_document_edit_id, PostRequestError
-from lib.concept_properties import build_occurence_properties_options_html, build_concept_properties_options_html
+from lib.concept_properties import validate_properties
 from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources, get_or_create_llm_log_file
 
 # get git revision
@@ -24,32 +24,28 @@ try:
 except OSError:
     GIT_REVISON = 'Unknown'
     
-def make_concept(res,sog_list = []) -> Optional[MathConcept]:
+def make_concept(res,taxonomy_config,sog_list = []) -> Optional[MathConcept]:
     if not res.get('code_var_name').isidentifier():
-        flash('Variable name must be compliant with Python identifier rules.')
-        return None
-    
-    # check tensor rank
-    if not res.get('tensor_rank').isdigit():
-        flash('Tensor rank must be non-negative integer.')
-        return None
-    else:
-        tensor_rank = int(res.get('tensor_rank'))
+        return None, f"Variable name must be compliant with Python identifier rules."
 
     code_var_name = res.get('code_var_name')
 
     # check description
     description = res.get('description')
     if len(description) == 0:
-        flash('Description must be filled.')
-        return None
+        return None, f"Description must be filled."
+    
+    category = res.get('concept_category')
+    fields_config = taxonomy_config[category].get('concept_fields', {})
 
-    # get options (properties)
-    options = res.get('options')
+    properties = res.get('properties')
+    is_valid, error_msg = validate_properties(fields_config, properties)
+    if not is_valid:
+        return None, f"Logic Validation Failed: {error_msg}"
 
     primitive_symbols = res.get('primitive_symbols')
 
-    return MathConcept(code_var_name, description, tensor_rank, options, sog_list, primitive_symbols)
+    return MathConcept(code_var_name, description, category, properties, sog_list, primitive_symbols), None
 
 
 def preprocess_mcdict(concepts: dict[str, MathConcept]):
@@ -100,8 +96,8 @@ def preprocess_mcdict(concepts: dict[str, MathConcept]):
         mcdict[mc_id] = {
             'code_var_name': mc_obj.code_var_name,
             'description': process_desc(mc_obj.description),
-            'tensor_rank': mc_obj.tensor_rank,
-            'options': mc_obj.options,
+            'concept_category': mc_obj.concept_category,
+            'properties': mc_obj.properties,
             'primitive_symbols': mc_obj.primitive_symbols,
             'sog_list': [asdict(sog) for sog in mc_obj.sog_list]
         }
@@ -374,13 +370,13 @@ class MioGattoServer:
             return json.dumps(e.to_dict()), e.http_status
     
 
-    def register_concept(self, is_new=False):
+    def register_concept(self):
         try:
             res = request.json
 
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-            if is_new:
+            if res.get('mc_id') is None: # new concept
                 if res.get('llm_placeholder_flag'):
                     variable_name = res.get('code_var_name')
                     mc_id = f"llm_placeholder_concept_{variable_name}" 
@@ -393,7 +389,12 @@ class MioGattoServer:
                 mc_id = res.get('mc_id')
                 sog_list = self.mcdict.concepts[mc_id].sog_list
 
-            self.register_concept_inner(res, mc_id, sog_list=sog_list)
+            print('Received properties before registration:')
+            print(res.get('properties'))
+
+            error_msg = self.register_concept_inner(res, mc_id, sog_list=sog_list)
+            if error_msg:
+                return jsonify({"status": "error", "message": error_msg}), 400
 
             success_message = {
                 "status": "success",
@@ -408,7 +409,10 @@ class MioGattoServer:
         
     def register_concept_inner(self, res, mc_id: str, sog_list = []):
         # make concept with checking
-        concept = make_concept(res, sog_list=sog_list)
+        taxonomy_config = self.config.get('CONCEPT_TAXONOMY', {})
+        concept, error_msg = make_concept(res, taxonomy_config,sog_list=sog_list)
+        if error_msg:
+            return f"Failed to make concept: {error_msg}"
 
         check_missing_variables(concept=concept,mc_id=mc_id)
 
@@ -417,6 +421,8 @@ class MioGattoServer:
         self.mcdict.dump()
 
         self.update_mcdict_edit_id()
+
+        return None
 
 
     def add_sog(self):
@@ -728,11 +734,28 @@ class MioGattoServer:
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
             comp_tag_id = res.get('comp_tag_id')
-            selected_options = res.get('selected_options')
+            properties = res.get('properties')
 
-            check_missing_variables(comp_tag_id=comp_tag_id,selected_options=selected_options)
+            check_missing_variables(comp_tag_id=comp_tag_id,properties=properties)
+
+
+            concept = self.mcdict.concepts[self.mcdict.occurences_dict[comp_tag_id].mc_id]
+            concept_category = concept.concept_category
+            concept_properties = concept.properties
+            taxonomy_config = self.config.get('CONCEPT_TAXONOMY', {})
+            fields_config = taxonomy_config[concept_category].get('occurrence_fields', {})
+
+            total_properties = properties.copy()
+            total_properties.update(concept_properties)
+            is_valid, error_msg = validate_properties(fields_config, total_properties)
+            if not is_valid:
+                raise PostRequestError(
+                        code="INVALID_PROPERTY",
+                        message=error_msg,
+                        http_status=404
+                    )
             
-            self.mcdict.occurences_dict[comp_tag_id].options = selected_options
+            self.mcdict.occurences_dict[comp_tag_id].properties = properties
             self.mcdict.dump()
 
             self.update_mcdict_edit_id()

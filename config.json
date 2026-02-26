@@ -1,10 +1,145 @@
 {
-  "COMPOUND_CONCEPT_TAGS": ["msup", "msub", "msubsup", "mstyle.custom-group"],
+  "COMPOUND_CONCEPT_TAGS": ["msup", "msub", "msubsup", "mover", "mstyle.custom-group"],
   "SAMPLE_SOURCE_FOLDER": "sources/",
 
   "OPENAI_API_KEY": "EMPTY",
   "OPENAI_API_BASE": "http://localhost:8000/v1",
   "MAX_CONTEXT_LENGTH": 20000,
 
-  "CONLL_SCORER_DIR": "./../CoNLL_scorer"
+  "CONLL_SCORER_DIR": "./../CoNLL_scorer",
+
+  "CONCEPT_TAXONOMY": {
+    "variable": {
+      "name": "Variable",
+      "concept_fields": {
+        "variable-type": {
+          "label": "Type",
+          "type": "categorical",
+          "values": [
+            {"value": "trial-function", "label": "Trial Function"},
+            {"value": "test-function", "label": "Test Function"},
+            {"value": "nodal-variable", "label": "Nodal Variable"},
+            {"value": "symbolic-variable", "label": "Symbolic Variable"},
+            {"value": "numerical-variable", "label": "Numerical Variable"},
+            {"value": "defined-function", "label": "Defined Function"},
+            {"value": "undefined-function", "label": "Undefined Function"}
+          ]
+        },
+        "tensor-rank": {
+          "label": "Tensor Rank",
+          "type": "integer"
+        },
+        "symmetric": {
+          "label": "Symmetric",
+          "type": "boolean",
+          "display_rule": {">=": [{"var":"tensor-rank"}, 2]}
+        },
+        "positive": {
+          "label": "Positive",
+          "type": "boolean",
+          "display_rule": {"==": [{"var":"tensor-rank"}, 0]}
+        },
+        "function-implementation": {
+          "label": "Function Implementation",
+          "type": "code",
+          "display_rule": {"==": [{"var":"variable-type"}, "defined-function"]}
+        },
+        "function-dependencies": {
+          "label": "Function Dependencies",
+          "type": "code",
+          "display_rule": {"==": [{"var":"variable-type"}, "undefined-function"]}
+        }
+      },
+      "occurrence_fields": {
+        "voigt": {
+          "label": "Voigt Notation",
+          "type": "boolean",
+          "display_rule": {"and": [
+            {"or": [{"==": [{"var":"tensor-rank"}, 2]}, {"==": [{"var":"tensor-rank"}, 4]}]},
+            {"==": [{"var":"symmetric"}, true]}
+          ]}
+        },
+        "exponent": {
+          "label": "Includes Exponent",
+          "type": "boolean",
+          "display_rule": {"==": [{"var":"tensor-rank"}, 0]}
+        },
+        "transposed": {
+          "label": "Transposed",
+          "type": "boolean",
+          "display_rule": {">=": [{"var":"tensor-rank"}, 1]}
+        }
+      }
+    },
+    "operator": {
+      "name": "Operator",
+      "concept_fields": {
+        "operator-type": {
+          "label": "Type",
+          "type": "categorical",
+          "values": [
+            {"value": "tensorial", "label": "Tensorial"},
+            {"value": "differential", "label": "Differential"},
+            {"value": "integral", "label": "Integral"}
+          ]
+        },
+        "operator-implementation": {
+          "label": "Operator Implementation",
+          "type": "code"
+        }
+      },
+      "occurrence_fields": {}
+    },
+    "domain": {
+      "name": "Domain",
+      "concept_fields": {
+        "domain-type": {
+          "label": "Type",
+          "type": "categorical",
+          "values": [
+            {"value": "whole", "label": "Whole"},
+            {"value": "boundary", "label": "Boundary"}
+          ]
+        }
+      },
+      "occurrence_fields": {}
+    },
+    "integration-var": {
+      "name": "Integration variable",
+      "concept_fields": {},
+      "occurrence_fields": {
+        "corresponding-domain": {
+          "label": "Corresponding Domain",
+          "type": "code"
+        }
+      }
+    },
+    "other": {
+      "name": "Other",
+      "concept_fields": {},
+      "occurrence_fields": {}
+    }
+  },
+
+  "OPERATORS_LIST": {
+    "add": {"label": "add", "arity": -1},
+    "sub": {"label": "sub", "arity": 2},
+    "neg": {"label": "neg", "arity": 1},
+    "scalar-prod": {"label": "scalar_prod", "arity": 2},
+    "norm": {"label": "norm", "arity": 1},
+    "dot_prod": {"label": "dot_prod", "arity": 2},
+    "contract": {"label": "contract", "arity": 2},
+    "double_contract": {"label": "double_contract", "arity": 2},
+    "grad": {"label": "grad", "arity": 1},
+    "sym_grad": {"label": "sym_grad", "arity": 1},
+    "div": {"label": "div", "arity": 1},
+    "matrix_prod": {"label": "matrix_prod", "arity": 2},
+    "matrix_transpose": {"label": "matrix_transpose", "arity": 1},
+    "matrix_vector_prod": {"label": "matrix_vector_prod", "arity": 2},
+    "matrix_determinant": {"label": "matrix_determinant", "arity": 1},
+    "matrix_inverse": {"label": "matrix_inverse", "arity": 1},
+    "matrix_cofactor": {"label": "matrix_cofactor", "arity": 1},
+    "vector_cross_prod": {"label": "vector_cross_prod", "arity": 2},
+    "vector_outer_prod": {"label": "vector_outer_prod", "arity": 2}
+  }
 }
