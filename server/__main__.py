@@ -59,13 +59,9 @@ def routing_functions(server):
     def action_remove_concept():
         return server.remove_concept()
 
-    @app.route('/_new_concept', methods=['POST'])
-    def action_new_concept():
-        return server.register_concept(is_new=True)
-
-    @app.route('/_update_concept', methods=['POST'])
-    def action_update_concept():
-        return server.register_concept(is_new=False)
+    @app.route('/_register_concept', methods=['POST'])
+    def action_register_concept():
+        return server.register_concept()
 
     @app.route('/_add_sog', methods=['POST'])
     def action_add_sog():

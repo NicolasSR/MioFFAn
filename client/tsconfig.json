@@ -3,7 +3,13 @@
     "target": "ES2019",
     "outDir": "./dist",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    //Next two are needed to import JSON files as modules, e.g. config.json
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   //"include": ["./index.ts", "./edit_mcdict.ts",
   // "./equations_of_interest_selector.js", "./group_creator.js", "./nav.js",

@@ -71,11 +71,10 @@
                 <p>Description:<br />
                     <textarea name="description" rows="3" cols="40"></textarea>
                 </p>
-                <p>Tensor Rank: <input type="number" name="tensor-rank" value="0" /></p>
+                <p>Category: <div id="concept-category-selector"></div></p>
                 <p>Properties:<br />
-                    <div id="concept-properties-options-box">
-                        <p>No content found</p>
-                    </div>
+                    <form id="concept-properties-form" onsubmit="return false;">
+                    </form>
                 </p>
                 <p>
                     <input type="checkbox" id="llm_placeholder_flag" name="llm_placeholder_flag"/>
@@ -83,10 +82,9 @@
                 </p>
             </div>
 
-            <div id="occurence-properties-dialog-template" class="occurence-properties-dialog">
-                <div id="occurence-properties-options-box">
-                    <p>No content found</p>
-                </div>
+            <div id="occurrence-dialog-template" class="occurence-dialog">
+                <form id="occurrence-properties-form" onsubmit="return false;">
+                </form>
             </div>
 
             <div id="sog-type-dialog-template" class="sog-type-dialog">

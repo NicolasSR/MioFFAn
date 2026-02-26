@@ -20,9 +20,9 @@ export interface Source {
 
 export interface Concept {
     code_var_name: string;
-    options: string[];
-    tensor_rank: number;
     description: string;
+    concept_category: string;
+    properties: { [key: string]: string };
     primitive_symbols: string[];
     sog_list: Source[];
     color?: string;
@@ -35,7 +35,7 @@ export interface EoI {
 export interface Occurence {
     mc_id: string;
     tag_name: string;
-    options: string[];
+    properties: { [key: string]: string };
 }
 
 // --------------------------
