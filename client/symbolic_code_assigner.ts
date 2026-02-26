@@ -8,6 +8,8 @@ import {
 } from "./common";
 import { give_eoi_borders } from "./main_pages_utils"
 
+import projectConfig from '../config.json';
+
 // --------------------------
 // Get list of tags used as mathematical identifiers ffrom configuration json
 // --------------------------
@@ -210,15 +212,15 @@ function edit_symbolic_code(eoi_id: string) {
 /**
  * Helper function to create a button for a snippet and attach the click event
  */
-function createTokenButton(token: string, $symbolic_code_node: JQuery): HTMLButtonElement {
+function createTokenButton(token: string[], $symbolic_code_node: JQuery): HTMLButtonElement {
     const btn = document.createElement('button');
-    btn.textContent = token;
+    btn.textContent = token[0];
     btn.className = 'token-btn';
     btn.type = 'button'; // Prevent form submission if inside a form
     
     // Add click listener
     btn.addEventListener('click', () => {
-        insertAtCursor(token, $symbolic_code_node);
+        insertAtCursor(token.join(""), $symbolic_code_node);
     });
     
     return btn;
@@ -262,7 +264,7 @@ function initEquationBuilder($symbolic_code_node: JQuery, $var_container: JQuery
 
     // Populate Variables
     var_list.forEach(token => {
-        var_container!.appendChild(createTokenButton(token, $symbolic_code_node));
+        var_container!.appendChild(createTokenButton([token,""], $symbolic_code_node));
     });
 
     // Populate Operators
@@ -282,28 +284,21 @@ function prepare_var_list(): string[]{
     return var_list
 }
 
-function prepare_op_list(): string[]{
-    const op_list: string[] = [
-        '+',
-        '-',
-        '*',
-        'norm()',
-        'dot_prod()',
-        'contract()',
-        'double_contract()',
-        'grad()',
-        'sym_grad()',
-        'div()',
-        'matrix_prod()',
-        'matrix_transpose()',
-        'matrix_vector_prod()',
-        'matrix_determinant()',
-        'matrix_inverse()',
-        'matrix_cofactor()',
-        'vector_cross_prod()',
-        'vector_outer_prod()'
-    ];
-    return op_list;
+function prepare_op_list(): string[][]{
+    const operators_config = projectConfig.OPERATORS_LIST
+    let operators_list: string[][] = [];
+    for (const [key, value] of Object.entries(operators_config)) {
+        let parentehsis_construct: string;
+        if (value.arity == 1 || value.arity == 0) {
+            parentehsis_construct = "()";
+        } else if (value.arity == -1 || value.arity == 2) {
+            parentehsis_construct = "(,)";
+        } else {
+            parentehsis_construct = "("+",".repeat(value.arity-1)+")";
+        }
+        operators_list.push([value.label,parentehsis_construct]);
+    }
+    return operators_list;
 }
 
 // --------------------------
