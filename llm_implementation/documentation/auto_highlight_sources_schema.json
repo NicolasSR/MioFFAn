@@ -1,0 +1,41 @@
+{
+    "$defs": {
+        "NewSoGsInfoSchema": {
+            "properties": {
+                "mc_id": {
+                    "title": "Mc Id",
+                    "type": "string"
+                },
+                "start_id": {
+                    "title": "Start Id",
+                    "type": "string"
+                },
+                "stop_id": {
+                    "title": "Stop Id",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "mc_id",
+                "start_id",
+                "stop_id"
+            ],
+            "title": "NewSoGsInfoSchema",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "sogs_info_list": {
+            "items": {
+                "$ref": "#/$defs/NewSoGsInfoSchema"
+            },
+            "title": "Sogs Info List",
+            "type": "array"
+        }
+    },
+    "required": [
+        "sogs_info_list"
+    ],
+    "title": "ExpectedOutputSchema",
+    "type": "object"
+}

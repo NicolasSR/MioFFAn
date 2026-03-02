@@ -1,6 +1,11 @@
 import json
+from copy import deepcopy
+from dataclasses import asdict
 
 from lxml import etree
+
+from lib.datatypes import MathConcept, Group
+from lib.util import generate_group_info_from_mi_ids, get_group_primitive_hex_set, get_comp_tag_primitive_hex_set
 
 
 def get_local_name(tag):
@@ -232,3 +237,44 @@ def check_if_tag_with_id_in_tree(html_tree, tag_name, id):
         if get_local_name(node_with_id_list[0].tag)==tag_name:
             return True
     return False
+
+def process_auto_segment_symbol_data(dom_tree_copy, validated_data):
+    groups_description_list = validated_data["new_groups"]
+    occurrences_description_list = validated_data["new_occurrences"]
+
+    concept_primitive_hex_sets_dict = dict()
+
+    new_groups_dict =  dict()
+    for group_description in groups_description_list:
+        symbol_name = group_description["symbol_name"]
+        new_group_info = generate_group_info_from_mi_ids(dom_tree_copy, group_description["included_mi_ids"])
+        group_primitive_hex_set = get_group_primitive_hex_set(dom_tree_copy, Group(**new_group_info))
+        if symbol_name in new_groups_dict.keys():
+            new_groups_dict[symbol_name].append(new_group_info)
+            concept_primitive_hex_sets_dict[symbol_name].update(group_primitive_hex_set)
+        else:
+            new_groups_dict[symbol_name] = [new_group_info]
+            concept_primitive_hex_sets_dict[symbol_name] = group_primitive_hex_set
+
+    new_occurrences_dict = dict()
+    for occurrence_description in occurrences_description_list:
+        symbol_name = occurrence_description["symbol_name"]
+        comp_tag_id = occurrence_description["comp_tag_id"]
+        new_occurrence_info = {
+            "comp_tag_id": comp_tag_id,
+            "tag_name": dom_tree_copy.get_element_by_id(comp_tag_id).tag
+        }
+        primitive_hex_set = get_comp_tag_primitive_hex_set(dom_tree_copy, comp_tag_id)
+        if symbol_name in new_groups_dict.keys():
+            new_occurrences_dict[symbol_name].append(new_occurrence_info)
+            concept_primitive_hex_sets_dict[symbol_name].update(primitive_hex_set)
+        else:
+            new_occurrences_dict[symbol_name] = [new_occurrence_info]
+            concept_primitive_hex_sets_dict[symbol_name] = primitive_hex_set
+
+    new_concepts_dict = dict()
+    for symbol_name in new_groups_dict.keys() | new_occurrences_dict.keys():
+        new_concept = MathConcept(symbol_name, "", "symbol_placeholder", {}, [], list(deepcopy(concept_primitive_hex_sets_dict[symbol_name])))
+        new_concepts_dict[symbol_name] = asdict(new_concept)
+
+    return new_concepts_dict, new_groups_dict, new_occurrences_dict

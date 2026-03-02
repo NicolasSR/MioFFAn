@@ -1,0 +1,65 @@
+{
+    "$defs": {
+        "NewGroupDefinitionSchema": {
+            "properties": {
+                "symbol_name": {
+                    "title": "Symbol Name",
+                    "type": "string"
+                },
+                "included_mi_ids": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Included Mi Ids",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "symbol_name",
+                "included_mi_ids"
+            ],
+            "title": "NewGroupDefinitionSchema",
+            "type": "object"
+        },
+        "NewOccurrenceDefinitionSchema": {
+            "properties": {
+                "symbol_name": {
+                    "title": "Symbol Name",
+                    "type": "string"
+                },
+                "comp_tag_id": {
+                    "title": "Comp Tag Id",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "symbol_name",
+                "comp_tag_id"
+            ],
+            "title": "NewOccurrenceDefinitionSchema",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "new_groups": {
+            "items": {
+                "$ref": "#/$defs/NewGroupDefinitionSchema"
+            },
+            "title": "New Groups",
+            "type": "array"
+        },
+        "new_occurrences": {
+            "items": {
+                "$ref": "#/$defs/NewOccurrenceDefinitionSchema"
+            },
+            "title": "New Occurrences",
+            "type": "array"
+        }
+    },
+    "required": [
+        "new_groups",
+        "new_occurrences"
+    ],
+    "title": "ExpectedOutputSchema",
+    "type": "object"
+}

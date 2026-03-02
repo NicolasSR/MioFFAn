@@ -1,0 +1,69 @@
+{
+    "$defs": {
+        "NewConceptsDefinitionSchema": {
+            "properties": {
+                "code_var_name": {
+                    "title": "Code Var Name",
+                    "type": "string"
+                },
+                "concept_category": {
+                    "title": "Concept Category",
+                    "type": "string"
+                },
+                "description": {
+                    "title": "Description",
+                    "type": "string"
+                },
+                "properties": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "title": "Properties",
+                    "type": "object"
+                }
+            },
+            "required": [
+                "code_var_name",
+                "description",
+                "concept_category",
+                "properties"
+            ],
+            "title": "NewConceptsDefinitionSchema",
+            "type": "object"
+        },
+        "NewConceptsMapSchema": {
+            "properties": {
+                "new_concept_info": {
+                    "$ref": "#/$defs/NewConceptsDefinitionSchema"
+                },
+                "original_mc_ids": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Original Mc Ids",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "original_mc_ids",
+                "new_concept_info"
+            ],
+            "title": "NewConceptsMapSchema",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "concepts_info_list": {
+            "items": {
+                "$ref": "#/$defs/NewConceptsMapSchema"
+            },
+            "title": "Concepts Info List",
+            "type": "array"
+        }
+    },
+    "required": [
+        "concepts_info_list"
+    ],
+    "title": "ExpectedOutputSchema",
+    "type": "object"
+}
