@@ -166,7 +166,7 @@ def get_mi2idf(tree):
     raise("mi2idf deprecated. Please update code to use get_mi2hex instead.")
 
 def get_mi2hex(tree):
-    root = tree.getroot()
+    root = tree.getroot() if hasattr(tree, 'getroot') else tree
     mi2hex = dict()
 
     # dirty settings

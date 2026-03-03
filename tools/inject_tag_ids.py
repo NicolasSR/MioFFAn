@@ -40,6 +40,27 @@ def find_tag_and_add_ID(tree, tag_name, class_name=None):
 
     print(f"Successfully added {modified_count} unique IDs.")
 
+def give_ids_to_gd_text(html_tree):
+    xpath_expr = f"//*[local-name()='span' and @class='gd_text']"
+    matching_nodes = html_tree.xpath(xpath_expr)
+
+    last_id_dict = dict()
+
+    for span_node in matching_nodes:
+        parent_id = span_node.getparent().get('id')
+        if parent_id is not None:
+            if parent_id in last_id_dict.keys():
+                last_id = last_id_dict[parent_id]
+                new_id = parent_id+"_"+str(last_id)
+                last_id_dict[parent_id] += 1
+            else:
+                new_id = parent_id+"_0"
+                last_id_dict[parent_id] = 1
+            span_node.set('id', new_id)
+        else:
+            print(ET.tostring(span_node.getparent()))
+            print(f"Span node has parent without ID. {span_node.getparent()}")
+            raise(f"Span node has parent without ID. {span_node.getparent()}")
 
 def add_ids_to_html(html_tree):
     """
@@ -65,3 +86,5 @@ def add_ids_to_html(html_tree):
         else:
             print(f"Could not get tag name and class from '{tag_name}'")
         find_tag_and_add_ID(html_tree, tag_name, class_name)
+
+    give_ids_to_gd_text(html_tree)

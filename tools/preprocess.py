@@ -26,6 +26,7 @@ Options:
     --overwrite         Overwrite output files if already exist
 
     -d DIR, --data=DIR  Dir for data outputs [default: ./templates]
+    --templates=DIR     Dir for template outputs [default: ./templates]
     --sources=DIR       Dir for HTML outputs [default: ./sources]
 
     -D, --debug         Show debug messages
@@ -160,8 +161,8 @@ def embed_multiword_spans(e, p):
             e.insert(i, current_span)
 
 
-def preprocess_html(tree, paper_id, embed_floats):
-    root = tree.getroot()
+def preprocess_html_inner(tree, paper_id, embed_floats = False):
+    root = tree.getroot() if hasattr(tree, 'getroot') else tree
 
     # drop unnecessary annotations
     for e in root.xpath('//annotation|//annotation-xml'):
@@ -245,7 +246,7 @@ def observe_mi(tree):
 
     # the process
     mi2hex = get_mi2hex(tree)
-    root = tree.getroot()
+    root = tree.getroot() if hasattr(tree, 'getroot') else tree
 
     for e in root.xpath('//mi'):
         # get mi_id and idf
@@ -271,7 +272,7 @@ def observe_comp_tags(tree):
     xpath_selector = " | ".join(['//'+tag for tag in config['COMPOUND_CONCEPT_TAGS']])
 
     # initialize
-    root = tree.getroot()
+    root = tree.getroot() if hasattr(tree, 'getroot') else tree
     for e in root.xpath(xpath_selector):
         comp_tags_dict[e.attrib.get('id')] = e.tag
         comp_tag_attribs.update(e.attrib)
@@ -286,6 +287,74 @@ def list_hex_info(hex_set):
     # construct a list of primitive symbols
     return {hex: hex2surface(hex) for hex in hex_set_sorted}
 
+def preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir, overwrite = False, embed_floats = False):
+    # now prepare for the preprocess
+    logger.info('Begin to preprocess Paper "{}"'.format(sample_name))
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    data_anno_path = data_dir / '{}_anno.json'.format(sample_name)
+    data_mcdict_path = data_dir / '{}_mcdict.json'.format(sample_name)
+    templates_dir.mkdir(parents=True, exist_ok=True)
+    template_anno_path = templates_dir / '{}_anno.json'.format(sample_name)
+    template_mcdict_path = templates_dir / '{}_mcdict.json'.format(sample_name)
+    sources_dir.mkdir(parents=True, exist_ok=True)
+    source_html_path = sources_dir / '{}.html'.format(sample_name)
+
+    # prevent unintentional overwriting
+    if overwrite is not True:
+        if source_html_path.exists():
+            logger.error('Source file %s exists. Use --overwrite to force', source_html_path)
+            return
+
+        if data_anno_path.exists() or data_mcdict_path.exists():
+            logger.error('Data files exist in %s. Use --overwrite to force', data_dir)
+            return
+
+        if template_anno_path.exists() or template_mcdict_path.exists():
+            logger.error('Template files exist in %s. Use --overwrite to force', templates_dir)
+            return
+
+    add_ids_to_html(html_tree)
+    preprocess_html_inner(html_tree, sample_name, embed_floats)
+
+    # extract formulae information
+    hex_set = observe_mi(html_tree)
+    print('#primitive values: {}'.format(len(hex_set)))
+
+    # write output files
+    logger.info('Writing preprocessed HTML to %s', source_html_path)
+    if type(html_tree) == lxml.etree._Element:
+        html_tree = html_tree.getroottree()
+    html_tree.write(str(source_html_path), pretty_print=True, encoding='utf-8')
+
+    logger.info('Writing initialized anno to %s and %s', data_anno_path, template_anno_path)
+    anno_json = {
+        '_anno_version': '1.0',
+        '_annotator': 'YOUR NAME',
+        'primitive_symbols': list_hex_info(hex_set),
+        'groups': {},
+        'next_available_group_id': 0
+    }
+    with open(data_anno_path, 'w') as f:
+        dump_json(anno_json, f)
+    with open(template_anno_path, 'w') as f:
+        dump_json(anno_json, f)
+
+    logger.info('Writing initialized mcdict template to %s and %s', data_mcdict_path, template_mcdict_path)
+    mcdict_json = {
+        '_author': 'YOUR NAME',
+        '_mcdict_version': '1.0',
+        'concepts': {},
+        'next_available_mc_id': 0,
+        'occurences_dict': {},
+        'eoi_dict': {}
+    }
+    with open(data_mcdict_path, 'w') as f:
+        dump_json(mcdict_json,f)
+    with open(template_mcdict_path, 'w') as f:
+        dump_json(mcdict_json,f)
+
+    
 
 def main():
     # parse options
@@ -296,70 +365,19 @@ def main():
 
     # dirs and files
     data_dir = Path(args['--data'])
+    templates_dir = Path(args['--templates'])
     sources_dir = Path(args['--sources'])
 
     html_in = Path(args['HTML'])
     paper_id = html_in.stem
-    html_out = sources_dir / '{}.html'.format(paper_id)
 
-    # now prepare for the preprocess
-    logger.info('Begin to preprocess Paper "{}"'.format(paper_id))
-
-    data_dir.mkdir(parents=True, exist_ok=True)
-    anno_json = data_dir / '{}_anno.json'.format(paper_id)
-    mcdict_json = data_dir / '{}_mcdict.json'.format(paper_id)
-
-    # prevent unintentional overwriting
-    if args['--overwrite'] is not True:
-        if html_out.exists():
-            logger.error('Source file %s exists. Use --overwrite to force', html_out)
-            exit(1)
-
-        if anno_json.exists() or mcdict_json.exists():
-            logger.error('Data files exist in %s. Use --overwrite to force', data_dir)
-            exit(1)
+    overwrite = args['--overwrite']
 
     # load the HTML and modify the DOM tree
     tree = lxml.html.parse(str(html_in))
 
-    add_ids_to_html(tree)
-    preprocess_html(tree, paper_id, embed_floats)
-
-    # extract formulae information
-    hex_set = observe_mi(tree)
-    print('#primitive values: {}'.format(len(hex_set)))
-
-    # write output files
-    logger.info('Writing preprocessed HTML to %s', html_out)
-    tree.write(str(html_out), pretty_print=True, encoding='utf-8')
-
-    logger.info('Writing initialized anno template to %s', anno_json)
-    with open(anno_json, 'w') as f:
-        dump_json(
-            {
-                '_anno_version': '1.0',
-                '_annotator': 'YOUR NAME',
-                'primitive_symbols': list_hex_info(hex_set),
-                'groups': {},
-                'next_available_group_id': 0
-            },
-            f,
-        )
-
-    logger.info('Writing initialized mcdict template to %s', mcdict_json)
-    with open(mcdict_json, 'w') as f:
-        dump_json(
-            {
-                '_author': 'YOUR NAME',
-                '_mcdict_version': '1.0',
-                'concepts': {},
-                'next_available_mc_id': 0,
-                'occurences_dict': {},
-                'eoi_dict': {}
-            },
-            f,
-        )
-
+    preprocess_html(paper_id, tree, data_dir, templates_dir, sources_dir, overwrite, embed_floats)
+    
 
 if __name__ == '__main__':
     main()

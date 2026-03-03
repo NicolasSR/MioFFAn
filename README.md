@@ -34,6 +34,33 @@ python -m pip install -r requirements.txt
 In case you don't want to install the dependencies into your system, please
 consider using [venv](https://docs.python.org/3/library/venv.html).
 
+## Usage
+
+The client is developed with TypeScript. To compile it run:
+
+```shell
+cd client
+npm install
+npm run build
+```
+
+To obtain samples to work on (only ScienceDirect papers at the moment), find their PII identifier and write them within sourcing_info/sources_config.json. Then, from the root directory, run:
+```shell
+python -m tools.source_samples
+```
+
+You may check complete options for this tool via
+```shell
+python -m tools.source_samples -h
+```
+
+Finally, to start the MioFFAn server, run:
+```shell
+python -m server
+```
+And access the client via web browser at http://localhost:4100/
+
+
 ## Acknowledgements
 
 This project has been supported by .... (Anonymized)

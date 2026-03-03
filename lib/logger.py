@@ -26,4 +26,4 @@ def get_logger(name: str):
     log.Logger.set_logger = __set_logger
     return log.getLogger(name)
 
-main_logger = get_logger('miogatto')
+main_logger = get_logger('mioffan')
