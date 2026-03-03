@@ -44,7 +44,7 @@ npm install
 npm run build
 ```
 
-To obtain samples to work on (only ScienceDirect papers at the moment), find their PII identifier and write them within sourcing_info/sources_confij.json. Then, from the root directory, run:
+To obtain samples to work on (only ScienceDirect papers at the moment), find their PII identifier and write them within sourcing_info/sources_config.json. Then, from the root directory, run:
 ```shell
 python -m tools.source_samples
 ```
@@ -54,7 +54,7 @@ You may check complete options for this tool via
 python -m tools.source_samples -h
 ```
 
-Finally, to start the MIoFFAn server, run:
+Finally, to start the MioFFAn server, run:
 ```shell
 python -m server
 ```
