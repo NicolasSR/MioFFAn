@@ -118,3 +118,6 @@ results/
 extra
 libextra
 /templates
+
+# DO NOT REMOVE - Ignore credentials file 
+credentials.json

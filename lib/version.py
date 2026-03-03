@@ -1,2 +1,2 @@
-# Version of MioGatto
-VERSION = '1.1.0'
+# Version of MioFFAt
+VERSION = '1.0.0'
