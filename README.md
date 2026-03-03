@@ -44,7 +44,9 @@ npm install
 npm run build
 ```
 
-To obtain samples to work on (only ScienceDirect papers at the moment), find their PII identifier and write them within sourcing_info/sources_config.json. Then, from the root directory, run:
+To obtain samples to work on (only ScienceDirect papers at the moment), find their PII identifier and write them within sourcing_info/sources_config.json.
+Additionally, the file credentials.distr.json needs to be copied as credentials.json within the same directory and the field for "key" needs to be changed by the user's ScienceDirect API key.
+Then, from the root directory, run:
 ```shell
 python -m tools.source_samples
 ```
