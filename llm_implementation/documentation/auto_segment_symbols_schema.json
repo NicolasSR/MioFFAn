@@ -2,16 +2,16 @@
     "$defs": {
         "NewGroupDefinitionSchema": {
             "properties": {
-                "symbol_name": {
-                    "title": "Symbol Name",
-                    "type": "string"
-                },
                 "included_mi_ids": {
                     "items": {
                         "type": "string"
                     },
                     "title": "Included Mi Ids",
                     "type": "array"
+                },
+                "symbol_name": {
+                    "title": "Symbol Name",
+                    "type": "string"
                 }
             },
             "required": [
@@ -23,12 +23,12 @@
         },
         "NewOccurrenceDefinitionSchema": {
             "properties": {
-                "symbol_name": {
-                    "title": "Symbol Name",
-                    "type": "string"
-                },
                 "comp_tag_id": {
                     "title": "Comp Tag Id",
+                    "type": "string"
+                },
+                "symbol_name": {
+                    "title": "Symbol Name",
                     "type": "string"
                 }
             },

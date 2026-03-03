@@ -20,9 +20,8 @@ from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import wrap_custom_group, check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import validate_properties
-from lib.llm_interface import validate_llm_output_schema
-from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources, get_or_create_llm_log_file
-from lib.llm_utilities import process_auto_segment_symbol_data
+from llm_implementation.llm_implementations import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
+from lib.llm_utilities import validate_llm_output_schema, get_or_create_llm_log_file, process_auto_segment_symbol_data
 
 # get git revision
 try:

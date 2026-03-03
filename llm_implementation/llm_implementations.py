@@ -2,18 +2,14 @@ import json
 import time
 import re
 import unicodedata
-from pathlib import Path
-from typing import Dict
 
 from copy import deepcopy
 from collections import OrderedDict
 
-import requests
 from lxml import etree
-from openai import OpenAI
-from pydantic import ValidationError
 
 from lib.util import PostRequestError, wrap_custom_group
+from lib.llm_utilities import client, get_running_model_name, check_token_usage, max_context_length
 from lib.llm_utilities import find_first_match_info, find_mathml_occurrences, get_all_ids_as_set, find_relationships_through_contained_ids
 from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tree
 
@@ -21,82 +17,6 @@ from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tre
 To run this script, a vllm server needs to be running. Call it via:
 vllm serve Qwen/Qwen3-4B-Instruct-2507 --max_model_len 65536
 """
-
-# Get OpenAI's API key and API base to use vLLM's API server.
-with open("config.json", "r") as config_file:
-    config=json.load(config_file)
-    openai_api_key = config["OPENAI_API_KEY"]
-    openai_api_base = config["OPENAI_API_BASE"]
-    max_context_length = config["MAX_CONTEXT_LENGTH"]
-
-client = OpenAI(
-    api_key=openai_api_key,
-    base_url=openai_api_base,
-)
-
-def get_running_model_name():
-    """
-    Asks the vLLM server which model it is currently serving.
-    Returns: The model ID string (e.g., 'meta-llama/Meta-Llama-3-8B-Instruct')
-    """
-    try:
-        # Standard OpenAI endpoint to list models
-        models = client.models.list()
-        
-        # vLLM usually serves just one model, so we take the first one.
-        # If multiple are loaded (rare in vLLM), you might need logic to pick one.
-        first_model = models.data[0].id
-        return first_model
-    except Exception as e:
-        print(f"Error fetching model name: {e}")
-        return None
-    
-def check_token_usage(messages):
-    """
-    Queries the vLLM server to get token count and context limit.
-    Returns: (num_tokens, max_model_len)
-    """
-    # vLLM exposes this at the root /tokenize, not /v1/tokenize
-    # If your base_url is http://localhost:8000/v1, strip the /v1
-    base_url = str(client.base_url).replace("/v1", "").replace("/v1/", "")
-    url = f"{base_url}/tokenize"
-    
-    model_name = get_running_model_name()
-    payload = {
-        "model": model_name,
-        "messages": messages  # Pass the same messages list you would send to chat.completions
-    }
-
-    try:
-        response = requests.post(url, json=payload)
-        response.raise_for_status()
-        data = response.json()
-        
-        # vLLM returns 'count' (tokens) and 'max_model_len' (context limit)
-        return data["count"], data["max_model_len"]
-        
-    except requests.exceptions.RequestException as e:
-        print(f"Error checking tokens: {e}")
-        return None, None
-
-def send_message_to_llm(messages: list[Dict[str,str]]):
-    tokens_count, max_model_len = check_token_usage(messages)
-    max_token_len = min(max_context_length,max_model_len)
-    if tokens_count >= max_token_len:
-        raise(f"Token count for prompt ({tokens_count}) is higher than allowed ({max_token_len})")
-    return client.chat.completions.create(
-        model=get_running_model_name(),
-        messages=messages
-    )
-
-def validate_llm_output_schema(raw_data, ExpectedSchema):
-    try:
-        # This will attempt to parse and validate the dictionary
-        validated_data = ExpectedSchema(**raw_data)
-        return True, validated_data.model_dump()
-    except ValidationError as e:
-        # Generate a human-readable error response
-        return False, e.errors()
 
 def replace_with_unicode_name(html_snippet):
     # Regex finds text content between > and <
@@ -127,17 +47,6 @@ def replace_with_unicode_name(html_snippet):
         return f"{prefix}{new_content}{suffix}"
 
     return re.sub(pattern, process_content, html_snippet)
-
-def get_or_create_llm_log_file(paper_id):
-    output_log_file_path = Path(f"./llm_outputs/{paper_id}_llm_log.json")
-    output_log_file_path.parent.mkdir(exist_ok=True, parents=True)
-    if not output_log_file_path.exists():
-        with open(output_log_file_path, 'w') as file:
-            init_dict = {
-                "paper_id": paper_id
-            }
-            json.dump(init_dict, file)
-    return output_log_file_path
 
 class SetEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -176,7 +85,7 @@ def auto_segment_symbols(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file 
         fits_in_context = False
         while fits_in_context == False:
 
-            with open("lib/llm_prompt_files/segment_symbols_prompt.txt", "r") as prompt_file:
+            with open("llm_implementation/llm_prompt_files/segment_symbols_prompt.txt", "r") as prompt_file:
                 system_prompt_segmentation = prompt_file.read()
             messages=[
                     {"role": "system", "content": system_prompt_segmentation},
@@ -386,7 +295,7 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
 
     print(conflicts_dict)
 
-    with open("lib/llm_prompt_files/disambiguate_coinciding_symbols.txt", "r") as prompt_file:
+    with open("llm_implementation/llm_prompt_files/disambiguate_coinciding_symbols.txt", "r") as prompt_file:
         system_prompt_disambiguation = prompt_file.read()
     messages=[
         {"role": "system", "content": system_prompt_disambiguation},
@@ -567,7 +476,7 @@ def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, lo
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/define_concepts_prompt.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/define_concepts_prompt.txt", "r") as prompt_file:
             system_prompt_define_concepts = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_define_concepts},
@@ -641,7 +550,7 @@ def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, e
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/assign_concepts_prompt.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/assign_concepts_prompt.txt", "r") as prompt_file:
             system_prompt_assign_concepts = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_assign_concepts},
@@ -713,7 +622,7 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/assign_variable_properties.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/assign_variable_properties.txt", "r") as prompt_file:
             system_prompt_assign_variable_properties = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_assign_variable_properties},
@@ -786,7 +695,7 @@ def auto_highlight_sources(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_fil
 
     html_text = full_html_text
 
-    with open("lib/llm_prompt_files/identify_text_sources.txt", "r") as prompt_file:
+    with open("llm_implementation/llm_prompt_files/identify_text_sources.txt", "r") as prompt_file:
             system_prompt_identify_text_sources = prompt_file.read()
     def get_messsages(system_prompt, context, justifications_list):
         messages=[
