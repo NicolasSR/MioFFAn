@@ -6,9 +6,6 @@ def validate_properties(fields_config: Dict, properties: Dict[str, str]):
     Returns (True, None) if valid, or (False, error_message) if invalid.
     """
 
-    print(fields_config)
-    print(properties)
-
     # Check each field defined in the taxonomy
     # Note: Your JSON structure used 'concept_fields' based on our previous step
     for field_id, field_info in fields_config.items():

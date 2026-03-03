@@ -1,7 +1,103 @@
 import json
+from copy import deepcopy
+from dataclasses import asdict
+import requests
+from typing import Dict
+from pathlib import Path
 
 from lxml import etree
+from pydantic import ValidationError
+from openai import OpenAI
 
+from lib.datatypes import MathConcept, Group
+from lib.util import generate_group_info_from_mi_ids, get_group_primitive_hex_set, get_comp_tag_primitive_hex_set
+
+# Get OpenAI's API key and API base to use vLLM's API server.
+with open("config.json", "r") as config_file:
+    config=json.load(config_file)
+    openai_api_key = config["OPENAI_API_KEY"]
+    openai_api_base = config["OPENAI_API_BASE"]
+    max_context_length = config["MAX_CONTEXT_LENGTH"]
+
+client = OpenAI(
+    api_key=openai_api_key,
+    base_url=openai_api_base,
+)
+
+def get_running_model_name():
+    """
+    Asks the vLLM server which model it is currently serving.
+    Returns: The model ID string (e.g., 'meta-llama/Meta-Llama-3-8B-Instruct')
+    """
+    try:
+        # Standard OpenAI endpoint to list models
+        models = client.models.list()
+        
+        # vLLM usually serves just one model, so we take the first one.
+        # If multiple are loaded (rare in vLLM), you might need logic to pick one.
+        first_model = models.data[0].id
+        return first_model
+    except Exception as e:
+        print(f"Error fetching model name: {e}")
+        return None
+    
+def check_token_usage(messages):
+    """
+    Queries the vLLM server to get token count and context limit.
+    Returns: (num_tokens, max_model_len)
+    """
+    # vLLM exposes this at the root /tokenize, not /v1/tokenize
+    # If your base_url is http://localhost:8000/v1, strip the /v1
+    base_url = str(client.base_url).replace("/v1", "").replace("/v1/", "")
+    url = f"{base_url}/tokenize"
+    
+    model_name = get_running_model_name()
+    payload = {
+        "model": model_name,
+        "messages": messages  # Pass the same messages list you would send to chat.completions
+    }
+
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        data = response.json()
+        
+        # vLLM returns 'count' (tokens) and 'max_model_len' (context limit)
+        return data["count"], data["max_model_len"]
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error checking tokens: {e}")
+        return None, None
+
+def send_message_to_llm(messages: list[Dict[str,str]]):
+    tokens_count, max_model_len = check_token_usage(messages)
+    max_token_len = min(max_context_length,max_model_len)
+    if tokens_count >= max_token_len:
+        raise(f"Token count for prompt ({tokens_count}) is higher than allowed ({max_token_len})")
+    return client.chat.completions.create(
+        model=get_running_model_name(),
+        messages=messages
+    )
+
+def validate_llm_output_schema(raw_data, ExpectedSchema):
+    try:
+        # This will attempt to parse and validate the dictionary
+        validated_data = ExpectedSchema(**raw_data)
+        return True, validated_data.model_dump()
+    except ValidationError as e:
+        # Generate a human-readable error response
+        return False, e.errors()
+    
+def get_or_create_llm_log_file(paper_id):
+    output_log_file_path = Path(f"./llm_outputs/{paper_id}_llm_log.json")
+    output_log_file_path.parent.mkdir(exist_ok=True, parents=True)
+    if not output_log_file_path.exists():
+        with open(output_log_file_path, 'w') as file:
+            init_dict = {
+                "paper_id": paper_id
+            }
+            json.dump(init_dict, file)
+    return output_log_file_path
 
 def get_local_name(tag):
     """
@@ -232,3 +328,44 @@ def check_if_tag_with_id_in_tree(html_tree, tag_name, id):
         if get_local_name(node_with_id_list[0].tag)==tag_name:
             return True
     return False
+
+def process_auto_segment_symbol_data(dom_tree_copy, validated_data):
+    groups_description_list = validated_data["new_groups"]
+    occurrences_description_list = validated_data["new_occurrences"]
+
+    concept_primitive_hex_sets_dict = dict()
+
+    new_groups_dict =  dict()
+    for group_description in groups_description_list:
+        symbol_name = group_description["symbol_name"]
+        new_group_info = generate_group_info_from_mi_ids(dom_tree_copy, group_description["included_mi_ids"])
+        group_primitive_hex_set = get_group_primitive_hex_set(dom_tree_copy, Group(**new_group_info))
+        if symbol_name in new_groups_dict.keys():
+            new_groups_dict[symbol_name].append(new_group_info)
+            concept_primitive_hex_sets_dict[symbol_name].update(group_primitive_hex_set)
+        else:
+            new_groups_dict[symbol_name] = [new_group_info]
+            concept_primitive_hex_sets_dict[symbol_name] = group_primitive_hex_set
+
+    new_occurrences_dict = dict()
+    for occurrence_description in occurrences_description_list:
+        symbol_name = occurrence_description["symbol_name"]
+        comp_tag_id = occurrence_description["comp_tag_id"]
+        new_occurrence_info = {
+            "comp_tag_id": comp_tag_id,
+            "tag_name": dom_tree_copy.get_element_by_id(comp_tag_id).tag
+        }
+        primitive_hex_set = get_comp_tag_primitive_hex_set(dom_tree_copy, comp_tag_id)
+        if symbol_name in new_groups_dict.keys():
+            new_occurrences_dict[symbol_name].append(new_occurrence_info)
+            concept_primitive_hex_sets_dict[symbol_name].update(primitive_hex_set)
+        else:
+            new_occurrences_dict[symbol_name] = [new_occurrence_info]
+            concept_primitive_hex_sets_dict[symbol_name] = primitive_hex_set
+
+    new_concepts_dict = dict()
+    for symbol_name in new_groups_dict.keys() | new_occurrences_dict.keys():
+        new_concept = MathConcept(symbol_name, "", "symbol_placeholder", {}, [], list(deepcopy(concept_primitive_hex_sets_dict[symbol_name])))
+        new_concepts_dict[symbol_name] = asdict(new_concept)
+
+    return new_concepts_dict, new_groups_dict, new_occurrences_dict

@@ -1,22 +1,27 @@
-# The server implementation for MioGatto
-from flask import request, redirect, flash, render_template, jsonify, Markup
-from typing import Optional
-from logging import Logger
-from copy import deepcopy
-import lxml
-from lxml import etree
-import subprocess
 import json
 import re
 import os
+from typing import Optional, List, Dict
+from logging import Logger
+from copy import deepcopy
+import traceback
+
+# The server implementation for MioGatto
+from flask import request, redirect, flash, render_template, jsonify, Markup
+import lxml
+from lxml import etree
+import subprocess
 from dataclasses import asdict
+
+from pydantic import BaseModel
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
 from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
 from lib.util import wrap_custom_group, check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import validate_properties
-from lib.llm_interface import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources, get_or_create_llm_log_file
+from llm_implementation.llm_implementations import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
+from lib.llm_utilities import validate_llm_output_schema, get_or_create_llm_log_file, process_auto_segment_symbol_data
 
 # get git revision
 try:
@@ -36,7 +41,10 @@ def make_concept(res,taxonomy_config,sog_list = []) -> Optional[MathConcept]:
         return None, f"Description must be filled."
     
     category = res.get('concept_category')
-    fields_config = taxonomy_config[category].get('concept_fields', {})
+    if category == "symbol_placeholder" and not category in taxonomy_config.keys():
+        fields_config = {}
+    else:
+        fields_config = taxonomy_config[category].get('concept_fields', {})
 
     properties = res.get('properties')
     is_valid, error_msg = validate_properties(fields_config, properties)
@@ -376,25 +384,15 @@ class MioGattoServer:
 
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
 
-            if res.get('mc_id') is None: # new concept
-                if res.get('llm_placeholder_flag'):
-                    variable_name = res.get('code_var_name')
-                    mc_id = f"llm_placeholder_concept_{variable_name}" 
-                    res['description']=f"Placeholder {variable_name}"
-                else:
-                    mc_id = str(self.mcdict.next_available_mc_id)
-                    self.mcdict.next_available_mc_id += 1
-                sog_list = []
-            else:
-                mc_id = res.get('mc_id')
-                sog_list = self.mcdict.concepts[mc_id].sog_list
-
-            print('Received properties before registration:')
-            print(res.get('properties'))
-
-            error_msg = self.register_concept_inner(res, mc_id, sog_list=sog_list)
-            if error_msg:
-                return jsonify({"status": "error", "message": error_msg}), 400
+            is_successful, data = self.register_concept_inner(res, res.get('mc_id'))
+            if not is_successful:
+                raise PostRequestError(
+                    code = "DATA_REGISTRATION_ERROR",
+                    message = "Concept registration was not successful. "+str(data),
+                    http_status = 400
+                )
+            
+            mc_id = data
 
             success_message = {
                 "status": "success",
@@ -407,22 +405,34 @@ class MioGattoServer:
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
         
-    def register_concept_inner(self, res, mc_id: str, sog_list = []):
+    def register_concept_inner(self, concept_info, mc_id: str):
+        if mc_id is None: # new concept
+            if concept_info.get('concept_category')=="symbol_placeholder":
+                code_var_name = concept_info["code_var_name"]
+                concept_info['description']=f"Placeholder {code_var_name}"
+                concept_info['properties']={}
+            mc_id = str(self.mcdict.next_available_mc_id)
+            self.mcdict.next_available_mc_id += 1
+            sog_list = []
+        else:
+            mc_id = concept_info.get('mc_id')
+            sog_list = self.mcdict.concepts[mc_id].sog_list
+
         # make concept with checking
         taxonomy_config = self.config.get('CONCEPT_TAXONOMY', {})
-        concept, error_msg = make_concept(res, taxonomy_config,sog_list=sog_list)
+        concept, error_msg = make_concept(concept_info, taxonomy_config,sog_list=sog_list)
         if error_msg:
-            return f"Failed to make concept: {error_msg}"
+            return False, f"Failed to make concept: {error_msg}"
 
         check_missing_variables(concept=concept,mc_id=mc_id)
 
         # register
         self.mcdict.concepts[mc_id] = concept
-        self.mcdict.dump()
+        self.mcdict.dump()    
 
         self.update_mcdict_edit_id()
 
-        return None
+        return True, mc_id
 
 
     def add_sog(self):
@@ -570,6 +580,7 @@ class MioGattoServer:
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
             # Register the new group in mi_anno.json file within the groups section
+            # The processing from set of ids to group info should be handled by the server.
             group_info = {
                 "start_id": res.get('start_id'),
                 "stop_id": res.get('stop_id'),
@@ -577,7 +588,14 @@ class MioGattoServer:
                 "ancestry_level_stop": res.get('ancestry_level_stop'),
             }
 
-            new_group_id = self.add_group_inner(group_info)
+            is_successful, data = self.add_group_inner(group_info)
+            if not is_successful:
+                raise PostRequestError(
+                    code = "DATA_REGISTRATION_ERROR",
+                    message = "Group registration was not successful. "+str(data),
+                    http_status = 400
+                )
+            new_group_id = data
 
             success_message = {
                 "status": "success",
@@ -592,17 +610,20 @@ class MioGattoServer:
         
     def add_group_inner(self, group_info):
         # Generate a unique ID for the new group, then increment the ID counter
-        new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
-        self.mi_anno.next_available_group_id += 1
+        try:
+            new_group_id = f"custom-group-{self.mi_anno.next_available_group_id}"
+            self.mi_anno.groups[new_group_id] = Group(**group_info)
+        except:
+            return False, f"Failed to cast group information into Group object."
 
-        self.mi_anno.groups[new_group_id] = Group(**group_info)
+        self.mi_anno.next_available_group_id += 1
 
         # Save the updated annotations
         self.mi_anno.dump()
 
         self.update_mi_anno_edit_id()
 
-        return new_group_id
+        return True, new_group_id
     
     def remove_group(self):
         try:
@@ -814,94 +835,170 @@ class MioGattoServer:
     #############################
 
     def auto_segment_symbols(self):
-        log_file = get_or_create_llm_log_file(self.paper_id)
+        """
+        This method acts only as an interface, providing proper input and validating output structure (as
+        in output_schema variable and integrating output onto MioFFAn annotations.
+        Then, the developer is supposed to implement functionality within the function with the same name
+        in llm_implementation
+        A JSON log file is generated here so that the user may save intermediate results.
+        """
 
+        class NewGroupDefinitionSchema(BaseModel):
+            symbol_name:str
+            included_mi_ids: List[str]
+        
+        class NewOccurrenceDefinitionSchema(BaseModel):
+            symbol_name: str
+            comp_tag_id: str
+
+        class ExpectedOutputSchema(BaseModel):
+            new_groups: List[NewGroupDefinitionSchema]
+            new_occurrences: List[NewOccurrenceDefinitionSchema]
+
+        schema_json = ExpectedOutputSchema.model_json_schema()
+        with open('llm_implementation/documentation/auto_segment_symbols_schema.json', 'w') as f:
+            json.dump(schema_json, f, indent=4, sort_keys=True, separators=(',', ': '))
+
+        log_file = get_or_create_llm_log_file(self.paper_id)
+        
         try:
             res = request.json
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            copied_tree = deepcopy(self.tree.xpath("//body")[0])
-            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
+            dom_tree_copy = deepcopy(self.tree.xpath("//body")[0])
+            mcdict_copy = deepcopy(self.mcdict)
+            mi_anno_copy = deepcopy(self.mi_anno)
 
-            new_occurences_dict, new_groups_dict = auto_segment_symbols(copied_tree, eoi_ids_list, llm_log_file=log_file)
+            result_dict = auto_segment_symbols(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file=log_file)
 
-            for variable_name, group_info_list in new_groups_dict.items():
-                new_occurences_dict[variable_name] = []
-                for group_info in group_info_list:
-                    group_primitive_symbols = group_info["primitive_symbols"]
-                    group_ids_set = group_info["ids_set"]
-                    del group_info["primitive_symbols"]
-                    del group_info["ids_set"]
-                    new_group_id = self.add_group_inner(group_info)
-                    new_occurences_dict[variable_name].append({
-                        "comp_tag_id": new_group_id,
-                        "tag_name": "mstyle",
-                        "primitive_symbols": group_primitive_symbols,
-                        "ids_set": group_ids_set
-                        })
+            # Validate structure of output from external implementation
+            is_valid, validation_res = validate_llm_output_schema(result_dict, ExpectedOutputSchema)
+            if not is_valid:
+                raise PostRequestError(
+                    code = "OUTPUT_VALIDATION_ERROR",
+                    message = "Automation output does not match the required schema."+str(validation_res),
+                    http_status = 400
+                )
             
-            for variable_name, new_occurences_list in new_occurences_dict.items():
-                concept_primitive_symbols = set()
-                for occurrence_info in new_occurences_list:
-                    concept_primitive_symbols.update(occurrence_info['primitive_symbols'])
-                    del occurrence_info['primitive_symbols']
-                placeholder_concept_id = f"llm_placeholder_concept_{variable_name}"
-                placeholder_concept_info = {
-                    "code_var_name": variable_name,
-                    "description": f"Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: {variable_name}",
-                    "tensor_rank": "0",
-                    "options": [],
-                    "sog_list": [],
-                    "primitive_symbols": list(deepcopy(concept_primitive_symbols)),
-                }
-                if placeholder_concept_id not in self.mcdict.concepts:
-                    self.register_concept_inner(placeholder_concept_info, mc_id = placeholder_concept_id)
-                else:
-                    self.logger.info('Concept with mc_id %s already exists. Skipping.', placeholder_concept_id)
-                for occurrence_info in new_occurences_list:
-                    comp_tag_id = occurrence_info['comp_tag_id']
-                    if comp_tag_id not in self.mcdict.occurences_dict:
-                        self.assign_concept_inner(comp_tag_id, placeholder_concept_id, occurrence_info['tag_name'])
-                    else:
-                        self.logger.info('Occurrence with comp_tag_id %s already exists. Skipping.', comp_tag_id)
+            new_concepts_dict, new_groups_dict, new_occurrences_dict = process_auto_segment_symbol_data(dom_tree_copy, validation_res)
+            
+            mc_ids_map = dict()
+            for symbol_name, concept_info in new_concepts_dict.items():
+                is_successful, data = self.register_concept_inner(concept_info, None)
+                if not is_successful:
+                    raise PostRequestError(
+                        code = "DATA_REGISTRATION_ERROR",
+                        message = "Concept registration was not successful. "+str(data),
+                        http_status = 400
+                    )
+                mc_ids_map[symbol_name] = data
+
+            for symbol_name, group_info_list in new_groups_dict.items():
+                for group_info in group_info_list:
+                    is_successful, data = self.add_group_inner(group_info)
+                    if not is_successful:
+                        raise PostRequestError(
+                            code = "DATA_REGISTRATION_ERROR",
+                            message = "Group registration was not successful. "+str(data),
+                            http_status = 400
+                        )
+                    self.assign_concept_inner(data, mc_ids_map[symbol_name], "mstyle")
+                
+            for symbol_name, occurrence_info_list in new_occurrences_dict.items():
+                for occurrence_info in occurrence_info_list:
+                    comp_tag_id = occurrence_info["comp_tag_id"]
+                    tag_name = occurrence_info["tag_name"]
+                    self.assign_concept_inner(comp_tag_id, mc_ids_map[symbol_name], tag_name)
             
             success_message = {
                     "status": "success",
-                    "message": "Automatic segmentation of symbols successful.",
+                    "message": "Automatic symbol segmentation successful.",
                 }
-            
+                
             return json.dumps(success_message), 200
-        
+
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
-        
+        except Exception as e:
+            traceback.print_exc()
+            error = PostRequestError(
+                code="UNKNOWN",
+                message=f"Error during Automatic Symbols Segmentation",
+                http_status=400)
+            return json.dumps(error.to_dict()), error.http_status
     
     def auto_assign_concepts(self):
+        """
+        This method acts only as an interface, providing proper input and validating output structure (as
+        in output_schema variable and integrating output onto MioFFAn annotations.
+        Then, the developer is supposed to implement functionality within the function with the same name
+        in llm_implementation
+        A JSON log file is generated here so that the user may save intermediate results.
+        """
+
+        class NewConceptsDefinitionSchema(BaseModel):
+            code_var_name: str
+            description: str
+            concept_category: str
+            properties: Dict[str, str]
+
+        class NewConceptsMapSchema(BaseModel):
+            original_mc_ids: List[str]
+            new_concept_info: NewConceptsDefinitionSchema
+        
+        class ExpectedOutputSchema(BaseModel):
+            concepts_info_list: List[NewConceptsMapSchema]
+
+        schema_json = ExpectedOutputSchema.model_json_schema()
+        with open('llm_implementation/documentation/auto_assign_concepts_schema.json', 'w') as f:
+            json.dump(schema_json, f, indent=4, sort_keys=True, separators=(',', ': '))
+
         log_file = get_or_create_llm_log_file(self.paper_id)
 
         try:
             res = request.json
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+            
+            dom_tree_copy = deepcopy(self.tree.xpath("//body")[0])
+            mcdict_copy = deepcopy(self.mcdict)
+            mi_anno_copy = deepcopy(self.mi_anno)
 
-            copied_tree = deepcopy(self.tree.xpath("//body")[0])
+            result_dict = auto_define_and_assign_concepts(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file=log_file)
 
-            # Wrap specified custom groups in span tags
-            for group_id, group_info in self.mi_anno.groups.items():
-                if not wrap_custom_group(copied_tree, group_id, group_info):
-                    continue
+            # Validate structure of output from external implementation
+            is_valid, validation_res = validate_llm_output_schema(result_dict, ExpectedOutputSchema)
+            if not is_valid:
+                raise PostRequestError(
+                    code = "OUTPUT_VALIDATION_ERROR",
+                    message = "Automation output does not match the required schema."+str(validation_res),
+                    http_status = 400
+                )
 
-            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
-
-            final_concepts_dict, final_occurrences_dict = auto_define_and_assign_concepts(copied_tree, self.mcdict.occurences_dict, self.mcdict.concepts, eoi_ids_list, llm_log_file=log_file)
-
-            for concept_id, concept_info in final_concepts_dict.items():
-                self.register_concept_inner(concept_info, mc_id = concept_id)
-
-            for occurrence_id, concept_to_assign in final_occurrences_dict.items():
-                tag_name = self.mcdict.occurences_dict[occurrence_id].tag_name
-                self.assign_concept_inner(occurrence_id, concept_to_assign, tag_name)
+            concepts_and_assignments_list = validation_res["concepts_info_list"]
+            for concepts_and_assignment in concepts_and_assignments_list:
+                original_mc_ids = concepts_and_assignment["original_mc_ids"]
+                new_primitive_symbols_set = set()
+                for mc_id in original_mc_ids:
+                    new_primitive_symbols_set.update(set(self.mcdict.concepts[mc_id].primitive_symbols))
+                new_concept_info = concepts_and_assignment["new_concept_info"]
+                new_concept_info["primitive_symbols"] = list(new_primitive_symbols_set)
+                new_concept_info["sog_list"] = []
+                is_successful, data = self.register_concept_inner(new_concept_info, None)
+                if not is_successful:
+                    raise PostRequestError(
+                        code = "DATA_REGISTRATION_ERROR",
+                        message = "Concept registration was not successful. "+str(data),
+                        http_status = 400
+                    )
+                new_mc_id = data
+                for original_mc_id in original_mc_ids:
+                    for occurrence_id, occurence_info in self.mcdict.occurences_dict.items():
+                        if occurence_info.mc_id==original_mc_id:
+                            comp_tag_id = occurrence_id
+                            tag_name = occurence_info.tag_name
+                            self.assign_concept_inner(comp_tag_id, new_mc_id, tag_name)
 
             success_message = {
                     "status": "success",
@@ -915,19 +1012,47 @@ class MioGattoServer:
         
 
     def auto_highlight_sources(self):
+        """
+        This method acts only as an interface, providing proper input and validating output structure (as
+        in output_schema variable and integrating output onto MioFFAn annotations.
+        Then, the developer is supposed to implement functionality within the function with the same name
+        in llm_implementation
+        A JSON log file is generated here so that the user may save intermediate results.
+        """
+        class NewSoGsInfoSchema(BaseModel):
+            mc_id: str
+            start_id: str
+            stop_id: str
+        
+        class ExpectedOutputSchema(BaseModel):
+            sogs_info_list: List[NewSoGsInfoSchema]
+
+        schema_json = ExpectedOutputSchema.model_json_schema()
+        with open('llm_implementation/documentation/auto_highlight_sources_schema.json', 'w') as f:
+            json.dump(schema_json, f, indent=4, sort_keys=True, separators=(',', ': '))
+        
         log_file = get_or_create_llm_log_file(self.paper_id)
         try:
             res = request.json
             check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
             check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
 
-            copied_tree = deepcopy(self.tree.xpath("//body")[0])
+            dom_tree_copy = deepcopy(self.tree.xpath("//body")[0])
+            mcdict_copy = deepcopy(self.mcdict)
+            mi_anno_copy = deepcopy(self.mi_anno)
 
-            eoi_ids_list = list(self.mcdict.eoi_dict.keys())
+            result_dict = auto_highlight_sources(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file=log_file)
 
-            new_sogs_list = auto_highlight_sources(copied_tree, self.mcdict.concepts, eoi_ids_list, llm_log_file=log_file)
+            # Validate structure of output from external implementation
+            is_valid, validation_res = validate_llm_output_schema(result_dict, ExpectedOutputSchema)
+            if not is_valid:
+                raise PostRequestError(
+                    code = "OUTPUT_VALIDATION_ERROR",
+                    message = "Automation output does not match the required schema."+str(validation_res),
+                    http_status = 400
+                )
 
-            for new_sog in new_sogs_list:
+            for new_sog in validation_res["sogs_info_list"]:
                 self.add_sog_inner(new_sog["mc_id"],new_sog["start_id"],new_sog["stop_id"])
 
             success_message = {

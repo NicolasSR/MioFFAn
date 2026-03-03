@@ -372,9 +372,6 @@ function submit_assign_concept(comp_tag_id: string, mc_id: string) {
 
 async function submit_concept($concept_dialog: JQuery, primitive_symbols: string[], mc_id: string | undefined): Promise<string | undefined> {
 
-    const llm_placeholder_flag_checkbox = $concept_dialog.find('input[type="checkbox"][id="llm_placeholder_flag"]')
-    const llm_placeholder_flag = llm_placeholder_flag_checkbox.is(":checked")
-
     const concept_data = {
         mcdict_edit_id: mcdict_edit_id,
         mc_id: mc_id,
@@ -382,8 +379,7 @@ async function submit_concept($concept_dialog: JQuery, primitive_symbols: string
         description: $concept_dialog.find('textarea[name="description"]').val(),
         concept_category: $concept_dialog.find('select[name="concept-category"]').val(),
         properties: getFilteredFormData($concept_dialog.find('#concept-properties-form')),
-        primitive_symbols: primitive_symbols,
-        llm_placeholder_flag: llm_placeholder_flag
+        primitive_symbols: primitive_symbols
     }
 
     try {
@@ -423,7 +419,8 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
     const taxonomy = projectConfig.CONCEPT_TAXONOMY;
     const categories = Object.keys(taxonomy) as Array<keyof typeof taxonomy>;
     
-    const options = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+    let options = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+    options += `<option value="symbol_placeholder">Symbol Placeholder</option>`
     $categoryContainer.html(`<select name="concept-category" class="form-control">${options}</select>`);
     
     const $select = $categoryContainer.find('select');
@@ -435,9 +432,6 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
             $dialog.find('textarea[name="code-var-name"]').val(concept.code_var_name);
             $dialog.find('textarea[name="description"]').val(concept.description);
             $select.val(concept.concept_category);
-            if (concept.code_var_name.startsWith("llm_placeholder_concept_")) {
-                $dialog.find('input[name="llm_placeholder_flag"]').prop('checked', "true");
-            }
             previous_properties = concept.properties;
         } else {
             console.warn(`Concept with mc_id ${mc_id} not found in mcdict.`);

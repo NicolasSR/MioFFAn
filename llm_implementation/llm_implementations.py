@@ -2,15 +2,14 @@ import json
 import time
 import re
 import unicodedata
-from pathlib import Path
 
 from copy import deepcopy
 from collections import OrderedDict
 
-import requests
 from lxml import etree
-from openai import OpenAI
 
+from lib.util import PostRequestError, wrap_custom_group
+from lib.llm_utilities import client, get_running_model_name, check_token_usage, max_context_length
 from lib.llm_utilities import find_first_match_info, find_mathml_occurrences, get_all_ids_as_set, find_relationships_through_contained_ids
 from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tree
 
@@ -18,63 +17,6 @@ from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tre
 To run this script, a vllm server needs to be running. Call it via:
 vllm serve Qwen/Qwen3-4B-Instruct-2507 --max_model_len 65536
 """
-
-# Get OpenAI's API key and API base to use vLLM's API server.
-with open("config.json", "r") as config_file:
-    config=json.load(config_file)
-    openai_api_key = config["OPENAI_API_KEY"]
-    openai_api_base = config["OPENAI_API_BASE"]
-    max_context_length = config["MAX_CONTEXT_LENGTH"]
-
-client = OpenAI(
-    api_key=openai_api_key,
-    base_url=openai_api_base,
-)
-
-def get_running_model_name():
-    """
-    Asks the vLLM server which model it is currently serving.
-    Returns: The model ID string (e.g., 'meta-llama/Meta-Llama-3-8B-Instruct')
-    """
-    try:
-        # Standard OpenAI endpoint to list models
-        models = client.models.list()
-        
-        # vLLM usually serves just one model, so we take the first one.
-        # If multiple are loaded (rare in vLLM), you might need logic to pick one.
-        first_model = models.data[0].id
-        return first_model
-    except Exception as e:
-        print(f"Error fetching model name: {e}")
-        return None
-    
-def check_token_usage(messages):
-    """
-    Queries the vLLM server to get token count and context limit.
-    Returns: (num_tokens, max_model_len)
-    """
-    # vLLM exposes this at the root /tokenize, not /v1/tokenize
-    # If your base_url is http://localhost:8000/v1, strip the /v1
-    base_url = str(client.base_url).replace("/v1", "").replace("/v1/", "")
-    url = f"{base_url}/tokenize"
-    
-    model_name = get_running_model_name()
-    payload = {
-        "model": model_name,
-        "messages": messages  # Pass the same messages list you would send to chat.completions
-    }
-
-    try:
-        response = requests.post(url, json=payload)
-        response.raise_for_status()
-        data = response.json()
-        
-        # vLLM returns 'count' (tokens) and 'max_model_len' (context limit)
-        return data["count"], data["max_model_len"]
-        
-    except requests.exceptions.RequestException as e:
-        print(f"Error checking tokens: {e}")
-        return None, None
 
 def replace_with_unicode_name(html_snippet):
     # Regex finds text content between > and <
@@ -106,25 +48,17 @@ def replace_with_unicode_name(html_snippet):
 
     return re.sub(pattern, process_content, html_snippet)
 
-def get_or_create_llm_log_file(paper_id):
-    output_log_file_path = Path(f"./llm_outputs/{paper_id}_llm_log.json")
-    output_log_file_path.parent.mkdir(exist_ok=True, parents=True)
-    if not output_log_file_path.exists():
-        with open(output_log_file_path, 'w') as file:
-            init_dict = {
-                "paper_id": paper_id
-            }
-            json.dump(init_dict, file)
-    return output_log_file_path
-
 class SetEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, set):
             return list(obj)
         return json.JSONEncoder.default(self, obj)
 
-def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
-    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+def auto_segment_symbols(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file = None):
+
+    eoi_ids_list = list(mcdict_copy.eoi_dict.keys())
+
+    full_html_text_raw = etree.tostring(dom_tree_copy, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
 
@@ -132,6 +66,13 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
     multi_eoi_new_occurences_dict = dict()
 
     log_json = dict()
+
+    if not eoi_ids_list:
+        raise PostRequestError(
+            code = "MISSING_DATA",
+            message = "No EoI was indicated",
+            http_status = 400
+        )
 
     for eoi_id in eoi_ids_list:
         log_json[eoi_id] = dict()
@@ -144,7 +85,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
         fits_in_context = False
         while fits_in_context == False:
 
-            with open("lib/llm_prompt_files/segment_symbols_prompt.txt", "r") as prompt_file:
+            with open("llm_implementation/llm_prompt_files/segment_symbols_prompt.txt", "r") as prompt_file:
                 system_prompt_segmentation = prompt_file.read()
             messages=[
                     {"role": "system", "content": system_prompt_segmentation},
@@ -213,8 +154,8 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
         all_id_sets = []
 
         for obj in objects_list:
-            variable_name = obj["obj_name"]
-            print(variable_name)
+            symbol_name = obj["obj_name"]
+            print(symbol_name)
 
             matches = find_mathml_occurrences(weak_form_string, obj['mathml_representation'])
             for match in matches:
@@ -224,7 +165,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                 for element in match:
                     match_str += etree.tostring(element, encoding='unicode')
                     match_ids_set.update(get_all_ids_as_set(element))
-                    primitive_hex_set.update(get_primitive_hex_set(element, html_tree_raw))
+                    primitive_hex_set.update(get_primitive_hex_set(element, dom_tree_copy))
                 print(match_str)
                 identifier_info_first = find_first_match_info(match[0])
                 if identifier_info_first is None:
@@ -234,7 +175,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                 ancestry_level_start = identifier_info_first['depth']
                 if len(match) == 1:
                     all_id_sets.append({
-                        "variable_name": variable_name,
+                        "variable_name": symbol_name,
                         "representative_id": start_id,
                         "ids_set": match_ids_set,
                         "ids_count": len(match_ids_set),
@@ -246,10 +187,10 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                             "primitive_symbols": deepcopy(primitive_hex_set),
                             "ids_set": match_ids_set
                         }
-                    if variable_name in new_occurences_dict:
-                        new_occurences_dict[variable_name].append(occurrence_info)
+                    if symbol_name in new_occurences_dict:
+                        new_occurences_dict[symbol_name].append(occurrence_info)
                     else:
-                        new_occurences_dict[variable_name]=[occurrence_info]
+                        new_occurences_dict[symbol_name]=[occurrence_info]
                 else:
                     identifier_info_last = find_first_match_info(match[-1])
                     if identifier_info_last is None:
@@ -257,7 +198,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                     stop_id = identifier_info_last['id']
                     ancestry_level_stop = identifier_info_last['depth']
                     all_id_sets.append({
-                        "variable_name": variable_name,
+                        "variable_name": symbol_name,
                         "representative_id": start_id,
                         "ids_set": match_ids_set,
                         "ids_count": len(match_ids_set),
@@ -271,10 +212,10 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
                         "primitive_symbols": deepcopy(primitive_hex_set),
                         "ids_set": match_ids_set
                     }
-                    if variable_name in new_groups_dict:
-                        new_groups_dict[variable_name].append(group_info)
+                    if symbol_name in new_groups_dict:
+                        new_groups_dict[symbol_name].append(group_info)
                     else:
-                        new_groups_dict[variable_name]=[group_info]
+                        new_groups_dict[symbol_name]=[group_info]
 
         log_json[eoi_id]["new_groups_dict"] = new_groups_dict
         log_json[eoi_id]["new_occurences_dict"] = new_occurences_dict
@@ -295,20 +236,37 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
     # Merge all results from different EOIs into a single dictionary
     final_new_occurences_dict = dict()
     final_new_groups_dict = dict()
-    
     for eoi_id_iter, new_occurences_dict_iter in multi_eoi_new_occurences_dict.items():
-        for variable_name, occurences_list in new_occurences_dict_iter.items():
-            if variable_name in final_new_occurences_dict:
-                final_new_occurences_dict[variable_name].extend(occurences_list)
+        for symbol_name, occurences_list in new_occurences_dict_iter.items():
+            if symbol_name in final_new_occurences_dict:
+                final_new_occurences_dict[symbol_name].extend(occurences_list)
             else:
-                final_new_occurences_dict[variable_name] = occurences_list
-
+                final_new_occurences_dict[symbol_name] = occurences_list
     for eoi_id_iter, new_groups_dict_iter in multi_eoi_new_groups_dict.items():
-        for variable_name, groups_list in new_groups_dict_iter.items():
-            if variable_name in final_new_groups_dict:
-                final_new_groups_dict[variable_name].extend(groups_list)
+        for symbol_name, groups_list in new_groups_dict_iter.items():
+            if symbol_name in final_new_groups_dict:
+                final_new_groups_dict[symbol_name].extend(groups_list)
             else:
-                final_new_groups_dict[variable_name] = groups_list
+                final_new_groups_dict[symbol_name] = groups_list
+
+    final_output_dict = {
+        "new_groups": [],
+        "new_occurrences": []
+    }
+
+    for symbol_name, occurences_list in final_new_occurences_dict.items():
+        for occurrence_info in occurences_list:
+            final_output_dict["new_occurrences"].append({
+                "symbol_name": symbol_name,
+                "comp_tag_id": occurrence_info["comp_tag_id"]
+            })
+    
+    for symbol_name, groups_list in final_new_groups_dict.items():
+        for group_info in groups_list:
+            final_output_dict["new_groups"].append({
+                "symbol_name": symbol_name,
+                "included_mi_ids": [group_info["start_id"],group_info["stop_id"]]
+            })
 
     log_json["total"] = {
         "final_new_groups_dict": final_new_groups_dict,
@@ -323,7 +281,7 @@ def auto_segment_symbols(html_tree_raw, eoi_ids_list, llm_log_file = None):
     with open(llm_log_file, 'w') as log_file:
         json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
 
-    return final_new_occurences_dict, final_new_groups_dict
+    return final_output_dict
     
 
 def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, conflicts_list_raw, new_groups_dict, new_occurences_dict, log_json):
@@ -337,7 +295,7 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
 
     print(conflicts_dict)
 
-    with open("lib/llm_prompt_files/disambiguate_coinciding_symbols.txt", "r") as prompt_file:
+    with open("llm_implementation/llm_prompt_files/disambiguate_coinciding_symbols.txt", "r") as prompt_file:
         system_prompt_disambiguation = prompt_file.read()
     messages=[
         {"role": "system", "content": system_prompt_disambiguation},
@@ -353,57 +311,92 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
 
     chat_response_string = chat_response.choices[0].message.content
     print(chat_response_string)
-    disambiguation_results_json = json.loads(chat_response_string)
+    try:
+        disambiguation_results_json = json.loads(chat_response_string)
+    except:
+        raise f"Conflict disambiguation: LLM output could not be casted to JSON"
     log_json[eoi_id]["conflicts_resolution"] = disambiguation_results_json
 
     for case_name, result in disambiguation_results_json.items():
         i = int(case_name.split("_")[1]) - 1
         if result == "REMOVE":
-            child_var_name = conflicts_list_raw[i]["child_variable_name"]
-            child_representative_id = conflicts_list_raw[i]["child_representative_id"]
+            try:
+                child_var_name = conflicts_list_raw[i]["child_variable_name"]
+                child_representative_id = conflicts_list_raw[i]["child_representative_id"]
+            except:
+                raise f"Conflicts_list_raw has no entry in index {i}, or some field is missing within it"
             if child_var_name in new_groups_dict.keys():
                 new_groups_list = new_groups_dict[child_var_name]
                 new_groups_list_filtered = [group_info for group_info in new_groups_list if not (group_info["start_id"] == child_representative_id)]
-                new_occurences_dict[child_var_name] = new_groups_list_filtered
-            new_occurences_list = new_occurences_dict[child_var_name]
-            new_occurences_list_filtered = [occurrence_info for occurrence_info in new_occurences_list if not (occurrence_info["comp_tag_id"] == child_representative_id)]
-            new_occurences_dict[child_var_name] = new_occurences_list_filtered
+                new_groups_dict[child_var_name] = new_groups_list_filtered
+            else:
+                new_occurences_list = new_occurences_dict[child_var_name]
+                new_occurences_list_filtered = [occurrence_info for occurrence_info in new_occurences_list if not (occurrence_info["comp_tag_id"] == child_representative_id)]
+                new_occurences_dict[child_var_name] = new_occurences_list_filtered
+    
+    empty_entries = []
+    for var_name, new_groups_list in new_groups_dict.items():
+        if not new_groups_list:
+            empty_entries.append(var_name)
+    for entry in empty_entries:
+        del new_groups_dict[entry]
 
+    empty_entries = []
+    for var_name, new_occurrences_list in new_occurences_dict.items():
+        if not new_occurrences_list:
+            empty_entries.append(var_name)
+    for entry in empty_entries:
+        del new_occurences_dict[entry]
+            
     return new_groups_dict, new_occurences_dict, log_json
 
 
-def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdict_concepts, eoi_ids_list, llm_log_file = None):
+def auto_define_and_assign_concepts(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file = None):
     log_json = dict()
+
+    mcdict_occurences_dict = mcdict_copy.occurences_dict
+    mcdict_concepts_dict = mcdict_copy.concepts
+    mi_anno_groups_dict = mi_anno_copy.groups
+
+    eoi_ids_list = list(mcdict_copy.eoi_dict.keys())
+
+    # Wrap specified custom groups in span tags
+    for group_id, group_info in mi_anno_groups_dict.items():
+        if not wrap_custom_group(dom_tree_copy, group_id, group_info):
+            continue
 
     raw_segmented_symbols_dict = dict()
     for occurence_name, occurence_info in mcdict_occurences_dict.items():
-        concept_name = occurence_info.mc_id
-        if "llm_placeholder_concept_" in concept_name:
+        occurrence_mc_id = occurence_info.mc_id
+        concept_info = mcdict_concepts_dict[occurrence_mc_id]
+        if concept_info.concept_category=="symbol_placeholder":
             tag_id = occurence_name
-            symbol_subtree = html_tree_raw.xpath(f".//*[@id='{tag_id}']")[0]
+            symbol_subtree = dom_tree_copy.xpath(f".//*[@id='{tag_id}']")[0]
             symbol_mathml_string = etree.tostring(symbol_subtree, encoding='unicode')
-            if concept_name in raw_segmented_symbols_dict.keys():
-                raw_segmented_symbols_dict[concept_name]["mathml_representations_list"].append(symbol_mathml_string) 
+            if occurrence_mc_id in raw_segmented_symbols_dict.keys():
+                raw_segmented_symbols_dict[occurrence_mc_id]["mathml_representations_list"].append(symbol_mathml_string) 
             else:
-                raw_segmented_symbols_dict[concept_name] = {
-                    "obj_name": mcdict_concepts[concept_name].code_var_name,
+                raw_segmented_symbols_dict[occurrence_mc_id] = {
+                    "obj_name": concept_info.code_var_name,
                     "mathml_representations_list": [symbol_mathml_string]
                 }
 
-    concepts_list, log_json = auto_define_concepts(html_tree_raw, raw_segmented_symbols_dict, eoi_ids_list, log_json)
+    concepts_list, log_json = auto_define_concepts(dom_tree_copy, raw_segmented_symbols_dict, eoi_ids_list, log_json)
 
     segmented_symbols_list = []
     segmented_symbols_dict = dict()
-    for segmented_info_name, segmented_symbol_info in raw_segmented_symbols_dict.items():
+    var_name_to_mc_id_map = dict()
+    for segmented_symbol_mcid, segmented_symbol_info in raw_segmented_symbols_dict.items():
         ## FOR NOW WE ARE ONLY USING THE FIRST INSTANCE OF THE MATHML REPRESENTATION. THIS MAY BE CHANGED IN THE FUTURE
         mathml_representation_example = segmented_symbol_info["mathml_representations_list"][0]
         segmented_symbols_list.append({
             "obj_name": segmented_symbol_info["obj_name"],
             "mathml_representation": mathml_representation_example
         })
+        var_name_to_mc_id_map[segmented_symbol_info["obj_name"]] = segmented_symbol_mcid
         segmented_symbols_dict[segmented_symbol_info["obj_name"]] = mathml_representation_example
 
-    concept_assignments, log_json = auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, eoi_ids_list, log_json)
+    concept_assignments, log_json = auto_assign_concepts(dom_tree_copy, segmented_symbols_list, concepts_list, eoi_ids_list, log_json)
 
     # Remove concepts that didn't get any assigned symbol:
     concepts_list = [c for c in concepts_list if c["name"] in concept_assignments.values()]
@@ -415,26 +408,28 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
         del variable["type"]
         variable["representative_mathml"] = segmented_symbols_dict[corresponding_symbols[0]]
     
-    variable_concepts_with_properties, log_json = auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_ids_list, log_json)
+    variable_concepts_with_properties, log_json = auto_assign_variable_properties(dom_tree_copy, variable_concepts_list, eoi_ids_list, log_json)
 
-    print(variable_concepts_with_properties)
+    final_output_dict = {
+        "concepts_info_list": []
+    }
 
-    final_concepts_dict = dict()
-    for concept in concepts_list:
-        primitive_concepts_set = set()
-        corresponding_symbols = [current_symbol for current_symbol, current_concept in concept_assignments.items() if current_concept==concept["name"]]
-        for symbol in corresponding_symbols:
-            placeholder_concept_name = f"llm_placeholder_concept_{symbol}"
-            primitive_concepts_set.update(set(mcdict_concepts[placeholder_concept_name].primitive_symbols))
-        if concept["name"] in variable_concepts_with_properties.keys():
-            variable_concept = variable_concepts_with_properties[concept["name"]]
-            final_concepts_dict[concept["name"]] = {
-                "code_var_name": concept["name"],
-                "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
-                "options": [variable_concept["type"]],
-                "primitive_symbols": list(deepcopy(primitive_concepts_set)),
-                "sog_list": [],
-                "tensor_rank": variable_concept["tensor_rank"]
+    assignments_inverse_map = dict()
+    for placeholder_symbol, concept_name in concept_assignments.items():
+        placeholder_mc_id = var_name_to_mc_id_map[placeholder_symbol]
+        if concept_name in assignments_inverse_map.keys():
+            assignments_inverse_map[concept_name].append(placeholder_mc_id)
+        else:
+            assignments_inverse_map[concept_name] = [placeholder_mc_id]
+
+    for concept_info in concepts_list:
+        concept_name = concept_info["name"]
+        if concept_name in variable_concepts_with_properties.keys():
+            concept_category = "variable"
+            variable_concept = variable_concepts_with_properties[concept_name]
+            concept_properties = {
+                "tensor-rank": variable_concept["tensor_rank"],
+                "variable-type": variable_concept["type"]
             }
         else:
             type_dict = {
@@ -443,24 +438,20 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
                 "INTEGRATION_VAR": "integration-var",
                 "OTHER": "other"
             }
-            final_concepts_dict[concept["name"]] = {
-                "code_var_name": concept["name"],
-                "description": concept["description"] + "\nJUSTIFICATION:\n" + concept["justification"],
-                "options": [type_dict.get(concept["type"],"OTHER")],
-                "primitive_symbols": list(deepcopy(primitive_concepts_set)),
-                "sog_list": [],
-                "tensor_rank": "0"
-            }
-    
-    final_occurrences_dict = dict()
-    for symbol, concept in concept_assignments.items():
-        placeholder_concept_name = f"llm_placeholder_concept_{symbol}"
-        for occurence_id, occurence_info in mcdict_occurences_dict.items():
-            if occurence_info.mc_id==placeholder_concept_name:
-                final_occurrences_dict[occurence_id] = concept
+            concept_category = type_dict.get(concept_info["type"],"OTHER")
+            concept_properties = {}
 
-    log_json["final_concepts"] = final_concepts_dict
-    log_json["final_occurrences"] = final_occurrences_dict
+        final_output_dict["concepts_info_list"].append({
+            "original_mc_ids": assignments_inverse_map[concept_name],
+            "new_concept_info": {
+                "code_var_name": concept_info["name"],
+                "description": concept_info["description"] + "\nJUSTIFICATION:\n" + concept_info["justification"],
+                "concept_category": concept_category,
+                "properties": concept_properties
+            }
+        })
+
+    log_json["final_output_dict"] = final_output_dict
 
     with open(llm_log_file, 'r') as log_file:
         llm_log = json.load(log_file)
@@ -468,7 +459,7 @@ def auto_define_and_assign_concepts(html_tree_raw, mcdict_occurences_dict, mcdic
     with open(llm_log_file, 'w') as log_file:
         json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
 
-    return final_concepts_dict, final_occurrences_dict
+    return final_output_dict
 
 def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, log_json):
     full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
@@ -485,7 +476,7 @@ def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, lo
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/define_concepts_prompt.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/define_concepts_prompt.txt", "r") as prompt_file:
             system_prompt_define_concepts = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_define_concepts},
@@ -559,7 +550,7 @@ def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, e
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/assign_concepts_prompt.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/assign_concepts_prompt.txt", "r") as prompt_file:
             system_prompt_assign_concepts = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_assign_concepts},
@@ -631,7 +622,7 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
     fits_in_context = False
     while fits_in_context == False:
 
-        with open("lib/llm_prompt_files/assign_variable_properties.txt", "r") as prompt_file:
+        with open("llm_implementation/llm_prompt_files/assign_variable_properties.txt", "r") as prompt_file:
             system_prompt_assign_variable_properties = prompt_file.read()
         messages=[
                 {"role": "system", "content": system_prompt_assign_variable_properties},
@@ -689,21 +680,22 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
     return properties_assignment, log_json
 
 
-def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log_file = None):
+def auto_highlight_sources(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file=None):
     log_json = dict()
 
-    full_html_text_raw = etree.tostring(html_tree_raw, encoding='unicode')
+    full_html_text_raw = etree.tostring(dom_tree_copy, encoding='unicode')
     full_html_text = replace_with_unicode_name(full_html_text_raw)
     full_html_tree = etree.fromstring(full_html_text, etree.HTMLParser())
 
     ## FOR NOW WE ARE ONLY USING THE FIRST EoI AS REFERENCE TO SHORTEN CONTEXT. THIS SHOULD BE CHANGED TO A BETTER STRATEGY
+    eoi_ids_list = list(mcdict_copy.eoi_dict.keys())
     eoi_id = eoi_ids_list[0]
     weak_form = full_html_tree.find(f".//div[@id='{eoi_id}']")
     weak_form_string = etree.tostring(weak_form, encoding='unicode')
 
     html_text = full_html_text
 
-    with open("lib/llm_prompt_files/identify_text_sources.txt", "r") as prompt_file:
+    with open("llm_implementation/llm_prompt_files/identify_text_sources.txt", "r") as prompt_file:
             system_prompt_identify_text_sources = prompt_file.read()
     def get_messsages(system_prompt, context, justifications_list):
         messages=[
@@ -751,7 +743,7 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
     
     grounding_ids_dict = dict()
     matched_grounding_ids_dict = dict()
-    for concept_id, concept_info in mcdict_concepts.items():
+    for concept_id, concept_info in mcdict_copy.concepts.items():
         justifications_splitting = concept_info.description.split("JUSTIFICATION")
         if len(justifications_splitting) > 1:
             log_json[concept_id] = dict()
@@ -782,19 +774,19 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
                 'divs': set()
             }
             for id in grounding_ids_raw:
-                matching_paras_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'p', id)
-                matching_spans_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'span', id)
-                matching_eqns_flag = check_if_tag_with_id_in_tree(html_tree_raw, 'div', id)
+                matching_paras_flag = check_if_tag_with_id_in_tree(dom_tree_copy, 'p', id)
+                matching_spans_flag = check_if_tag_with_id_in_tree(dom_tree_copy, 'span', id)
+                matching_eqns_flag = check_if_tag_with_id_in_tree(dom_tree_copy, 'div', id)
                 if matching_paras_flag:
-                    gd_text_spans_in_div = html_tree_raw.xpath(f"//*[local-name()='p' and @id='{id}']//*[local-name()='span' and @class='gd_text']")
+                    gd_text_spans_in_div = dom_tree_copy.xpath(f"//*[local-name()='p' and @id='{id}']//*[local-name()='span' and @class='gd_text']")
                     for gd_text in gd_text_spans_in_div:
                         matched_grounding_ids_dict[concept_id]["spans"].add(gd_text.get('id'))
                 elif matching_spans_flag:
-                    span_element = html_tree_raw.xpath(f"//*[local-name()='span' and @id='{id}']")[0]
+                    span_element = dom_tree_copy.xpath(f"//*[local-name()='span' and @id='{id}']")[0]
                     if span_element.get('class') == 'gd_text':
                         matched_grounding_ids_dict[concept_id]["spans"].add(id)
                 elif matching_eqns_flag:
-                    div_element = html_tree_raw.xpath(f"//*[local-name()='div' and @id='{id}']")[0]
+                    div_element = dom_tree_copy.xpath(f"//*[local-name()='div' and @id='{id}']")[0]
                     if div_element.get('class') == 'formula':
                         matched_grounding_ids_dict[concept_id]["divs"].add(id)
                 else:
@@ -822,7 +814,11 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
                 "stop_id": sog_id
             })
 
-    log_json["total"]["formal_sogs_list"] = formal_sogs_list
+    final_output_dict = {
+        "sogs_info_list": formal_sogs_list
+        }
+
+    log_json["total"]["final_output_dict"] = final_output_dict
     with open(llm_log_file, 'r') as log_file:
         llm_log = json.load(log_file)
     llm_log["AUTO_HIGHLIGHT_SOURCES"] = log_json
@@ -830,4 +826,4 @@ def auto_highlight_sources(html_tree_raw, mcdict_concepts, eoi_ids_list, llm_log
         json.dump(llm_log,log_file, indent=4, cls=SetEncoder)
 
 
-    return formal_sogs_list
+    return final_output_dict
