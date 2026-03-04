@@ -189,8 +189,8 @@ def main():
 
     print(f"Initializing server with paper ID: {initial_paper_id}")
 
-    anno_json = data_dir / '{}_anno.json'.format(initial_paper_id)
-    mcdict_json = data_dir / '{}_mcdict.json'.format(initial_paper_id)
+    anno_json = data_dir / initial_paper_id / '{}_anno.json'.format(initial_paper_id)
+    mcdict_json = data_dir / initial_paper_id / '{}_mcdict.json'.format(initial_paper_id)
     source_html = sources_dir / '{}.html'.format(initial_paper_id)
 
     # load the data

@@ -291,9 +291,11 @@ def preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir
     # now prepare for the preprocess
     logger.info('Begin to preprocess Paper "{}"'.format(sample_name))
 
+    data_dir = data_dir / sample_name
     data_dir.mkdir(parents=True, exist_ok=True)
     data_anno_path = data_dir / '{}_anno.json'.format(sample_name)
     data_mcdict_path = data_dir / '{}_mcdict.json'.format(sample_name)
+    templates_dir = templates_dir / sample_name
     templates_dir.mkdir(parents=True, exist_ok=True)
     template_anno_path = templates_dir / '{}_anno.json'.format(sample_name)
     template_mcdict_path = templates_dir / '{}_mcdict.json'.format(sample_name)

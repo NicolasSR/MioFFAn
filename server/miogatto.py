@@ -148,8 +148,8 @@ class MioGattoServer:
         self.paper_id = new_id
 
         # Load new data
-        anno_json = self.data_dir / '{}_anno.json'.format(new_id)
-        mcdict_json = self.data_dir / '{}_mcdict.json'.format(new_id)
+        anno_json = self.data_dir / new_id / '{}_anno.json'.format(new_id)
+        mcdict_json = self.data_dir / new_id / '{}_mcdict.json'.format(new_id)
         source_html = self.sources_dir / '{}.html'.format(new_id)
 
         # load the data
@@ -1117,8 +1117,8 @@ class MioGattoServer:
             checkpoint_tag = res.get("checkpoint_tag")
 
             if checkpoint_tag is None:
-                target_mc_dict_path = Path("templates", data_mcdict_path.name)
-                target_anno_path = Path("templates", data_anno_path.name)
+                target_mc_dict_path = Path("templates", data_mcdict_path.parts[-2], data_mcdict_path.name)
+                target_anno_path = Path("templates", data_mcdict_path.parts[-2], data_anno_path.name)
             elif any(char.isalnum() for char in checkpoint_tag): # Check if there are alphanumeric values in the tag
                 target_mc_dict_path = data_mcdict_path.with_stem(data_mcdict_path.stem + "_" + checkpoint_tag)
                 target_anno_path = data_anno_path.with_stem(data_anno_path.stem + "_" + checkpoint_tag)
