@@ -1,0 +1,1275 @@
+{
+    "paper_id": "S0021999121003752",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi id=\"mi_102\">d</mi><mi mathvariant=\"normal\" id=\"mi_103\">\u03a9</mi></mstyle>",
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi id=\"mi_108\">d</mi><mi mathvariant=\"normal\" id=\"mi_109\">\u03a9</mi></mstyle>",
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi id=\"mi_114\">d</mi><mi mathvariant=\"normal\" id=\"mi_115\">\u03a9</mi></mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi id=\"mi_125\">d</mi><mi mathvariant=\"normal\" id=\"mi_126\">\u03a9</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_delta_Omega": {
+                "obj_name": "d_delta_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-4\" class=\"custom-group\"><mi id=\"mi_130\">d</mi><mo stretchy=\"false\">(</mo><mo>\u2202</mo><mi mathvariant=\"normal\" id=\"mi_131\">\u03a9</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_100\">u</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_119\">u</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_121\">u</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_96\">u</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_98\">u</mi>"
+                ]
+            },
+            "llm_placeholder_concept_w": {
+                "obj_name": "w",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_101\">w</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_107\">w</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_113\">w</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_124\">w</mi>",
+                    "<mi mathvariant=\"bold\" id=\"mi_129\">w</mi>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"normal\" id=\"mi_104\">\u03a9</mi>",
+                    "<mi mathvariant=\"normal\" id=\"mi_110\">\u03a9</mi>",
+                    "<mi mathvariant=\"normal\" id=\"mi_116\">\u03a9</mi>",
+                    "<mi mathvariant=\"normal\" id=\"mi_94\">\u03a9</mi>"
+                ]
+            },
+            "llm_placeholder_concept_rho": {
+                "obj_name": "rho",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_105\">\u03c1</mi>",
+                    "<mi id=\"mi_95\">\u03c1</mi>"
+                ]
+            },
+            "llm_placeholder_concept_b": {
+                "obj_name": "b",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_106\">b</mi>"
+                ]
+            },
+            "llm_placeholder_concept_p": {
+                "obj_name": "p",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_111\">p</mi>"
+                ]
+            },
+            "llm_placeholder_concept_mu": {
+                "obj_name": "mu",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_117\">\u03bc</mi>"
+                ]
+            },
+            "llm_placeholder_concept_delta_Omega": {
+                "obj_name": "delta_Omega",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"normal\" id=\"mi_127\">\u03a9</mi>"
+                ]
+            },
+            "llm_placeholder_concept_T": {
+                "obj_name": "T",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_128\">T</mi>"
+                ]
+            },
+            "llm_placeholder_concept_t": {
+                "obj_name": "t",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_97\">t</mi>"
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "displacement_field",
+                "type": "VARIABLE",
+                "description": "The vector field representing the fluid displacement in space and time.",
+                "justification": "The symbol 'u' appears multiple times in boldface, consistently denoting a vector field in the momentum and continuity equations, such as in \u2202u/\u2202t and u\u22c5\u2207u. It is central to the governing equations and is used in both the weak form and physical equations."
+            },
+            {
+                "name": "test_function",
+                "type": "VARIABLE",
+                "description": "A test function used in the weak formulation to enforce continuity and boundary conditions.",
+                "justification": "The symbol 'w' appears repeatedly in boldface within integrals, such as in \u222b\u03a9 \u03c1(u\u22c5\u2207u)\u22c5w d\u03a9, and is described as a test function in a Sobolev space. It vanishes at Dirichlet boundaries and is used to derive the variational form."
+            },
+            {
+                "name": "domain",
+                "type": "DOMAIN",
+                "description": "The main computational domain in which the fluid dynamics equations are defined.",
+                "justification": "The symbol '\u03a9' is used to denote the fluid domain in multiple equations, including the domain of integration and boundary conditions. It is explicitly defined as a subset of R^d and bounded by \u2202\u03a9."
+            },
+            {
+                "name": "boundary",
+                "type": "DOMAIN",
+                "description": "The boundary of the computational domain, where boundary conditions are applied.",
+                "justification": "The symbol '\u2202\u03a9' appears in the boundary integral term and is referenced in the context of Dirichlet and Neumann boundary conditions. It is described as a (d\u22121)-dimensional surface in R^d."
+            },
+            {
+                "name": "density",
+                "type": "VARIABLE",
+                "description": "The fluid density, a scalar field that appears in both momentum and continuity equations.",
+                "justification": "The symbol '\u03c1' is used in multiple equations involving mass and momentum conservation, such as in \u03c1(\u2202u/\u2202t + u\u22c5\u2207u) and in the continuity equation. It is a scalar field dependent on the fluid phase."
+            },
+            {
+                "name": "body_force",
+                "type": "VARIABLE",
+                "description": "External body forces acting on the fluid, such as gravity or electromagnetic forces.",
+                "justification": "The symbol 'b' appears in boldface in the momentum equation as \u03c1b, representing a vector field of external forces acting on the fluid."
+            },
+            {
+                "name": "pressure",
+                "type": "VARIABLE",
+                "description": "The scalar pressure field within the fluid, used in the weak form to couple with the velocity field.",
+                "justification": "The symbol 'p' appears in the weak form as a term involving \u222b\u03a9 p\u2207\u22c5w d\u03a9, and is part of the stress tensor in the constitutive equation. It is a scalar field associated with fluid pressure."
+            },
+            {
+                "name": "viscosity",
+                "type": "VARIABLE",
+                "description": "The scalar coefficient representing the fluid's resistance to shear deformation.",
+                "justification": "The symbol '\u03bc' appears in the constitutive equation as \u03bc(\u2207u + \u2207u^T), indicating its role in the viscous stress tensor. It is a material property of the fluid."
+            },
+            {
+                "name": "traction_vector",
+                "type": "VARIABLE",
+                "description": "The surface traction vector at the interface or boundary, calculated as n\u22c5\u03c3.",
+                "justification": "The symbol 'T' appears in boldface in the boundary integral and is defined as T = n\u22c5\u03c3, where n is the normal vector. It represents the force per unit area on the boundary."
+            },
+            {
+                "name": "time",
+                "type": "INTEGRATION_VAR",
+                "description": "The time variable used in time-dependent equations, such as in \u2202u/\u2202t.",
+                "justification": "The symbol 't' appears in the time derivative \u2202u/\u2202t and in initial and boundary conditions. It is a scalar variable that evolves over time in the physical domain."
+            },
+            {
+                "name": "differential_volume_element",
+                "type": "INTEGRATION_VAR",
+                "description": "The differential volume element used in volume integrals over the domain \u03a9.",
+                "justification": "The symbol 'd\u03a9' appears multiple times in integrals, such as \u222b\u03a9 \u03c1(\u2202u/\u2202t + u\u22c5\u2207u)\u22c5w d\u03a9, and is used to denote the volume element in the domain. It is a standard notation in finite element methods."
+            },
+            {
+                "name": "differential_surface_element",
+                "type": "INTEGRATION_VAR",
+                "description": "The differential surface element used in surface integrals over the boundary \u2202\u03a9.",
+                "justification": "The symbol 'd(\u2202\u03a9)' appears in the boundary integral term \u222b\u2202\u03a9 T\u22c5w d(\u2202\u03a9), indicating the surface element on the boundary. It is used to integrate over the boundary of the domain."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "differential_volume_element",
+            "d_delta_Omega": "differential_surface_element",
+            "u": "displacement_field",
+            "w": "test_function",
+            "Omega": "domain",
+            "rho": "density",
+            "b": "body_force",
+            "p": "pressure",
+            "mu": "viscosity",
+            "delta_Omega": "boundary",
+            "T": "traction_vector",
+            "t": "time"
+        },
+        "properties_assignment": {
+            "displacement_field": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "test_function": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "density": {
+                "type": "defined-function",
+                "tensor_rank": "0"
+            },
+            "body_force": {
+                "type": "defined-function",
+                "tensor_rank": "1"
+            },
+            "pressure": {
+                "type": "symbolic-variable",
+                "tensor_rank": "0"
+            },
+            "viscosity": {
+                "type": "defined-function",
+                "tensor_rank": "0"
+            },
+            "traction_vector": {
+                "type": "undefined-function",
+                "tensor_rank": "1"
+            }
+        },
+        "final_concepts": {
+            "displacement_field": {
+                "code_var_name": "displacement_field",
+                "description": "The vector field representing the fluid displacement in space and time.\nJUSTIFICATION:\nThe symbol 'u' appears multiple times in boldface, consistently denoting a vector field in the momentum and continuity equations, such as in \u2202u/\u2202t and u\u22c5\u2207u. It is central to the governing equations and is used in both the weak form and physical equations.",
+                "options": [
+                    "trial-function"
+                ],
+                "primitive_symbols": [
+                    "75"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "test_function": {
+                "code_var_name": "test_function",
+                "description": "A test function used in the weak formulation to enforce continuity and boundary conditions.\nJUSTIFICATION:\nThe symbol 'w' appears repeatedly in boldface within integrals, such as in \u222b\u03a9 \u03c1(u\u22c5\u2207u)\u22c5w d\u03a9, and is described as a test function in a Sobolev space. It vanishes at Dirichlet boundaries and is used to derive the variational form.",
+                "options": [
+                    "test-function"
+                ],
+                "primitive_symbols": [
+                    "77"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "domain": {
+                "code_var_name": "domain",
+                "description": "The main computational domain in which the fluid dynamics equations are defined.\nJUSTIFICATION:\nThe symbol '\u03a9' is used to denote the fluid domain in multiple equations, including the domain of integration and boundary conditions. It is explicitly defined as a subset of R^d and bounded by \u2202\u03a9.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "boundary": {
+                "code_var_name": "boundary",
+                "description": "The boundary of the computational domain, where boundary conditions are applied.\nJUSTIFICATION:\nThe symbol '\u2202\u03a9' appears in the boundary integral term and is referenced in the context of Dirichlet and Neumann boundary conditions. It is described as a (d\u22121)-dimensional surface in R^d.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "density": {
+                "code_var_name": "density",
+                "description": "The fluid density, a scalar field that appears in both momentum and continuity equations.\nJUSTIFICATION:\nThe symbol '\u03c1' is used in multiple equations involving mass and momentum conservation, such as in \u03c1(\u2202u/\u2202t + u\u22c5\u2207u) and in the continuity equation. It is a scalar field dependent on the fluid phase.",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "cf81"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "body_force": {
+                "code_var_name": "body_force",
+                "description": "External body forces acting on the fluid, such as gravity or electromagnetic forces.\nJUSTIFICATION:\nThe symbol 'b' appears in boldface in the momentum equation as \u03c1b, representing a vector field of external forces acting on the fluid.",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "62"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "pressure": {
+                "code_var_name": "pressure",
+                "description": "The scalar pressure field within the fluid, used in the weak form to couple with the velocity field.\nJUSTIFICATION:\nThe symbol 'p' appears in the weak form as a term involving \u222b\u03a9 p\u2207\u22c5w d\u03a9, and is part of the stress tensor in the constitutive equation. It is a scalar field associated with fluid pressure.",
+                "options": [
+                    "symbolic-variable"
+                ],
+                "primitive_symbols": [
+                    "70"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "viscosity": {
+                "code_var_name": "viscosity",
+                "description": "The scalar coefficient representing the fluid's resistance to shear deformation.\nJUSTIFICATION:\nThe symbol '\u03bc' appears in the constitutive equation as \u03bc(\u2207u + \u2207u^T), indicating its role in the viscous stress tensor. It is a material property of the fluid.",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "cebc"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "traction_vector": {
+                "code_var_name": "traction_vector",
+                "description": "The surface traction vector at the interface or boundary, calculated as n\u22c5\u03c3.\nJUSTIFICATION:\nThe symbol 'T' appears in boldface in the boundary integral and is defined as T = n\u22c5\u03c3, where n is the normal vector. It represents the force per unit area on the boundary.",
+                "options": [
+                    "undefined-function"
+                ],
+                "primitive_symbols": [
+                    "54"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "time": {
+                "code_var_name": "time",
+                "description": "The time variable used in time-dependent equations, such as in \u2202u/\u2202t.\nJUSTIFICATION:\nThe symbol 't' appears in the time derivative \u2202u/\u2202t and in initial and boundary conditions. It is a scalar variable that evolves over time in the physical domain.",
+                "options": [
+                    "integration-var"
+                ],
+                "primitive_symbols": [
+                    "74"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "differential_volume_element": {
+                "code_var_name": "differential_volume_element",
+                "description": "The differential volume element used in volume integrals over the domain \u03a9.\nJUSTIFICATION:\nThe symbol 'd\u03a9' appears multiple times in integrals, such as \u222b\u03a9 \u03c1(\u2202u/\u2202t + u\u22c5\u2207u)\u22c5w d\u03a9, and is used to denote the volume element in the domain. It is a standard notation in finite element methods.",
+                "options": [
+                    "integration-var"
+                ],
+                "primitive_symbols": [
+                    "cea9",
+                    "64"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "differential_surface_element": {
+                "code_var_name": "differential_surface_element",
+                "description": "The differential surface element used in surface integrals over the boundary \u2202\u03a9.\nJUSTIFICATION:\nThe symbol 'd(\u2202\u03a9)' appears in the boundary integral term \u222b\u2202\u03a9 T\u22c5w d(\u2202\u03a9), indicating the surface element on the boundary. It is used to integrate over the boundary of the domain.",
+                "options": [
+                    "integration-var"
+                ],
+                "primitive_symbols": [
+                    "cea9",
+                    "64"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            }
+        },
+        "final_occurrences": {
+            "custom-group-0": "differential_volume_element",
+            "custom-group-1": "differential_volume_element",
+            "custom-group-2": "differential_volume_element",
+            "custom-group-3": "differential_volume_element",
+            "custom-group-4": "differential_surface_element",
+            "mi_100": "displacement_field",
+            "mi_119": "displacement_field",
+            "mi_121": "displacement_field",
+            "mi_96": "displacement_field",
+            "mi_98": "displacement_field",
+            "mi_101": "test_function",
+            "mi_107": "test_function",
+            "mi_113": "test_function",
+            "mi_124": "test_function",
+            "mi_129": "test_function",
+            "mi_104": "domain",
+            "mi_110": "domain",
+            "mi_116": "domain",
+            "mi_94": "domain",
+            "mi_105": "density",
+            "mi_95": "density",
+            "mi_106": "body_force",
+            "mi_111": "pressure",
+            "mi_117": "viscosity",
+            "mi_127": "boundary",
+            "mi_128": "traction_vector",
+            "mi_97": "time"
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "body_force": {
+            "justifications": {
+                "concept_name": "body_force",
+                "description": "External body forces acting on the fluid, such as gravity or electromagnetic forces.\n",
+                "justifications": ":\nThe symbol 'b' appears in boldface in the momentum equation as \u03c1b, representing a vector field of external forces acting on the fluid."
+            },
+            "grounding_ids_raw": [
+                "p_2",
+                "formula_1"
+            ]
+        },
+        "boundary": {
+            "justifications": {
+                "concept_name": "boundary",
+                "description": "The boundary of the computational domain, where boundary conditions are applied.\n",
+                "justifications": ":\nThe symbol '\u2202\u03a9' appears in the boundary integral term and is referenced in the context of Dirichlet and Neumann boundary conditions. It is described as a (d\u22121)-dimensional surface in R^d."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "p_8",
+                "p_9",
+                "p_10",
+                "p_11",
+                "p_19",
+                "formula_9"
+            ]
+        },
+        "density": {
+            "justifications": {
+                "concept_name": "density",
+                "description": "The fluid density, a scalar field that appears in both momentum and continuity equations.\n",
+                "justifications": ":\nThe symbol '\u03c1' is used in multiple equations involving mass and momentum conservation, such as in \u03c1(\u2202u/\u2202t + u\u22c5\u2207u) and in the continuity equation. It is a scalar field dependent on the fluid phase."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_2",
+                "formula_9"
+            ]
+        },
+        "differential_surface_element": {
+            "justifications": {
+                "concept_name": "differential_surface_element",
+                "description": "The differential surface element used in surface integrals over the boundary \u2202\u03a9.\n",
+                "justifications": ":\nThe symbol 'd(\u2202\u03a9)' appears in the boundary integral term \u222b\u2202\u03a9 T\u22c5w d(\u2202\u03a9), indicating the surface element on the boundary. It is used to integrate over the boundary of the domain."
+            },
+            "grounding_ids_raw": [
+                "formula_9"
+            ]
+        },
+        "differential_volume_element": {
+            "justifications": {
+                "concept_name": "differential_volume_element",
+                "description": "The differential volume element used in volume integrals over the domain \u03a9.\n",
+                "justifications": ":\nThe symbol 'd\u03a9' appears multiple times in integrals, such as \u222b\u03a9 \u03c1(\u2202u/\u2202t + u\u22c5\u2207u)\u22c5w d\u03a9, and is used to denote the volume element in the domain. It is a standard notation in finite element methods."
+            },
+            "grounding_ids_raw": [
+                "p_19",
+                "formula_9"
+            ]
+        },
+        "displacement_field": {
+            "justifications": {
+                "concept_name": "displacement_field",
+                "description": "The vector field representing the fluid displacement in space and time.\n",
+                "justifications": ":\nThe symbol 'u' appears multiple times in boldface, consistently denoting a vector field in the momentum and continuity equations, such as in \u2202u/\u2202t and u\u22c5\u2207u. It is central to the governing equations and is used in both the weak form and physical equations."
+            },
+            "grounding_ids_raw": [
+                "p_2",
+                "p_4",
+                "p_19",
+                "p_21"
+            ]
+        },
+        "domain": {
+            "justifications": {
+                "concept_name": "domain",
+                "description": "The main computational domain in which the fluid dynamics equations are defined.\n",
+                "justifications": ":\nThe symbol '\u03a9' is used to denote the fluid domain in multiple equations, including the domain of integration and boundary conditions. It is explicitly defined as a subset of R^d and bounded by \u2202\u03a9."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_1",
+                "formula_2",
+                "formula_6",
+                "p_14",
+                "formula_7",
+                "formula_8"
+            ]
+        },
+        "pressure": {
+            "justifications": {
+                "concept_name": "pressure",
+                "description": "The scalar pressure field within the fluid, used in the weak form to couple with the velocity field.\n",
+                "justifications": ":\nThe symbol 'p' appears in the weak form as a term involving \u222b\u03a9 p\u2207\u22c5w d\u03a9, and is part of the stress tensor in the constitutive equation. It is a scalar field associated with fluid pressure."
+            },
+            "grounding_ids_raw": [
+                "formula_9",
+                "formula_6"
+            ]
+        },
+        "test_function": {
+            "justifications": {
+                "concept_name": "test_function",
+                "description": "A test function used in the weak formulation to enforce continuity and boundary conditions.\n",
+                "justifications": ":\nThe symbol 'w' appears repeatedly in boldface within integrals, such as in \u222b\u03a9 \u03c1(u\u22c5\u2207u)\u22c5w d\u03a9, and is described as a test function in a Sobolev space. It vanishes at Dirichlet boundaries and is used to derive the variational form."
+            },
+            "grounding_ids_raw": [
+                "p_19",
+                "formula_9",
+                "p_21"
+            ]
+        },
+        "time": {
+            "justifications": {
+                "concept_name": "time",
+                "description": "The time variable used in time-dependent equations, such as in \u2202u/\u2202t.\n",
+                "justifications": ":\nThe symbol 't' appears in the time derivative \u2202u/\u2202t and in initial and boundary conditions. It is a scalar variable that evolves over time in the physical domain."
+            },
+            "grounding_ids_raw": [
+                "p_2",
+                "p_4",
+                "p_5",
+                "p_6",
+                "p_8",
+                "p_10",
+                "formula_1",
+                "formula_2",
+                "formula_3",
+                "formula_4",
+                "formula_5",
+                "formula_6",
+                "formula_7",
+                "formula_8",
+                "formula_9",
+                "formula_10"
+            ]
+        },
+        "traction_vector": {
+            "justifications": {
+                "concept_name": "traction_vector",
+                "description": "The surface traction vector at the interface or boundary, calculated as n\u22c5\u03c3.\n",
+                "justifications": ":\nThe symbol 'T' appears in boldface in the boundary integral and is defined as T = n\u22c5\u03c3, where n is the normal vector. It represents the force per unit area on the boundary."
+            },
+            "grounding_ids_raw": [
+                "p_11",
+                "formula_5"
+            ]
+        },
+        "viscosity": {
+            "justifications": {
+                "concept_name": "viscosity",
+                "description": "The scalar coefficient representing the fluid's resistance to shear deformation.\n",
+                "justifications": ":\nThe symbol '\u03bc' appears in the constitutive equation as \u03bc(\u2207u + \u2207u^T), indicating its role in the viscous stress tensor. It is a material property of the fluid."
+            },
+            "grounding_ids_raw": [
+                "formula_6"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "body_force": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "boundary": {
+                    "spans": [
+                        "p_5_3",
+                        "p_11_3",
+                        "p_5_5",
+                        "p_11_0",
+                        "p_5_0",
+                        "p_19_2",
+                        "p_19_3",
+                        "p_5_1",
+                        "p_5_6",
+                        "p_11_2",
+                        "p_11_1",
+                        "p_19_0",
+                        "p_19_1",
+                        "p_9_0",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_5_4"
+                    ],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "density": {
+                    "spans": [],
+                    "divs": [
+                        "formula_2",
+                        "formula_1",
+                        "formula_9"
+                    ]
+                },
+                "differential_surface_element": {
+                    "spans": [],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "differential_volume_element": {
+                    "spans": [
+                        "p_19_2",
+                        "p_19_0",
+                        "p_19_1",
+                        "p_19_3"
+                    ],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "displacement_field": {
+                    "spans": [
+                        "p_21_3",
+                        "p_21_6",
+                        "p_21_7",
+                        "p_19_2",
+                        "p_19_3",
+                        "p_21_4",
+                        "p_21_5",
+                        "p_19_0",
+                        "p_19_1",
+                        "p_21_1",
+                        "p_21_2",
+                        "p_21_0"
+                    ],
+                    "divs": []
+                },
+                "domain": {
+                    "spans": [
+                        "p_5_3",
+                        "p_14_12",
+                        "p_14_0",
+                        "p_14_5",
+                        "p_14_8",
+                        "p_14_1",
+                        "p_14_4",
+                        "p_5_1",
+                        "p_14_13",
+                        "p_14_2",
+                        "p_14_10",
+                        "p_14_6",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_14_11",
+                        "p_14_14",
+                        "p_14_16",
+                        "p_14_9",
+                        "p_14_3",
+                        "p_5_4",
+                        "p_5_5",
+                        "p_14_7",
+                        "p_5_0",
+                        "p_14_15",
+                        "p_5_6"
+                    ],
+                    "divs": [
+                        "formula_2",
+                        "formula_8",
+                        "formula_1",
+                        "formula_6",
+                        "formula_7"
+                    ]
+                },
+                "pressure": {
+                    "spans": [],
+                    "divs": [
+                        "formula_6",
+                        "formula_9"
+                    ]
+                },
+                "test_function": {
+                    "spans": [
+                        "p_21_3",
+                        "p_21_6",
+                        "p_21_7",
+                        "p_19_2",
+                        "p_19_3",
+                        "p_21_4",
+                        "p_21_5",
+                        "p_19_0",
+                        "p_19_1",
+                        "p_21_1",
+                        "p_21_2",
+                        "p_21_0"
+                    ],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "time": {
+                    "spans": [
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_0",
+                        "p_5_1",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_5_4"
+                    ],
+                    "divs": [
+                        "formula_2",
+                        "formula_4",
+                        "formula_8",
+                        "formula_1",
+                        "formula_6",
+                        "formula_9",
+                        "formula_10",
+                        "formula_7",
+                        "formula_5",
+                        "formula_3"
+                    ]
+                },
+                "traction_vector": {
+                    "spans": [
+                        "p_11_0",
+                        "p_11_3",
+                        "p_11_2",
+                        "p_11_1"
+                    ],
+                    "divs": [
+                        "formula_5"
+                    ]
+                },
+                "viscosity": {
+                    "spans": [],
+                    "divs": [
+                        "formula_6"
+                    ]
+                }
+            },
+            "formal_sogs_list": [
+                {
+                    "mc_id": "body_force",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_11_3-start",
+                    "stop_id": "p_11_3-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_11_0-start",
+                    "stop_id": "p_11_0-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_19_2-start",
+                    "stop_id": "p_19_2-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_19_3-start",
+                    "stop_id": "p_19_3-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_11_2-start",
+                    "stop_id": "p_11_2-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_11_1-start",
+                    "stop_id": "p_11_1-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_19_0-start",
+                    "stop_id": "p_19_0-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_19_1-start",
+                    "stop_id": "p_19_1-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_9_0-start",
+                    "stop_id": "p_9_0-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "boundary",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "density",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "density",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "density",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "differential_surface_element",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "differential_volume_element",
+                    "start_id": "p_19_2-start",
+                    "stop_id": "p_19_2-end"
+                },
+                {
+                    "mc_id": "differential_volume_element",
+                    "start_id": "p_19_0-start",
+                    "stop_id": "p_19_0-end"
+                },
+                {
+                    "mc_id": "differential_volume_element",
+                    "start_id": "p_19_1-start",
+                    "stop_id": "p_19_1-end"
+                },
+                {
+                    "mc_id": "differential_volume_element",
+                    "start_id": "p_19_3-start",
+                    "stop_id": "p_19_3-end"
+                },
+                {
+                    "mc_id": "differential_volume_element",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_3-start",
+                    "stop_id": "p_21_3-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_6-start",
+                    "stop_id": "p_21_6-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_7-start",
+                    "stop_id": "p_21_7-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_19_2-start",
+                    "stop_id": "p_19_2-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_19_3-start",
+                    "stop_id": "p_19_3-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_4-start",
+                    "stop_id": "p_21_4-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_5-start",
+                    "stop_id": "p_21_5-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_19_0-start",
+                    "stop_id": "p_19_0-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_19_1-start",
+                    "stop_id": "p_19_1-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_1-start",
+                    "stop_id": "p_21_1-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_2-start",
+                    "stop_id": "p_21_2-end"
+                },
+                {
+                    "mc_id": "displacement_field",
+                    "start_id": "p_21_0-start",
+                    "stop_id": "p_21_0-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_13-start",
+                    "stop_id": "p_14_13-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_14-start",
+                    "stop_id": "p_14_14-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_16-start",
+                    "stop_id": "p_14_16-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_14_15-start",
+                    "stop_id": "p_14_15-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                },
+                {
+                    "mc_id": "domain",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
+                },
+                {
+                    "mc_id": "pressure",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                },
+                {
+                    "mc_id": "pressure",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_3-start",
+                    "stop_id": "p_21_3-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_6-start",
+                    "stop_id": "p_21_6-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_7-start",
+                    "stop_id": "p_21_7-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_19_2-start",
+                    "stop_id": "p_19_2-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_19_3-start",
+                    "stop_id": "p_19_3-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_4-start",
+                    "stop_id": "p_21_4-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_5-start",
+                    "stop_id": "p_21_5-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_19_0-start",
+                    "stop_id": "p_19_0-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_19_1-start",
+                    "stop_id": "p_19_1-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_1-start",
+                    "stop_id": "p_21_1-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_2-start",
+                    "stop_id": "p_21_2-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "p_21_0-start",
+                    "stop_id": "p_21_0-end"
+                },
+                {
+                    "mc_id": "test_function",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_4",
+                    "stop_id": "formula_4"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5"
+                },
+                {
+                    "mc_id": "time",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "traction_vector",
+                    "start_id": "p_11_0-start",
+                    "stop_id": "p_11_0-end"
+                },
+                {
+                    "mc_id": "traction_vector",
+                    "start_id": "p_11_3-start",
+                    "stop_id": "p_11_3-end"
+                },
+                {
+                    "mc_id": "traction_vector",
+                    "start_id": "p_11_2-start",
+                    "stop_id": "p_11_2-end"
+                },
+                {
+                    "mc_id": "traction_vector",
+                    "start_id": "p_11_1-start",
+                    "stop_id": "p_11_1-end"
+                },
+                {
+                    "mc_id": "traction_vector",
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5"
+                },
+                {
+                    "mc_id": "viscosity",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                }
+            ]
+        }
+    }
+}

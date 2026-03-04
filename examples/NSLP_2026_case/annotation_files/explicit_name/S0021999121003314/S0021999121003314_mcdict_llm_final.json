@@ -1,0 +1,580 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Part of the boundary \u0393 where Neumann boundary conditions are applied, corresponding to the traction boundary.\nJUSTIFICATION:\nThe symbol \u0393_N is explicitly defined as a part of the boundary \u0393 where Neumann boundary conditions are imposed (Eq. (7)) and appears in the weak formulation as the domain of the boundary integral.",
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_10_2-start",
+                    "stop_id": "p_10_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_10_0-start",
+                    "stop_id": "p_10_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_10_3-start",
+                    "stop_id": "p_10_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_10_1-start",
+                    "stop_id": "p_10_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Placeholder Gamma_N",
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_nabla_s": {
+            "code_var_name": "nabla_s",
+            "description": "Placeholder nabla_s",
+            "primitive_symbols": [
+                "e28887",
+                "73"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_p_h": {
+            "code_var_name": "p_h",
+            "description": "Placeholder p_h",
+            "primitive_symbols": [
+                "70",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u_h": {
+            "code_var_name": "u_h",
+            "description": "Placeholder u_h",
+            "primitive_symbols": [
+                "75",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w_h": {
+            "code_var_name": "w_h",
+            "description": "Placeholder w_h",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "mu": {
+            "code_var_name": "mu",
+            "description": "Dynamic viscosity of the fluid, which may depend on the shear rate and is a key parameter in the stress tensor formulation.\nJUSTIFICATION:\nThe symbol \u03bc is explicitly referred to as the dynamic viscosity and appears in the stress tensor expression (Eq. (3)) and in the Carreau model (Eq. (4)).",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_4",
+                    "stop_id": "formula_4",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "undefined-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "nabla_s": {
+            "code_var_name": "nabla_s",
+            "description": "Symmetric gradient operator, defined as half the sum of the gradient and its transpose, used to compute the shear rate and stress tensor.\nJUSTIFICATION:\nThe symbol \u2207s appears in the definition of the shear rate (Eq. (6)) and in the stress tensor (Eq. (3)), where it is applied to the velocity field. It is explicitly defined as \u2207u + (\u2207u)^T over 2, indicating it is a symmetric gradient operator.",
+            "primitive_symbols": [
+                "73",
+                "e28887"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_6_5-start",
+                    "stop_id": "p_6_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4-start",
+                    "stop_id": "p_6_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2-start",
+                    "stop_id": "p_6_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1-start",
+                    "stop_id": "p_6_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3-start",
+                    "stop_id": "p_6_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0-start",
+                    "stop_id": "p_6_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "operator"
+        },
+        "p_h": {
+            "code_var_name": "p_h",
+            "description": "Discretized pressure field in the finite element method, representing the approximate solution to the pressure.\nJUSTIFICATION:\nThe symbol p_h appears in the weak formulation (Eqs. (8) and (9)) as the pressure variable and is used in the divergence-free constraint and stabilization terms, with subscript h indicating finite element discretization.",
+            "primitive_symbols": [
+                "70",
+                "68"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "rho": {
+            "code_var_name": "rho",
+            "description": "Fluid density, a scalar quantity that appears in the momentum and mass balance equations.\nJUSTIFICATION:\nThe symbol \u03c1 is explicitly defined as the fluid density in the problem statement and appears in both the momentum and mass equations (Eq. (1) and (2)).",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_4_2-start",
+                    "stop_id": "p_4_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_9-start",
+                    "stop_id": "p_4_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_0-start",
+                    "stop_id": "p_4_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_8-start",
+                    "stop_id": "p_4_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_4-start",
+                    "stop_id": "p_4_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_10-start",
+                    "stop_id": "p_4_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_1-start",
+                    "stop_id": "p_4_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_7-start",
+                    "stop_id": "p_4_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_12-start",
+                    "stop_id": "p_4_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_3-start",
+                    "stop_id": "p_4_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_5-start",
+                    "stop_id": "p_4_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_11-start",
+                    "stop_id": "p_4_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_6-start",
+                    "stop_id": "p_4_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "numerical-variable",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "t": {
+            "code_var_name": "t",
+            "description": "Pseudo-traction vector on the Neumann boundary, representing the surface force applied on the boundary \u0393_N.\nJUSTIFICATION:\nThe symbol t is defined as a pseudo-traction on \u0393_N in the boundary condition (Eq. (7)) and appears in the weak formulation (Eq. (8)) as a boundary source term.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_13_3-start",
+                    "stop_id": "p_13_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_6-start",
+                    "stop_id": "p_13_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_7-start",
+                    "stop_id": "p_13_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_5-start",
+                    "stop_id": "p_13_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_2-start",
+                    "stop_id": "p_13_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_4-start",
+                    "stop_id": "p_13_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_1-start",
+                    "stop_id": "p_13_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_0-start",
+                    "stop_id": "p_13_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_13_8-start",
+                    "stop_id": "p_13_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "nodal-variable",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "u_h": {
+            "code_var_name": "u_h",
+            "description": "Discretized velocity field in the finite element method, representing the approximate solution to the fluid velocity.\nJUSTIFICATION:\nThe symbol u_h appears repeatedly in the weak formulation (Eqs. (8) and (9)) as the primary unknown and is used in both the momentum and incompressibility equations, with subscript h denoting the finite element approximation.",
+            "primitive_symbols": [
+                "68",
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "w_h": {
+            "code_var_name": "w_h",
+            "description": "Test function for the velocity field in the finite element discretization, belonging to the discrete velocity space.\nJUSTIFICATION:\nThe symbol w_h appears multiple times as a test function in the weak formulation (Eqs. (8) and (9)), with subscript h indicating its finite element discretized form, and is used in the inner product with u_h and p_h.",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "mi_126": {
+            "mc_id": "rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_136": {
+            "mc_id": "mu",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_152": {
+            "mc_id": "t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_30": {
+            "mc_id": "w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_31": {
+            "mc_id": "u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_32": {
+            "mc_id": "u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_33": {
+            "mc_id": "w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_34": {
+            "mc_id": "u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_35": {
+            "mc_id": "u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_36": {
+            "mc_id": "w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_37": {
+            "mc_id": "p_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_39": {
+            "mc_id": "w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_40": {
+            "mc_id": "Gamma_N",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msup_12": {
+            "mc_id": "nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        },
+        "msup_13": {
+            "mc_id": "nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        },
+        "msup_14": {
+            "mc_id": "nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        }
+    }
+}

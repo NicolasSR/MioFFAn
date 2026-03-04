@@ -365,7 +365,7 @@ def process_auto_segment_symbol_data(dom_tree_copy, validated_data):
 
     new_concepts_dict = dict()
     for symbol_name in new_groups_dict.keys() | new_occurrences_dict.keys():
-        new_concept = MathConcept(symbol_name, "", "symbol_placeholder", {}, [], list(deepcopy(concept_primitive_hex_sets_dict[symbol_name])))
+        new_concept = MathConcept(symbol_name, "", "symbol-placeholder", {}, [], list(deepcopy(concept_primitive_hex_sets_dict[symbol_name])))
         new_concepts_dict[symbol_name] = asdict(new_concept)
 
     return new_concepts_dict, new_groups_dict, new_occurrences_dict

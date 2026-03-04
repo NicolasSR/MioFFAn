@@ -1,0 +1,1477 @@
+{
+    "paper_id": "S0045782519305560",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_84\">\u03a9</mi>",
+                    "<mi id=\"mi_91\">\u03a9</mi>"
+                ]
+            },
+            "llm_placeholder_concept_sigma_u": {
+                "obj_name": "sigma_u",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi mathvariant=\"bold-italic\" id=\"mi_85\">\u03c3</mi><mrow><mo>(</mo><mrow><mi mathvariant=\"bold-italic\" id=\"mi_86\">u</mi></mrow><mo>)</mo></mrow></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_86\">u</mi>"
+                ]
+            },
+            "llm_placeholder_concept_epsilon_v": {
+                "obj_name": "epsilon_v",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi mathvariant=\"bold-italic\" id=\"mi_87\">\u03b5</mi><mrow><mo>(</mo><mrow><mi mathvariant=\"bold-italic\" id=\"mi_88\">v</mi></mrow><mo>)</mo></mrow></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_v": {
+                "obj_name": "v",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_88\">v</mi>",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_92\">v</mi>",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_99\">v</mi>",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_104\">v</mi>"
+                ]
+            },
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_89\">d</mi><mi id=\"mi_90\">\u03a9</mi></mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_95\">d</mi><mi id=\"mi_96\">\u03a9</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_b": {
+                "obj_name": "b",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_94\">b</mi>"
+                ]
+            },
+            "llm_placeholder_concept_Gamma_t": {
+                "obj_name": "Gamma_t",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_23\"><mrow><mi id=\"mi_97\">\u0393</mi></mrow><mrow><mi mathvariant=\"normal\" id=\"mi_98\">t</mi></mrow></msub>"
+                ]
+            },
+            "llm_placeholder_concept_t_bar": {
+                "obj_name": "t_bar",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_101\">t</mi>"
+                ]
+            },
+            "llm_placeholder_concept_d_Gamma": {
+                "obj_name": "d_Gamma",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-4\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_102\">d</mi><mi id=\"mi_103\">\u0393</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_V": {
+                "obj_name": "V",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"script\" id=\"mi_105\">V</mi>"
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "domain_Omega",
+                "type": "DOMAIN",
+                "description": "The main computational domain in the physical space, representing the region where the problem is defined.",
+                "justification": "The domain is explicitly defined as \u03a9 \u2282 R^d, and is referred to multiple times as the domain of interest, with subdomains and boundaries derived from it."
+            },
+            {
+                "name": "primal_variable_u",
+                "type": "VARIABLE",
+                "description": "The primary unknown field variable, such as temperature or displacement, depending on the problem context.",
+                "justification": "The symbol u is used throughout the paper to denote the primal variable, whether in thermal or elastostatic problems, and is the solution sought in the weak form."
+            },
+            {
+                "name": "test_function_v",
+                "type": "VARIABLE",
+                "description": "A test function used in the weak formulation, belonging to the function space V, and is varied over the domain to enforce the variational equation.",
+                "justification": "The variable v appears in multiple weak formulations as the test function, with the requirement that the bilinear form B(u,v) holds for all v \u2208 V."
+            },
+            {
+                "name": "stress_tensor_sigma_u",
+                "type": "OPERATOR",
+                "description": "The Cauchy stress tensor computed from the strain field via the constitutive relation \u03c3(u) = C\u03b5(u).",
+                "justification": "The expression \u03c3(u) is explicitly defined as the stress tensor, formed from the constitutive tensor C and the strain tensor \u03b5(u), and is used in the elastostatics weak form."
+            },
+            {
+                "name": "strain_tensor_epsilon_v",
+                "type": "OPERATOR",
+                "description": "The linearized strain tensor computed from the displacement field, defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T).",
+                "justification": "The strain tensor \u03b5(v) is explicitly defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T), and is used in the elastostatics formulation as the input to the stress tensor."
+            },
+            {
+                "name": "boundary_Gamma_t",
+                "type": "DOMAIN",
+                "description": "The portion of the boundary where Neumann boundary conditions (e.g., traction) are prescribed.",
+                "justification": "\u0393_t is explicitly defined as the boundary where Neumann boundary conditions are applied, such as prescribed heat flux or traction."
+            },
+            {
+                "name": "body_force_b",
+                "type": "VARIABLE",
+                "description": "The body force (e.g., gravitational or inertial force) acting within the domain, appearing in the weak form of elastostatics.",
+                "justification": "The body force b is introduced in the elastostatics weak form as a source term, and is integrated over the domain with the test function v."
+            },
+            {
+                "name": "traction_t_bar",
+                "type": "VARIABLE",
+                "description": "The prescribed traction (e.g., surface force) on the boundary \u0393_t, appearing in the boundary integral of the weak form.",
+                "justification": "The traction t is used in the boundary integral with the test function v, and is denoted with a macron (overline), indicating it is a prescribed boundary condition."
+            },
+            {
+                "name": "integration_domain_d_Omega",
+                "type": "INTEGRATION_VAR",
+                "description": "The differential element for integration over the domain \u03a9, used in volume integrals.",
+                "justification": "The symbol d\u03a9 appears in volume integrals over \u03a9, such as \u222b_\u03a9 \u2207v \u22c5 (\u2207u) d\u03a9, indicating it is the integration variable over the domain."
+            },
+            {
+                "name": "integration_boundary_d_Gamma",
+                "type": "INTEGRATION_VAR",
+                "description": "The differential element for integration over the boundary \u0393, used in surface integrals.",
+                "justification": "The symbol d\u0393 appears in boundary integrals over \u0393_t, such as \u222b_{\u0393_t} v \u22c5 t_bar d\u0393, indicating it is the surface integration element."
+            },
+            {
+                "name": "function_space_V",
+                "type": "DOMAIN",
+                "description": "The function space of test functions, which must be chosen to satisfy the boundary conditions and is used in the weak formulation.",
+                "justification": "The space V is repeatedly referenced as the space of test functions, with the requirement that the weak form holds for all v \u2208 V."
+            }
+        ],
+        "concept_assignments": {
+            "Omega": "domain_Omega",
+            "sigma_u": "stress_tensor_sigma_u",
+            "u": "primal_variable_u",
+            "epsilon_v": "strain_tensor_epsilon_v",
+            "v": "test_function_v",
+            "d_Omega": "integration_domain_d_Omega",
+            "b": "body_force_b",
+            "Gamma_t": "boundary_Gamma_t",
+            "t_bar": "traction_t_bar",
+            "d_Gamma": "integration_boundary_d_Gamma",
+            "V": "function_space_V"
+        },
+        "properties_assignment": {
+            "primal_variable_u": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "test_function_v": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "body_force_b": {
+                "type": "defined-function",
+                "tensor_rank": "1"
+            },
+            "traction_t_bar": {
+                "type": "defined-function",
+                "tensor_rank": "1"
+            }
+        },
+        "final_concepts": {
+            "domain_Omega": {
+                "code_var_name": "domain_Omega",
+                "description": "The main computational domain in the physical space, representing the region where the problem is defined.\nJUSTIFICATION:\nThe domain is explicitly defined as \u03a9 \u2282 R^d, and is referred to multiple times as the domain of interest, with subdomains and boundaries derived from it.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "primal_variable_u": {
+                "code_var_name": "primal_variable_u",
+                "description": "The primary unknown field variable, such as temperature or displacement, depending on the problem context.\nJUSTIFICATION:\nThe symbol u is used throughout the paper to denote the primal variable, whether in thermal or elastostatic problems, and is the solution sought in the weak form.",
+                "options": [
+                    "trial-function"
+                ],
+                "primitive_symbols": [
+                    "75"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "test_function_v": {
+                "code_var_name": "test_function_v",
+                "description": "A test function used in the weak formulation, belonging to the function space V, and is varied over the domain to enforce the variational equation.\nJUSTIFICATION:\nThe variable v appears in multiple weak formulations as the test function, with the requirement that the bilinear form B(u,v) holds for all v \u2208 V.",
+                "options": [
+                    "test-function"
+                ],
+                "primitive_symbols": [
+                    "76"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "stress_tensor_sigma_u": {
+                "code_var_name": "stress_tensor_sigma_u",
+                "description": "The Cauchy stress tensor computed from the strain field via the constitutive relation \u03c3(u) = C\u03b5(u).\nJUSTIFICATION:\nThe expression \u03c3(u) is explicitly defined as the stress tensor, formed from the constitutive tensor C and the strain tensor \u03b5(u), and is used in the elastostatics weak form.",
+                "options": [
+                    "operator"
+                ],
+                "primitive_symbols": [
+                    "cf83",
+                    "75"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "strain_tensor_epsilon_v": {
+                "code_var_name": "strain_tensor_epsilon_v",
+                "description": "The linearized strain tensor computed from the displacement field, defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T).\nJUSTIFICATION:\nThe strain tensor \u03b5(v) is explicitly defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T), and is used in the elastostatics formulation as the input to the stress tensor.",
+                "options": [
+                    "operator"
+                ],
+                "primitive_symbols": [
+                    "ceb5",
+                    "76"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "boundary_Gamma_t": {
+                "code_var_name": "boundary_Gamma_t",
+                "description": "The portion of the boundary where Neumann boundary conditions (e.g., traction) are prescribed.\nJUSTIFICATION:\n\u0393_t is explicitly defined as the boundary where Neumann boundary conditions are applied, such as prescribed heat flux or traction.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "74",
+                    "ce93"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "body_force_b": {
+                "code_var_name": "body_force_b",
+                "description": "The body force (e.g., gravitational or inertial force) acting within the domain, appearing in the weak form of elastostatics.\nJUSTIFICATION:\nThe body force b is introduced in the elastostatics weak form as a source term, and is integrated over the domain with the test function v.",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "62"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "traction_t_bar": {
+                "code_var_name": "traction_t_bar",
+                "description": "The prescribed traction (e.g., surface force) on the boundary \u0393_t, appearing in the boundary integral of the weak form.\nJUSTIFICATION:\nThe traction t is used in the boundary integral with the test function v, and is denoted with a macron (overline), indicating it is a prescribed boundary condition.",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "74"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "integration_domain_d_Omega": {
+                "code_var_name": "integration_domain_d_Omega",
+                "description": "The differential element for integration over the domain \u03a9, used in volume integrals.\nJUSTIFICATION:\nThe symbol d\u03a9 appears in volume integrals over \u03a9, such as \u222b_\u03a9 \u2207v \u22c5 (\u2207u) d\u03a9, indicating it is the integration variable over the domain.",
+                "options": [
+                    "integration-var"
+                ],
+                "primitive_symbols": [
+                    "64",
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "integration_boundary_d_Gamma": {
+                "code_var_name": "integration_boundary_d_Gamma",
+                "description": "The differential element for integration over the boundary \u0393, used in surface integrals.\nJUSTIFICATION:\nThe symbol d\u0393 appears in boundary integrals over \u0393_t, such as \u222b_{\u0393_t} v \u22c5 t_bar d\u0393, indicating it is the surface integration element.",
+                "options": [
+                    "integration-var"
+                ],
+                "primitive_symbols": [
+                    "64",
+                    "ce93"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "function_space_V": {
+                "code_var_name": "function_space_V",
+                "description": "The function space of test functions, which must be chosen to satisfy the boundary conditions and is used in the weak formulation.\nJUSTIFICATION:\nThe space V is repeatedly referenced as the space of test functions, with the requirement that the weak form holds for all v \u2208 V.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "56"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            }
+        },
+        "final_occurrences": {
+            "mi_84": "domain_Omega",
+            "mi_91": "domain_Omega",
+            "custom-group-0": "stress_tensor_sigma_u",
+            "mi_86": "primal_variable_u",
+            "custom-group-1": "strain_tensor_epsilon_v",
+            "mi_88": "test_function_v",
+            "mi_92": "test_function_v",
+            "mi_99": "test_function_v",
+            "mi_104": "test_function_v",
+            "custom-group-2": "integration_domain_d_Omega",
+            "custom-group-3": "integration_domain_d_Omega",
+            "mi_94": "body_force_b",
+            "msub_23": "boundary_Gamma_t",
+            "mi_101": "traction_t_bar",
+            "custom-group-4": "integration_boundary_d_Gamma",
+            "mi_105": "function_space_V"
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "body_force_b": {
+            "justifications": {
+                "concept_name": "body_force_b",
+                "description": "The body force (e.g., gravitational or inertial force) acting within the domain, appearing in the weak form of elastostatics.\n",
+                "justifications": ":\nThe body force b is introduced in the elastostatics weak form as a source term, and is integrated over the domain with the test function v."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "formula_2"
+            ]
+        },
+        "boundary_Gamma_t": {
+            "justifications": {
+                "concept_name": "boundary_Gamma_t",
+                "description": "The portion of the boundary where Neumann boundary conditions (e.g., traction) are prescribed.\n",
+                "justifications": ":\n\u0393_t is explicitly defined as the boundary where Neumann boundary conditions are applied, such as prescribed heat flux or traction."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "p_3"
+            ]
+        },
+        "domain_Omega": {
+            "justifications": {
+                "concept_name": "domain_Omega",
+                "description": "The main computational domain in the physical space, representing the region where the problem is defined.\n",
+                "justifications": ":\nThe domain is explicitly defined as \u03a9 \u2282 R^d, and is referred to multiple times as the domain of interest, with subdomains and boundaries derived from it."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "function_space_V": {
+            "justifications": {
+                "concept_name": "function_space_V",
+                "description": "The function space of test functions, which must be chosen to satisfy the boundary conditions and is used in the weak formulation.\n",
+                "justifications": ":\nThe space V is repeatedly referenced as the space of test functions, with the requirement that the weak form holds for all v \u2208 V."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_5",
+                "p_7"
+            ]
+        },
+        "integration_boundary_d_Gamma": {
+            "justifications": {
+                "concept_name": "integration_boundary_d_Gamma",
+                "description": "The differential element for integration over the boundary \u0393, used in surface integrals.\n",
+                "justifications": ":\nThe symbol d\u0393 appears in boundary integrals over \u0393_t, such as \u222b_{\u0393_t} v \u22c5 t_bar d\u0393, indicating it is the surface integration element."
+            },
+            "grounding_ids_raw": [
+                "formula_2"
+            ]
+        },
+        "integration_domain_d_Omega": {
+            "justifications": {
+                "concept_name": "integration_domain_d_Omega",
+                "description": "The differential element for integration over the domain \u03a9, used in volume integrals.\n",
+                "justifications": ":\nThe symbol d\u03a9 appears in volume integrals over \u03a9, such as \u222b_\u03a9 \u2207v \u22c5 (\u2207u) d\u03a9, indicating it is the integration variable over the domain."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_2",
+                "formula_3"
+            ]
+        },
+        "primal_variable_u": {
+            "justifications": {
+                "concept_name": "primal_variable_u",
+                "description": "The primary unknown field variable, such as temperature or displacement, depending on the problem context.\n",
+                "justifications": ":\nThe symbol u is used throughout the paper to denote the primal variable, whether in thermal or elastostatic problems, and is the solution sought in the weak form."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_3"
+            ]
+        },
+        "strain_tensor_epsilon_v": {
+            "justifications": {
+                "concept_name": "strain_tensor_epsilon_v",
+                "description": "The linearized strain tensor computed from the displacement field, defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T).\n",
+                "justifications": ":\nThe strain tensor \u03b5(v) is explicitly defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T), and is used in the elastostatics formulation as the input to the stress tensor."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_2"
+            ]
+        },
+        "stress_tensor_sigma_u": {
+            "justifications": {
+                "concept_name": "stress_tensor_sigma_u",
+                "description": "The Cauchy stress tensor computed from the strain field via the constitutive relation \u03c3(u) = C\u03b5(u).\n",
+                "justifications": ":\nThe expression \u03c3(u) is explicitly defined as the stress tensor, formed from the constitutive tensor C and the strain tensor \u03b5(u), and is used in the elastostatics weak form."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_2"
+            ]
+        },
+        "test_function_v": {
+            "justifications": {
+                "concept_name": "test_function_v",
+                "description": "A test function used in the weak formulation, belonging to the function space V, and is varied over the domain to enforce the variational equation.\n",
+                "justifications": ":\nThe variable v appears in multiple weak formulations as the test function, with the requirement that the bilinear form B(u,v) holds for all v \u2208 V."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_5",
+                "formula_1",
+                "formula_2",
+                "formula_3"
+            ]
+        },
+        "traction_t_bar": {
+            "justifications": {
+                "concept_name": "traction_t_bar",
+                "description": "The prescribed traction (e.g., surface force) on the boundary \u0393_t, appearing in the boundary integral of the weak form.\n",
+                "justifications": ":\nThe traction t is used in the boundary integral with the test function v, and is denoted with a macron (overline), indicating it is a prescribed boundary condition."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "formula_2"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "body_force_b": {
+                    "spans": [
+                        "p_3_0",
+                        "p_3_3",
+                        "p_3_5",
+                        "p_3_7",
+                        "p_3_2",
+                        "p_3_1",
+                        "p_3_4",
+                        "p_3_6"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "boundary_Gamma_t": {
+                    "spans": [
+                        "p_3_0",
+                        "p_1_21",
+                        "p_1_11",
+                        "p_1_10",
+                        "p_1_8",
+                        "p_3_6",
+                        "p_1_1",
+                        "p_3_5",
+                        "p_1_3",
+                        "p_1_4",
+                        "p_1_13",
+                        "p_1_5",
+                        "p_1_14",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_17",
+                        "p_1_12",
+                        "p_3_3",
+                        "p_3_7",
+                        "p_1_2",
+                        "p_1_6",
+                        "p_3_1",
+                        "p_3_2",
+                        "p_1_18",
+                        "p_1_7",
+                        "p_1_20",
+                        "p_1_16",
+                        "p_1_9",
+                        "p_1_15",
+                        "p_1_0",
+                        "p_3_4",
+                        "p_1_23"
+                    ],
+                    "divs": []
+                },
+                "domain_Omega": {
+                    "spans": [
+                        "p_1_21",
+                        "p_1_11",
+                        "p_1_10",
+                        "p_1_8",
+                        "p_1_1",
+                        "p_1_3",
+                        "p_1_4",
+                        "p_1_13",
+                        "p_1_5",
+                        "p_1_14",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_17",
+                        "p_1_12",
+                        "p_1_2",
+                        "p_1_6",
+                        "p_1_18",
+                        "p_1_7",
+                        "p_1_20",
+                        "p_1_16",
+                        "p_1_9",
+                        "p_1_15",
+                        "p_1_0",
+                        "p_1_23"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "function_space_V": {
+                    "spans": [
+                        "p_3_0",
+                        "p_5_3",
+                        "p_5_8",
+                        "p_7_6",
+                        "p_3_6",
+                        "p_5_0",
+                        "p_7_3",
+                        "p_7_1",
+                        "p_7_4",
+                        "p_7_0",
+                        "p_3_5",
+                        "p_5_9",
+                        "p_3_3",
+                        "p_5_5",
+                        "p_3_7",
+                        "p_3_2",
+                        "p_3_1",
+                        "p_7_5",
+                        "p_5_1",
+                        "p_5_7",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_4",
+                        "p_3_4",
+                        "p_7_2"
+                    ],
+                    "divs": []
+                },
+                "integration_boundary_d_Gamma": {
+                    "spans": [],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "integration_domain_d_Omega": {
+                    "spans": [],
+                    "divs": [
+                        "formula_3",
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "primal_variable_u": {
+                    "spans": [
+                        "p_5_1",
+                        "p_5_7",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_4",
+                        "p_5_8",
+                        "p_5_9",
+                        "p_5_0"
+                    ],
+                    "divs": [
+                        "formula_3"
+                    ]
+                },
+                "strain_tensor_epsilon_v": {
+                    "spans": [
+                        "p_5_1",
+                        "p_5_7",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_4",
+                        "p_5_8",
+                        "p_5_9",
+                        "p_5_0"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "stress_tensor_sigma_u": {
+                    "spans": [
+                        "p_5_1",
+                        "p_5_7",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_4",
+                        "p_5_8",
+                        "p_5_9",
+                        "p_5_0"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "test_function_v": {
+                    "spans": [
+                        "p_5_1",
+                        "p_3_0",
+                        "p_5_7",
+                        "p_5_6",
+                        "p_5_2",
+                        "p_5_3",
+                        "p_3_3",
+                        "p_3_5",
+                        "p_5_5",
+                        "p_5_4",
+                        "p_3_7",
+                        "p_3_2",
+                        "p_3_1",
+                        "p_3_4",
+                        "p_5_8",
+                        "p_5_9",
+                        "p_3_6",
+                        "p_5_0"
+                    ],
+                    "divs": [
+                        "formula_3",
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "traction_t_bar": {
+                    "spans": [
+                        "p_3_0",
+                        "p_3_3",
+                        "p_3_5",
+                        "p_3_7",
+                        "p_3_2",
+                        "p_3_1",
+                        "p_3_4",
+                        "p_3_6"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                }
+            },
+            "formal_sogs_list": [
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "body_force_b",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma_t",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_6-start",
+                    "stop_id": "p_7_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_3-start",
+                    "stop_id": "p_7_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_1-start",
+                    "stop_id": "p_7_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_4-start",
+                    "stop_id": "p_7_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_0-start",
+                    "stop_id": "p_7_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_5-start",
+                    "stop_id": "p_7_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_2-start",
+                    "stop_id": "p_7_2-end"
+                },
+                {
+                    "mc_id": "integration_boundary_d_Gamma",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "integration_domain_d_Omega",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "integration_domain_d_Omega",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "integration_domain_d_Omega",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "primal_variable_u",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "strain_tensor_epsilon_v",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "stress_tensor_sigma_u",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "traction_t_bar",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,1416 @@
+{
+    "paper_id": "S0045782519305560",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_60\">d</mi><mi id=\"mi_61\">\u03a9</mi></mstyle>",
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_65\">d</mi><mi id=\"mi_66\">\u03a9</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_Gamma": {
+                "obj_name": "d_Gamma",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_71\">d</mi><mi id=\"mi_72\">\u0393</mi></mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_53\">\u03a9</mi>",
+                    "<mi id=\"mi_62\">\u03a9</mi>"
+                ]
+            },
+            "llm_placeholder_concept_v": {
+                "obj_name": "v",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_55\">v</mi>",
+                    "<mi id=\"mi_63\">v</mi>",
+                    "<mi id=\"mi_69\">v</mi>",
+                    "<mi id=\"mi_73\">v</mi>"
+                ]
+            },
+            "llm_placeholder_concept_kappa": {
+                "obj_name": "kappa",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_57\">\u03ba</mi>"
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_59\">u</mi>"
+                ]
+            },
+            "llm_placeholder_concept_f": {
+                "obj_name": "f",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_64\">f</mi>"
+                ]
+            },
+            "llm_placeholder_concept_q_bar": {
+                "obj_name": "q_bar",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_70\">q</mi>"
+                ]
+            },
+            "llm_placeholder_concept_V": {
+                "obj_name": "V",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>"
+                ]
+            },
+            "llm_placeholder_concept_Gamma_t": {
+                "obj_name": "Gamma_t",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_18\"><mrow><mi id=\"mi_67\">\u0393</mi></mrow><mrow><mi mathvariant=\"normal\" id=\"mi_68\">t</mi></mrow></msub>"
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "domain_Omega",
+                "type": "DOMAIN",
+                "description": "The main computational domain in the physical space, defined as a subset of R^d.",
+                "justification": "The domain of interest is defined as a region \u03a9 \u2282 R^d. This is explicitly stated in the text as the domain of interest and is referred to throughout the weak formulation."
+            },
+            {
+                "name": "boundary_Gamma",
+                "type": "DOMAIN",
+                "description": "The boundary of the domain \u03a9, defined as the closure of \u03a9 minus \u03a9 itself, denoted by \u0393.",
+                "justification": "The domain boundary \u2202\u03a9 \u2261 \u0393 is defined as the closure of \u03a9 minus \u03a9, and is composed of disjoint regions \u0393_u and \u0393_t. This is explicitly stated in the paper."
+            },
+            {
+                "name": "displacement_field_u",
+                "type": "VARIABLE",
+                "description": "The primal unknown field (temperature or displacement) that is sought in the weak formulation.",
+                "justification": "The variable u is used to denote the primal variable in both thermal and elastostatic problems, and is found in the weak form as the solution to be determined. It is used in both the left-hand and right-hand sides of the equations."
+            },
+            {
+                "name": "test_function_v",
+                "type": "VARIABLE",
+                "description": "The test function used in the Galerkin formulation, belonging to the function space V.",
+                "justification": "The symbol v appears in the weak form as a test function, with the condition \u2200v \u2208 V, and is used in integrals over \u03a9 and \u0393_t. It is a standard element in variational formulations."
+            },
+            {
+                "name": "thermal_conductivity_kappa",
+                "type": "VARIABLE",
+                "description": "The thermal conductivity tensor, which appears in the diffusion term of the weak form.",
+                "justification": "The thermal conductivity \u03ba is explicitly mentioned as a given parameter in the thermal boundary value problem and appears in the gradient term \u2207(\u03ba\u2207u)."
+            },
+            {
+                "name": "heat_source_f",
+                "type": "VARIABLE",
+                "description": "The internal heat source term in the thermal problem, appearing in the right-hand side of the weak form.",
+                "justification": "The heat source f is explicitly mentioned and appears in the integral over \u03a9 as v f d\u03a9 in the weak form of the thermal problem."
+            },
+            {
+                "name": "heat_flux_q_bar",
+                "type": "VARIABLE",
+                "description": "The prescribed heat flux on the Neumann boundary \u0393_t, appearing in the boundary integral.",
+                "justification": "The prescribed heat flux q\u0304 is mentioned and appears in the boundary integral over \u0393_t as v q\u0304 d\u0393 in the thermal weak form."
+            },
+            {
+                "name": "function_space_V",
+                "type": "DOMAIN",
+                "description": "The test function space, which contains functions v used in the Galerkin method, with Dirichlet boundary conditions on \u0393_u.",
+                "justification": "The function space V is explicitly defined as the space of test functions, and v \u2208 V is required in the weak form. It is used in the variational formulation and is associated with the boundary conditions."
+            },
+            {
+                "name": "neumann_boundary_Gamma_t",
+                "type": "DOMAIN",
+                "description": "The part of the boundary where Neumann boundary conditions (prescribed flux) are applied, denoted as \u0393_t.",
+                "justification": "The boundary \u0393_t is explicitly defined as the region where Neumann boundary conditions (prescribed heat flux) are prescribed, and appears in the boundary integral of the weak form."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "domain_Omega",
+            "d_Gamma": "boundary_Gamma",
+            "Omega": "domain_Omega",
+            "v": "test_function_v",
+            "kappa": "thermal_conductivity_kappa",
+            "u": "displacement_field_u",
+            "f": "heat_source_f",
+            "q_bar": "heat_flux_q_bar",
+            "V": "function_space_V",
+            "Gamma_t": "neumann_boundary_Gamma_t"
+        },
+        "properties_assignment": {
+            "displacement_field_u": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "test_function_v": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "thermal_conductivity_kappa": {
+                "type": "defined-function",
+                "tensor_rank": "2"
+            },
+            "heat_source_f": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "heat_flux_q_bar": {
+                "type": "undefined-function",
+                "tensor_rank": "1"
+            }
+        },
+        "final_concepts": {
+            "domain_Omega": {
+                "code_var_name": "domain_Omega",
+                "description": "The main computational domain in the physical space, defined as a subset of R^d.\nJUSTIFICATION:\nThe domain of interest is defined as a region \u03a9 \u2282 R^d. This is explicitly stated in the text as the domain of interest and is referred to throughout the weak formulation.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "64",
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "boundary_Gamma": {
+                "code_var_name": "boundary_Gamma",
+                "description": "The boundary of the domain \u03a9, defined as the closure of \u03a9 minus \u03a9 itself, denoted by \u0393.\nJUSTIFICATION:\nThe domain boundary \u2202\u03a9 \u2261 \u0393 is defined as the closure of \u03a9 minus \u03a9, and is composed of disjoint regions \u0393_u and \u0393_t. This is explicitly stated in the paper.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "64",
+                    "ce93"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "displacement_field_u": {
+                "code_var_name": "displacement_field_u",
+                "description": "The primal unknown field (temperature or displacement) that is sought in the weak formulation.\nJUSTIFICATION:\nThe variable u is used to denote the primal variable in both thermal and elastostatic problems, and is found in the weak form as the solution to be determined. It is used in both the left-hand and right-hand sides of the equations.",
+                "options": [
+                    "trial-function"
+                ],
+                "primitive_symbols": [
+                    "75"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "test_function_v": {
+                "code_var_name": "test_function_v",
+                "description": "The test function used in the Galerkin formulation, belonging to the function space V.\nJUSTIFICATION:\nThe symbol v appears in the weak form as a test function, with the condition \u2200v \u2208 V, and is used in integrals over \u03a9 and \u0393_t. It is a standard element in variational formulations.",
+                "options": [
+                    "test-function"
+                ],
+                "primitive_symbols": [
+                    "76"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "thermal_conductivity_kappa": {
+                "code_var_name": "thermal_conductivity_kappa",
+                "description": "The thermal conductivity tensor, which appears in the diffusion term of the weak form.\nJUSTIFICATION:\nThe thermal conductivity \u03ba is explicitly mentioned as a given parameter in the thermal boundary value problem and appears in the gradient term \u2207(\u03ba\u2207u).",
+                "options": [
+                    "defined-function"
+                ],
+                "primitive_symbols": [
+                    "ceba"
+                ],
+                "sog_list": [],
+                "tensor_rank": "2"
+            },
+            "heat_source_f": {
+                "code_var_name": "heat_source_f",
+                "description": "The internal heat source term in the thermal problem, appearing in the right-hand side of the weak form.\nJUSTIFICATION:\nThe heat source f is explicitly mentioned and appears in the integral over \u03a9 as v f d\u03a9 in the weak form of the thermal problem.",
+                "options": [
+                    "numerical-variable"
+                ],
+                "primitive_symbols": [
+                    "66"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "heat_flux_q_bar": {
+                "code_var_name": "heat_flux_q_bar",
+                "description": "The prescribed heat flux on the Neumann boundary \u0393_t, appearing in the boundary integral.\nJUSTIFICATION:\nThe prescribed heat flux q\u0304 is mentioned and appears in the boundary integral over \u0393_t as v q\u0304 d\u0393 in the thermal weak form.",
+                "options": [
+                    "undefined-function"
+                ],
+                "primitive_symbols": [
+                    "71"
+                ],
+                "sog_list": [],
+                "tensor_rank": "1"
+            },
+            "function_space_V": {
+                "code_var_name": "function_space_V",
+                "description": "The test function space, which contains functions v used in the Galerkin method, with Dirichlet boundary conditions on \u0393_u.\nJUSTIFICATION:\nThe function space V is explicitly defined as the space of test functions, and v \u2208 V is required in the weak form. It is used in the variational formulation and is associated with the boundary conditions.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "56"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "neumann_boundary_Gamma_t": {
+                "code_var_name": "neumann_boundary_Gamma_t",
+                "description": "The part of the boundary where Neumann boundary conditions (prescribed flux) are applied, denoted as \u0393_t.\nJUSTIFICATION:\nThe boundary \u0393_t is explicitly defined as the region where Neumann boundary conditions (prescribed heat flux) are prescribed, and appears in the boundary integral of the weak form.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "74",
+                    "ce93"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            }
+        },
+        "final_occurrences": {
+            "custom-group-0": "domain_Omega",
+            "custom-group-1": "domain_Omega",
+            "custom-group-2": "boundary_Gamma",
+            "mi_53": "domain_Omega",
+            "mi_62": "domain_Omega",
+            "mi_55": "test_function_v",
+            "mi_63": "test_function_v",
+            "mi_69": "test_function_v",
+            "mi_73": "test_function_v",
+            "mi_57": "thermal_conductivity_kappa",
+            "mi_59": "displacement_field_u",
+            "mi_64": "heat_source_f",
+            "mi_70": "heat_flux_q_bar",
+            "mi_74": "function_space_V",
+            "msub_18": "neumann_boundary_Gamma_t"
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "boundary_Gamma": {
+            "justifications": {
+                "concept_name": "boundary_Gamma",
+                "description": "The boundary of the domain \u03a9, defined as the closure of \u03a9 minus \u03a9 itself, denoted by \u0393.\n",
+                "justifications": ":\nThe domain boundary \u2202\u03a9 \u2261 \u0393 is defined as the closure of \u03a9 minus \u03a9, and is composed of disjoint regions \u0393_u and \u0393_t. This is explicitly stated in the paper."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "displacement_field_u": {
+            "justifications": {
+                "concept_name": "displacement_field_u",
+                "description": "The primal unknown field (temperature or displacement) that is sought in the weak formulation.\n",
+                "justifications": ":\nThe variable u is used to denote the primal variable in both thermal and elastostatic problems, and is found in the weak form as the solution to be determined. It is used in both the left-hand and right-hand sides of the equations."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_1",
+                "formula_2",
+                "formula_3"
+            ]
+        },
+        "domain_Omega": {
+            "justifications": {
+                "concept_name": "domain_Omega",
+                "description": "The main computational domain in the physical space, defined as a subset of R^d.\n",
+                "justifications": ":\nThe domain of interest is defined as a region \u03a9 \u2282 R^d. This is explicitly stated in the text as the domain of interest and is referred to throughout the weak formulation."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "function_space_V": {
+            "justifications": {
+                "concept_name": "function_space_V",
+                "description": "The test function space, which contains functions v used in the Galerkin method, with Dirichlet boundary conditions on \u0393_u.\n",
+                "justifications": ":\nThe function space V is explicitly defined as the space of test functions, and v \u2208 V is required in the weak form. It is used in the variational formulation and is associated with the boundary conditions."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_5",
+                "p_7"
+            ]
+        },
+        "heat_flux_q_bar": {
+            "justifications": {
+                "concept_name": "heat_flux_q_bar",
+                "description": "The prescribed heat flux on the Neumann boundary \u0393_t, appearing in the boundary integral.\n",
+                "justifications": ":\nThe prescribed heat flux q\u0304 is mentioned and appears in the boundary integral over \u0393_t as v q\u0304 d\u0393 in the thermal weak form."
+            },
+            "grounding_ids_raw": [
+                "p_1_22",
+                "formula_1"
+            ]
+        },
+        "heat_source_f": {
+            "justifications": {
+                "concept_name": "heat_source_f",
+                "description": "The internal heat source term in the thermal problem, appearing in the right-hand side of the weak form.\n",
+                "justifications": ":\nThe heat source f is explicitly mentioned and appears in the integral over \u03a9 as v f d\u03a9 in the weak form of the thermal problem."
+            },
+            "grounding_ids_raw": [
+                "p_1_21",
+                "formula_1"
+            ]
+        },
+        "neumann_boundary_Gamma_t": {
+            "justifications": {
+                "concept_name": "neumann_boundary_Gamma_t",
+                "description": "The part of the boundary where Neumann boundary conditions (prescribed flux) are applied, denoted as \u0393_t.\n",
+                "justifications": ":\nThe boundary \u0393_t is explicitly defined as the region where Neumann boundary conditions (prescribed heat flux) are prescribed, and appears in the boundary integral of the weak form."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "test_function_v": {
+            "justifications": {
+                "concept_name": "test_function_v",
+                "description": "The test function used in the Galerkin formulation, belonging to the function space V.\n",
+                "justifications": ":\nThe symbol v appears in the weak form as a test function, with the condition \u2200v \u2208 V, and is used in integrals over \u03a9 and \u0393_t. It is a standard element in variational formulations."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_4",
+                "p_5",
+                "p_6"
+            ]
+        },
+        "thermal_conductivity_kappa": {
+            "justifications": {
+                "concept_name": "thermal_conductivity_kappa",
+                "description": "The thermal conductivity tensor, which appears in the diffusion term of the weak form.\n",
+                "justifications": ":\nThe thermal conductivity \u03ba is explicitly mentioned as a given parameter in the thermal boundary value problem and appears in the gradient term \u2207(\u03ba\u2207u)."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "boundary_Gamma": {
+                    "spans": [
+                        "p_1_2",
+                        "p_1_0",
+                        "p_1_10",
+                        "p_1_1",
+                        "p_1_9",
+                        "p_1_23",
+                        "p_1_17",
+                        "p_1_18",
+                        "p_1_20",
+                        "p_1_12",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_6",
+                        "p_1_15",
+                        "p_1_14",
+                        "p_1_3",
+                        "p_1_11",
+                        "p_1_21",
+                        "p_1_16",
+                        "p_1_5",
+                        "p_1_13",
+                        "p_1_8",
+                        "p_1_7",
+                        "p_1_4"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "displacement_field_u": {
+                    "spans": [
+                        "p_5_2",
+                        "p_5_1",
+                        "p_5_7",
+                        "p_5_8",
+                        "p_5_0",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_4",
+                        "p_5_9",
+                        "p_5_6"
+                    ],
+                    "divs": [
+                        "formula_3",
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "domain_Omega": {
+                    "spans": [
+                        "p_1_2",
+                        "p_1_0",
+                        "p_1_10",
+                        "p_1_1",
+                        "p_1_9",
+                        "p_1_23",
+                        "p_1_17",
+                        "p_1_18",
+                        "p_1_20",
+                        "p_1_12",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_6",
+                        "p_1_15",
+                        "p_1_14",
+                        "p_1_3",
+                        "p_1_11",
+                        "p_1_21",
+                        "p_1_16",
+                        "p_1_5",
+                        "p_1_13",
+                        "p_1_8",
+                        "p_1_7",
+                        "p_1_4"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "function_space_V": {
+                    "spans": [
+                        "p_5_8",
+                        "p_5_4",
+                        "p_3_0",
+                        "p_3_6",
+                        "p_7_3",
+                        "p_7_4",
+                        "p_3_5",
+                        "p_7_6",
+                        "p_3_3",
+                        "p_5_0",
+                        "p_3_4",
+                        "p_7_0",
+                        "p_5_2",
+                        "p_5_1",
+                        "p_3_2",
+                        "p_5_9",
+                        "p_7_2",
+                        "p_5_6",
+                        "p_3_1",
+                        "p_7_5",
+                        "p_7_1",
+                        "p_5_7",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_3_7"
+                    ],
+                    "divs": []
+                },
+                "heat_flux_q_bar": {
+                    "spans": [
+                        "p_1_22"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "heat_source_f": {
+                    "spans": [
+                        "p_1_21"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "neumann_boundary_Gamma_t": {
+                    "spans": [
+                        "p_1_2",
+                        "p_1_0",
+                        "p_1_10",
+                        "p_1_1",
+                        "p_1_9",
+                        "p_1_23",
+                        "p_1_17",
+                        "p_1_18",
+                        "p_1_20",
+                        "p_1_12",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_6",
+                        "p_1_15",
+                        "p_1_14",
+                        "p_1_3",
+                        "p_1_11",
+                        "p_1_21",
+                        "p_1_16",
+                        "p_1_5",
+                        "p_1_13",
+                        "p_1_8",
+                        "p_1_7",
+                        "p_1_4"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "test_function_v": {
+                    "spans": [
+                        "p_5_2",
+                        "p_3_3",
+                        "p_5_1",
+                        "p_5_7",
+                        "p_3_2",
+                        "p_5_0",
+                        "p_5_8",
+                        "p_3_4",
+                        "p_5_3",
+                        "p_5_5",
+                        "p_5_6",
+                        "p_5_4",
+                        "p_5_9",
+                        "p_3_0",
+                        "p_3_6",
+                        "p_3_5",
+                        "p_3_7",
+                        "p_3_1"
+                    ],
+                    "divs": []
+                },
+                "thermal_conductivity_kappa": {
+                    "spans": [
+                        "p_1_2",
+                        "p_1_0",
+                        "p_1_10",
+                        "p_1_1",
+                        "p_1_9",
+                        "p_1_23",
+                        "p_1_17",
+                        "p_1_18",
+                        "p_1_20",
+                        "p_1_12",
+                        "p_1_19",
+                        "p_1_22",
+                        "p_1_6",
+                        "p_1_15",
+                        "p_1_14",
+                        "p_1_3",
+                        "p_1_11",
+                        "p_1_21",
+                        "p_1_16",
+                        "p_1_5",
+                        "p_1_13",
+                        "p_1_8",
+                        "p_1_7",
+                        "p_1_4"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                }
+            },
+            "formal_sogs_list": [
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "boundary_Gamma",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "displacement_field_u",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "domain_Omega",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_3-start",
+                    "stop_id": "p_7_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_4-start",
+                    "stop_id": "p_7_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_6-start",
+                    "stop_id": "p_7_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_0-start",
+                    "stop_id": "p_7_0-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_2-start",
+                    "stop_id": "p_7_2-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_5-start",
+                    "stop_id": "p_7_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_7_1-start",
+                    "stop_id": "p_7_1-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "function_space_V",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "heat_flux_q_bar",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "heat_flux_q_bar",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "heat_source_f",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "heat_source_f",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "neumann_boundary_Gamma_t",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end"
+                },
+                {
+                    "mc_id": "test_function_v",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end"
+                },
+                {
+                    "mc_id": "thermal_conductivity_kappa",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                }
+            ]
+        }
+    }
+}

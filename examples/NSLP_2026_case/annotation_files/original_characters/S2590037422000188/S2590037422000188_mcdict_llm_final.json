@@ -1,0 +1,488 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "body_force_i": {
+            "code_var_name": "body_force_i",
+            "description": "Components of the body force acting in the i direction.\nJUSTIFICATION:\nDefined as f_i in equations (1a), (1b), and (1c), and appears in the weak form as a source term in the variational equation (3).",
+            "primitive_symbols": [
+                "69",
+                "66"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "numerical-variable",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "boundary_force_F_i": {
+            "code_var_name": "boundary_force_F_i",
+            "description": "Components of the surface force applied on the boundary, expressed as the dot product of stress and normal vector.\nJUSTIFICATION:\nDefined in equation (7) as F_i = \u03c3_ij n_j, and appears in the weak form as a boundary term in equation (8) and (10).",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "numerical-variable",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Differential element of volume used in volume integrals over the domain.\nJUSTIFICATION:\nAppears in integrals over \u03a9 as 'd\u03a9' in equations (3), (5), (6), (8), (10), and is standard notation for volume integration in FEM.",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "domain_Omega": {
+            "code_var_name": "domain_Omega",
+            "description": "The computational domain representing the lumbar spine region under analysis.\nJUSTIFICATION:\nAppears in integrals over \u03a9 (e.g., \u222b_\u03a9 and \u222b_\u2202\u03a9), and is referenced as the region where the physical model is defined.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "llm_placeholder_concept_C_i_j_k_l": {
+            "code_var_name": "C_i_j_k_l",
+            "description": "Placeholder C_i_j_k_l",
+            "primitive_symbols": [
+                "43",
+                "69",
+                "6a",
+                "6b",
+                "6c"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_F_i": {
+            "code_var_name": "F_i",
+            "description": "Placeholder F_i",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_f_i": {
+            "code_var_name": "f_i",
+            "description": "Placeholder f_i",
+            "primitive_symbols": [
+                "66",
+                "69"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u_k_l": {
+            "code_var_name": "u_k_l",
+            "description": "Placeholder u_k_l",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u_l_k": {
+            "code_var_name": "u_l_k",
+            "description": "Placeholder u_l_k",
+            "primitive_symbols": [
+                "75",
+                "6c",
+                "6b"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_v_i": {
+            "code_var_name": "v_i",
+            "description": "Placeholder v_i",
+            "primitive_symbols": [
+                "76",
+                "69"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_v_i_j": {
+            "code_var_name": "v_i_j",
+            "description": "Placeholder v_i_j",
+            "primitive_symbols": [
+                "76",
+                "69",
+                "6a"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "partial_Omega": {
+            "code_var_name": "partial_Omega",
+            "description": "Differential element of surface area used in surface integrals over the boundary.\nJUSTIFICATION:\nAppears in \u222b_\u2202\u03a9 as 'd\u2202\u03a9' or '\u2202\u03a9', and is used to represent surface integration over the boundary of the domain.",
+            "primitive_symbols": [
+                "e28882",
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "stiffness_tensor_ijkl": {
+            "code_var_name": "stiffness_tensor_ijkl",
+            "description": "Components of the stiffness tensor relating stress and strain in the i-j-k-l direction.\nJUSTIFICATION:\nDefined as C_ijkl in equation (1b) and used in equation (9) to relate stress to strain via Hooke's law.",
+            "primitive_symbols": [
+                "43",
+                "6a",
+                "6b",
+                "69",
+                "6c"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_11",
+                    "stop_id": "formula_11",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "symbolic-variable",
+                "tensor-rank": "4"
+            },
+            "concept_category": "variable"
+        },
+        "strain_gradient_u_k_l": {
+            "code_var_name": "strain_gradient_u_k_l",
+            "description": "First-order derivative of displacement in the k-l direction, used in strain definition.\nJUSTIFICATION:\nDefined as u_k,l and u_l,k in equation (1c), forming the symmetric strain tensor components.",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "weight_function_v_i": {
+            "code_var_name": "weight_function_v_i",
+            "description": "Weight function used in the variational formulation, with components v_i.\nJUSTIFICATION:\nIntroduced in equation (3) as the test function v_i, used in integration to derive the weak form of the equilibrium equation.",
+            "primitive_symbols": [
+                "6a",
+                "69",
+                "76"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_8_0-start",
+                    "stop_id": "p_8_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_8_1-start",
+                    "stop_id": "p_8_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "partial_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_222": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_247": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_85": {
+            "mc_id": "stiffness_tensor_ijkl",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_86": {
+            "mc_id": "strain_gradient_u_k_l",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_87": {
+            "mc_id": "strain_gradient_u_k_l",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_88": {
+            "mc_id": "weight_function_v_i",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_90": {
+            "mc_id": "boundary_force_F_i",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_91": {
+            "mc_id": "weight_function_v_i",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_93": {
+            "mc_id": "body_force_i",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_94": {
+            "mc_id": "weight_function_v_i",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

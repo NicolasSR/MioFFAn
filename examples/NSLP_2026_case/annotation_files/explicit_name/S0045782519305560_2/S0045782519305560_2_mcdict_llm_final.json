@@ -1,0 +1,1337 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "body_force_b": {
+            "code_var_name": "body_force_b",
+            "description": "Body force vector field acting within the domain \u03a9.\nJUSTIFICATION:\nThe symbol b is introduced as the body force in the elastostatics problem, appearing in the right-hand side of the weak form as \u222b_\u03a9 v \u22c5 b d\u03a9.",
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "undefined-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Surface differential element on the boundary \u0393.\nJUSTIFICATION:\nAppears in boundary integrals over \u0393_t, such as \u222b_{\u0393_t} v q\u0304 d\u0393, indicating it is a surface integration variable.",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Volume differential element in the domain \u03a9.\nJUSTIFICATION:\nAppears in integrals over the domain \u03a9, such as \u222b_\u03a9 \u2207v \u22c5 (\u03ba\u2207u) d\u03a9 and \u222b_\u03a9 v \u22c5 b d\u03a9, indicating it is a volume integration variable.",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "displacement_field_u": {
+            "code_var_name": "displacement_field_u",
+            "description": "Primary unknown displacement field (scalar or vector-valued) in the weak formulation.\nJUSTIFICATION:\nThe symbol u is used as the primary variable in both thermal and elastostatic problems, with u \u2208 U, and is the solution sought in the weak form (Eq. 3).",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "domain_Omega": {
+            "code_var_name": "domain_Omega",
+            "description": "The main computational domain of interest, partitioned into subdomains \u03a9_i.\nJUSTIFICATION:\nThe domain \u03a9 is introduced as the region of interest, with \u03a9 \u2282 \u211d^d, and composed of disjoint subdomains \u03a9_i, as stated in the paper.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "function_space_V": {
+            "code_var_name": "function_space_V",
+            "description": "Function space of test functions used in the weak formulation.\nJUSTIFICATION:\nThe symbol V is explicitly defined as the space of test functions in the weak form, with v \u2208 V, and is used in the Galerkin approach.",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_5-start",
+                    "stop_id": "p_7_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_0-start",
+                    "stop_id": "p_7_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_3-start",
+                    "stop_id": "p_7_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_4-start",
+                    "stop_id": "p_7_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_1-start",
+                    "stop_id": "p_7_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_2-start",
+                    "stop_id": "p_7_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_7_6-start",
+                    "stop_id": "p_7_6-end",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "llm_placeholder_concept_Gamma_t": {
+            "code_var_name": "Gamma_t",
+            "description": "Placeholder Gamma_t",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_V": {
+            "code_var_name": "V",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_epsilon_v": {
+            "code_var_name": "epsilon_v",
+            "description": "Placeholder epsilon_v",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_sigma_u": {
+            "code_var_name": "sigma_u",
+            "description": "Placeholder sigma_u",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t_bar": {
+            "code_var_name": "t_bar",
+            "description": "Placeholder t_bar",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_v": {
+            "code_var_name": "v",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "neumann_boundary_Gamma_t": {
+            "code_var_name": "neumann_boundary_Gamma_t",
+            "description": "Boundary portion of the domain where Neumann boundary conditions are prescribed.\nJUSTIFICATION:\nThe symbol \u0393_t is explicitly defined as the boundary where Neumann conditions (traction) are prescribed, and is used in the boundary integral \u222b_{\u0393_t} v t\u0304 d\u0393.",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "strain_tensor_epsilon_v": {
+            "code_var_name": "strain_tensor_epsilon_v",
+            "description": "Strain tensor computed from the test function v.\nJUSTIFICATION:\nThe symbol \u03b5(v) is defined as the linearized strain tensor of the test function v, given by (1/2)(\u2207v + \u2207v\u1d40), as explicitly stated in the paper.",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "operator"
+        },
+        "stress_tensor_sigma_u": {
+            "code_var_name": "stress_tensor_sigma_u",
+            "description": "Stress tensor applied to the displacement field u.\nJUSTIFICATION:\nThe symbol \u03c3(u) represents the stress tensor computed from the displacement field u, as defined in the text: '\u03c3 = C\u03b5' and '\u03c3(u) = C\u03b5(u)'.",
+            "primitive_symbols": [
+                "75",
+                "cf83"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "operator"
+        },
+        "test_function_v": {
+            "code_var_name": "test_function_v",
+            "description": "Test function used in the weak formulation, belonging to the function space V.\nJUSTIFICATION:\nThe symbol v appears multiple times as a test function in the weak forms, with \u2200v \u2208 V, indicating its role in the Galerkin method.",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "traction_t_bar": {
+            "code_var_name": "traction_t_bar",
+            "description": "Prescribed traction vector on the Neumann boundary \u0393_t.\nJUSTIFICATION:\nThe symbol t\u0304 is used to denote the prescribed traction on \u0393_t, as stated in the elastostatics weak form: 'prescribed traction t\u0304'.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "undefined-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "stress_tensor_sigma_u",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "strain_tensor_epsilon_v",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-4": {
+            "mc_id": "d_Gamma",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_101": {
+            "mc_id": "traction_t_bar",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_104": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_105": {
+            "mc_id": "function_space_V",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_84": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_86": {
+            "mc_id": "displacement_field_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_88": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_91": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_92": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_94": {
+            "mc_id": "body_force_b",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_99": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_23": {
+            "mc_id": "neumann_boundary_Gamma_t",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

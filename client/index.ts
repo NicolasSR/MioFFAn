@@ -420,7 +420,7 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
     const categories = Object.keys(taxonomy) as Array<keyof typeof taxonomy>;
     
     let options = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
-    options += `<option value="symbol_placeholder">Symbol Placeholder</option>`
+    options += `<option value="symbol-placeholder">Symbol Placeholder</option>`
     $categoryContainer.html(`<select name="concept-category" class="form-control">${options}</select>`);
     
     const $select = $categoryContainer.find('select');

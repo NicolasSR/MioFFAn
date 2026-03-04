@@ -1,0 +1,86 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_F_i": {
+            "code_var_name": "F_i",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: F_i",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_f_i": {
+            "code_var_name": "f_i",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: f_i",
+            "primitive_symbols": [
+                "66",
+                "69"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "mi_222": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_238": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_240": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_246": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_247": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_253": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_90": {
+            "mc_id": "llm_placeholder_concept_F_i",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_93": {
+            "mc_id": "llm_placeholder_concept_f_i",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

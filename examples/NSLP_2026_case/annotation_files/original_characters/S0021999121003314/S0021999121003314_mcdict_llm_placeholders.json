@@ -1,0 +1,159 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_NABLA_s_u_h": {
+            "code_var_name": "NABLA_s_u_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_s_u_h",
+            "primitive_symbols": [
+                "75",
+                "68",
+                "e28887",
+                "73"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_NABLA_s_w_h": {
+            "code_var_name": "NABLA_s_w_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_s_w_h",
+            "primitive_symbols": [
+                "77",
+                "68",
+                "e28887",
+                "73"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_NABLA_u_h": {
+            "code_var_name": "NABLA_u_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_u_h",
+            "primitive_symbols": [
+                "75",
+                "68",
+                "e28887"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u_h": {
+            "code_var_name": "u_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: u_h",
+            "primitive_symbols": [
+                "75",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w_h": {
+            "code_var_name": "w_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: w_h",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_NABLA_u_h",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "llm_placeholder_concept_NABLA_s_w_h",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "llm_placeholder_concept_NABLA_s_u_h",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_NABLA_s_u_h",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_126": {
+            "mc_id": "llm_placeholder_concept_rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_136": {
+            "mc_id": "llm_placeholder_concept_mu",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_30": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_32": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_36": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_39": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

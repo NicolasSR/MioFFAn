@@ -1,0 +1,271 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_delta_Omega": {
+            "code_var_name": "d_delta_Omega",
+            "description": "Placeholder d_delta_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_p": {
+            "code_var_name": "p",
+            "description": "Placeholder p",
+            "primitive_symbols": [
+                "70"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        }
+    },
+    "eoi_dict": {
+        "formula_9": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-4": {
+            "mc_id": "llm_placeholder_concept_d_delta_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_100": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_101": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_104": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_105": {
+            "mc_id": "llm_placeholder_concept_rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_106": {
+            "mc_id": "llm_placeholder_concept_b",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_107": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_110": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_111": {
+            "mc_id": "llm_placeholder_concept_p",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_113": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_116": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_117": {
+            "mc_id": "llm_placeholder_concept_mu",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_119": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_121": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_124": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_127": {
+            "mc_id": "llm_placeholder_concept_delta_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_128": {
+            "mc_id": "llm_placeholder_concept_T",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_129": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_94": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_95": {
+            "mc_id": "llm_placeholder_concept_rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_96": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_97": {
+            "mc_id": "llm_placeholder_concept_t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_98": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        }
+    }
+}

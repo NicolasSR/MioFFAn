@@ -278,7 +278,7 @@ function prepare_var_list(): string[]{
     let var_list: string[] = [];
     for (let mc_id in mcdict) {
         const concept = mcdict[mc_id]
-        if (concept.concept_category != "symbol_placeholder") {
+        if (concept.concept_category != "symbol-placeholder") {
             var_list.push(concept.code_var_name);
             }
         }

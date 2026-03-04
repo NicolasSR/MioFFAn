@@ -1,0 +1,960 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "boundary_integral_d_Gamma": {
+            "code_var_name": "boundary_integral_d_Gamma",
+            "description": "The differential element representing integration over a boundary surface.\nJUSTIFICATION:\nThe symbol d\u0393 appears in the boundary integrals over \u0393_t and other boundaries, indicating it is the differential element for surface integration.",
+            "primitive_symbols": [
+                "ce93",
+                "64"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "domain_Omega": {
+            "code_var_name": "domain_Omega",
+            "description": "The main computational domain in which the physical problem is defined.\nJUSTIFICATION:\nThe domain of interest is defined as a region \u03a9 \u2282 R^d, and it is repeatedly referenced in integrals over the domain and its boundaries. This establishes it as the primary spatial domain of the problem.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "domain_integral_d_Omega": {
+            "code_var_name": "domain_integral_d_Omega",
+            "description": "The differential element representing the integration over the domain \u03a9.\nJUSTIFICATION:\nThe symbol d\u03a9 appears in integrals over the domain \u03a9 and is explicitly used in the weak form as the differential element for volume integration.",
+            "primitive_symbols": [
+                "cea9",
+                "64"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "heat_flux_q_bar": {
+            "code_var_name": "heat_flux_q_bar",
+            "description": "The prescribed heat flux on the Neumann boundary \u0393_t.\nJUSTIFICATION:\nThe symbol q (with bar notation) is referred to as the prescribed heat flux and appears in the boundary integral over \u0393_t as \u222b_{\u0393_t} v q d\u0393.",
+            "primitive_symbols": [
+                "71"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "heat_source_f": {
+            "code_var_name": "heat_source_f",
+            "description": "The internal heat source term in the thermal boundary value problem.\nJUSTIFICATION:\nThe heat source f is given as input and appears in the right-hand side of the weak form equation as \u222b_\u03a9 v f d\u03a9.",
+            "primitive_symbols": [
+                "66"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "numerical-variable",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "llm_placeholder_concept_Gamma_t": {
+            "code_var_name": "Gamma_t",
+            "description": "Placeholder Gamma_t",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_V": {
+            "code_var_name": "V",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_f": {
+            "code_var_name": "f",
+            "description": "Placeholder f",
+            "primitive_symbols": [
+                "66"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_kappa": {
+            "code_var_name": "kappa",
+            "description": "Placeholder kappa",
+            "primitive_symbols": [
+                "ceba"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_q_bar": {
+            "code_var_name": "q_bar",
+            "description": "Placeholder q_bar",
+            "primitive_symbols": [
+                "71"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_v": {
+            "code_var_name": "v",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "neumann_boundary_Gamma_t": {
+            "code_var_name": "neumann_boundary_Gamma_t",
+            "description": "The part of the boundary where Neumann boundary conditions (prescribed heat flux) are applied.\nJUSTIFICATION:\nThe boundary \u0393_t is explicitly defined as the region where Dirichlet and Neumann BCs are prescribed, respectively, and appears in the integral over the Neumann boundary.",
+            "primitive_symbols": [
+                "74",
+                "ce93"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "primal_variable_u": {
+            "code_var_name": "primal_variable_u",
+            "description": "The primary unknown field (e.g., temperature or displacement) that is sought in the weak formulation, with the same symbol used across different physical problems.\nJUSTIFICATION:\nThe variable u is used to denote the temperature in the thermal problem and the displacement in the elastostatics problem. The paper explicitly states that 'the symbol u will be used to denote the primal variable irrespective of the type of problem'.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "test_function_v": {
+            "code_var_name": "test_function_v",
+            "description": "A test function used in the weak formulation, belonging to the function space V, and is varied over the domain to satisfy the weak form.\nJUSTIFICATION:\nThe symbol v appears in multiple integrals and is used in the weak form as a test function for all v \u2208 V. It is central to the variational formulation and is used in both the left-hand and right-hand sides of the equations.",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "test_space_V": {
+            "code_var_name": "test_space_V",
+            "description": "The function space of test functions, which is used in the weak formulation and must contain functions that satisfy the necessary boundary conditions.\nJUSTIFICATION:\nThe symbol V is defined as the space of test functions, and the weak form is stated to hold for all v \u2208 V. It is used in the formulation and discretization process.",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_7-start",
+                    "stop_id": "p_3_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_1-start",
+                    "stop_id": "p_5_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_4-start",
+                    "stop_id": "p_5_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_6-start",
+                    "stop_id": "p_5_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_7-start",
+                    "stop_id": "p_5_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_8-start",
+                    "stop_id": "p_5_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_0-start",
+                    "stop_id": "p_5_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "thermal_conductivity_kappa": {
+            "code_var_name": "thermal_conductivity_kappa",
+            "description": "The thermal conductivity tensor, which governs the heat conduction in the domain and appears in the gradient term of the weak form.\nJUSTIFICATION:\nThe thermal conductivity \u03ba is explicitly mentioned as a given parameter in the thermal boundary value problem and appears in the term \u2207v \u22c5 (\u2207\u03ba u) in the weak form.",
+            "primitive_symbols": [
+                "ceba"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "2"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_1": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "domain_integral_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "domain_integral_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "boundary_integral_d_Gamma",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_53": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_55": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_57": {
+            "mc_id": "thermal_conductivity_kappa",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_59": {
+            "mc_id": "primal_variable_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_62": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_63": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_64": {
+            "mc_id": "heat_source_f",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_69": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_70": {
+            "mc_id": "heat_flux_q_bar",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_73": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_74": {
+            "mc_id": "test_space_V",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_18": {
+            "mc_id": "neumann_boundary_Gamma_t",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

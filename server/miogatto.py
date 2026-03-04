@@ -41,7 +41,7 @@ def make_concept(res,taxonomy_config,sog_list = []) -> Optional[MathConcept]:
         return None, f"Description must be filled."
     
     category = res.get('concept_category')
-    if category == "symbol_placeholder" and not category in taxonomy_config.keys():
+    if category == "symbol-placeholder" and not category in taxonomy_config.keys():
         fields_config = {}
     else:
         fields_config = taxonomy_config[category].get('concept_fields', {})
@@ -407,7 +407,7 @@ class MioGattoServer:
         
     def register_concept_inner(self, concept_info, mc_id: str):
         if mc_id is None: # new concept
-            if concept_info.get('concept_category')=="symbol_placeholder":
+            if concept_info.get('concept_category')=="symbol-placeholder":
                 code_var_name = concept_info["code_var_name"]
                 concept_info['description']=f"Placeholder {code_var_name}"
                 concept_info['properties']={}

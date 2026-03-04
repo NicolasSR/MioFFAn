@@ -83,7 +83,7 @@ class McDict:
         for id, obj in data['concepts'].items():
             obj["sog_list"] = [SoG(**sog) for sog in obj["sog_list"]]
             category = obj["concept_category"]
-            if category == "symbol_placeholder" and not category in taxonomy_config.keys():
+            if category == "symbol-placeholder" and not category in taxonomy_config.keys():
                 category_config = {}
             else:
                 category_config = taxonomy_config.get(category)
@@ -98,7 +98,7 @@ class McDict:
         occurrences = dict()
         for id, obj in data['occurences_dict'].items():
             mc_category = self.concepts[obj['mc_id']].concept_category
-            if mc_category == "symbol_placeholder" and not mc_category in taxonomy_config.keys():
+            if mc_category == "symbol-placeholder" and not mc_category in taxonomy_config.keys():
                 category_config = {}
             else:
                 category_config = taxonomy_config.get(mc_category)

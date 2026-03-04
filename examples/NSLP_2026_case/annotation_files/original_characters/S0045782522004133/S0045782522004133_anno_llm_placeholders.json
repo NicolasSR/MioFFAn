@@ -1,0 +1,104 @@
+{
+    "_anno_version": "1.0",
+    "_annotator": "YOUR NAME",
+    "groups": {},
+    "next_available_group_id": 0,
+    "primitive_symbols": {
+        "43": {
+            "text": "C",
+            "unicode_name": "LATIN CAPITAL LETTER C"
+        },
+        "44": {
+            "text": "D",
+            "unicode_name": "LATIN CAPITAL LETTER D"
+        },
+        "48": {
+            "text": "H",
+            "unicode_name": "LATIN CAPITAL LETTER H"
+        },
+        "4e": {
+            "text": "N",
+            "unicode_name": "LATIN CAPITAL LETTER N"
+        },
+        "52": {
+            "text": "R",
+            "unicode_name": "LATIN CAPITAL LETTER R"
+        },
+        "54": {
+            "text": "T",
+            "unicode_name": "LATIN CAPITAL LETTER T"
+        },
+        "56": {
+            "text": "V",
+            "unicode_name": "LATIN CAPITAL LETTER V"
+        },
+        "64": {
+            "text": "d",
+            "unicode_name": "LATIN SMALL LETTER D"
+        },
+        "66": {
+            "text": "f",
+            "unicode_name": "LATIN SMALL LETTER F"
+        },
+        "67": {
+            "text": "g",
+            "unicode_name": "LATIN SMALL LETTER G"
+        },
+        "69": {
+            "text": "i",
+            "unicode_name": "LATIN SMALL LETTER I"
+        },
+        "6e": {
+            "text": "n",
+            "unicode_name": "LATIN SMALL LETTER N"
+        },
+        "74": {
+            "text": "t",
+            "unicode_name": "LATIN SMALL LETTER T"
+        },
+        "75": {
+            "text": "u",
+            "unicode_name": "LATIN SMALL LETTER U"
+        },
+        "76": {
+            "text": "v",
+            "unicode_name": "LATIN SMALL LETTER V"
+        },
+        "77": {
+            "text": "w",
+            "unicode_name": "LATIN SMALL LETTER W"
+        },
+        "78": {
+            "text": "x",
+            "unicode_name": "LATIN SMALL LETTER X"
+        },
+        "ce93": {
+            "text": "\u0393",
+            "unicode_name": "GREEK CAPITAL LETTER GAMMA"
+        },
+        "cea9": {
+            "text": "\u03a9",
+            "unicode_name": "GREEK CAPITAL LETTER OMEGA"
+        },
+        "cf81": {
+            "text": "\u03c1",
+            "unicode_name": "GREEK SMALL LETTER RHO"
+        },
+        "cfb5": {
+            "text": "\u03f5",
+            "unicode_name": "GREEK LUNATE EPSILON SYMBOL"
+        },
+        "e28882": {
+            "text": "\u2202",
+            "unicode_name": "PARTIAL DIFFERENTIAL"
+        },
+        "e2889e": {
+            "text": "\u221e",
+            "unicode_name": "INFINITY"
+        },
+        "e28b85": {
+            "text": "\u22c5",
+            "unicode_name": "DOT OPERATOR"
+        }
+    }
+}

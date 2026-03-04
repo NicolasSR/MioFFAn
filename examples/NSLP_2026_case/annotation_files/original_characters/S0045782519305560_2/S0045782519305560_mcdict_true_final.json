@@ -1,0 +1,394 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "body_force_b": {
+            "code_var_name": "body_force_b",
+            "description": "The body force (e.g., gravitational or inertial force) acting within the domain, appearing in the weak form of elastostatics.\nJUSTIFICATION:\nThe body force b is introduced in the elastostatics weak form as a source term, and is integrated over the domain with the test function v.",
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_4-78",
+                    "stop_id": "p_3_5-start",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "boundary_Gamma_t": {
+            "code_var_name": "boundary_Gamma_t",
+            "description": "The portion of the boundary where Neumann boundary conditions (e.g., traction) are prescribed.\nJUSTIFICATION:\n\u0393_t is explicitly defined as the boundary where Neumann boundary conditions are applied, such as prescribed heat flux or traction.",
+            "primitive_symbols": [
+                "74",
+                "ce93"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_3-20",
+                    "stop_id": "p_1_7-50",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "domain_Omega": {
+            "code_var_name": "domain_Omega",
+            "description": "The main computational domain in the physical space, representing the region where the problem is defined.\nJUSTIFICATION:\nThe domain is explicitly defined as \u03a9 \u2282 R^d, and is referred to multiple times as the domain of interest, with subdomains and boundaries derived from it.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_0-0",
+                    "stop_id": "p_1_3-11",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-64",
+                    "stop_id": "p_1_9-start",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "function_space_V": {
+            "code_var_name": "function_space_V",
+            "description": "The function space of test functions, which must be chosen to satisfy the boundary conditions and is used in the weak formulation.\nJUSTIFICATION:\nThe space V is repeatedly referenced as the space of test functions, with the requirement that the weak form holds for all v \u2208 V.",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_3-31",
+                    "stop_id": "p_5_4-5",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "integration_boundary_d_Gamma": {
+            "code_var_name": "integration_boundary_d_Gamma",
+            "description": "The differential element for integration over the boundary \u0393, used in surface integrals.\nJUSTIFICATION:\nThe symbol d\u0393 appears in boundary integrals over \u0393_t, such as \u222b_{\u0393_t} v \u22c5 t_bar d\u0393, indicating it is the surface integration element.",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "integration_domain_d_Omega": {
+            "code_var_name": "integration_domain_d_Omega",
+            "description": "The differential element for integration over the domain \u03a9, used in volume integrals.\nJUSTIFICATION:\nThe symbol d\u03a9 appears in volume integrals over \u03a9, such as \u222b_\u03a9 \u2207v \u22c5 (\u2207u) d\u03a9, indicating it is the integration variable over the domain.",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "llm_placeholder_concept_Gamma_t": {
+            "code_var_name": "Gamma_t",
+            "description": "Placeholder Gamma_t",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_V": {
+            "code_var_name": "V",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_epsilon_v": {
+            "code_var_name": "epsilon_v",
+            "description": "Placeholder epsilon_v",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_sigma_u": {
+            "code_var_name": "sigma_u",
+            "description": "Placeholder sigma_u",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t_bar": {
+            "code_var_name": "t_bar",
+            "description": "Placeholder t_bar",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_v": {
+            "code_var_name": "v",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "primal_variable_u": {
+            "code_var_name": "primal_variable_u",
+            "description": "The primary unknown field variable, such as temperature or displacement, depending on the problem context.\nJUSTIFICATION:\nThe symbol u is used throughout the paper to denote the primal variable, whether in thermal or elastostatic problems, and is the solution sought in the weak form.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_6-2",
+                    "stop_id": "p_3_7-6",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_3-31",
+                    "stop_id": "p_5_5-start",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "strain_tensor_epsilon_v": {
+            "code_var_name": "strain_tensor_epsilon_v",
+            "description": "The linearized strain tensor computed from the displacement field, defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T).\nJUSTIFICATION:\nThe strain tensor \u03b5(v) is explicitly defined as \u03b5(v) = 1/2 (\u2207v + \u2207v^T), and is used in the elastostatics formulation as the input to the stress tensor.",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_3-start",
+                    "stop_id": "p_5_3-23",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "operator"
+        },
+        "stress_tensor_sigma_u": {
+            "code_var_name": "stress_tensor_sigma_u",
+            "description": "The Cauchy stress tensor computed from the strain field via the constitutive relation \u03c3(u) = C\u03b5(u).\nJUSTIFICATION:\nThe expression \u03c3(u) is explicitly defined as the stress tensor, formed from the constitutive tensor C and the strain tensor \u03b5(u), and is used in the elastostatics weak form.",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_5_0-2",
+                    "stop_id": "p_5_2-18",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "operator"
+        },
+        "test_function_v": {
+            "code_var_name": "test_function_v",
+            "description": "A test function used in the weak formulation, belonging to the function space V, and is varied over the domain to enforce the variational equation.\nJUSTIFICATION:\nThe variable v appears in multiple weak formulations as the test function, with the requirement that the bilinear form B(u,v) holds for all v \u2208 V.",
+            "primitive_symbols": [
+                "76"
+            ],
+            "sog_list": [],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "traction_t_bar": {
+            "code_var_name": "traction_t_bar",
+            "description": "The prescribed traction (e.g., surface force) on the boundary \u0393_t, appearing in the boundary integral of the weak form.\nJUSTIFICATION:\nThe traction t is used in the boundary integral with the test function v, and is denoted with a macron (overline), indicating it is a prescribed boundary condition.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_5-5",
+                    "stop_id": "p_3_6-0",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "stress_tensor_sigma_u",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "strain_tensor_epsilon_v",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "integration_domain_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "integration_domain_d_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-4": {
+            "mc_id": "integration_boundary_d_Gamma",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_101": {
+            "mc_id": "traction_t_bar",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_104": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_105": {
+            "mc_id": "function_space_V",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_84": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_86": {
+            "mc_id": "primal_variable_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_88": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_91": {
+            "mc_id": "domain_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_92": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_94": {
+            "mc_id": "body_force_b",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_99": {
+            "mc_id": "test_function_v",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_23": {
+            "mc_id": "boundary_Gamma_t",
+            "tag_name": "msub",
+            "properties": {}
+        }
+    }
+}

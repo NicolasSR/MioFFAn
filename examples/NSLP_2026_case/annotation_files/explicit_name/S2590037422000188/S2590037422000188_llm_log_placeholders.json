@@ -1,0 +1,791 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_12": {
+            "initial_output": [
+                {
+                    "obj_name": "C_ijk_l",
+                    "mathml_representation": "<msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "u_k_l",
+                    "mathml_representation": "<msub><mi>u</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "u_l_k",
+                    "mathml_representation": "<msub><mi>u</mi><mrow><mi>l</mi><mo>,</mo><mi>k</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "v_i_j",
+                    "mathml_representation": "<msub><mi>v</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "Omega",
+                    "mathml_representation": "<mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "partial_Omega",
+                    "mathml_representation": "<mrow><mi>\u2202</mi><mi>\u03a9</mi></mrow>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "C_ijk_l",
+                    "mathml_representation": "<msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "u_k_l",
+                    "mathml_representation": "<msub><mi>u</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "u_l_k",
+                    "mathml_representation": "<msub><mi>u</mi><mrow><mi>l</mi><mo>,</mo><mi>k</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "v_i_j",
+                    "mathml_representation": "<msub><mi>v</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub>"
+                },
+                {
+                    "obj_name": "Omega",
+                    "mathml_representation": "<mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "partial_Omega",
+                    "mathml_representation": "<mrow><mi>\u2202</mi><mi>\u03a9</mi></mrow>"
+                }
+            ],
+            "new_groups_dict": {},
+            "new_occurences_dict": {
+                "C_ijk_l": [
+                    {
+                        "comp_tag_id": "msub_85",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6a",
+                            "6b",
+                            "6c",
+                            "43",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "mi_227",
+                            "mi_225",
+                            "msub_85",
+                            "mi_226",
+                            "mi_223",
+                            "mi_224"
+                        ]
+                    }
+                ],
+                "u_k_l": [
+                    {
+                        "comp_tag_id": "msub_86",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "msub_86",
+                            "mi_230",
+                            "mi_229",
+                            "mi_228"
+                        ]
+                    }
+                ],
+                "u_l_k": [
+                    {
+                        "comp_tag_id": "msub_87",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_233",
+                            "mi_231",
+                            "mi_232",
+                            "msub_87"
+                        ]
+                    }
+                ],
+                "v_i_j": [
+                    {
+                        "comp_tag_id": "msub_88",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69",
+                            "6a"
+                        ],
+                        "ids_set": [
+                            "mi_236",
+                            "mi_234",
+                            "msub_88",
+                            "mi_235"
+                        ]
+                    }
+                ],
+                "Omega": [
+                    {
+                        "comp_tag_id": "mi_238",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_238"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_246",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_246"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_253",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_253"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_222",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_222"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_247",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_247"
+                        ]
+                    }
+                ],
+                "F_i": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "46"
+                        ],
+                        "ids_set": [
+                            "mi_242",
+                            "msub_90",
+                            "mi_241"
+                        ]
+                    }
+                ],
+                "v_i": [
+                    {
+                        "comp_tag_id": "msub_91",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_91",
+                            "mi_244",
+                            "mi_243"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_94",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_94",
+                            "mi_250",
+                            "mi_251"
+                        ]
+                    }
+                ],
+                "partial_Omega": [
+                    {
+                        "comp_tag_id": "mi_239",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "e28882",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_240",
+                            "mi_239"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_238",
+                    "ids_set": [
+                        "mi_238"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_238\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_246",
+                    "ids_set": [
+                        "mi_246"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_246\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_253",
+                    "ids_set": [
+                        "mi_253"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_253\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_222",
+                    "ids_set": [
+                        "mi_222"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_222\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_240",
+                    "ids_set": [
+                        "mi_240"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_240\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "Omega",
+                    "representative_id": "mi_247",
+                    "ids_set": [
+                        "mi_247"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_247\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "partial_Omega",
+                    "representative_id": "mi_239",
+                    "ids_set": [
+                        "mi_240",
+                        "mi_239"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mrow><mi id=\"mi_239\">\u2202</mi><mi id=\"mi_240\">\u03a9</mi></mrow>"
+                },
+                {
+                    "variable_name": "F_i",
+                    "representative_id": "msub_90",
+                    "ids_set": [
+                        "mi_242",
+                        "msub_90",
+                        "mi_241"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_90\"><mi id=\"mi_241\">F</mi><mi id=\"mi_242\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "v_i",
+                    "representative_id": "msub_91",
+                    "ids_set": [
+                        "msub_91",
+                        "mi_244",
+                        "mi_243"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_91\"><mi id=\"mi_243\">v</mi><mi id=\"mi_244\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "v_i",
+                    "representative_id": "msub_94",
+                    "ids_set": [
+                        "msub_94",
+                        "mi_250",
+                        "mi_251"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_94\"><mi id=\"mi_250\">v</mi><mi id=\"mi_251\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "u_k_l",
+                    "representative_id": "msub_86",
+                    "ids_set": [
+                        "msub_86",
+                        "mi_230",
+                        "mi_229",
+                        "mi_228"
+                    ],
+                    "ids_count": 4,
+                    "mathml": "<msub id=\"msub_86\"><mi id=\"mi_228\">u</mi><mrow><mi id=\"mi_229\">k</mi><mo>,</mo><mi id=\"mi_230\">l</mi></mrow></msub>"
+                },
+                {
+                    "variable_name": "u_l_k",
+                    "representative_id": "msub_87",
+                    "ids_set": [
+                        "mi_233",
+                        "mi_231",
+                        "mi_232",
+                        "msub_87"
+                    ],
+                    "ids_count": 4,
+                    "mathml": "<msub id=\"msub_87\"><mi id=\"mi_231\">u</mi><mrow><mi id=\"mi_232\">l</mi><mo>,</mo><mi id=\"mi_233\">k</mi></mrow></msub>"
+                },
+                {
+                    "variable_name": "v_i_j",
+                    "representative_id": "msub_88",
+                    "ids_set": [
+                        "mi_236",
+                        "mi_234",
+                        "msub_88",
+                        "mi_235"
+                    ],
+                    "ids_count": 4,
+                    "mathml": "<msub id=\"msub_88\"><mi id=\"mi_234\">v</mi><mrow><mi id=\"mi_235\">i</mi><mo>,</mo><mi id=\"mi_236\">j</mi></mrow></msub>"
+                },
+                {
+                    "variable_name": "C_ijk_l",
+                    "representative_id": "msub_85",
+                    "ids_set": [
+                        "mi_227",
+                        "mi_225",
+                        "msub_85",
+                        "mi_226",
+                        "mi_223",
+                        "mi_224"
+                    ],
+                    "ids_count": 6,
+                    "mathml": "<msub id=\"msub_85\"><mi id=\"mi_223\">C</mi><mrow><mi id=\"mi_224\">i</mi><mi id=\"mi_225\">j</mi><mi id=\"mi_226\">k</mi><mi id=\"mi_227\">l</mi></mrow></msub>"
+                }
+            ],
+            "conflicts_list": [
+                {
+                    "parent_variable_name": "partial_Omega",
+                    "parent_representative_id": "mi_239",
+                    "parent_mathml": "<mrow><mi id=\"mi_239\">\u2202</mi><mi id=\"mi_240\">\u03a9</mi></mrow>",
+                    "child_variable_name": "Omega",
+                    "child_representative_id": "mi_240",
+                    "child_mathml": "<mi id=\"mi_240\">\u03a9</mi>"
+                }
+            ],
+            "conflicts_resolution": {
+                "case_1": "REMOVE"
+            },
+            "disambiguated_new_groups_dict": {},
+            "disambiguated_new_occurences_dict": {
+                "C_ijk_l": [
+                    {
+                        "comp_tag_id": "msub_85",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6a",
+                            "6b",
+                            "6c",
+                            "43",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "mi_227",
+                            "mi_225",
+                            "msub_85",
+                            "mi_226",
+                            "mi_223",
+                            "mi_224"
+                        ]
+                    }
+                ],
+                "u_k_l": [
+                    {
+                        "comp_tag_id": "msub_86",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "msub_86",
+                            "mi_230",
+                            "mi_229",
+                            "mi_228"
+                        ]
+                    }
+                ],
+                "u_l_k": [
+                    {
+                        "comp_tag_id": "msub_87",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_233",
+                            "mi_231",
+                            "mi_232",
+                            "msub_87"
+                        ]
+                    }
+                ],
+                "v_i_j": [
+                    {
+                        "comp_tag_id": "msub_88",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69",
+                            "6a"
+                        ],
+                        "ids_set": [
+                            "mi_236",
+                            "mi_234",
+                            "msub_88",
+                            "mi_235"
+                        ]
+                    }
+                ],
+                "Omega": [
+                    {
+                        "comp_tag_id": "mi_238",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_238"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_246",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_246"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_253",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_253"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_222",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_222"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_247",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_247"
+                        ]
+                    }
+                ],
+                "F_i": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "46"
+                        ],
+                        "ids_set": [
+                            "mi_242",
+                            "msub_90",
+                            "mi_241"
+                        ]
+                    }
+                ],
+                "v_i": [
+                    {
+                        "comp_tag_id": "msub_91",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_91",
+                            "mi_244",
+                            "mi_243"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_94",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_94",
+                            "mi_250",
+                            "mi_251"
+                        ]
+                    }
+                ],
+                "partial_Omega": [
+                    {
+                        "comp_tag_id": "mi_239",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "e28882",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_240",
+                            "mi_239"
+                        ]
+                    }
+                ]
+            }
+        },
+        "total": {
+            "final_new_groups_dict": {},
+            "final_new_occurences_dict": {
+                "C_ijk_l": [
+                    {
+                        "comp_tag_id": "msub_85",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6a",
+                            "6b",
+                            "6c",
+                            "43",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "mi_227",
+                            "mi_225",
+                            "msub_85",
+                            "mi_226",
+                            "mi_223",
+                            "mi_224"
+                        ]
+                    }
+                ],
+                "u_k_l": [
+                    {
+                        "comp_tag_id": "msub_86",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "msub_86",
+                            "mi_230",
+                            "mi_229",
+                            "mi_228"
+                        ]
+                    }
+                ],
+                "u_l_k": [
+                    {
+                        "comp_tag_id": "msub_87",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "6b",
+                            "6c",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_233",
+                            "mi_231",
+                            "mi_232",
+                            "msub_87"
+                        ]
+                    }
+                ],
+                "v_i_j": [
+                    {
+                        "comp_tag_id": "msub_88",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69",
+                            "6a"
+                        ],
+                        "ids_set": [
+                            "mi_236",
+                            "mi_234",
+                            "msub_88",
+                            "mi_235"
+                        ]
+                    }
+                ],
+                "Omega": [
+                    {
+                        "comp_tag_id": "mi_238",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_238"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_246",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_246"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_253",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_253"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_222",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_222"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_247",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_247"
+                        ]
+                    }
+                ],
+                "F_i": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "46"
+                        ],
+                        "ids_set": [
+                            "mi_242",
+                            "msub_90",
+                            "mi_241"
+                        ]
+                    }
+                ],
+                "v_i": [
+                    {
+                        "comp_tag_id": "msub_91",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_91",
+                            "mi_244",
+                            "mi_243"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_94",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "76",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_94",
+                            "mi_250",
+                            "mi_251"
+                        ]
+                    }
+                ],
+                "partial_Omega": [
+                    {
+                        "comp_tag_id": "mi_239",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "e28882",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_240",
+                            "mi_239"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

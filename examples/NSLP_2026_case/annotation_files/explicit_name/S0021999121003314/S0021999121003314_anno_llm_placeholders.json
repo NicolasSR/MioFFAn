@@ -1,0 +1,161 @@
+{
+    "_anno_version": "1.0",
+    "_annotator": "YOUR NAME",
+    "groups": {
+        "custom-group-0": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_127",
+            "stop_id": "msub_31"
+        },
+        "custom-group-1": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "msup_12",
+            "stop_id": "msub_33"
+        },
+        "custom-group-2": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "msup_13",
+            "stop_id": "msub_34"
+        },
+        "custom-group-3": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "msup_14",
+            "stop_id": "msub_35"
+        }
+    },
+    "next_available_group_id": 4,
+    "primitive_symbols": {
+        "44": {
+            "text": "D",
+            "unicode_name": "LATIN CAPITAL LETTER D"
+        },
+        "49": {
+            "text": "I",
+            "unicode_name": "LATIN CAPITAL LETTER I"
+        },
+        "4c": {
+            "text": "L",
+            "unicode_name": "LATIN CAPITAL LETTER L"
+        },
+        "4e": {
+            "text": "N",
+            "unicode_name": "LATIN CAPITAL LETTER N"
+        },
+        "52": {
+            "text": "R",
+            "unicode_name": "LATIN CAPITAL LETTER R"
+        },
+        "53": {
+            "text": "S",
+            "unicode_name": "LATIN CAPITAL LETTER S"
+        },
+        "54": {
+            "text": "T",
+            "unicode_name": "LATIN CAPITAL LETTER T"
+        },
+        "58": {
+            "text": "X",
+            "unicode_name": "LATIN CAPITAL LETTER X"
+        },
+        "64": {
+            "text": "d",
+            "unicode_name": "LATIN SMALL LETTER D"
+        },
+        "65": {
+            "text": "e",
+            "unicode_name": "LATIN SMALL LETTER E"
+        },
+        "67": {
+            "text": "g",
+            "unicode_name": "LATIN SMALL LETTER G"
+        },
+        "68": {
+            "text": "h",
+            "unicode_name": "LATIN SMALL LETTER H"
+        },
+        "6d6178": {
+            "text": "max",
+            "unicode_name": null
+        },
+        "6e": {
+            "text": "n",
+            "unicode_name": "LATIN SMALL LETTER N"
+        },
+        "70": {
+            "text": "p",
+            "unicode_name": "LATIN SMALL LETTER P"
+        },
+        "71": {
+            "text": "q",
+            "unicode_name": "LATIN SMALL LETTER Q"
+        },
+        "73": {
+            "text": "s",
+            "unicode_name": "LATIN SMALL LETTER S"
+        },
+        "74": {
+            "text": "t",
+            "unicode_name": "LATIN SMALL LETTER T"
+        },
+        "75": {
+            "text": "u",
+            "unicode_name": "LATIN SMALL LETTER U"
+        },
+        "77": {
+            "text": "w",
+            "unicode_name": "LATIN SMALL LETTER W"
+        },
+        "78": {
+            "text": "x",
+            "unicode_name": "LATIN SMALL LETTER X"
+        },
+        "c2bd": {
+            "text": "\u00bd",
+            "unicode_name": "VULGAR FRACTION ONE HALF"
+        },
+        "ce93": {
+            "text": "\u0393",
+            "unicode_name": "GREEK CAPITAL LETTER GAMMA"
+        },
+        "cea9": {
+            "text": "\u03a9",
+            "unicode_name": "GREEK CAPITAL LETTER OMEGA"
+        },
+        "ceb3": {
+            "text": "\u03b3",
+            "unicode_name": "GREEK SMALL LETTER GAMMA"
+        },
+        "ceb4": {
+            "text": "\u03b4",
+            "unicode_name": "GREEK SMALL LETTER DELTA"
+        },
+        "ceb6": {
+            "text": "\u03b6",
+            "unicode_name": "GREEK SMALL LETTER ZETA"
+        },
+        "ceb7": {
+            "text": "\u03b7",
+            "unicode_name": "GREEK SMALL LETTER ETA"
+        },
+        "cebb": {
+            "text": "\u03bb",
+            "unicode_name": "GREEK SMALL LETTER LAMDA"
+        },
+        "cebc": {
+            "text": "\u03bc",
+            "unicode_name": "GREEK SMALL LETTER MU"
+        },
+        "cf81": {
+            "text": "\u03c1",
+            "unicode_name": "GREEK SMALL LETTER RHO"
+        },
+        "e28887": {
+            "text": "\u2207",
+            "unicode_name": "NABLA"
+        }
+    }
+}

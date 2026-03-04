@@ -369,7 +369,7 @@ def auto_define_and_assign_concepts(dom_tree_copy, mcdict_copy, mi_anno_copy, ll
     for occurence_name, occurence_info in mcdict_occurences_dict.items():
         occurrence_mc_id = occurence_info.mc_id
         concept_info = mcdict_concepts_dict[occurrence_mc_id]
-        if concept_info.concept_category=="symbol_placeholder":
+        if concept_info.concept_category=="symbol-placeholder":
             tag_id = occurence_name
             symbol_subtree = dom_tree_copy.xpath(f".//*[@id='{tag_id}']")[0]
             symbol_mathml_string = etree.tostring(symbol_subtree, encoding='unicode')

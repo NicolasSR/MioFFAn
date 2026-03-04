@@ -1,0 +1,621 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "H_0_1_space": {
+            "code_var_name": "H_0_1_space",
+            "description": "The Sobolev space of functions with zero trace on the boundary, used for the test functions and solution in the weak form.\nJUSTIFICATION:\nThe symbol H\u2080\u00b9(\u03a9) is repeatedly used to describe the space of test functions and the solution space, indicating it is a function space domain.",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_16_2-9",
+                    "stop_id": "p_16_5-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-2",
+                    "stop_id": "p_16_7-start",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "H_1_space": {
+            "code_var_name": "H_1_space",
+            "description": "The space of functions in H\u00b9(\u03a9) with smoothness in time, used to define the solution space in the weak formulation.\nJUSTIFICATION:\nThe symbol H\u00b9(\u03a9) is used to define the solution space over time, specifically in the formulation 'Find u \u2208 H\u00b9(T; H\u2080\u00b9(\u03a9))', indicating it is a function space domain.",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_18_0-1",
+                    "stop_id": "p_18_4-start",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "H_minus1_space": {
+            "code_var_name": "H_minus1_space",
+            "description": "The dual space of H\u2081\u2080(\u03a9), used for the second time derivative of the solution in the weak formulation.\nJUSTIFICATION:\nThe symbol H\u207b\u00b9(\u03a9) appears in the weak formulation as the dual space of H\u2080\u00b9(\u03a9), associated with the pairing of the second time derivative of u with the test function w.",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_16_2-9",
+                    "stop_id": "p_16_6-start",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "Omega_domain": {
+            "code_var_name": "Omega_domain",
+            "description": "The main spatial domain in which the wave equation is defined and solved.\nJUSTIFICATION:\nThe symbol '\u03a9' is repeatedly used to denote the spatial domain and is the domain of integration in all weak form equations, including integrals over \u03a9 and its subdomains.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_1_0-0",
+                    "stop_id": "p_1_3-0",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9-21",
+                    "stop_id": "p_14_11-1",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "T_tensile_stress": {
+            "code_var_name": "T_tensile_stress",
+            "description": "The tensile pre-stress load per unit surface area, a positive scalar quantity.\nJUSTIFICATION:\nThe symbol 'T' is explicitly defined as the positive tensile pre-stress load per unit surface area in the wave equation and appears in both the physical equation and the weak form, especially in the jump condition across interfaces.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-36",
+                    "stop_id": "p_3_3-58",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "cal_T_tensile_stress": {
+            "code_var_name": "cal_T_tensile_stress",
+            "description": "The tensile pre-stress load per unit surface area, represented in script form in the weak formulation.\nJUSTIFICATION:\nThe symbol 'T' in script form (mathvariant='script') appears in the weak form and is used in the same context as the regular 'T', indicating it is the same tensile stress variable, just represented in a different notation.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_18_3-8",
+                    "stop_id": "p_18_4-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-64",
+                    "stop_id": "p_3_5-0",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "undefined-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "d_Gamma_interface": {
+            "code_var_name": "d_Gamma_interface",
+            "description": "The differential element of the interface \u0393, used in surface integrals over boundaries.\nJUSTIFICATION:\nThe symbol 'd\u0393' appears in integrals over the interface \u0393, such as in the transmission conditions, and denotes the surface element for integration.",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "d_Omega_domain": {
+            "code_var_name": "d_Omega_domain",
+            "description": "The differential element of the spatial domain \u03a9, used in volume integrals.\nJUSTIFICATION:\nThe symbol 'd\u03a9' appears in integrals over \u03a9, such as in the weak form, and is used to denote the volume element in the integration.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "delta_Omega_N_boundary": {
+            "code_var_name": "delta_Omega_N_boundary",
+            "description": "The Neumann boundary of the domain \u03a9, where Neumann conditions are applied.\nJUSTIFICATION:\nThe symbol '\u2202\u03a9_N' is explicitly defined as the Neumann boundary, where the boundary condition (4b) is applied, and is used in the weak form to integrate the boundary load g.",
+            "primitive_symbols": [
+                "e28882",
+                "cea9",
+                "4e"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_6_0-61",
+                    "stop_id": "p_6_4-2",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "g_boundary_load": {
+            "code_var_name": "g_boundary_load",
+            "description": "The boundary load applied on the Neumann boundary of the domain.\nJUSTIFICATION:\nThe symbol 'g' is explicitly defined as appearing in the Neumann boundary condition equation (4b) and is integrated against the test function w on the boundary \u0393_N.",
+            "primitive_symbols": [
+                "67"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_6_3-5",
+                    "stop_id": "p_6_4-2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "symbolic-variable",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "llm_placeholder_concept_H_0_1": {
+            "code_var_name": "H_0_1",
+            "description": "Placeholder H_0_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_1": {
+            "code_var_name": "H_1",
+            "description": "Placeholder H_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_minus1": {
+            "code_var_name": "H_minus1",
+            "description": "Placeholder H_minus1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_cal_T": {
+            "code_var_name": "cal_T",
+            "description": "Placeholder cal_T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9",
+                "4e"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_g": {
+            "code_var_name": "g",
+            "description": "Placeholder g",
+            "primitive_symbols": [
+                "67"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "rho_mass_density": {
+            "code_var_name": "rho_mass_density",
+            "description": "The mass per unit volume, a positive scalar quantity in the wave equation.\nJUSTIFICATION:\nThe symbol '\u03c1' is explicitly described as the positive mass per unit volume in the wave equation and appears in the second-order time derivative term.",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-1",
+                    "stop_id": "p_3_2-28",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "t_time": {
+            "code_var_name": "t_time",
+            "description": "The time variable, ranging from 0 to t_end in the temporal domain.\nJUSTIFICATION:\nThe symbol 't' appears as the time variable in the wave equation and in the weak formulation, with the temporal domain denoted as T = [0, t_end].",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_3-64",
+                    "stop_id": "p_3_6-24",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-9",
+                    "stop_id": "p_16_3-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5-2",
+                    "stop_id": "p_16_6-0",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "numerical-variable",
+                "tensor-rank": "0"
+            },
+            "concept_category": "variable"
+        },
+        "u_field": {
+            "code_var_name": "u_field",
+            "description": "The displacement field of the wave equation, dependent on time and spatial coordinates.\nJUSTIFICATION:\nThe symbol 'u' appears multiple times as the primary dependent variable in the wave equation and its weak formulation, such as in 'u(t,x)', 'u(t)', and in the weak form as the solution to be found.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_3_0-0",
+                    "stop_id": "p_3_1-18",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-2",
+                    "stop_id": "p_3_6-24",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0-2",
+                    "stop_id": "p_6_1-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4-2",
+                    "stop_id": "p_6_4-2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_4",
+                    "stop_id": "formula_4",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_2-0",
+                    "stop_id": "p_9_3-84",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_7-85",
+                    "stop_id": "p_9_8-1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11-26",
+                    "stop_id": "p_14_12-59",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-19",
+                    "stop_id": "p_16_6-start",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "trial-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        },
+        "w_test_function": {
+            "code_var_name": "w_test_function",
+            "description": "A test function used in the weak formulation, belonging to the Sobolev space H\u2080\u00b9(\u03a9).\nJUSTIFICATION:\nThe symbol 'w' is consistently used as a test function in the weak form, appearing in integrals with 'u' and defined over the domain \u03a9, and is required to be in H\u2080\u00b9(\u03a9).",
+            "primitive_symbols": [
+                "77"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_14_7-0",
+                    "stop_id": "p_14_12-59",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-2",
+                    "stop_id": "p_16_7-start",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "test-function",
+                "tensor-rank": "1"
+            },
+            "concept_category": "variable"
+        }
+    },
+    "eoi_dict": {
+        "formula_10": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "delta_Omega_N_boundary",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "H_0_1_space",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "H_0_1_space",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "H_1_space",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_144": {
+            "mc_id": "u_field",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_146": {
+            "mc_id": "cal_T_tensile_stress",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_148": {
+            "mc_id": "Omega_domain",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_149": {
+            "mc_id": "t_time",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_150": {
+            "mc_id": "w_test_function",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_152": {
+            "mc_id": "Omega_domain",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_153": {
+            "mc_id": "rho_mass_density",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_156": {
+            "mc_id": "t_time",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_157": {
+            "mc_id": "u_field",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_158": {
+            "mc_id": "w_test_function",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_161": {
+            "mc_id": "Omega_domain",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_162": {
+            "mc_id": "T_tensile_stress",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_163": {
+            "mc_id": "u_field",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_165": {
+            "mc_id": "w_test_function",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_166": {
+            "mc_id": "d_Omega_domain",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_170": {
+            "mc_id": "g_boundary_load",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_171": {
+            "mc_id": "w_test_function",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_172": {
+            "mc_id": "d_Gamma_interface",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msubsup_6": {
+            "mc_id": "H_0_1_space",
+            "tag_name": "msubsup",
+            "properties": {}
+        },
+        "msup_10": {
+            "mc_id": "H_minus1_space",
+            "tag_name": "msup",
+            "properties": {}
+        }
+    }
+}
