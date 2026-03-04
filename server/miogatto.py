@@ -1093,6 +1093,11 @@ class MioGattoServer:
             
             self.mcdict.dump(checkpoint_tag)
             self.mi_anno.dump(checkpoint_tag)
+            
+            llm_log_path = self.mcdict.file.with_stem(re.sub("_mcdict", "_llm_log", self.mcdict.file.stem))
+            if llm_log_path.is_file():
+                target_llm_log_path = llm_log_path.with_stem(llm_log_path.stem + "_" + checkpoint_tag)
+                shutil.copyfile(llm_log_path, target_llm_log_path)
 
             success_message = {
                     "status": "success",
@@ -1113,6 +1118,7 @@ class MioGattoServer:
 
             data_mcdict_path = self.mcdict.file
             data_anno_path = self.mi_anno.file
+            data_llm_log_path = self.mcdict.file.with_stem(re.sub("_mcdict", "_llm_log", self.mcdict.file.stem))
 
             checkpoint_tag = res.get("checkpoint_tag")
 
@@ -1122,6 +1128,8 @@ class MioGattoServer:
             elif any(char.isalnum() for char in checkpoint_tag): # Check if there are alphanumeric values in the tag
                 target_mc_dict_path = data_mcdict_path.with_stem(data_mcdict_path.stem + "_" + checkpoint_tag)
                 target_anno_path = data_anno_path.with_stem(data_anno_path.stem + "_" + checkpoint_tag)
+                subst_string = f"_llm_log_{checkpoint_tag}"
+                target_llm_log_path = self.mcdict.file.with_stem(re.sub("_mcdict", subst_string, self.mcdict.file.stem))
             else:
                 raise PostRequestError(
                     code = "VALUE_ERROR",
@@ -1131,6 +1139,11 @@ class MioGattoServer:
 
             shutil.copyfile(target_mc_dict_path,data_mcdict_path)
             shutil.copyfile(target_anno_path,data_anno_path)
+
+            if data_llm_log_path.is_file():
+                data_llm_log_path.unlink()
+            if checkpoint_tag is not None and target_llm_log_path.is_file():
+                shutil.copyfile(target_llm_log_path, data_llm_log_path)
 
             success_message = {
                     "status": "success",

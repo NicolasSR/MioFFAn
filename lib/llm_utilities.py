@@ -89,8 +89,9 @@ def validate_llm_output_schema(raw_data, ExpectedSchema):
         return False, e.errors()
     
 def get_or_create_llm_log_file(paper_id):
-    output_log_file_path = Path(f"./llm_outputs/{paper_id}_llm_log.json")
-    output_log_file_path.parent.mkdir(exist_ok=True, parents=True)
+    output_log_file_path = Path(f"./data/{paper_id}/{paper_id}_llm_log.json")
+    if not output_log_file_path.parent.exists():
+        raise "Directory specified for LLM log does not exist"
     if not output_log_file_path.exists():
         with open(output_log_file_path, 'w') as file:
             init_dict = {

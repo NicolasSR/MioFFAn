@@ -107,7 +107,6 @@ sources
 raw_sources
 annotated_data_backup
 annotated_samples
-llm_outputs
 
 # local stuff
 local/
