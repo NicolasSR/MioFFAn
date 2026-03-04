@@ -119,5 +119,7 @@ extra
 libextra
 /templates
 
+orig_to_new_parser.py
+
 # DO NOT REMOVE - Ignore credentials file 
 credentials.json

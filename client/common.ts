@@ -172,6 +172,7 @@ export const dataLoadingPromise = (async () => {
     console.log("Start loading data...");
     await fetch_mcdict_json_data();
     await fetch_mi_anno_json_data();
+    await fetch_sample_json_data();
     console.log("Data loading complete!");
 
     let cnt = 0;
@@ -238,6 +239,32 @@ export function fetch_mi_anno_json_data(onSuccess?: () => void) {
         }
     });
 }
+
+export function fetch_sample_json_data(onSuccess?: () => void) {
+    return $.ajax({
+        url: '/get_sample_data.json',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            sessionStorage["sample_name"] = data["sample_name"];
+            console.log("Sample data gathered successfully!");
+            
+            // CRITICAL STEP: 
+            // Updating variables doesn't automatically update the HTML.
+            // You must call your render function here.
+            if (onSuccess) {
+                onSuccess();
+            } else {
+                // If you have a global render function, call it here:
+                // updateUI(); 
+            }
+        },
+        error: function(err) {
+            console.error("Failed to fetch sample data", err);
+        }
+    });
+}
+
 
 // // load sog from the external json file
 // export let sog = {} as { sog: Source[] };

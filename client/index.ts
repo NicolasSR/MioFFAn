@@ -6,8 +6,7 @@ import { post } from "jquery";
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, Source, dfs_comp_tags, mcdict, occurences_dict,
     mcdict_edit_id, escape_selector, get_mc_id_from_query, get_concept_cand, get_primitive_hex_list,
-    fetch_mcdict_json_data,
-    mi_anno_edit_id
+    fetch_mcdict_json_data, fetch_mi_anno_json_data, mi_anno_edit_id
 } from "./common";
 import {
     highlight_sog_nodes, remove_highlight, sog_to_sog_nodes_for_addition, get_selection,
@@ -1125,6 +1124,133 @@ $(function () {
 
     });
 });
+
+//-------------------------------
+// Checkpointing
+//-------------------------------
+$(function () {
+    dataLoadingPromise.then(() => {
+        $('button#create-checkpoint').button();
+        $('button#create-checkpoint').on('click', function () {
+            const $form=$('form#checkpoint-form')
+            const data: any = {};
+            $form.serializeArray().forEach((item) => {data[item.name] = item.value;});
+            fetch('/_create_data_checkpoint', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    mi_anno_edit_id: mi_anno_edit_id,
+                    mcdict_edit_id: mcdict_edit_id,
+                    checkpoint_tag: data["checkpoint-tag"]
+                }),
+            }).then(async (response) => {
+                const data = await response.json();
+                $form.find(`[name="checkpoint-tag"]`).val("");
+                if (response.ok) {
+                    // Just reload the page
+                    window.location.reload();
+                } else {
+                    if (data.action === 'reload') {
+                        alert(data.message);
+                        window.location.reload(); // Manually trigger the reload here
+                    }
+                    console.error("Error:", data.message);
+                    alert("Error: " + data.message);
+                    return;
+                }
+            }).catch(error => {
+                console.error('Error generating checkpoint:', error);
+            });
+        });
+        $('button#load-checkpoint').button();
+        $('button#load-checkpoint').on('click', function () {
+            const $form=$('form#checkpoint-form')
+            const data: any = {};
+            $form.serializeArray().forEach((item) => {data[item.name] = item.value;});
+            // Prepare the Dialog Node
+            // Use a <div> if the template is just a hidden skeleton
+            let $dialog = $('#clearing-confirmation-template')
+                .clone()
+                .attr('id', 'clearing-confirmation-dialog')
+                .appendTo('body') // Move it into the DOM so it's "real"
+                .show();
+            $dialog.dialog({
+                modal: true,
+                title: 'Clear Annotations Warning',
+                width: 500,
+                buttons: {
+                    'OK': async function() {
+                        const $this = $(this);
+                        // Disable button to prevent double-clicks
+                        $this.parent().find('button:contains("OK")').prop('disabled', true);
+                        const success = await fetch('/_clear_annotation_data', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                mi_anno_edit_id: mi_anno_edit_id,
+                                mcdict_edit_id: mcdict_edit_id,
+                                checkpoint_tag: data["checkpoint-tag"]
+                            }),
+                        });
+                        if (success) {
+                            // Perform the server-side file switch and redirect
+                            const sample_name = sessionStorage["sample_name"];
+                            sessionStorage.clear();
+                            window.location.href = `/switch_to_sample/${sample_name}`;
+                        } else {
+                            alert("Unsuccessful Occurrence Properties Submission")
+                        }
+                    },
+                    'Cancel': function() { $(this).dialog('close'); }
+                },
+                close: function() { $(this).remove(); } // Cleanup DOM after close
+            });
+        });
+        $('button#clear-annotations').button();
+        $('button#clear-annotations').on('click', function () {
+            // Prepare the Dialog Node
+            // Use a <div> if the template is just a hidden skeleton
+            let $dialog = $('#clearing-confirmation-template')
+                .clone()
+                .attr('id', 'clearing-confirmation-dialog')
+                .appendTo('body') // Move it into the DOM so it's "real"
+                .show();
+
+            $dialog.dialog({
+                modal: true,
+                title: 'Clear Annotations Warning',
+                width: 500,
+                buttons: {
+                    'OK': async function() {
+                        const $this = $(this);
+                        // Disable button to prevent double-clicks
+                        $this.parent().find('button:contains("OK")').prop('disabled', true);
+                        const success = await fetch('/_clear_annotation_data', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                mi_anno_edit_id: mi_anno_edit_id,
+                                mcdict_edit_id: mcdict_edit_id,
+                                checkpoint_tag: undefined
+                            }),
+                        });
+                        if (success) {
+                            // Perform the server-side file switch and redirect
+                            const sample_name = sessionStorage["sample_name"];
+                            sessionStorage.clear();
+                            window.location.href = `/switch_to_sample/${sample_name}`;
+                        } else {
+                            alert("Unsuccessful Occurrence Properties Submission")
+                        }
+                    },
+                    'Cancel': function() { $(this).dialog('close'); }
+                },
+                close: function() { $(this).remove(); } // Cleanup DOM after close
+            });
+        });
+    });
+});
+
 
 
 // ------------------------------

@@ -45,9 +45,12 @@ class MiAnno:
         self.primitive_symbols: dict[str, PrimitiveSymbol] = cast_dicts_to_dataclass(data['primitive_symbols'], PrimitiveSymbol)
         self.groups: dict[str, Group] = cast_dicts_to_dataclass(data['groups'], Group)
 
-    def dump(self) -> None:
-
-        with open(self.file, 'w') as f:
+    def dump(self, checkpoint_tag = None):
+        if checkpoint_tag is None:
+            file_path = self.file
+        else:
+            file_path = self.file.with_stem(self.file.stem + "_" + checkpoint_tag)
+        with open(file_path, 'w') as f:
             dump_json(
                 {
                     '_anno_version': self.anno_version,
@@ -115,8 +118,12 @@ class McDict:
         self.eoi_dict: dict[str, EoI] = cast_dicts_to_dataclass(data['eoi_dict'], EoI)
 
 
-    def dump(self):
-        with open(self.file, 'w') as f:
+    def dump(self, checkpoint_tag = None):
+        if checkpoint_tag is None:
+            file_path = self.file
+        else:
+            file_path = self.file.with_stem(self.file.stem + "_" + checkpoint_tag)
+        with open(file_path, 'w') as f:
             dump_json(
                 {
                     '_author': self.author,

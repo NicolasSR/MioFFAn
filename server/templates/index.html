@@ -91,6 +91,12 @@
                 </form>
             </div>
 
+            <div id="clearing-confirmation-template" class="clearing-confirmation-dialog">
+                <p>
+                    WARNING: Confirmation will reset the annotation state to the blank one in the Templates directory or to a specified checkpoint. Please save any current data within a checkpoint if relevant in order to preserve it.
+                </p>
+            </div>
+
             <div id="error-dialog" class="error-dialog">
                 <p id="error-message">{% for message in get_flashed_messages() %}
                     {{ message }}
@@ -107,7 +113,7 @@
 
                 <div class="sidebar-tab">
                     <input class="tab-title" id="tab_miogatto" type="checkbox" name="tabs">
-                    <label class="tab-title" for="tab_miogatto">Kratos Annotator v{{ version }}</label>
+                    <label class="tab-title" for="tab_miogatto">MioFFAn v{{ version }}</label>
                     <div class="tab-content">
                         <p>Revision: <span style="font-family: monospace;">{{ git_revision }}</span><br />
                             Paper ID: <span style="font-family: monospace;">{{ paper_id }}</span><br />
@@ -182,6 +188,18 @@
                             <button id="auto_highlight_sources">Automatic Sources Highlighting</button>
                         </p>
                     </div>
+                </div>
+
+                <div class="sidebar-tab">
+                    <input class="tab-title" id="tab-checkpointing" type="checkbox" name="tabs" checked="checked">
+                    <label class="tab-title" for="tab-checkpointing">Checkpointing</label>
+                    <form id="checkpoint-form" onsubmit="return false;">
+                        <label for="checkpoint-tag">Tag</label>
+                        <textarea name="checkpoint-tag" rows="1"></textarea>
+                    </form>
+                    <button id="create-checkpoint">Create Checkpoint</button>
+                    <button id="load-checkpoint">Load Checkpoint</button>
+                    <button id="clear-annotations">Clear Annotations</button>
                 </div>
             </div>
         </div>

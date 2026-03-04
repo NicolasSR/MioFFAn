@@ -5,6 +5,8 @@ from typing import Optional, List, Dict
 from logging import Logger
 from copy import deepcopy
 import traceback
+import shutil
+from pathlib import Path
 
 # The server implementation for MioGatto
 from flask import request, redirect, flash, render_template, jsonify, Markup
@@ -544,6 +546,10 @@ class MioGattoServer:
         data = {}
         extended_data = [str(self.mi_anno_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
+    
+    def get_sample_info(self):
+        data = {"sample_name": self.paper_id}
+        return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
 
     def add_eoi(self):
         res = request.form
@@ -1066,6 +1072,75 @@ class MioGattoServer:
             return json.dumps(e.to_dict()), e.http_status
 
 
+    #############################
+    # CHECKPOINT HANDLING
+    #############################
+
+    def create_data_checkpoint(self):
+        try:
+            res = request.json
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
+            checkpoint_tag = res.get('checkpoint_tag')
+            check_missing_variables(checkpoint_tag=checkpoint_tag)
+            if checkpoint_tag == "":
+                raise PostRequestError(
+                    code = "VALUE_ERROR",
+                    message = "Checkpoint tag is empty",
+                    http_status = 400
+                )
+            
+            self.mcdict.dump(checkpoint_tag)
+            self.mi_anno.dump(checkpoint_tag)
+
+            success_message = {
+                    "status": "success",
+                    "message": "Checkpointing of current annotations successful.",
+                }
+            
+            return json.dumps(success_message), 200
+
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+
+    def clear_annotation_data(self):
+        try:
+            res = request.json
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+            check_document_edit_id(self.mi_anno_edit_id, res.get('mi_anno_edit_id'))
+
+            data_mcdict_path = self.mcdict.file
+            data_anno_path = self.mi_anno.file
+
+            checkpoint_tag = res.get("checkpoint_tag")
+
+            if checkpoint_tag is None:
+                target_mc_dict_path = Path("templates", data_mcdict_path.name)
+                target_anno_path = Path("templates", data_anno_path.name)
+            elif any(char.isalnum() for char in checkpoint_tag): # Check if there are alphanumeric values in the tag
+                target_mc_dict_path = data_mcdict_path.with_stem(data_mcdict_path.stem + "_" + checkpoint_tag)
+                target_anno_path = data_anno_path.with_stem(data_anno_path.stem + "_" + checkpoint_tag)
+            else:
+                raise PostRequestError(
+                    code = "VALUE_ERROR",
+                    message = "Checkpoint tag is not valid",
+                    http_status = 400
+                )
+
+            shutil.copyfile(target_mc_dict_path,data_mcdict_path)
+            shutil.copyfile(target_anno_path,data_anno_path)
+
+            success_message = {
+                    "status": "success",
+                    "message": "Annotations clearing successful.",
+                }
+            
+            return json.dumps(success_message), 200
+
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
 
 
     #############################

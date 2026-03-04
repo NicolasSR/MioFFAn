@@ -83,6 +83,10 @@ def routing_functions(server):
     def mi_anno_json():
         return server.gen_mi_anno_json()
     
+    @app.route('/get_sample_data.json', methods=['GET'])
+    def get_sample_info():
+        return server.get_sample_info()
+    
     @app.route('/_add_eoi', methods=['POST'])
     def action_add_eoi():
         return server.add_eoi()
@@ -154,6 +158,15 @@ def routing_functions(server):
     @app.route('/_auto_highlight_sources', methods=['POST'])
     def auto_highlight_sources():
         return server.auto_highlight_sources()
+    
+    @app.route('/_create_data_checkpoint', methods=['POST'])
+    def create_data_checkpoint():
+        return server.create_data_checkpoint()
+    
+    @app.route('/_clear_annotation_data', methods=['POST'])
+    def clear_annotation_data():
+        return server.clear_annotation_data()
+    
     
 
 def main():

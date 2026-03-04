@@ -144,7 +144,7 @@ Version: 2021-10-31
     color: #ffffff;
 }
 
-.concept-dialog, .comp-concept-dialog, .sog-type-dialog, .error-dialog, .symbolic-code-dialog {
+.concept-dialog, .comp-concept-dialog, .sog-type-dialog, .error-dialog, .symbolic-code-dialog, .clearing-confirmation-dialog {
     display: none;
     list-style: none;
 }
