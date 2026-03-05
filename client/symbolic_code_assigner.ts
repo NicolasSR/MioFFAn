@@ -1,4 +1,4 @@
-// the MioGatto client
+// the MioFFAn client
 'use strict';
 
 import { post } from "jquery";

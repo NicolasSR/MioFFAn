@@ -1,4 +1,4 @@
-// the MioGatto client. Logic for the sample navigation bar.
+// the MioFFAn client. Logic for the sample navigation bar.
 'use strict';
 
 

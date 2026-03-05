@@ -114,7 +114,7 @@ def preprocess_mcdict(concepts: dict[str, MathConcept]):
 
     return mcdict
 
-class MioGattoServer:
+class MioFFAnServer:
 
     def __init__(self, paper_id: str, tree, mi_anno: MiAnno, mcdict: McDict,
                  logger: Logger, data_dir: str, sources_dir: str, available_ids: list):

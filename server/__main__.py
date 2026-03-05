@@ -7,11 +7,11 @@ from pathlib import Path
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
-from server.miogatto import MioGattoServer
+from server.mioffan import MioFFAnServer
 
 # meta
 PROG_NAME = "server"
-HELP = """The server implementation for MioGatto
+HELP = """The server implementation for MioFFAN
 
 Usage:
     {p} [options]
@@ -202,7 +202,7 @@ def main():
     app.debug = args['--debug']
 
     # Initialize the server, passing directory context
-    server = MioGattoServer(
+    server = MioFFAnServer(
         initial_paper_id, tree, mi_anno, mcdict, app.logger, 
         data_dir=data_dir, 
         sources_dir=sources_dir,

@@ -1,4 +1,4 @@
-// the MioGatto client. Logic for the common navigation bar.
+// the MioFFAn client. Logic for the common navigation bar.
 'use strict';
 
 

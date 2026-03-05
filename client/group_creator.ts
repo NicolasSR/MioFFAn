@@ -1,4 +1,4 @@
-// the MioGatto client. Interface to create custom groups of concepts.
+// the MioFFAn client. Interface to create custom groups of concepts.
 'use strict';
 
 import { COMPOUND_CONCEPT_TAGS,dataLoadingPromise, mi_anno_edit_id, escape_selector} from "./common";

@@ -1,4 +1,4 @@
-// the MioGatto client
+// the MioFFAn client
 'use strict';
 
 import { post } from "jquery";
@@ -26,7 +26,7 @@ const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 // Options
 // --------------------------
 
-let miogatto_options: { [name: string]: boolean } = {
+let mioffan_options: { [name: string]: boolean } = {
     show_definition: false,
 }
 
@@ -41,9 +41,9 @@ $(function () {
         // first time check
         if (localStorage['option-show-definition'] == 'true') {
             input_opt_def.prop('checked', true);
-            miogatto_options.show_definition = true
+            mioffan_options.show_definition = true
         } else {
-            miogatto_options.show_definition = false
+            mioffan_options.show_definition = false
         }
 
         give_sog_highlight();
@@ -51,10 +51,10 @@ $(function () {
         input_opt_def.on('click', function () {
             if ($(this).prop('checked')) {
                 localStorage['option-show-definition'] = 'true';
-                miogatto_options.show_definition = true
+                mioffan_options.show_definition = true
             } else {
                 localStorage['option-show-definition'] = 'false';
-                miogatto_options.show_definition = false
+                mioffan_options.show_definition = false
             }
             give_sog_highlight();
         });
@@ -116,7 +116,7 @@ function apply_highlight(sog_nodes: JQuery, sog: Source, mc_id: string) {
     remove_highlight(sog_nodes);
 
     let concept = mcdict[mc_id];
-    highlight_sog_nodes(concept, sog_nodes, sog, miogatto_options.show_definition)
+    highlight_sog_nodes(concept, sog_nodes, sog, mioffan_options.show_definition)
 
     // embed SoG information for removing
     sog_nodes.attr({
@@ -761,7 +761,7 @@ $(function () {
 
             // Do not show sog-mod-menu when the sog is not highlighted.
             let is_sog_highlighted = true;
-            if (miogatto_options.limited_highlight && comp_tag_id != undefined && sog_mc_id != undefined) {
+            if (mioffan_options.limited_highlight && comp_tag_id != undefined && sog_mc_id != undefined) {
                 let cur_mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)));
                 if (!(cur_mc_id == sog_mc_id )) {
                     is_sog_highlighted = false;
