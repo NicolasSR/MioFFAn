@@ -56,42 +56,9 @@
                 </div>
 
                 <div class="sidebar-tab">
-                    <input class="tab-title" id="tab_options" type="checkbox" name="tabs">
-                    <label class="tab-title" for="tab_options">Options</label>
-                    <div class="tab-content">
-                        <p>
-                            <label for="option-show-definition">
-                                <input type="checkbox" id="option-show-definition">
-                                Underline definitions
-                            </label>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="sidebar-tab">
                     <input class="tab-title" id="tab_utility" type="checkbox" name="tabs">
                     <label class="tab-title" for="tab_utility">Utility</label>
                     <div id="utility-box" class="tab-content"></div>
-                </div>
-
-                <div class="sidebar-tab">
-                    <input class="tab-title" id="tab_progress" type="checkbox" name="tabs">
-                    <label class="tab-title" for="tab_progress">Progress</label>
-                    <div class="tab-content">
-                        <p>EoIs: <span id="progress_nof_eois"></span>
-                        <br />
-                        Concepts: <span id="progress_nof_concepts"></span>
-                        <br />
-                        Occurences: <span id="progress_nof_occ"></span>
-                        <br />
-                        Sources: <span id="progress_nof_sog"></span></p>
-                        <script type="text/javascript">
-                            document.getElementById('progress_nof_eois').textContent = {{ progress_data | tojson }}.nof_eois;
-                            document.getElementById('progress_nof_concepts').textContent = {{ progress_data | tojson }}.nof_concepts;
-                            document.getElementById('progress_nof_occ').textContent = {{ progress_data | tojson }}.nof_occ;
-                            document.getElementById('progress_nof_sog').textContent = {{ progress_data | tojson }}.nof_sog;
-                        </script>
-                    </div>
                 </div>
 
                 <div class="sidebar-tab">

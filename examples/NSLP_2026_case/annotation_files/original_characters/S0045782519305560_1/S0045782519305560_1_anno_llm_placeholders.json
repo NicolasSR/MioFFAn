@@ -1,8 +1,27 @@
 {
     "_anno_version": "1.0",
     "_annotator": "YOUR NAME",
-    "groups": {},
-    "next_available_group_id": 0,
+    "groups": {
+        "custom-group-0": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_60",
+            "stop_id": "mi_61"
+        },
+        "custom-group-1": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_65",
+            "stop_id": "mi_66"
+        },
+        "custom-group-2": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_71",
+            "stop_id": "mi_72"
+        }
+    },
+    "next_available_group_id": 3,
     "primitive_symbols": {
         "42": {
             "text": "B",

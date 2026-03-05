@@ -86,12 +86,9 @@ class McDict:
         for id, obj in data['concepts'].items():
             obj["sog_list"] = [SoG(**sog) for sog in obj["sog_list"]]
             category = obj["concept_category"]
-            if category == "symbol-placeholder" and not category in taxonomy_config.keys():
-                category_config = {}
-            else:
-                category_config = taxonomy_config.get(category)
-                if not category_config:
-                    raise ValueError(f"Unknown category: {category}")
+            category_config = taxonomy_config.get(category)
+            if not category_config:
+                raise ValueError(f"Unknown category: {category}")
             is_valid, error_msg = validate_properties(category_config.get('concept_fields', {}), obj["properties"])
             if not is_valid:
                 raise ValueError(f"Invalid concept properties for concept {id}: {error_msg}")
@@ -101,12 +98,9 @@ class McDict:
         occurrences = dict()
         for id, obj in data['occurences_dict'].items():
             mc_category = self.concepts[obj['mc_id']].concept_category
-            if mc_category == "symbol-placeholder" and not mc_category in taxonomy_config.keys():
-                category_config = {}
-            else:
-                category_config = taxonomy_config.get(mc_category)
-                if not category_config:
-                    raise ValueError(f"Unknown category: {mc_category}")
+            category_config = taxonomy_config.get(mc_category)
+            if not category_config:
+                raise ValueError(f"Unknown category: {mc_category}")
             total_properties = self.concepts[obj['mc_id']].properties.copy()
             total_properties.update(obj["properties"])
             is_valid, error_msg = validate_properties(category_config.get('occurrence_fields', {}), total_properties)

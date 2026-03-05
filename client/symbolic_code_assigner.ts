@@ -17,7 +17,7 @@ import projectConfig from '../config.json';
 const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 
 // --------------------------
-// Options
+// Mark EoIs
 // --------------------------
 
 $(function () {

@@ -2,35 +2,46 @@
     "_author": "YOUR NAME",
     "_mcdict_version": "1.0",
     "concepts": {
-        "llm_placeholder_concept_NABLA_s_u_h": {
-            "code_var_name": "NABLA_s_u_h",
-            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_s_u_h",
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: Gamma_N",
+            "primitive_symbols": [
+                "4e",
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_grad_s_u_h": {
+            "code_var_name": "grad_s_u_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: grad_s_u_h",
             "primitive_symbols": [
                 "75",
+                "73",
                 "68",
-                "e28887",
-                "73"
+                "e28887"
             ],
             "sog_list": [],
             "properties": {},
             "concept_category": "symbol-placeholder"
         },
-        "llm_placeholder_concept_NABLA_s_w_h": {
-            "code_var_name": "NABLA_s_w_h",
-            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_s_w_h",
+        "llm_placeholder_concept_grad_s_w_h": {
+            "code_var_name": "grad_s_w_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: grad_s_w_h",
             "primitive_symbols": [
                 "77",
+                "73",
                 "68",
-                "e28887",
-                "73"
+                "e28887"
             ],
             "sog_list": [],
             "properties": {},
             "concept_category": "symbol-placeholder"
         },
-        "llm_placeholder_concept_NABLA_u_h": {
-            "code_var_name": "NABLA_u_h",
-            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: NABLA_u_h",
+        "llm_placeholder_concept_grad_u_h": {
+            "code_var_name": "grad_u_h",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: grad_u_h",
             "primitive_symbols": [
                 "75",
                 "68",
@@ -101,22 +112,22 @@
     "next_available_mc_id": 0,
     "occurences_dict": {
         "custom-group-0": {
-            "mc_id": "llm_placeholder_concept_NABLA_u_h",
+            "mc_id": "llm_placeholder_concept_grad_u_h",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-1": {
-            "mc_id": "llm_placeholder_concept_NABLA_s_w_h",
+            "mc_id": "llm_placeholder_concept_grad_s_w_h",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-2": {
-            "mc_id": "llm_placeholder_concept_NABLA_s_u_h",
+            "mc_id": "llm_placeholder_concept_grad_s_u_h",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-3": {
-            "mc_id": "llm_placeholder_concept_NABLA_s_u_h",
+            "mc_id": "llm_placeholder_concept_grad_s_u_h",
             "tag_name": "mstyle",
             "properties": {}
         },
@@ -140,6 +151,11 @@
             "tag_name": "msub",
             "properties": {}
         },
+        "msub_31": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
         "msub_32": {
             "mc_id": "llm_placeholder_concept_u_h",
             "tag_name": "msub",
@@ -152,6 +168,11 @@
         },
         "msub_39": {
             "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_40": {
+            "mc_id": "llm_placeholder_concept_Gamma_N",
             "tag_name": "msub",
             "properties": {}
         }

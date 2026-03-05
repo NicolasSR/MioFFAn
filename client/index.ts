@@ -17,47 +17,20 @@ import {renderPropertiesForm, refreshFormLogic, getFilteredFormData} from "./pro
 import projectConfig from '../config.json';
 
 // --------------------------
-// Get list of tags used as mathematical identifiers ffrom configuration json
+// Get list of tags used as mathematical identifiers ffrom configuration jsons
 // --------------------------
 
 const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 
 // --------------------------
-// Options
+// Mark EoIs and SoGs
 // --------------------------
-
-let mioffan_options: { [name: string]: boolean } = {
-    show_definition: false,
-}
 
 $(function () {
     dataLoadingPromise.then(() => {
-
         // Mark borders of EoI
         give_eoi_borders()
-
-        let input_opt_def = $('#option-show-definition');
-
-        // first time check
-        if (localStorage['option-show-definition'] == 'true') {
-            input_opt_def.prop('checked', true);
-            mioffan_options.show_definition = true
-        } else {
-            mioffan_options.show_definition = false
-        }
-
         give_sog_highlight();
-
-        input_opt_def.on('click', function () {
-            if ($(this).prop('checked')) {
-                localStorage['option-show-definition'] = 'true';
-                mioffan_options.show_definition = true
-            } else {
-                localStorage['option-show-definition'] = 'false';
-                mioffan_options.show_definition = false
-            }
-            give_sog_highlight();
-        });
     });
 });
 
@@ -116,7 +89,7 @@ function apply_highlight(sog_nodes: JQuery, sog: Source, mc_id: string) {
     remove_highlight(sog_nodes);
 
     let concept = mcdict[mc_id];
-    highlight_sog_nodes(concept, sog_nodes, sog, mioffan_options.show_definition)
+    highlight_sog_nodes(concept, sog_nodes, sog)
 
     // embed SoG information for removing
     sog_nodes.attr({
@@ -415,11 +388,10 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
     const $propertiesForm = $dialog.find('#concept-properties-form');
 
     // 2. Setup Category Dropdown
-    const taxonomy = projectConfig.CONCEPT_TAXONOMY;
+    let taxonomy = projectConfig.CONCEPT_TAXONOMY;
     const categories = Object.keys(taxonomy) as Array<keyof typeof taxonomy>;
     
     let options = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
-    options += `<option value="symbol-placeholder">Symbol Placeholder</option>`
     $categoryContainer.html(`<select name="concept-category" class="form-control">${options}</select>`);
     
     const $select = $categoryContainer.find('select');
@@ -761,7 +733,7 @@ $(function () {
 
             // Do not show sog-mod-menu when the sog is not highlighted.
             let is_sog_highlighted = true;
-            if (mioffan_options.limited_highlight && comp_tag_id != undefined && sog_mc_id != undefined) {
+            if (comp_tag_id != undefined && sog_mc_id != undefined) {
                 let cur_mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)));
                 if (!(cur_mc_id == sog_mc_id )) {
                     is_sog_highlighted = false;

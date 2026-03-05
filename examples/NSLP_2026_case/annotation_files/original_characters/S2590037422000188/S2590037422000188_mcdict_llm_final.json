@@ -2,14 +2,19 @@
     "_author": "YOUR NAME",
     "_mcdict_version": "1.0",
     "concepts": {
-        "body_force_i": {
-            "code_var_name": "body_force_i",
-            "description": "Components of the body force acting in the i direction.\nJUSTIFICATION:\nDefined as f_i in equations (1a), (1b), and (1c), and appears in the weak form as a source term in the variational equation (3).",
+        "body_force_vector": {
+            "code_var_name": "body_force_vector",
+            "description": "Body force components f_i representing external forces per unit mass acting on the spine material.\nJUSTIFICATION:\nf_i are the components of the body force, appearing in the stress equilibrium equation and integrated over the domain.",
             "primitive_symbols": [
                 "69",
                 "66"
             ],
             "sog_list": [
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
                 {
                     "start_id": "p_5_3-start",
                     "stop_id": "p_5_3-end",
@@ -18,11 +23,6 @@
                 {
                     "start_id": "p_5_1-start",
                     "stop_id": "p_5_1-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_5_2-start",
-                    "stop_id": "p_5_2-end",
                     "type": 0
                 },
                 {
@@ -36,13 +36,23 @@
                     "type": 0
                 },
                 {
-                    "start_id": "p_5_5-start",
-                    "stop_id": "p_5_5-end",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
                     "type": 0
                 },
                 {
-                    "start_id": "p_1_0-start",
-                    "stop_id": "p_1_0-end",
+                    "start_id": "formula_4",
+                    "stop_id": "formula_4",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
                     "type": 0
                 }
             ],
@@ -52,52 +62,17 @@
             },
             "concept_category": "variable"
         },
-        "boundary_force_F_i": {
-            "code_var_name": "boundary_force_F_i",
-            "description": "Components of the surface force applied on the boundary, expressed as the dot product of stress and normal vector.\nJUSTIFICATION:\nDefined in equation (7) as F_i = \u03c3_ij n_j, and appears in the weak form as a boundary term in equation (8) and (10).",
+        "boundary": {
+            "code_var_name": "boundary",
+            "description": "The boundary \u2202\u03a9 of the domain \u03a9, where surface forces are applied.\nJUSTIFICATION:\n\u2202\u03a9 is the outward boundary of the domain, where surface forces F_i are defined and integrated over.",
             "primitive_symbols": [
-                "46",
-                "69"
-            ],
-            "sog_list": [
-                {
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9",
-                    "type": 0
-                },
-                {
-                    "start_id": "formula_10",
-                    "stop_id": "formula_10",
-                    "type": 0
-                }
-            ],
-            "properties": {
-                "type": "numerical-variable",
-                "tensor-rank": "1"
-            },
-            "concept_category": "variable"
-        },
-        "d_Omega": {
-            "code_var_name": "d_Omega",
-            "description": "Differential element of volume used in volume integrals over the domain.\nJUSTIFICATION:\nAppears in integrals over \u03a9 as 'd\u03a9' in equations (3), (5), (6), (8), (10), and is standard notation for volume integration in FEM.",
-            "primitive_symbols": [
-                "64",
-                "cea9"
-            ],
-            "sog_list": [],
-            "properties": {},
-            "concept_category": "integration-var"
-        },
-        "domain_Omega": {
-            "code_var_name": "domain_Omega",
-            "description": "The computational domain representing the lumbar spine region under analysis.\nJUSTIFICATION:\nAppears in integrals over \u03a9 (e.g., \u222b_\u03a9 and \u222b_\u2202\u03a9), and is referenced as the region where the physical model is defined.",
-            "primitive_symbols": [
+                "e28882",
                 "cea9"
             ],
             "sog_list": [
                 {
-                    "start_id": "p_16_5-start",
-                    "stop_id": "p_16_5-end",
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
                     "type": 0
                 },
                 {
@@ -106,8 +81,18 @@
                     "type": 0
                 },
                 {
-                    "start_id": "p_16_1-start",
-                    "stop_id": "p_16_1-end",
+                    "start_id": "p_18_0-start",
+                    "stop_id": "p_18_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end",
                     "type": 0
                 },
                 {
@@ -126,8 +111,99 @@
                     "type": 0
                 },
                 {
+                    "start_id": "p_18_1-start",
+                    "stop_id": "p_18_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "domain"
+        },
+        "domain": {
+            "code_var_name": "domain",
+            "description": "The main computational domain \u03a9 representing the lumbar spine region under analysis.\nJUSTIFICATION:\n\u03a9 appears as the domain of integration in multiple equations, such as \u222b_\u03a9 and \u222b_\u2202\u03a9, indicating the physical region of the spine.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
                     "start_id": "p_16_0-start",
                     "stop_id": "p_16_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_12",
+                    "stop_id": "formula_12",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
                     "type": 0
                 }
             ],
@@ -249,90 +325,37 @@
             "properties": {},
             "concept_category": "symbol-placeholder"
         },
-        "partial_Omega": {
-            "code_var_name": "partial_Omega",
-            "description": "Differential element of surface area used in surface integrals over the boundary.\nJUSTIFICATION:\nAppears in \u222b_\u2202\u03a9 as 'd\u2202\u03a9' or '\u2202\u03a9', and is used to represent surface integration over the boundary of the domain.",
+        "stiffness_tensor": {
+            "code_var_name": "stiffness_tensor",
+            "description": "Stiffness tensor components C_i_j_k_l describing the material's resistance to deformation in the spine.\nJUSTIFICATION:\nC_i_j_k_l are the components of the stiffness tensor of the spine, used in the generalized Hooke\u2019s law to relate stress and strain.",
             "primitive_symbols": [
-                "e28882",
-                "cea9"
-            ],
-            "sog_list": [
-                {
-                    "start_id": "p_16_5-start",
-                    "stop_id": "p_16_5-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_6-start",
-                    "stop_id": "p_16_6-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_1-start",
-                    "stop_id": "p_16_1-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_4-start",
-                    "stop_id": "p_16_4-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_2-start",
-                    "stop_id": "p_16_2-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_3-start",
-                    "stop_id": "p_16_3-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_16_0-start",
-                    "stop_id": "p_16_0-end",
-                    "type": 0
-                }
-            ],
-            "properties": {},
-            "concept_category": "integration-var"
-        },
-        "stiffness_tensor_ijkl": {
-            "code_var_name": "stiffness_tensor_ijkl",
-            "description": "Components of the stiffness tensor relating stress and strain in the i-j-k-l direction.\nJUSTIFICATION:\nDefined as C_ijkl in equation (1b) and used in equation (9) to relate stress to strain via Hooke's law.",
-            "primitive_symbols": [
-                "43",
-                "6a",
-                "6b",
                 "69",
-                "6c"
+                "43",
+                "6c",
+                "6a",
+                "6b"
             ],
-            "sog_list": [
-                {
-                    "start_id": "formula_11",
-                    "stop_id": "formula_11",
-                    "type": 0
-                },
-                {
-                    "start_id": "formula_2",
-                    "stop_id": "formula_2",
-                    "type": 0
-                }
-            ],
+            "sog_list": [],
             "properties": {
-                "type": "symbolic-variable",
+                "type": "defined-function",
                 "tensor-rank": "4"
             },
             "concept_category": "variable"
         },
-        "strain_gradient_u_k_l": {
-            "code_var_name": "strain_gradient_u_k_l",
-            "description": "First-order derivative of displacement in the k-l direction, used in strain definition.\nJUSTIFICATION:\nDefined as u_k,l and u_l,k in equation (1c), forming the symmetric strain tensor components.",
+        "strain_tensor": {
+            "code_var_name": "strain_tensor",
+            "description": "Strain tensor components \u03b5_kl representing deformation of the spine material.\nJUSTIFICATION:\n\u03b5_kl are the components of the strain tensor, derived from the displacement components via strain\u2013displacement relation.",
             "primitive_symbols": [
-                "75",
+                "6c",
                 "6b",
-                "6c"
+                "75"
             ],
             "sog_list": [
+                {
+                    "start_id": "p_5_5-start",
+                    "stop_id": "p_5_5-end",
+                    "type": 0
+                },
                 {
                     "start_id": "p_5_3-start",
                     "stop_id": "p_5_3-end",
@@ -341,11 +364,6 @@
                 {
                     "start_id": "p_5_1-start",
                     "stop_id": "p_5_1-end",
-                    "type": 0
-                },
-                {
-                    "start_id": "p_5_2-start",
-                    "stop_id": "p_5_2-end",
                     "type": 0
                 },
                 {
@@ -359,8 +377,8 @@
                     "type": 0
                 },
                 {
-                    "start_id": "p_5_5-start",
-                    "stop_id": "p_5_5-end",
+                    "start_id": "p_5_2-start",
+                    "stop_id": "p_5_2-end",
                     "type": 0
                 },
                 {
@@ -370,28 +388,85 @@
                 }
             ],
             "properties": {
-                "type": "trial-function",
+                "type": "symbolic-variable",
+                "tensor-rank": "2"
+            },
+            "concept_category": "variable"
+        },
+        "surface_force_vector": {
+            "code_var_name": "surface_force_vector",
+            "description": "Surface force components F_i applied on the boundary of the domain, derived from the stress tensor and normal vector.\nJUSTIFICATION:\nF_i is the body force applied on the boundary \u2202\u03a9, expressed as \u03c3_ij n_j, linking surface forces to the stress tensor and normal vector.",
+            "primitive_symbols": [
+                "69",
+                "46"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ],
+            "properties": {
+                "type": "defined-function",
                 "tensor-rank": "1"
             },
             "concept_category": "variable"
         },
-        "weight_function_v_i": {
-            "code_var_name": "weight_function_v_i",
-            "description": "Weight function used in the variational formulation, with components v_i.\nJUSTIFICATION:\nIntroduced in equation (3) as the test function v_i, used in integration to derive the weak form of the equilibrium equation.",
+        "volume_integral_var": {
+            "code_var_name": "volume_integral_var",
+            "description": "Integration variable d\u03a9 used in volume integrals over the domain \u03a9.\nJUSTIFICATION:\nd\u03a9 appears in integrals over \u03a9, such as \u222b_\u03a9 \u03c3_ij v_i,j d\u03a9, indicating the volume integration element.",
             "primitive_symbols": [
-                "6a",
+                "cea9",
+                "64"
+            ],
+            "sog_list": [
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_12",
+                    "stop_id": "formula_12",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ],
+            "properties": {},
+            "concept_category": "integration-var"
+        },
+        "weight_function": {
+            "code_var_name": "weight_function",
+            "description": "Test function v_i used in the variational formulation to enforce equilibrium in the finite element method.\nJUSTIFICATION:\nTaking the weight function v_i, we obtain the variational statement. The function v_i appears in integrals with stress and body forces.",
+            "primitive_symbols": [
                 "69",
+                "6a",
                 "76"
             ],
             "sog_list": [
                 {
-                    "start_id": "p_8_0-start",
-                    "stop_id": "p_8_0-end",
+                    "start_id": "p_8_1-start",
+                    "stop_id": "p_8_1-end",
                     "type": 0
                 },
                 {
-                    "start_id": "p_8_1-start",
-                    "stop_id": "p_8_1-end",
+                    "start_id": "p_8_0-start",
+                    "stop_id": "p_8_0-end",
                     "type": 0
                 },
                 {
@@ -415,72 +490,72 @@
     "next_available_mc_id": 0,
     "occurences_dict": {
         "custom-group-0": {
-            "mc_id": "d_Omega",
+            "mc_id": "volume_integral_var",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-1": {
-            "mc_id": "partial_Omega",
+            "mc_id": "boundary",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-2": {
-            "mc_id": "d_Omega",
+            "mc_id": "volume_integral_var",
             "tag_name": "mstyle",
             "properties": {}
         },
         "custom-group-3": {
-            "mc_id": "d_Omega",
+            "mc_id": "volume_integral_var",
             "tag_name": "mstyle",
             "properties": {}
         },
         "mi_222": {
-            "mc_id": "domain_Omega",
+            "mc_id": "domain",
             "tag_name": "mi",
             "properties": {}
         },
         "mi_247": {
-            "mc_id": "domain_Omega",
+            "mc_id": "domain",
             "tag_name": "mi",
             "properties": {}
         },
         "msub_85": {
-            "mc_id": "stiffness_tensor_ijkl",
+            "mc_id": "stiffness_tensor",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_86": {
-            "mc_id": "strain_gradient_u_k_l",
+            "mc_id": "strain_tensor",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_87": {
-            "mc_id": "strain_gradient_u_k_l",
+            "mc_id": "strain_tensor",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_88": {
-            "mc_id": "weight_function_v_i",
+            "mc_id": "weight_function",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_90": {
-            "mc_id": "boundary_force_F_i",
+            "mc_id": "surface_force_vector",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_91": {
-            "mc_id": "weight_function_v_i",
+            "mc_id": "weight_function",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_93": {
-            "mc_id": "body_force_i",
+            "mc_id": "body_force_vector",
             "tag_name": "msub",
             "properties": {}
         },
         "msub_94": {
-            "mc_id": "weight_function_v_i",
+            "mc_id": "weight_function",
             "tag_name": "msub",
             "properties": {}
         }

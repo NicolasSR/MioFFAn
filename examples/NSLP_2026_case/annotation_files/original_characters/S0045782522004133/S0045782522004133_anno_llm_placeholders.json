@@ -1,8 +1,15 @@
 {
     "_anno_version": "1.0",
     "_annotator": "YOUR NAME",
-    "groups": {},
-    "next_available_group_id": 0,
+    "groups": {
+        "custom-group-0": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 2,
+            "start_id": "msup_7",
+            "stop_id": "mi_146"
+        }
+    },
+    "next_available_group_id": 1,
     "primitive_symbols": {
         "43": {
             "text": "C",

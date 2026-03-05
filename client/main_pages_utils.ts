@@ -187,16 +187,13 @@ export function give_eoi_borders() {
   }
 }
 
-export function highlight_sog_nodes(concept: Concept | undefined, sog_nodes: JQuery, sog: Source, show_definition: boolean) {
+export function highlight_sog_nodes(concept: Concept | undefined, sog_nodes: JQuery, sog: Source) {
     if (concept == undefined || concept.color == undefined) {
         // red underline if concept is unassigned
         sog_nodes.css('border-bottom', 'solid 2px #FF0000');
         } else {
         // highlight it!
         sog_nodes.css('background-color', `rgba(${hex2rgb(concept.color).join()},0.3)`);
-        if(show_definition && sog.type == 1) {
-            sog_nodes.css('border-bottom', 'solid 3px');
-        }
     }
 }
 

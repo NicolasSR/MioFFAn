@@ -107,99 +107,93 @@
                 "name": "u_field",
                 "type": "VARIABLE",
                 "description": "The primary unknown field representing the displacement in the wave equation.",
-                "justification": "The symbol 'u' appears repeatedly as the dependent variable in the wave equation and in the weak formulation, e.g., 'u(t, x)', 'u in H_0^1(\u03a9)', and in the weak form as the solution to be found."
+                "justification": "The symbol 'u' appears multiple times as the dependent variable in the wave equation and in the weak formulation, such as in 'u(t,x)', '\u2202\u00b2u/\u2202t\u00b2', and in the test function pairing. It is explicitly described as the dependent variable in the initial equations and the weak solution."
             },
             {
                 "name": "w_test_function",
                 "type": "VARIABLE",
                 "description": "A test function used in the weak formulation to enforce the variational form of the wave equation.",
-                "justification": "The symbol 'w' is consistently used as a test function in the weak formulation, appearing in integrals with 'u' and in the condition 'for all w in H_0^1(\u03a9)'."
-            },
-            {
-                "name": "Omega_domain",
-                "type": "DOMAIN",
-                "description": "The main spatial computational domain over which the wave equation is defined.",
-                "justification": "The symbol '\u03a9' is repeatedly used to denote the spatial domain, e.g., in '\u222b_\u03a9', 'H_0^1(\u03a9)', and '\u2202\u03a9'. It is the primary spatial domain in the problem."
-            },
-            {
-                "name": "Gamma_interface",
-                "type": "DOMAIN",
-                "description": "The collection of interfaces between subdomains where transmission conditions are applied.",
-                "justification": "The symbol '\u0393' is explicitly defined as 'the collection of interfaces between the subdomains \u03a9_i', and appears in integrals over '\u0393' in the weak form."
-            },
-            {
-                "name": "t_time",
-                "type": "VARIABLE",
-                "description": "The temporal variable representing time in the evolution of the wave equation.",
-                "justification": "The symbol 't' is used in expressions such as 'u(t, x)', '\u2202\u00b2u/\u2202t\u00b2', and 'for a.e. t', indicating its role as the time variable."
+                "justification": "The symbol 'w' is repeatedly used in the weak formulation as a test function, appearing in integrals with 'u', and in the domain of the Sobolev space. It is explicitly mentioned as part of the test function space and used in the duality pairing with the second time derivative of 'u'."
             },
             {
                 "name": "rho_mass_density",
                 "type": "VARIABLE",
-                "description": "The positive mass per unit volume of the medium, a material property in the wave equation.",
-                "justification": "The symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text."
+                "description": "The mass per unit volume, a material property in the wave equation governing the inertial term.",
+                "justification": "The symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text, and appears in the time derivative term of the wave equation and in the weak form as a coefficient in the duality pairing."
             },
             {
                 "name": "T_tensile_stress",
                 "type": "VARIABLE",
-                "description": "The positive tensile pre-stress applied as a load per unit surface area.",
-                "justification": "The symbol 'T' is defined as 'the positive tensile pre-stress as load per unit surface area' in the text."
+                "description": "The tensile pre-stress as load per unit surface area, appearing in the constitutive relation of the wave equation.",
+                "justification": "The symbol 'T' is explicitly defined as 'the positive tensile pre-stress as load per unit surface area' and appears in both the strong and weak forms, including in the gradient term and the interface conditions."
             },
             {
-                "name": "g_boundary_load",
+                "name": "Omega_domain",
+                "type": "DOMAIN",
+                "description": "The main spatial computational domain in which the wave equation is defined.",
+                "justification": "The symbol '\u03a9' is repeatedly used to denote the d-dimensional spatial domain, partitioned into subdomains, and is the domain of integration in the weak form. It is explicitly described as the spatial domain and appears in integrals over \u03a9 and its boundaries."
+            },
+            {
+                "name": "t_time",
                 "type": "VARIABLE",
-                "description": "The boundary load applied on Neumann boundaries, appearing in the weak form as a source term.",
-                "justification": "The symbol 'g' appears in the weak form as 'g w d\u0393' and is described in the context of boundary conditions on \u2202\u03a9_N."
+                "description": "The time variable in the time-dependent wave equation and weak formulation.",
+                "justification": "The symbol 't' appears in the time derivative terms (\u2202\u00b2u/\u2202t\u00b2), in the initial conditions, and in the temporal domain notation, indicating it is a time variable in the evolution of the solution."
             },
             {
-                "name": "H_0_1_Omega",
+                "name": "Gamma_interface",
                 "type": "DOMAIN",
-                "description": "The Sobolev space of functions with zero trace on the boundary, used for the solution and test functions.",
-                "justification": "The expression 'H_0^1(\u03a9)' is explicitly defined as the space for both the solution 'u' and test functions 'w', and is referenced multiple times in the weak formulation."
-            },
-            {
-                "name": "H_1_time_dependent",
-                "type": "DOMAIN",
-                "description": "The space of functions in H^1(\u03a9) valued over time, used to describe the regularity of the solution in time.",
-                "justification": "The symbol 'H^1(T; H_0^1(\u03a9))' is introduced as the space of functions satisfying smoothness in time and spatial regularity, and is used to define the solution space for u."
-            },
-            {
-                "name": "H_minus1_dual",
-                "type": "DOMAIN",
-                "description": "The dual space of H^{-1}(\u03a9), used in the duality pairing between the second time derivative of u and the test function w.",
-                "justification": "The expression 'H^{-1}(\u03a9)' appears in the weak form as the dual space for the time derivative term, and is explicitly referenced in the duality pairing notation."
+                "description": "The collection of interfaces between subdomains where transmission conditions are enforced.",
+                "justification": "The symbol '\u0393' is explicitly defined as 'the collection of interfaces between the subdomains \u03a9i', and appears in the jump conditions and integration over \u0393 in the weak form, indicating it is a domain boundary between subdomains."
             },
             {
                 "name": "d_Omega",
                 "type": "INTEGRATION_VAR",
                 "description": "The differential element for integration over the spatial domain \u03a9.",
-                "justification": "The symbol 'd\u03a9' appears in integrals such as '\u222b_\u03a9 \u03c1 \u2202\u00b2u/\u2202t\u00b2 w d\u03a9', indicating it is the integration variable over the domain \u03a9."
+                "justification": "The symbol 'd\u03a9' appears in integrals over \u03a9 and \u0393, indicating it is the integration element in the weak formulation, as per standard notation in variational methods."
             },
             {
                 "name": "d_Gamma",
                 "type": "INTEGRATION_VAR",
-                "description": "The differential element for integration over the interface boundary \u0393.",
-                "justification": "The symbol 'd\u0393' appears in integrals over the interface, such as '\u222b_\u0393 [T \u2207u] w d\u0393', indicating it is the integration variable over the interface."
+                "description": "The differential element for integration over the boundary interface \u0393.",
+                "justification": "The symbol 'd\u0393' appears in the weak formulation as the integration element over the interface \u0393, where boundary conditions are applied, indicating it is the surface element for integration on the interface."
+            },
+            {
+                "name": "g_boundary_load",
+                "type": "VARIABLE",
+                "description": "The boundary load applied on the Neumann boundary \u2202\u03a9N.",
+                "justification": "The symbol 'g' is explicitly defined in the Neumann condition as 'the boundary load' and appears in the weak form as a term involving 'g w d\u0393', indicating it is a given boundary condition."
+            },
+            {
+                "name": "H_0_1_Omega",
+                "type": "DOMAIN",
+                "description": "The Sobolev space of functions with zero normal trace on the boundary, used for the test and solution functions.",
+                "justification": "The symbol 'H\u2070\u2081(\u03a9)' is explicitly defined as the Sobolev space of functions satisfying Dirichlet boundary conditions and appears in the weak formulation as the space for both the solution and test functions."
+            },
+            {
+                "name": "H_1_temporal",
+                "type": "DOMAIN",
+                "description": "The space of functions in H\u00b9(\u03a9) valued over time, used to define the solution space in the weak formulation.",
+                "justification": "The symbol 'H\u00b9(T; H\u2070\u2081(\u03a9))' is explicitly defined as the space of H\u2070\u2081(\u03a9)-valued functions that are smooth in time, and is used to describe the solution space in the weak formulation."
+            },
+            {
+                "name": "H_minus1_dual",
+                "type": "DOMAIN",
+                "description": "The dual space of H\u207b\u00b9(\u03a9), used for the duality pairing with the second time derivative of u.",
+                "justification": "The symbol 'H\u207b\u00b9(\u03a9)' is explicitly mentioned as the dual space of H\u00b9(\u03a9), and appears in the duality pairing between the second time derivative of u and the test function w, indicating it is the dual space in the weak formulation."
             },
             {
                 "name": "cal_T",
-                "type": "VARIABLE",
-                "description": "The tensile pre-stress field, represented in script form to distinguish it from the spatial domain or other variables.",
-                "justification": "The symbol 'T' (in script form) is used to denote the tensile pre-stress field, appearing in both the original PDE and the weak form, and is consistently used in the context of stress and gradients."
-            },
-            {
-                "name": "delta_Omega_N",
-                "type": "DOMAIN",
-                "description": "The Neumann boundary of the domain \u03a9, where Neumann conditions are applied.",
-                "justification": "The symbol '\u2202\u03a9_N' is explicitly defined as the boundary where Neumann conditions are imposed, and appears in the weak form as the domain of the boundary load 'g'."
+                "type": "OPERATOR",
+                "description": "The tensile stress operator used in the gradient term and interface conditions.",
+                "justification": "The symbol 'T' appears in the context of \u2207\u00b7(T\u2207u) and in the jump condition [T \u2202n u], indicating it is used as a coefficient in a differential operator. Although not explicitly named as an operator, its role in the gradient and interface conditions supports its classification as an operator."
             }
         ],
         "concept_assignments": {
-            "delta_Omega": "delta_Omega_N",
+            "delta_Omega": "Gamma_interface",
             "H_0_1_Omega": "H_0_1_Omega",
-            "H_1": "H_1_time_dependent",
+            "H_1": "H_1_temporal",
             "u": "u_field",
-            "cal_T": "T_tensile_stress",
+            "cal_T": "cal_T",
             "Omega": "Omega_domain",
             "t": "t_time",
             "w": "w_test_function",
@@ -220,10 +214,6 @@
                 "type": "test-function",
                 "tensor_rank": "1"
             },
-            "t_time": {
-                "type": "numerical-variable",
-                "tensor_rank": "0"
-            },
             "rho_mass_density": {
                 "type": "defined-function",
                 "tensor_rank": "0"
@@ -232,15 +222,19 @@
                 "type": "defined-function",
                 "tensor_rank": "0"
             },
+            "t_time": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
             "g_boundary_load": {
-                "type": "symbolic-variable",
+                "type": "nodal-variable",
                 "tensor_rank": "0"
             }
         },
         "final_concepts": {
             "u_field": {
                 "code_var_name": "u_field",
-                "description": "The primary unknown field representing the displacement in the wave equation.\nJUSTIFICATION:\nThe symbol 'u' appears repeatedly as the dependent variable in the wave equation and in the weak formulation, e.g., 'u(t, x)', 'u in H_0^1(\u03a9)', and in the weak form as the solution to be found.",
+                "description": "The primary unknown field representing the displacement in the wave equation.\nJUSTIFICATION:\nThe symbol 'u' appears multiple times as the dependent variable in the wave equation and in the weak formulation, such as in 'u(t,x)', '\u2202\u00b2u/\u2202t\u00b2', and in the test function pairing. It is explicitly described as the dependent variable in the initial equations and the weak solution.",
                 "options": [
                     "trial-function"
                 ],
@@ -252,7 +246,7 @@
             },
             "w_test_function": {
                 "code_var_name": "w_test_function",
-                "description": "A test function used in the weak formulation to enforce the variational form of the wave equation.\nJUSTIFICATION:\nThe symbol 'w' is consistently used as a test function in the weak formulation, appearing in integrals with 'u' and in the condition 'for all w in H_0^1(\u03a9)'.",
+                "description": "A test function used in the weak formulation to enforce the variational form of the wave equation.\nJUSTIFICATION:\nThe symbol 'w' is repeatedly used in the weak formulation as a test function, appearing in integrals with 'u', and in the domain of the Sobolev space. It is explicitly mentioned as part of the test function space and used in the duality pairing with the second time derivative of 'u'.",
                 "options": [
                     "test-function"
                 ],
@@ -262,33 +256,9 @@
                 "sog_list": [],
                 "tensor_rank": "1"
             },
-            "Omega_domain": {
-                "code_var_name": "Omega_domain",
-                "description": "The main spatial computational domain over which the wave equation is defined.\nJUSTIFICATION:\nThe symbol '\u03a9' is repeatedly used to denote the spatial domain, e.g., in '\u222b_\u03a9', 'H_0^1(\u03a9)', and '\u2202\u03a9'. It is the primary spatial domain in the problem.",
-                "options": [
-                    "domain"
-                ],
-                "primitive_symbols": [
-                    "cea9"
-                ],
-                "sog_list": [],
-                "tensor_rank": "0"
-            },
-            "t_time": {
-                "code_var_name": "t_time",
-                "description": "The temporal variable representing time in the evolution of the wave equation.\nJUSTIFICATION:\nThe symbol 't' is used in expressions such as 'u(t, x)', '\u2202\u00b2u/\u2202t\u00b2', and 'for a.e. t', indicating its role as the time variable.",
-                "options": [
-                    "numerical-variable"
-                ],
-                "primitive_symbols": [
-                    "74"
-                ],
-                "sog_list": [],
-                "tensor_rank": "0"
-            },
             "rho_mass_density": {
                 "code_var_name": "rho_mass_density",
-                "description": "The positive mass per unit volume of the medium, a material property in the wave equation.\nJUSTIFICATION:\nThe symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text.",
+                "description": "The mass per unit volume, a material property in the wave equation governing the inertial term.\nJUSTIFICATION:\nThe symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text, and appears in the time derivative term of the wave equation and in the weak form as a coefficient in the duality pairing.",
                 "options": [
                     "defined-function"
                 ],
@@ -300,7 +270,7 @@
             },
             "T_tensile_stress": {
                 "code_var_name": "T_tensile_stress",
-                "description": "The positive tensile pre-stress applied as a load per unit surface area.\nJUSTIFICATION:\nThe symbol 'T' is defined as 'the positive tensile pre-stress as load per unit surface area' in the text.",
+                "description": "The tensile pre-stress as load per unit surface area, appearing in the constitutive relation of the wave equation.\nJUSTIFICATION:\nThe symbol 'T' is explicitly defined as 'the positive tensile pre-stress as load per unit surface area' and appears in both the strong and weak forms, including in the gradient term and the interface conditions.",
                 "options": [
                     "defined-function"
                 ],
@@ -310,58 +280,47 @@
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "g_boundary_load": {
-                "code_var_name": "g_boundary_load",
-                "description": "The boundary load applied on Neumann boundaries, appearing in the weak form as a source term.\nJUSTIFICATION:\nThe symbol 'g' appears in the weak form as 'g w d\u0393' and is described in the context of boundary conditions on \u2202\u03a9_N.",
-                "options": [
-                    "symbolic-variable"
-                ],
-                "primitive_symbols": [
-                    "67"
-                ],
-                "sog_list": [],
-                "tensor_rank": "0"
-            },
-            "H_0_1_Omega": {
-                "code_var_name": "H_0_1_Omega",
-                "description": "The Sobolev space of functions with zero trace on the boundary, used for the solution and test functions.\nJUSTIFICATION:\nThe expression 'H_0^1(\u03a9)' is explicitly defined as the space for both the solution 'u' and test functions 'w', and is referenced multiple times in the weak formulation.",
+            "Omega_domain": {
+                "code_var_name": "Omega_domain",
+                "description": "The main spatial computational domain in which the wave equation is defined.\nJUSTIFICATION:\nThe symbol '\u03a9' is repeatedly used to denote the d-dimensional spatial domain, partitioned into subdomains, and is the domain of integration in the weak form. It is explicitly described as the spatial domain and appears in integrals over \u03a9 and its boundaries.",
                 "options": [
                     "domain"
                 ],
                 "primitive_symbols": [
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "t_time": {
+                "code_var_name": "t_time",
+                "description": "The time variable in the time-dependent wave equation and weak formulation.\nJUSTIFICATION:\nThe symbol 't' appears in the time derivative terms (\u2202\u00b2u/\u2202t\u00b2), in the initial conditions, and in the temporal domain notation, indicating it is a time variable in the evolution of the solution.",
+                "options": [
+                    "numerical-variable"
+                ],
+                "primitive_symbols": [
+                    "74"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "Gamma_interface": {
+                "code_var_name": "Gamma_interface",
+                "description": "The collection of interfaces between subdomains where transmission conditions are enforced.\nJUSTIFICATION:\nThe symbol '\u0393' is explicitly defined as 'the collection of interfaces between the subdomains \u03a9i', and appears in the jump conditions and integration over \u0393 in the weak form, indicating it is a domain boundary between subdomains.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "4e",
                     "cea9",
-                    "48"
-                ],
-                "sog_list": [],
-                "tensor_rank": "0"
-            },
-            "H_1_time_dependent": {
-                "code_var_name": "H_1_time_dependent",
-                "description": "The space of functions in H^1(\u03a9) valued over time, used to describe the regularity of the solution in time.\nJUSTIFICATION:\nThe symbol 'H^1(T; H_0^1(\u03a9))' is introduced as the space of functions satisfying smoothness in time and spatial regularity, and is used to define the solution space for u.",
-                "options": [
-                    "domain"
-                ],
-                "primitive_symbols": [
-                    "48"
-                ],
-                "sog_list": [],
-                "tensor_rank": "0"
-            },
-            "H_minus1_dual": {
-                "code_var_name": "H_minus1_dual",
-                "description": "The dual space of H^{-1}(\u03a9), used in the duality pairing between the second time derivative of u and the test function w.\nJUSTIFICATION:\nThe expression 'H^{-1}(\u03a9)' appears in the weak form as the dual space for the time derivative term, and is explicitly referenced in the duality pairing notation.",
-                "options": [
-                    "domain"
-                ],
-                "primitive_symbols": [
-                    "48"
+                    "e28882"
                 ],
                 "sog_list": [],
                 "tensor_rank": "0"
             },
             "d_Omega": {
                 "code_var_name": "d_Omega",
-                "description": "The differential element for integration over the spatial domain \u03a9.\nJUSTIFICATION:\nThe symbol 'd\u03a9' appears in integrals such as '\u222b_\u03a9 \u03c1 \u2202\u00b2u/\u2202t\u00b2 w d\u03a9', indicating it is the integration variable over the domain \u03a9.",
+                "description": "The differential element for integration over the spatial domain \u03a9.\nJUSTIFICATION:\nThe symbol 'd\u03a9' appears in integrals over \u03a9 and \u0393, indicating it is the integration element in the weak formulation, as per standard notation in variational methods.",
                 "options": [
                     "integration-var"
                 ],
@@ -373,7 +332,7 @@
             },
             "d_Gamma": {
                 "code_var_name": "d_Gamma",
-                "description": "The differential element for integration over the interface boundary \u0393.\nJUSTIFICATION:\nThe symbol 'd\u0393' appears in integrals over the interface, such as '\u222b_\u0393 [T \u2207u] w d\u0393', indicating it is the integration variable over the interface.",
+                "description": "The differential element for integration over the boundary interface \u0393.\nJUSTIFICATION:\nThe symbol 'd\u0393' appears in the weak formulation as the integration element over the interface \u0393, where boundary conditions are applied, indicating it is the surface element for integration on the interface.",
                 "options": [
                     "integration-var"
                 ],
@@ -383,30 +342,77 @@
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "delta_Omega_N": {
-                "code_var_name": "delta_Omega_N",
-                "description": "The Neumann boundary of the domain \u03a9, where Neumann conditions are applied.\nJUSTIFICATION:\nThe symbol '\u2202\u03a9_N' is explicitly defined as the boundary where Neumann conditions are imposed, and appears in the weak form as the domain of the boundary load 'g'.",
+            "g_boundary_load": {
+                "code_var_name": "g_boundary_load",
+                "description": "The boundary load applied on the Neumann boundary \u2202\u03a9N.\nJUSTIFICATION:\nThe symbol 'g' is explicitly defined in the Neumann condition as 'the boundary load' and appears in the weak form as a term involving 'g w d\u0393', indicating it is a given boundary condition.",
+                "options": [
+                    "nodal-variable"
+                ],
+                "primitive_symbols": [
+                    "67"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "H_0_1_Omega": {
+                "code_var_name": "H_0_1_Omega",
+                "description": "The Sobolev space of functions with zero normal trace on the boundary, used for the test and solution functions.\nJUSTIFICATION:\nThe symbol 'H\u2070\u2081(\u03a9)' is explicitly defined as the Sobolev space of functions satisfying Dirichlet boundary conditions and appears in the weak formulation as the space for both the solution and test functions.",
                 "options": [
                     "domain"
                 ],
                 "primitive_symbols": [
-                    "e28882",
-                    "cea9",
-                    "4e"
+                    "48",
+                    "cea9"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "H_1_temporal": {
+                "code_var_name": "H_1_temporal",
+                "description": "The space of functions in H\u00b9(\u03a9) valued over time, used to define the solution space in the weak formulation.\nJUSTIFICATION:\nThe symbol 'H\u00b9(T; H\u2070\u2081(\u03a9))' is explicitly defined as the space of H\u2070\u2081(\u03a9)-valued functions that are smooth in time, and is used to describe the solution space in the weak formulation.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "48"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "H_minus1_dual": {
+                "code_var_name": "H_minus1_dual",
+                "description": "The dual space of H\u207b\u00b9(\u03a9), used for the duality pairing with the second time derivative of u.\nJUSTIFICATION:\nThe symbol 'H\u207b\u00b9(\u03a9)' is explicitly mentioned as the dual space of H\u00b9(\u03a9), and appears in the duality pairing between the second time derivative of u and the test function w, indicating it is the dual space in the weak formulation.",
+                "options": [
+                    "domain"
+                ],
+                "primitive_symbols": [
+                    "48"
+                ],
+                "sog_list": [],
+                "tensor_rank": "0"
+            },
+            "cal_T": {
+                "code_var_name": "cal_T",
+                "description": "The tensile stress operator used in the gradient term and interface conditions.\nJUSTIFICATION:\nThe symbol 'T' appears in the context of \u2207\u00b7(T\u2207u) and in the jump condition [T \u2202n u], indicating it is used as a coefficient in a differential operator. Although not explicitly named as an operator, its role in the gradient and interface conditions supports its classification as an operator.",
+                "options": [
+                    "operator"
+                ],
+                "primitive_symbols": [
+                    "54"
                 ],
                 "sog_list": [],
                 "tensor_rank": "0"
             }
         },
         "final_occurrences": {
-            "custom-group-0": "delta_Omega_N",
+            "custom-group-0": "Gamma_interface",
             "custom-group-1": "H_0_1_Omega",
             "custom-group-2": "H_0_1_Omega",
-            "custom-group-3": "H_1_time_dependent",
+            "custom-group-3": "H_1_temporal",
             "mi_144": "u_field",
             "mi_157": "u_field",
             "mi_163": "u_field",
-            "mi_146": "T_tensile_stress",
+            "mi_146": "cal_T",
             "mi_148": "Omega_domain",
             "mi_152": "Omega_domain",
             "mi_161": "Omega_domain",
@@ -426,22 +432,35 @@
         }
     },
     "AUTO_HIGHLIGHT_SOURCES": {
+        "Gamma_interface": {
+            "justifications": {
+                "concept_name": "Gamma_interface",
+                "description": "The collection of interfaces between subdomains where transmission conditions are enforced.\n",
+                "justifications": ":\nThe symbol '\u0393' is explicitly defined as 'the collection of interfaces between the subdomains \u03a9i', and appears in the jump conditions and integration over \u0393 in the weak form, indicating it is a domain boundary between subdomains."
+            },
+            "grounding_ids_raw": [
+                "p_9",
+                "formula_6",
+                "formula_7",
+                "formula_9"
+            ]
+        },
         "H_0_1_Omega": {
             "justifications": {
                 "concept_name": "H_0_1_Omega",
-                "description": "The Sobolev space of functions with zero trace on the boundary, used for the solution and test functions.\n",
-                "justifications": ":\nThe expression 'H_0^1(\u03a9)' is explicitly defined as the space for both the solution 'u' and test functions 'w', and is referenced multiple times in the weak formulation."
+                "description": "The Sobolev space of functions with zero normal trace on the boundary, used for the test and solution functions.\n",
+                "justifications": ":\nThe symbol 'H\u2070\u2081(\u03a9)' is explicitly defined as the Sobolev space of functions satisfying Dirichlet boundary conditions and appears in the weak formulation as the space for both the solution and test functions."
             },
             "grounding_ids_raw": [
                 "p_16",
                 "formula_10"
             ]
         },
-        "H_1_time_dependent": {
+        "H_1_temporal": {
             "justifications": {
-                "concept_name": "H_1_time_dependent",
-                "description": "The space of functions in H^1(\u03a9) valued over time, used to describe the regularity of the solution in time.\n",
-                "justifications": ":\nThe symbol 'H^1(T; H_0^1(\u03a9))' is introduced as the space of functions satisfying smoothness in time and spatial regularity, and is used to define the solution space for u."
+                "concept_name": "H_1_temporal",
+                "description": "The space of functions in H\u00b9(\u03a9) valued over time, used to define the solution space in the weak formulation.\n",
+                "justifications": ":\nThe symbol 'H\u00b9(T; H\u2070\u2081(\u03a9))' is explicitly defined as the space of H\u2070\u2081(\u03a9)-valued functions that are smooth in time, and is used to describe the solution space in the weak formulation."
             },
             "grounding_ids_raw": [
                 "p_18",
@@ -451,42 +470,59 @@
         "H_minus1_dual": {
             "justifications": {
                 "concept_name": "H_minus1_dual",
-                "description": "The dual space of H^{-1}(\u03a9), used in the duality pairing between the second time derivative of u and the test function w.\n",
-                "justifications": ":\nThe expression 'H^{-1}(\u03a9)' appears in the weak form as the dual space for the time derivative term, and is explicitly referenced in the duality pairing notation."
+                "description": "The dual space of H\u207b\u00b9(\u03a9), used for the duality pairing with the second time derivative of u.\n",
+                "justifications": ":\nThe symbol 'H\u207b\u00b9(\u03a9)' is explicitly mentioned as the dual space of H\u00b9(\u03a9), and appears in the duality pairing between the second time derivative of u and the test function w, indicating it is the dual space in the weak formulation."
             },
             "grounding_ids_raw": [
-                "formula_9",
+                "p_16",
                 "formula_10"
             ]
         },
         "Omega_domain": {
             "justifications": {
                 "concept_name": "Omega_domain",
-                "description": "The main spatial computational domain over which the wave equation is defined.\n",
-                "justifications": ":\nThe symbol '\u03a9' is repeatedly used to denote the spatial domain, e.g., in '\u222b_\u03a9', 'H_0^1(\u03a9)', and '\u2202\u03a9'. It is the primary spatial domain in the problem."
+                "description": "The main spatial computational domain in which the wave equation is defined.\n",
+                "justifications": ":\nThe symbol '\u03a9' is repeatedly used to denote the d-dimensional spatial domain, partitioned into subdomains, and is the domain of integration in the weak form. It is explicitly described as the spatial domain and appears in integrals over \u03a9 and its boundaries."
             },
             "grounding_ids_raw": [
                 "p_1",
-                "p_14",
-                "p_16",
-                "p_18"
+                "formula_1",
+                "p_3",
+                "formula_9",
+                "p_14"
             ]
         },
         "T_tensile_stress": {
             "justifications": {
                 "concept_name": "T_tensile_stress",
-                "description": "The positive tensile pre-stress applied as a load per unit surface area.\n",
-                "justifications": ":\nThe symbol 'T' is defined as 'the positive tensile pre-stress as load per unit surface area' in the text."
+                "description": "The tensile pre-stress as load per unit surface area, appearing in the constitutive relation of the wave equation.\n",
+                "justifications": ":\nThe symbol 'T' is explicitly defined as 'the positive tensile pre-stress as load per unit surface area' and appears in both the strong and weak forms, including in the gradient term and the interface conditions."
             },
             "grounding_ids_raw": [
-                "p_3"
+                "p_3",
+                "formula_1",
+                "formula_9",
+                "formula_10"
+            ]
+        },
+        "cal_T": {
+            "justifications": {
+                "concept_name": "cal_T",
+                "description": "The tensile stress operator used in the gradient term and interface conditions.\n",
+                "justifications": ":\nThe symbol 'T' appears in the context of \u2207\u00b7(T\u2207u) and in the jump condition [T \u2202n u], indicating it is used as a coefficient in a differential operator. Although not explicitly named as an operator, its role in the gradient and interface conditions supports its classification as an operator."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_6",
+                "formula_7",
+                "formula_8"
             ]
         },
         "d_Gamma": {
             "justifications": {
                 "concept_name": "d_Gamma",
-                "description": "The differential element for integration over the interface boundary \u0393.\n",
-                "justifications": ":\nThe symbol 'd\u0393' appears in integrals over the interface, such as '\u222b_\u0393 [T \u2207u] w d\u0393', indicating it is the integration variable over the interface."
+                "description": "The differential element for integration over the boundary interface \u0393.\n",
+                "justifications": ":\nThe symbol 'd\u0393' appears in the weak formulation as the integration element over the interface \u0393, where boundary conditions are applied, indicating it is the surface element for integration on the interface."
             },
             "grounding_ids_raw": [
                 "formula_9",
@@ -497,42 +533,32 @@
             "justifications": {
                 "concept_name": "d_Omega",
                 "description": "The differential element for integration over the spatial domain \u03a9.\n",
-                "justifications": ":\nThe symbol 'd\u03a9' appears in integrals such as '\u222b_\u03a9 \u03c1 \u2202\u00b2u/\u2202t\u00b2 w d\u03a9', indicating it is the integration variable over the domain \u03a9."
+                "justifications": ":\nThe symbol 'd\u03a9' appears in integrals over \u03a9 and \u0393, indicating it is the integration element in the weak formulation, as per standard notation in variational methods."
             },
             "grounding_ids_raw": [
+                "p_14",
                 "formula_9",
                 "formula_10"
-            ]
-        },
-        "delta_Omega_N": {
-            "justifications": {
-                "concept_name": "delta_Omega_N",
-                "description": "The Neumann boundary of the domain \u03a9, where Neumann conditions are applied.\n",
-                "justifications": ":\nThe symbol '\u2202\u03a9_N' is explicitly defined as the boundary where Neumann conditions are imposed, and appears in the weak form as the domain of the boundary load 'g'."
-            },
-            "grounding_ids_raw": [
-                "p_6",
-                "formula_5"
             ]
         },
         "g_boundary_load": {
             "justifications": {
                 "concept_name": "g_boundary_load",
-                "description": "The boundary load applied on Neumann boundaries, appearing in the weak form as a source term.\n",
-                "justifications": ":\nThe symbol 'g' appears in the weak form as 'g w d\u0393' and is described in the context of boundary conditions on \u2202\u03a9_N."
+                "description": "The boundary load applied on the Neumann boundary \u2202\u03a9N.\n",
+                "justifications": ":\nThe symbol 'g' is explicitly defined in the Neumann condition as 'the boundary load' and appears in the weak form as a term involving 'g w d\u0393', indicating it is a given boundary condition."
             },
             "grounding_ids_raw": [
+                "p_8",
                 "formula_5",
-                "p_14",
-                "formula_9",
+                "p_17",
                 "formula_10"
             ]
         },
         "rho_mass_density": {
             "justifications": {
                 "concept_name": "rho_mass_density",
-                "description": "The positive mass per unit volume of the medium, a material property in the wave equation.\n",
-                "justifications": ":\nThe symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text."
+                "description": "The mass per unit volume, a material property in the wave equation governing the inertial term.\n",
+                "justifications": ":\nThe symbol '\u03c1' is explicitly defined as 'the positive mass per unit volume' in the text, and appears in the time derivative term of the wave equation and in the weak form as a coefficient in the duality pairing."
             },
             "grounding_ids_raw": [
                 "p_3",
@@ -544,26 +570,31 @@
         "t_time": {
             "justifications": {
                 "concept_name": "t_time",
-                "description": "The temporal variable representing time in the evolution of the wave equation.\n",
-                "justifications": ":\nThe symbol 't' is used in expressions such as 'u(t, x)', '\u2202\u00b2u/\u2202t\u00b2', and 'for a.e. t', indicating its role as the time variable."
+                "description": "The time variable in the time-dependent wave equation and weak formulation.\n",
+                "justifications": ":\nThe symbol 't' appears in the time derivative terms (\u2202\u00b2u/\u2202t\u00b2), in the initial conditions, and in the temporal domain notation, indicating it is a time variable in the evolution of the solution."
             },
             "grounding_ids_raw": [
                 "p_3",
+                "formula_1",
                 "p_4",
+                "formula_2",
                 "p_14",
-                "p_15",
-                "p_17"
+                "formula_9",
+                "p_17",
+                "formula_10"
             ]
         },
         "u_field": {
             "justifications": {
                 "concept_name": "u_field",
                 "description": "The primary unknown field representing the displacement in the wave equation.\n",
-                "justifications": ":\nThe symbol 'u' appears repeatedly as the dependent variable in the wave equation and in the weak formulation, e.g., 'u(t, x)', 'u in H_0^1(\u03a9)', and in the weak form as the solution to be found."
+                "justifications": ":\nThe symbol 'u' appears multiple times as the dependent variable in the wave equation and in the weak formulation, such as in 'u(t,x)', '\u2202\u00b2u/\u2202t\u00b2', and in the test function pairing. It is explicitly described as the dependent variable in the initial equations and the weak solution."
             },
             "grounding_ids_raw": [
+                "p_1",
                 "p_3",
                 "p_14",
+                "p_15",
                 "p_16",
                 "p_17"
             ]
@@ -572,7 +603,7 @@
             "justifications": {
                 "concept_name": "w_test_function",
                 "description": "A test function used in the weak formulation to enforce the variational form of the wave equation.\n",
-                "justifications": ":\nThe symbol 'w' is consistently used as a test function in the weak formulation, appearing in integrals with 'u' and in the condition 'for all w in H_0^1(\u03a9)'."
+                "justifications": ":\nThe symbol 'w' is repeatedly used in the weak formulation as a test function, appearing in integrals with 'u', and in the domain of the Sobolev space. It is explicitly mentioned as part of the test function space and used in the duality pairing with the second time derivative of 'u'."
             },
             "grounding_ids_raw": [
                 "p_14",
@@ -583,246 +614,331 @@
         },
         "total": {
             "matched_grounding_ids": {
+                "Gamma_interface": {
+                    "spans": [
+                        "p_9_7",
+                        "p_9_8",
+                        "p_9_5",
+                        "p_9_3",
+                        "p_9_4",
+                        "p_9_1",
+                        "p_9_0",
+                        "p_9_2",
+                        "p_9_6"
+                    ],
+                    "divs": [
+                        "formula_9",
+                        "formula_6",
+                        "formula_7"
+                    ]
+                },
                 "H_0_1_Omega": {
                     "spans": [
-                        "p_16_2",
                         "p_16_6",
                         "p_16_5",
-                        "p_16_7",
                         "p_16_3",
-                        "p_16_0",
+                        "p_16_7",
+                        "p_16_2",
+                        "p_16_9",
                         "p_16_4",
                         "p_16_1",
-                        "p_16_9",
-                        "p_16_8"
+                        "p_16_8",
+                        "p_16_0"
                     ],
                     "divs": [
                         "formula_10"
                     ]
                 },
-                "H_1_time_dependent": {
+                "H_1_temporal": {
                     "spans": [
-                        "p_18_3",
-                        "p_18_0",
                         "p_18_5",
-                        "p_18_6",
-                        "p_18_1",
                         "p_18_2",
-                        "p_18_4"
+                        "p_18_4",
+                        "p_18_0",
+                        "p_18_1",
+                        "p_18_3",
+                        "p_18_6"
                     ],
                     "divs": [
                         "formula_10"
                     ]
                 },
                 "H_minus1_dual": {
-                    "spans": [],
+                    "spans": [
+                        "p_16_6",
+                        "p_16_5",
+                        "p_16_3",
+                        "p_16_7",
+                        "p_16_2",
+                        "p_16_9",
+                        "p_16_4",
+                        "p_16_1",
+                        "p_16_8",
+                        "p_16_0"
+                    ],
                     "divs": [
-                        "formula_10",
-                        "formula_9"
+                        "formula_10"
                     ]
                 },
                 "Omega_domain": {
                     "spans": [
-                        "p_14_7",
-                        "p_14_6",
                         "p_14_0",
-                        "p_16_5",
-                        "p_14_9",
-                        "p_14_4",
-                        "p_18_5",
-                        "p_16_3",
-                        "p_14_5",
-                        "p_18_2",
-                        "p_1_3",
-                        "p_16_2",
-                        "p_18_3",
-                        "p_1_1",
-                        "p_18_0",
+                        "p_3_4",
+                        "p_14_7",
                         "p_1_0",
-                        "p_18_1",
-                        "p_16_8",
-                        "p_16_6",
-                        "p_16_7",
-                        "p_16_0",
-                        "p_16_9",
-                        "p_14_11",
-                        "p_18_4",
-                        "p_14_10",
-                        "p_14_1",
-                        "p_1_2",
-                        "p_14_12",
-                        "p_18_6",
-                        "p_14_8",
-                        "p_16_4",
-                        "p_16_1",
+                        "p_3_2",
+                        "p_3_0",
                         "p_14_3",
-                        "p_14_2"
+                        "p_14_12",
+                        "p_1_1",
+                        "p_14_10",
+                        "p_3_1",
+                        "p_14_5",
+                        "p_3_5",
+                        "p_14_2",
+                        "p_14_11",
+                        "p_3_3",
+                        "p_14_9",
+                        "p_14_8",
+                        "p_14_1",
+                        "p_14_6",
+                        "p_3_6",
+                        "p_1_2",
+                        "p_14_4",
+                        "p_1_3"
                     ],
-                    "divs": []
+                    "divs": [
+                        "formula_9",
+                        "formula_1"
+                    ]
                 },
                 "T_tensile_stress": {
                     "spans": [
-                        "p_3_4",
-                        "p_3_0",
                         "p_3_3",
-                        "p_3_6",
+                        "p_3_4",
+                        "p_3_1",
                         "p_3_5",
+                        "p_3_6",
                         "p_3_2",
-                        "p_3_1"
+                        "p_3_0"
                     ],
-                    "divs": []
+                    "divs": [
+                        "formula_9",
+                        "formula_10",
+                        "formula_1"
+                    ]
+                },
+                "cal_T": {
+                    "spans": [],
+                    "divs": [
+                        "formula_6",
+                        "formula_8",
+                        "formula_7",
+                        "formula_1"
+                    ]
                 },
                 "d_Gamma": {
                     "spans": [],
                     "divs": [
-                        "formula_10",
-                        "formula_9"
+                        "formula_9",
+                        "formula_10"
                     ]
                 },
                 "d_Omega": {
-                    "spans": [],
-                    "divs": [
-                        "formula_10",
-                        "formula_9"
-                    ]
-                },
-                "delta_Omega_N": {
                     "spans": [
-                        "p_6_4",
-                        "p_6_1",
-                        "p_6_3",
-                        "p_6_0",
-                        "p_6_2"
+                        "p_14_0",
+                        "p_14_3",
+                        "p_14_12",
+                        "p_14_9",
+                        "p_14_10",
+                        "p_14_8",
+                        "p_14_7",
+                        "p_14_1",
+                        "p_14_6",
+                        "p_14_5",
+                        "p_14_2",
+                        "p_14_4",
+                        "p_14_11"
                     ],
                     "divs": [
-                        "formula_5"
+                        "formula_9",
+                        "formula_10"
                     ]
                 },
                 "g_boundary_load": {
-                    "spans": [
-                        "p_14_7",
-                        "p_14_6",
-                        "p_14_0",
-                        "p_14_12",
-                        "p_14_9",
-                        "p_14_4",
-                        "p_14_8",
-                        "p_14_5",
-                        "p_14_3",
-                        "p_14_2",
-                        "p_14_11",
-                        "p_14_10",
-                        "p_14_1"
-                    ],
+                    "spans": [],
                     "divs": [
                         "formula_10",
-                        "formula_5",
-                        "formula_9"
+                        "formula_5"
                     ]
                 },
                 "rho_mass_density": {
                     "spans": [
-                        "p_3_4",
-                        "p_3_0",
                         "p_3_3",
-                        "p_3_6",
+                        "p_3_4",
+                        "p_3_1",
                         "p_3_5",
+                        "p_3_6",
                         "p_3_2",
-                        "p_3_1"
+                        "p_3_0"
                     ],
                     "divs": [
+                        "formula_9",
                         "formula_10",
-                        "formula_1",
-                        "formula_9"
+                        "formula_1"
                     ]
                 },
                 "t_time": {
                     "spans": [
-                        "p_14_7",
-                        "p_14_6",
                         "p_14_0",
-                        "p_3_3",
-                        "p_3_5",
-                        "p_14_9",
-                        "p_14_4",
-                        "p_14_5",
                         "p_3_4",
-                        "p_3_0",
-                        "p_3_6",
+                        "p_14_7",
                         "p_3_2",
-                        "p_14_11",
-                        "p_14_10",
-                        "p_14_1",
-                        "p_14_12",
-                        "p_14_8",
+                        "p_3_0",
                         "p_14_3",
+                        "p_14_12",
+                        "p_14_10",
+                        "p_3_1",
+                        "p_14_5",
+                        "p_3_5",
                         "p_14_2",
-                        "p_3_1"
+                        "p_14_11",
+                        "p_3_3",
+                        "p_14_9",
+                        "p_14_8",
+                        "p_14_1",
+                        "p_14_6",
+                        "p_3_6",
+                        "p_14_4"
                     ],
-                    "divs": []
+                    "divs": [
+                        "formula_9",
+                        "formula_2",
+                        "formula_10",
+                        "formula_1"
+                    ]
                 },
                 "u_field": {
                     "spans": [
-                        "p_14_7",
-                        "p_14_6",
                         "p_14_0",
-                        "p_16_5",
-                        "p_3_3",
-                        "p_3_5",
-                        "p_14_9",
-                        "p_14_4",
-                        "p_16_3",
-                        "p_14_5",
-                        "p_16_2",
-                        "p_3_4",
-                        "p_3_0",
-                        "p_3_6",
-                        "p_3_2",
-                        "p_16_8",
                         "p_16_6",
-                        "p_16_7",
-                        "p_16_0",
-                        "p_16_9",
-                        "p_14_11",
-                        "p_14_10",
-                        "p_14_1",
-                        "p_14_12",
-                        "p_14_8",
-                        "p_16_4",
-                        "p_16_1",
+                        "p_3_4",
+                        "p_16_3",
+                        "p_14_7",
+                        "p_1_0",
+                        "p_3_2",
+                        "p_3_0",
                         "p_14_3",
+                        "p_14_12",
+                        "p_1_1",
+                        "p_14_10",
+                        "p_3_1",
+                        "p_14_5",
+                        "p_3_5",
                         "p_14_2",
-                        "p_3_1"
+                        "p_16_1",
+                        "p_14_11",
+                        "p_16_0",
+                        "p_3_3",
+                        "p_14_9",
+                        "p_16_7",
+                        "p_14_8",
+                        "p_14_1",
+                        "p_14_6",
+                        "p_3_6",
+                        "p_16_8",
+                        "p_1_2",
+                        "p_16_5",
+                        "p_16_2",
+                        "p_16_9",
+                        "p_16_4",
+                        "p_14_4",
+                        "p_1_3"
                     ],
                     "divs": []
                 },
                 "w_test_function": {
                     "spans": [
-                        "p_14_7",
-                        "p_14_6",
                         "p_14_0",
+                        "p_14_3",
                         "p_14_12",
                         "p_14_9",
-                        "p_14_4",
-                        "p_14_8",
-                        "p_14_5",
-                        "p_14_3",
-                        "p_14_2",
-                        "p_14_11",
                         "p_14_10",
-                        "p_14_1"
+                        "p_14_8",
+                        "p_14_7",
+                        "p_14_1",
+                        "p_14_6",
+                        "p_14_5",
+                        "p_14_2",
+                        "p_14_4",
+                        "p_14_11"
                     ],
                     "divs": [
-                        "formula_10",
-                        "formula_9"
+                        "formula_9",
+                        "formula_10"
                     ]
                 }
             },
             "formal_sogs_list": [
                 {
-                    "mc_id": "H_0_1_Omega",
-                    "start_id": "p_16_2-start",
-                    "stop_id": "p_16_2-end"
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_7-start",
+                    "stop_id": "p_9_7-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_8-start",
+                    "stop_id": "p_9_8-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_5-start",
+                    "stop_id": "p_9_5-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_3-start",
+                    "stop_id": "p_9_3-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_4-start",
+                    "stop_id": "p_9_4-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_1-start",
+                    "stop_id": "p_9_1-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_0-start",
+                    "stop_id": "p_9_0-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_2-start",
+                    "stop_id": "p_9_2-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "p_9_6-start",
+                    "stop_id": "p_9_6-end"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                },
+                {
+                    "mc_id": "Gamma_interface",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
                 },
                 {
                     "mc_id": "H_0_1_Omega",
@@ -836,18 +952,23 @@
                 },
                 {
                     "mc_id": "H_0_1_Omega",
-                    "start_id": "p_16_7-start",
-                    "stop_id": "p_16_7-end"
-                },
-                {
-                    "mc_id": "H_0_1_Omega",
                     "start_id": "p_16_3-start",
                     "stop_id": "p_16_3-end"
                 },
                 {
                     "mc_id": "H_0_1_Omega",
-                    "start_id": "p_16_0-start",
-                    "stop_id": "p_16_0-end"
+                    "start_id": "p_16_7-start",
+                    "stop_id": "p_16_7-end"
+                },
+                {
+                    "mc_id": "H_0_1_Omega",
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end"
+                },
+                {
+                    "mc_id": "H_0_1_Omega",
+                    "start_id": "p_16_9-start",
+                    "stop_id": "p_16_9-end"
                 },
                 {
                     "mc_id": "H_0_1_Omega",
@@ -861,78 +982,113 @@
                 },
                 {
                     "mc_id": "H_0_1_Omega",
-                    "start_id": "p_16_9-start",
-                    "stop_id": "p_16_9-end"
-                },
-                {
-                    "mc_id": "H_0_1_Omega",
                     "start_id": "p_16_8-start",
                     "stop_id": "p_16_8-end"
                 },
                 {
                     "mc_id": "H_0_1_Omega",
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end"
+                },
+                {
+                    "mc_id": "H_0_1_Omega",
                     "start_id": "formula_10",
                     "stop_id": "formula_10"
                 },
                 {
-                    "mc_id": "H_1_time_dependent",
-                    "start_id": "p_18_3-start",
-                    "stop_id": "p_18_3-end"
-                },
-                {
-                    "mc_id": "H_1_time_dependent",
-                    "start_id": "p_18_0-start",
-                    "stop_id": "p_18_0-end"
-                },
-                {
-                    "mc_id": "H_1_time_dependent",
+                    "mc_id": "H_1_temporal",
                     "start_id": "p_18_5-start",
                     "stop_id": "p_18_5-end"
                 },
                 {
-                    "mc_id": "H_1_time_dependent",
-                    "start_id": "p_18_6-start",
-                    "stop_id": "p_18_6-end"
-                },
-                {
-                    "mc_id": "H_1_time_dependent",
-                    "start_id": "p_18_1-start",
-                    "stop_id": "p_18_1-end"
-                },
-                {
-                    "mc_id": "H_1_time_dependent",
+                    "mc_id": "H_1_temporal",
                     "start_id": "p_18_2-start",
                     "stop_id": "p_18_2-end"
                 },
                 {
-                    "mc_id": "H_1_time_dependent",
+                    "mc_id": "H_1_temporal",
                     "start_id": "p_18_4-start",
                     "stop_id": "p_18_4-end"
                 },
                 {
-                    "mc_id": "H_1_time_dependent",
+                    "mc_id": "H_1_temporal",
+                    "start_id": "p_18_0-start",
+                    "stop_id": "p_18_0-end"
+                },
+                {
+                    "mc_id": "H_1_temporal",
+                    "start_id": "p_18_1-start",
+                    "stop_id": "p_18_1-end"
+                },
+                {
+                    "mc_id": "H_1_temporal",
+                    "start_id": "p_18_3-start",
+                    "stop_id": "p_18_3-end"
+                },
+                {
+                    "mc_id": "H_1_temporal",
+                    "start_id": "p_18_6-start",
+                    "stop_id": "p_18_6-end"
+                },
+                {
+                    "mc_id": "H_1_temporal",
                     "start_id": "formula_10",
                     "stop_id": "formula_10"
                 },
                 {
                     "mc_id": "H_minus1_dual",
-                    "start_id": "formula_10",
-                    "stop_id": "formula_10"
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end"
                 },
                 {
                     "mc_id": "H_minus1_dual",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end"
                 },
                 {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end"
                 },
                 {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_7-start",
+                    "stop_id": "p_16_7-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_9-start",
+                    "stop_id": "p_16_9-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_8-start",
+                    "stop_id": "p_16_8-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end"
+                },
+                {
+                    "mc_id": "H_minus1_dual",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
                 },
                 {
                     "mc_id": "Omega_domain",
@@ -941,63 +1097,13 @@
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_16_5-start",
-                    "stop_id": "p_16_5-end"
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_5-start",
-                    "stop_id": "p_18_5-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_16_3-start",
-                    "stop_id": "p_16_3-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_2-start",
-                    "stop_id": "p_18_2-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_1_3-start",
-                    "stop_id": "p_1_3-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_16_2-start",
-                    "stop_id": "p_16_2-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_3-start",
-                    "stop_id": "p_18_3-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_1_1-start",
-                    "stop_id": "p_1_1-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_0-start",
-                    "stop_id": "p_18_0-end"
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
                 },
                 {
                     "mc_id": "Omega_domain",
@@ -1006,43 +1112,28 @@
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_18_1-start",
-                    "stop_id": "p_18_1-end"
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_16_8-start",
-                    "stop_id": "p_16_8-end"
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_16_6-start",
-                    "stop_id": "p_16_6-end"
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end"
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_16_7-start",
-                    "stop_id": "p_16_7-end"
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_16_0-start",
-                    "stop_id": "p_16_0-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_16_9-start",
-                    "stop_id": "p_16_9-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_4-start",
-                    "stop_id": "p_18_4-end"
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
                 },
                 {
                     "mc_id": "Omega_domain",
@@ -1051,8 +1142,58 @@
                 },
                 {
                     "mc_id": "Omega_domain",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
                     "start_id": "p_14_1-start",
                     "stop_id": "p_14_1-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
                 },
                 {
                     "mc_id": "Omega_domain",
@@ -1061,188 +1202,178 @@
                 },
                 {
                     "mc_id": "Omega_domain",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_18_6-start",
-                    "stop_id": "p_18_6-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_16_4-start",
-                    "stop_id": "p_16_4-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_16_1-start",
-                    "stop_id": "p_16_1-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_3-start",
-                    "stop_id": "p_14_3-end"
-                },
-                {
-                    "mc_id": "Omega_domain",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_4-start",
-                    "stop_id": "p_3_4-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_0-start",
-                    "stop_id": "p_3_0-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_3-start",
-                    "stop_id": "p_3_3-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_6-start",
-                    "stop_id": "p_3_6-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_5-start",
-                    "stop_id": "p_3_5-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_2-start",
-                    "stop_id": "p_3_2-end"
-                },
-                {
-                    "mc_id": "T_tensile_stress",
-                    "start_id": "p_3_1-start",
-                    "stop_id": "p_3_1-end"
-                },
-                {
-                    "mc_id": "d_Gamma",
-                    "start_id": "formula_10",
-                    "stop_id": "formula_10"
-                },
-                {
-                    "mc_id": "d_Gamma",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
-                },
-                {
-                    "mc_id": "d_Omega",
-                    "start_id": "formula_10",
-                    "stop_id": "formula_10"
-                },
-                {
-                    "mc_id": "d_Omega",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "p_6_4-start",
-                    "stop_id": "p_6_4-end"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "p_6_1-start",
-                    "stop_id": "p_6_1-end"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "p_6_3-start",
-                    "stop_id": "p_6_3-end"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "p_6_0-start",
-                    "stop_id": "p_6_0-end"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "p_6_2-start",
-                    "stop_id": "p_6_2-end"
-                },
-                {
-                    "mc_id": "delta_Omega_N",
-                    "start_id": "formula_5",
-                    "stop_id": "formula_5"
-                },
-                {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
-                },
-                {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
-                },
-                {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_0-start",
-                    "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "g_boundary_load",
                     "start_id": "p_14_4-start",
                     "stop_id": "p_14_4-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
+                    "mc_id": "Omega_domain",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
+                    "mc_id": "Omega_domain",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
                 },
                 {
-                    "mc_id": "g_boundary_load",
+                    "mc_id": "Omega_domain",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
+                },
+                {
+                    "mc_id": "T_tensile_stress",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "cal_T",
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6"
+                },
+                {
+                    "mc_id": "cal_T",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
+                },
+                {
+                    "mc_id": "cal_T",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
+                },
+                {
+                    "mc_id": "cal_T",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
+                },
+                {
+                    "mc_id": "d_Gamma",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "d_Gamma",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end"
+                },
+                {
+                    "mc_id": "d_Omega",
                     "start_id": "p_14_3-start",
                     "stop_id": "p_14_3-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
+                    "mc_id": "d_Omega",
                     "start_id": "p_14_10-start",
                     "stop_id": "p_14_10-end"
                 },
                 {
-                    "mc_id": "g_boundary_load",
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
+                },
+                {
+                    "mc_id": "d_Omega",
                     "start_id": "p_14_1-start",
                     "stop_id": "p_14_1-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "d_Omega",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
                 },
                 {
                     "mc_id": "g_boundary_load",
@@ -1255,9 +1386,9 @@
                     "stop_id": "formula_5"
                 },
                 {
-                    "mc_id": "g_boundary_load",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
+                    "mc_id": "rho_mass_density",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
                 },
                 {
                     "mc_id": "rho_mass_density",
@@ -1266,18 +1397,8 @@
                 },
                 {
                     "mc_id": "rho_mass_density",
-                    "start_id": "p_3_0-start",
-                    "stop_id": "p_3_0-end"
-                },
-                {
-                    "mc_id": "rho_mass_density",
-                    "start_id": "p_3_3-start",
-                    "stop_id": "p_3_3-end"
-                },
-                {
-                    "mc_id": "rho_mass_density",
-                    "start_id": "p_3_6-start",
-                    "stop_id": "p_3_6-end"
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end"
                 },
                 {
                     "mc_id": "rho_mass_density",
@@ -1286,13 +1407,23 @@
                 },
                 {
                     "mc_id": "rho_mass_density",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "rho_mass_density",
                     "start_id": "p_3_2-start",
                     "stop_id": "p_3_2-end"
                 },
                 {
                     "mc_id": "rho_mass_density",
-                    "start_id": "p_3_1-start",
-                    "stop_id": "p_3_1-end"
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
+                },
+                {
+                    "mc_id": "rho_mass_density",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
                 },
                 {
                     "mc_id": "rho_mass_density",
@@ -1305,49 +1436,9 @@
                     "stop_id": "formula_1"
                 },
                 {
-                    "mc_id": "rho_mass_density",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
-                },
-                {
                     "mc_id": "t_time",
                     "start_id": "p_14_0-start",
                     "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_3_3-start",
-                    "stop_id": "p_3_3-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_3_5-start",
-                    "stop_id": "p_3_5-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
                 },
                 {
                     "mc_id": "t_time",
@@ -1356,13 +1447,8 @@
                 },
                 {
                     "mc_id": "t_time",
-                    "start_id": "p_3_0-start",
-                    "stop_id": "p_3_0-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_3_6-start",
-                    "stop_id": "p_3_6-end"
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
                 },
                 {
                     "mc_id": "t_time",
@@ -1371,28 +1457,8 @@
                 },
                 {
                     "mc_id": "t_time",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_1-start",
-                    "stop_id": "p_14_1-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "t_time",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
                 },
                 {
                     "mc_id": "t_time",
@@ -1401,8 +1467,13 @@
                 },
                 {
                     "mc_id": "t_time",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end"
                 },
                 {
                     "mc_id": "t_time",
@@ -1410,84 +1481,84 @@
                     "stop_id": "p_3_1-end"
                 },
                 {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
+                    "mc_id": "t_time",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
                 },
                 {
-                    "mc_id": "u_field",
+                    "mc_id": "t_time",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end"
+                },
+                {
+                    "mc_id": "t_time",
                     "start_id": "p_14_6-start",
                     "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
+                },
+                {
+                    "mc_id": "t_time",
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1"
                 },
                 {
                     "mc_id": "u_field",
                     "start_id": "p_14_0-start",
                     "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_5-start",
-                    "stop_id": "p_16_5-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_3-start",
-                    "stop_id": "p_3_3-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_5-start",
-                    "stop_id": "p_3_5-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_3-start",
-                    "stop_id": "p_16_3-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_2-start",
-                    "stop_id": "p_16_2-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_4-start",
-                    "stop_id": "p_3_4-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_0-start",
-                    "stop_id": "p_3_0-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_6-start",
-                    "stop_id": "p_3_6-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_3_2-start",
-                    "stop_id": "p_3_2-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_8-start",
-                    "stop_id": "p_16_8-end"
                 },
                 {
                     "mc_id": "u_field",
@@ -1496,53 +1567,33 @@
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_16_7-start",
-                    "stop_id": "p_16_7-end"
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end"
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_16_0-start",
-                    "stop_id": "p_16_0-end"
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end"
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_16_9-start",
-                    "stop_id": "p_16_9-end"
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end"
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end"
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_14_1-start",
-                    "stop_id": "p_14_1-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_4-start",
-                    "stop_id": "p_16_4-end"
-                },
-                {
-                    "mc_id": "u_field",
-                    "start_id": "p_16_1-start",
-                    "stop_id": "p_16_1-end"
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end"
                 },
                 {
                     "mc_id": "u_field",
@@ -1551,8 +1602,18 @@
                 },
                 {
                     "mc_id": "u_field",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end"
                 },
                 {
                     "mc_id": "u_field",
@@ -1560,19 +1621,119 @@
                     "stop_id": "p_3_1-end"
                 },
                 {
-                    "mc_id": "w_test_function",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
+                    "mc_id": "u_field",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
                 },
                 {
-                    "mc_id": "w_test_function",
+                    "mc_id": "u_field",
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_7-start",
+                    "stop_id": "p_16_7-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end"
+                },
+                {
+                    "mc_id": "u_field",
                     "start_id": "p_14_6-start",
                     "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_8-start",
+                    "stop_id": "p_16_8-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_9-start",
+                    "stop_id": "p_16_9-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "u_field",
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end"
                 },
                 {
                     "mc_id": "w_test_function",
                     "start_id": "p_14_0-start",
                     "stop_id": "p_14_0-end"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end"
                 },
                 {
                     "mc_id": "w_test_function",
@@ -1586,8 +1747,8 @@
                 },
                 {
                     "mc_id": "w_test_function",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end"
                 },
                 {
                     "mc_id": "w_test_function",
@@ -1596,28 +1757,8 @@
                 },
                 {
                     "mc_id": "w_test_function",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "w_test_function",
-                    "start_id": "p_14_3-start",
-                    "stop_id": "p_14_3-end"
-                },
-                {
-                    "mc_id": "w_test_function",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
-                },
-                {
-                    "mc_id": "w_test_function",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "w_test_function",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
                 },
                 {
                     "mc_id": "w_test_function",
@@ -1626,13 +1767,38 @@
                 },
                 {
                     "mc_id": "w_test_function",
-                    "start_id": "formula_10",
-                    "stop_id": "formula_10"
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
                 },
                 {
                     "mc_id": "w_test_function",
                     "start_id": "formula_9",
                     "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "w_test_function",
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10"
                 }
             ]
         }

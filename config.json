@@ -118,6 +118,12 @@
       "name": "Other",
       "concept_fields": {},
       "occurrence_fields": {}
+    },
+    "symbol-placeholder": {
+      "_comment": "DO NOT MODIFY. This category is used for the LLM automation workflow",
+      "name": "Other",
+      "concept_fields": {},
+      "occurrence_fields": {}
     }
   },
 

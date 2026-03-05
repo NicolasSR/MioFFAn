@@ -5,194 +5,144 @@
             "initial_output": [
                 {
                     "obj_name": "Omega",
-                    "mathml_representation": "<mi>GREEK CAPITAL LETTER OMEGA</mi>"
-                },
-                {
-                    "obj_name": "n",
-                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
-                },
-                {
-                    "obj_name": "Gamma_u",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>u</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_t",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>t</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_i",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_ij",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi><mi>j</mi></msub>"
+                    "mathml_representation": "<mi>GREEK CAPITAL OMEGA</mi>"
                 },
                 {
                     "obj_name": "kappa",
-                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER KAPPA</mi>"
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">\u03ba</mi>"
                 },
                 {
                     "obj_name": "f",
                     "mathml_representation": "<mi>f</mi>"
                 },
                 {
-                    "obj_name": "q",
-                    "mathml_representation": "<mover><mi>q</mi><mo>COMBINING MACRON</mo></mover>"
+                    "obj_name": "q_bar",
+                    "mathml_representation": "<mover accent=\"true\"><mi>q</mi><mo>\u0304</mo></mover>"
                 },
                 {
                     "obj_name": "u",
                     "mathml_representation": "<mi>u</mi>"
                 },
                 {
-                    "obj_name": "V",
-                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
-                },
-                {
                     "obj_name": "v",
                     "mathml_representation": "<mi>v</mi>"
                 },
                 {
-                    "obj_name": "n_i",
-                    "mathml_representation": "<msub><mi mathvariant=\"bold-italic\">n</mi><mi>i</mi></msub>"
+                    "obj_name": "U",
+                    "mathml_representation": "<mi mathvariant=\"script\">U</mi>"
                 },
                 {
-                    "obj_name": "Omega_i",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER OMEGA</mi><mi>i</mi></msub>"
+                    "obj_name": "V",
+                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
                 },
                 {
-                    "obj_name": "Omega_bar",
-                    "mathml_representation": "<mover><mi>GREEK CAPITAL LETTER OMEGA</mi><mo>MACRON</mo></mover>"
+                    "obj_name": "Gamma_t",
+                    "mathml_representation": "<msub><mi>\u0393</mi><mi>t</mi></msub>"
                 },
                 {
-                    "obj_name": "Gamma_bar_i",
-                    "mathml_representation": "<msub><mover><mi>GREEK CAPITAL LETTER GAMMA</mi><mo>MACRON</mo></mover><mi>i</mi></msub>"
+                    "obj_name": "dOmega",
+                    "mathml_representation": "<mi>d</mi><mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "dGamma",
+                    "mathml_representation": "<mi>d</mi><mi>\u0393</mi>"
                 }
             ],
             "deduplicated_list": [
                 {
                     "obj_name": "Omega",
-                    "mathml_representation": "<mi>GREEK CAPITAL LETTER OMEGA</mi>"
-                },
-                {
-                    "obj_name": "n",
-                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
-                },
-                {
-                    "obj_name": "Gamma_u",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>u</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_t",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>t</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_i",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi></msub>"
-                },
-                {
-                    "obj_name": "Gamma_ij",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi><mi>j</mi></msub>"
+                    "mathml_representation": "<mi>GREEK CAPITAL OMEGA</mi>"
                 },
                 {
                     "obj_name": "kappa",
-                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER KAPPA</mi>"
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">\u03ba</mi>"
                 },
                 {
                     "obj_name": "f",
                     "mathml_representation": "<mi>f</mi>"
                 },
                 {
-                    "obj_name": "q",
-                    "mathml_representation": "<mover><mi>q</mi><mo>COMBINING MACRON</mo></mover>"
+                    "obj_name": "q_bar",
+                    "mathml_representation": "<mover accent=\"true\"><mi>q</mi><mo>\u0304</mo></mover>"
                 },
                 {
                     "obj_name": "u",
                     "mathml_representation": "<mi>u</mi>"
                 },
                 {
-                    "obj_name": "V",
-                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
-                },
-                {
                     "obj_name": "v",
                     "mathml_representation": "<mi>v</mi>"
                 },
                 {
-                    "obj_name": "n_i",
-                    "mathml_representation": "<msub><mi mathvariant=\"bold-italic\">n</mi><mi>i</mi></msub>"
+                    "obj_name": "U",
+                    "mathml_representation": "<mi mathvariant=\"script\">U</mi>"
                 },
                 {
-                    "obj_name": "Omega_i",
-                    "mathml_representation": "<msub><mi>GREEK CAPITAL LETTER OMEGA</mi><mi>i</mi></msub>"
+                    "obj_name": "V",
+                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
                 },
                 {
-                    "obj_name": "Omega_bar",
-                    "mathml_representation": "<mover><mi>GREEK CAPITAL LETTER OMEGA</mi><mo>MACRON</mo></mover>"
+                    "obj_name": "Gamma_t",
+                    "mathml_representation": "<msub><mi>\u0393</mi><mi>t</mi></msub>"
                 },
                 {
-                    "obj_name": "Gamma_bar_i",
-                    "mathml_representation": "<msub><mover><mi>GREEK CAPITAL LETTER GAMMA</mi><mo>MACRON</mo></mover><mi>i</mi></msub>"
+                    "obj_name": "dOmega",
+                    "mathml_representation": "<mi>d</mi><mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "dGamma",
+                    "mathml_representation": "<mi>d</mi><mi>\u0393</mi>"
                 }
             ],
-            "new_groups_dict": {},
-            "new_occurences_dict": {
-                "Omega": [
+            "new_groups_dict": {
+                "dOmega": [
                     {
-                        "comp_tag_id": "mi_61",
-                        "tag_name": "mi",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_60",
+                        "stop_id": "mi_61",
                         "primitive_symbols": [
+                            "64",
                             "cea9"
                         ],
                         "ids_set": [
+                            "mi_60",
                             "mi_61"
                         ]
                     },
                     {
-                        "comp_tag_id": "mi_66",
-                        "tag_name": "mi",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_65",
+                        "stop_id": "mi_66",
                         "primitive_symbols": [
+                            "64",
                             "cea9"
                         ],
                         "ids_set": [
+                            "mi_65",
                             "mi_66"
-                        ]
-                    },
-                    {
-                        "comp_tag_id": "mi_53",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "cea9"
-                        ],
-                        "ids_set": [
-                            "mi_53"
-                        ]
-                    },
-                    {
-                        "comp_tag_id": "mi_62",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "cea9"
-                        ],
-                        "ids_set": [
-                            "mi_62"
                         ]
                     }
                 ],
-                "Gamma_t": [
+                "dGamma": [
                     {
-                        "comp_tag_id": "msub_18",
-                        "tag_name": "msub",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_71",
+                        "stop_id": "mi_72",
                         "primitive_symbols": [
-                            "74",
+                            "64",
                             "ce93"
                         ],
                         "ids_set": [
-                            "mi_67",
-                            "msub_18",
-                            "mi_68"
+                            "mi_72",
+                            "mi_71"
                         ]
                     }
-                ],
+                ]
+            },
+            "new_occurences_dict": {
                 "kappa": [
                     {
                         "comp_tag_id": "mi_57",
@@ -217,7 +167,7 @@
                         ]
                     }
                 ],
-                "q": [
+                "q_bar": [
                     {
                         "comp_tag_id": "mi_70",
                         "tag_name": "mi",
@@ -238,18 +188,6 @@
                         ],
                         "ids_set": [
                             "mi_59"
-                        ]
-                    }
-                ],
-                "V": [
-                    {
-                        "comp_tag_id": "mi_74",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "56"
-                        ],
-                        "ids_set": [
-                            "mi_74"
                         ]
                     }
                 ],
@@ -294,45 +232,36 @@
                             "mi_73"
                         ]
                     }
+                ],
+                "V": [
+                    {
+                        "comp_tag_id": "mi_74",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "56"
+                        ],
+                        "ids_set": [
+                            "mi_74"
+                        ]
+                    }
+                ],
+                "Gamma_t": [
+                    {
+                        "comp_tag_id": "msub_18",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "ce93",
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_67",
+                            "msub_18",
+                            "mi_68"
+                        ]
+                    }
                 ]
             },
             "all_id_sets": [
-                {
-                    "variable_name": "Omega",
-                    "representative_id": "mi_61",
-                    "ids_set": [
-                        "mi_61"
-                    ],
-                    "ids_count": 1,
-                    "mathml": "<mi id=\"mi_61\">GREEK CAPITAL LETTER OMEGA</mi>"
-                },
-                {
-                    "variable_name": "Omega",
-                    "representative_id": "mi_66",
-                    "ids_set": [
-                        "mi_66"
-                    ],
-                    "ids_count": 1,
-                    "mathml": "<mi id=\"mi_66\">GREEK CAPITAL LETTER OMEGA</mi>"
-                },
-                {
-                    "variable_name": "Omega",
-                    "representative_id": "mi_53",
-                    "ids_set": [
-                        "mi_53"
-                    ],
-                    "ids_count": 1,
-                    "mathml": "<mi id=\"mi_53\">GREEK CAPITAL LETTER OMEGA</mi>"
-                },
-                {
-                    "variable_name": "Omega",
-                    "representative_id": "mi_62",
-                    "ids_set": [
-                        "mi_62"
-                    ],
-                    "ids_count": 1,
-                    "mathml": "<mi id=\"mi_62\">GREEK CAPITAL LETTER OMEGA</mi>"
-                },
                 {
                     "variable_name": "kappa",
                     "representative_id": "mi_57",
@@ -340,7 +269,7 @@
                         "mi_57"
                     ],
                     "ids_count": 1,
-                    "mathml": "<mi mathvariant=\"bold-italic\" id=\"mi_57\">GREEK SMALL LETTER KAPPA</mi>"
+                    "mathml": "<mi mathvariant=\"bold-italic\" id=\"mi_57\">\u03ba</mi>"
                 },
                 {
                     "variable_name": "f",
@@ -352,13 +281,13 @@
                     "mathml": "<mi id=\"mi_64\">f</mi>"
                 },
                 {
-                    "variable_name": "q",
+                    "variable_name": "q_bar",
                     "representative_id": "mi_70",
                     "ids_set": [
                         "mi_70"
                     ],
                     "ids_count": 1,
-                    "mathml": "<mover accent=\"true\"><mi id=\"mi_70\">q</mi><mo>COMBINING MACRON</mo></mover>"
+                    "mathml": "<mover accent=\"true\"><mi id=\"mi_70\">q</mi><mo>\u0304</mo></mover>"
                 },
                 {
                     "variable_name": "u",
@@ -368,15 +297,6 @@
                     ],
                     "ids_count": 1,
                     "mathml": "<mi id=\"mi_59\">u</mi>"
-                },
-                {
-                    "variable_name": "V",
-                    "representative_id": "mi_74",
-                    "ids_set": [
-                        "mi_74"
-                    ],
-                    "ids_count": 1,
-                    "mathml": "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>"
                 },
                 {
                     "variable_name": "v",
@@ -415,6 +335,45 @@
                     "mathml": "<mi id=\"mi_73\">v</mi>"
                 },
                 {
+                    "variable_name": "V",
+                    "representative_id": "mi_74",
+                    "ids_set": [
+                        "mi_74"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>"
+                },
+                {
+                    "variable_name": "dOmega",
+                    "representative_id": "mi_60",
+                    "ids_set": [
+                        "mi_60",
+                        "mi_61"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mi mathvariant=\"normal\" id=\"mi_60\">d</mi><mi id=\"mi_61\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "dOmega",
+                    "representative_id": "mi_65",
+                    "ids_set": [
+                        "mi_65",
+                        "mi_66"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mi mathvariant=\"normal\" id=\"mi_65\">d</mi><mi id=\"mi_66\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "dGamma",
+                    "representative_id": "mi_71",
+                    "ids_set": [
+                        "mi_72",
+                        "mi_71"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mi mathvariant=\"normal\" id=\"mi_71\">d</mi><mi id=\"mi_72\">\u0393</mi>"
+                },
+                {
                     "variable_name": "Gamma_t",
                     "representative_id": "msub_18",
                     "ids_set": [
@@ -423,71 +382,61 @@
                         "mi_68"
                     ],
                     "ids_count": 3,
-                    "mathml": "<msub id=\"msub_18\"><mi id=\"mi_67\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\" id=\"mi_68\">t</mi></msub>"
+                    "mathml": "<msub id=\"msub_18\"><mi id=\"mi_67\">\u0393</mi><mi mathvariant=\"normal\" id=\"mi_68\">t</mi></msub>"
                 }
             ],
             "conflicts_list": []
         },
         "total": {
-            "final_new_groups_dict": {},
-            "final_new_occurences_dict": {
-                "Omega": [
+            "final_new_groups_dict": {
+                "dOmega": [
                     {
-                        "comp_tag_id": "mi_61",
-                        "tag_name": "mi",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_60",
+                        "stop_id": "mi_61",
                         "primitive_symbols": [
+                            "64",
                             "cea9"
                         ],
                         "ids_set": [
+                            "mi_60",
                             "mi_61"
                         ]
                     },
                     {
-                        "comp_tag_id": "mi_66",
-                        "tag_name": "mi",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_65",
+                        "stop_id": "mi_66",
                         "primitive_symbols": [
+                            "64",
                             "cea9"
                         ],
                         "ids_set": [
+                            "mi_65",
                             "mi_66"
-                        ]
-                    },
-                    {
-                        "comp_tag_id": "mi_53",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "cea9"
-                        ],
-                        "ids_set": [
-                            "mi_53"
-                        ]
-                    },
-                    {
-                        "comp_tag_id": "mi_62",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "cea9"
-                        ],
-                        "ids_set": [
-                            "mi_62"
                         ]
                     }
                 ],
-                "Gamma_t": [
+                "dGamma": [
                     {
-                        "comp_tag_id": "msub_18",
-                        "tag_name": "msub",
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_71",
+                        "stop_id": "mi_72",
                         "primitive_symbols": [
-                            "74",
+                            "64",
                             "ce93"
                         ],
                         "ids_set": [
-                            "mi_67",
-                            "msub_18",
-                            "mi_68"
+                            "mi_72",
+                            "mi_71"
                         ]
                     }
-                ],
+                ]
+            },
+            "final_new_occurences_dict": {
                 "kappa": [
                     {
                         "comp_tag_id": "mi_57",
@@ -512,7 +461,7 @@
                         ]
                     }
                 ],
-                "q": [
+                "q_bar": [
                     {
                         "comp_tag_id": "mi_70",
                         "tag_name": "mi",
@@ -533,18 +482,6 @@
                         ],
                         "ids_set": [
                             "mi_59"
-                        ]
-                    }
-                ],
-                "V": [
-                    {
-                        "comp_tag_id": "mi_74",
-                        "tag_name": "mi",
-                        "primitive_symbols": [
-                            "56"
-                        ],
-                        "ids_set": [
-                            "mi_74"
                         ]
                     }
                 ],
@@ -587,6 +524,33 @@
                         ],
                         "ids_set": [
                             "mi_73"
+                        ]
+                    }
+                ],
+                "V": [
+                    {
+                        "comp_tag_id": "mi_74",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "56"
+                        ],
+                        "ids_set": [
+                            "mi_74"
+                        ]
+                    }
+                ],
+                "Gamma_t": [
+                    {
+                        "comp_tag_id": "msub_18",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "ce93",
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_67",
+                            "msub_18",
+                            "mi_68"
                         ]
                     }
                 ]

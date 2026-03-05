@@ -62,6 +62,14 @@ python -m server
 ```
 And access the client via web browser at http://localhost:4100/
 
+## Evaluation
+To perform evaluation it is important that relevant annotation files should be checkpointed using the tags schema within EVALUATION_SCHEMA in ./tools/evaluate_llm.py. Once the relevant checkpoints for the tasks to evaluate have been created, the user may proceed by running:
+```shell
+python -m tools.evaluate_llm
+```
+
+By default it will evaluate all possible tasks for all possible samples. Otherwise the user may specify specific task and sample via (check help page for the tool  with -h option). The output is a stringified JSON with the different results.
+
 
 ## Acknowledgements
 

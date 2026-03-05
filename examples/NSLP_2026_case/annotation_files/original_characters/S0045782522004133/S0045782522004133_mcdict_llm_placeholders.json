@@ -2,6 +2,48 @@
     "_author": "YOUR NAME",
     "_mcdict_version": "1.0",
     "concepts": {
+        "llm_placeholder_concept_H_0_1": {
+            "code_var_name": "H_0_1",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: H_0_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_1_T_H_0_1_Omega": {
+            "code_var_name": "H_1_T_H_0_1_Omega",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: H_1_T_H_0_1_Omega",
+            "primitive_symbols": [
+                "54",
+                "48",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_minus_1": {
+            "code_var_name": "H_minus_1",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: H_minus_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
         "llm_placeholder_concept_T": {
             "code_var_name": "T",
             "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: T",
@@ -22,11 +64,22 @@
             "properties": {},
             "concept_category": "symbol-placeholder"
         },
-        "llm_placeholder_concept_t": {
-            "code_var_name": "t",
-            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: t",
+        "llm_placeholder_concept_partial_t2_u": {
+            "code_var_name": "partial_t2_u",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: partial_t2_u",
             "primitive_symbols": [
+                "e28882",
                 "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder concept in order to do symbols segmentation via LLM. Prior variable name: rho",
+            "primitive_symbols": [
+                "cf81"
             ],
             "sog_list": [],
             "properties": {},
@@ -60,18 +113,13 @@
     },
     "next_available_mc_id": 0,
     "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_H_1_T_H_0_1_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
         "mi_144": {
             "mc_id": "llm_placeholder_concept_u",
-            "tag_name": "mi",
-            "properties": {}
-        },
-        "mi_146": {
-            "mc_id": "llm_placeholder_concept_T",
-            "tag_name": "mi",
-            "properties": {}
-        },
-        "mi_149": {
-            "mc_id": "llm_placeholder_concept_t",
             "tag_name": "mi",
             "properties": {}
         },
@@ -80,8 +128,13 @@
             "tag_name": "mi",
             "properties": {}
         },
-        "mi_156": {
-            "mc_id": "llm_placeholder_concept_t",
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_153": {
+            "mc_id": "llm_placeholder_concept_rho",
             "tag_name": "mi",
             "properties": {}
         },
@@ -92,6 +145,11 @@
         },
         "mi_158": {
             "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_161": {
+            "mc_id": "llm_placeholder_concept_Omega",
             "tag_name": "mi",
             "properties": {}
         },
@@ -110,6 +168,16 @@
             "tag_name": "mi",
             "properties": {}
         },
+        "mi_166": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_168": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
         "mi_170": {
             "mc_id": "llm_placeholder_concept_g",
             "tag_name": "mi",
@@ -118,6 +186,31 @@
         "mi_171": {
             "mc_id": "llm_placeholder_concept_w",
             "tag_name": "mi",
+            "properties": {}
+        },
+        "msubsup_4": {
+            "mc_id": "llm_placeholder_concept_H_0_1",
+            "tag_name": "msubsup",
+            "properties": {}
+        },
+        "msubsup_5": {
+            "mc_id": "llm_placeholder_concept_H_0_1",
+            "tag_name": "msubsup",
+            "properties": {}
+        },
+        "msubsup_6": {
+            "mc_id": "llm_placeholder_concept_H_0_1",
+            "tag_name": "msubsup",
+            "properties": {}
+        },
+        "msup_10": {
+            "mc_id": "llm_placeholder_concept_H_minus_1",
+            "tag_name": "msup",
+            "properties": {}
+        },
+        "msup_8": {
+            "mc_id": "llm_placeholder_concept_partial_t2_u",
+            "tag_name": "msup",
             "properties": {}
         }
     }

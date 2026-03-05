@@ -1,5 +1,954 @@
 {
     "paper_id": "S0021999121003314",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_8": {
+            "initial_output": [
+                {
+                    "obj_name": "w_h",
+                    "mathml_representation": "<msub><mi>w</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "rho",
+                    "mathml_representation": "<mi>\u03c1</mi>"
+                },
+                {
+                    "obj_name": "grad_u_h",
+                    "mathml_representation": "<mi mathvariant=\"normal\">\u2207</mi><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "u_h",
+                    "mathml_representation": "<msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "rho_grad_u_h_u_h",
+                    "mathml_representation": "<mi>\u03c1</mi><mi mathvariant=\"normal\">\u2207</mi><msub><mi>u</mi><mi>h</mi></msub><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_s_w_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>w</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "mu",
+                    "mathml_representation": "<mi>\u03bc</mi>"
+                },
+                {
+                    "obj_name": "grad_s_u_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_s_u_h_grad_s_u_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub><msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_dot_w_h_p_h",
+                    "mathml_representation": "<mi mathvariant=\"normal\">\u2207</mi><mo>\u22c5</mo><msub><mi>w</mi><mi>h</mi></msub><msub><mi>p</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "t",
+                    "mathml_representation": "<mi>t</mi>"
+                },
+                {
+                    "obj_name": "Gamma_N",
+                    "mathml_representation": "<msub><mi>\u0393</mi><mi>N</mi></msub>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "w_h",
+                    "mathml_representation": "<msub><mi>w</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "rho",
+                    "mathml_representation": "<mi>\u03c1</mi>"
+                },
+                {
+                    "obj_name": "grad_u_h",
+                    "mathml_representation": "<mi mathvariant=\"normal\">\u2207</mi><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "u_h",
+                    "mathml_representation": "<msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "rho_grad_u_h_u_h",
+                    "mathml_representation": "<mi>\u03c1</mi><mi mathvariant=\"normal\">\u2207</mi><msub><mi>u</mi><mi>h</mi></msub><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_s_w_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>w</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "mu",
+                    "mathml_representation": "<mi>\u03bc</mi>"
+                },
+                {
+                    "obj_name": "grad_s_u_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_s_u_h_grad_s_u_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub><msup><mi mathvariant=\"normal\">\u2207</mi><mi>s</mi></msup><msub><mi>u</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "grad_dot_w_h_p_h",
+                    "mathml_representation": "<mi mathvariant=\"normal\">\u2207</mi><mo>\u22c5</mo><msub><mi>w</mi><mi>h</mi></msub><msub><mi>p</mi><mi>h</mi></msub>"
+                },
+                {
+                    "obj_name": "t",
+                    "mathml_representation": "<mi>t</mi>"
+                },
+                {
+                    "obj_name": "Gamma_N",
+                    "mathml_representation": "<msub><mi>\u0393</mi><mi>N</mi></msub>"
+                }
+            ],
+            "new_groups_dict": {
+                "grad_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_127",
+                        "stop_id": "msub_31",
+                        "primitive_symbols": [
+                            "75",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "mi_127",
+                            "msub_31"
+                        ]
+                    }
+                ],
+                "grad_s_w_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_12",
+                        "stop_id": "msub_33",
+                        "primitive_symbols": [
+                            "77",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msub_33",
+                            "mi_134",
+                            "mi_135",
+                            "mi_133",
+                            "mi_132",
+                            "msup_12"
+                        ]
+                    }
+                ],
+                "grad_s_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_13",
+                        "stop_id": "msub_34",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_140",
+                            "mi_137",
+                            "mi_138",
+                            "mi_139",
+                            "msub_34",
+                            "msup_13"
+                        ]
+                    },
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_14",
+                        "stop_id": "msub_35",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msup_14",
+                            "mi_141",
+                            "mi_143",
+                            "mi_144",
+                            "mi_142",
+                            "msub_35"
+                        ]
+                    }
+                ]
+            },
+            "new_occurences_dict": {
+                "w_h": [
+                    {
+                        "comp_tag_id": "msub_30",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_125",
+                            "msub_30",
+                            "mi_124"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_36",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_146",
+                            "mi_147",
+                            "msub_36"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_39",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_150",
+                            "msub_39",
+                            "mi_151"
+                        ]
+                    }
+                ],
+                "rho": [
+                    {
+                        "comp_tag_id": "mi_126",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_126"
+                        ]
+                    }
+                ],
+                "u_h": [
+                    {
+                        "comp_tag_id": "msub_31",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "msub_31"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_32",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_131",
+                            "mi_130",
+                            "msub_32"
+                        ]
+                    }
+                ],
+                "mu": [
+                    {
+                        "comp_tag_id": "mi_136",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cebc"
+                        ],
+                        "ids_set": [
+                            "mi_136"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    }
+                ],
+                "Gamma_N": [
+                    {
+                        "comp_tag_id": "msub_40",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "ce93",
+                            "4e"
+                        ],
+                        "ids_set": [
+                            "msub_40",
+                            "mi_153",
+                            "mi_154"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "rho",
+                    "representative_id": "mi_126",
+                    "ids_set": [
+                        "mi_126"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_126\">\u03c1</mi>"
+                },
+                {
+                    "variable_name": "mu",
+                    "representative_id": "mi_136",
+                    "ids_set": [
+                        "mi_136"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_136\">\u03bc</mi>"
+                },
+                {
+                    "variable_name": "t",
+                    "representative_id": "mi_152",
+                    "ids_set": [
+                        "mi_152"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi mathvariant=\"bold\" id=\"mi_152\">t</mi>"
+                },
+                {
+                    "variable_name": "w_h",
+                    "representative_id": "msub_30",
+                    "ids_set": [
+                        "mi_125",
+                        "msub_30",
+                        "mi_124"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_30\"><mi mathvariant=\"bold\" id=\"mi_124\">w</mi><mi id=\"mi_125\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "w_h",
+                    "representative_id": "msub_33",
+                    "ids_set": [
+                        "mi_135",
+                        "msub_33",
+                        "mi_134"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_33\"><mi mathvariant=\"bold\" id=\"mi_134\">w</mi><mi id=\"mi_135\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "w_h",
+                    "representative_id": "msub_36",
+                    "ids_set": [
+                        "mi_146",
+                        "mi_147",
+                        "msub_36"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_36\"><mi mathvariant=\"bold\" id=\"mi_146\">w</mi><mi id=\"mi_147\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "w_h",
+                    "representative_id": "msub_39",
+                    "ids_set": [
+                        "mi_150",
+                        "msub_39",
+                        "mi_151"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_39\"><mi mathvariant=\"bold\" id=\"mi_150\">w</mi><mi id=\"mi_151\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "u_h",
+                    "representative_id": "msub_31",
+                    "ids_set": [
+                        "mi_129",
+                        "mi_128",
+                        "msub_31"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_31\"><mi mathvariant=\"bold\" id=\"mi_128\">u</mi><mi id=\"mi_129\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "u_h",
+                    "representative_id": "msub_32",
+                    "ids_set": [
+                        "mi_131",
+                        "mi_130",
+                        "msub_32"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_32\"><mi mathvariant=\"bold\" id=\"mi_130\">u</mi><mi id=\"mi_131\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "u_h",
+                    "representative_id": "msub_34",
+                    "ids_set": [
+                        "mi_140",
+                        "mi_139",
+                        "msub_34"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_34\"><mi mathvariant=\"bold\" id=\"mi_139\">u</mi><mi id=\"mi_140\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "u_h",
+                    "representative_id": "msub_35",
+                    "ids_set": [
+                        "mi_143",
+                        "mi_144",
+                        "msub_35"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_35\"><mi mathvariant=\"bold\" id=\"mi_143\">u</mi><mi id=\"mi_144\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "Gamma_N",
+                    "representative_id": "msub_40",
+                    "ids_set": [
+                        "msub_40",
+                        "mi_153",
+                        "mi_154"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_40\"><mi mathvariant=\"normal\" id=\"mi_153\">\u0393</mi><mi id=\"mi_154\">N</mi></msub>"
+                },
+                {
+                    "variable_name": "grad_u_h",
+                    "representative_id": "mi_127",
+                    "ids_set": [
+                        "mi_129",
+                        "mi_128",
+                        "mi_127",
+                        "msub_31"
+                    ],
+                    "ids_count": 4,
+                    "mathml": "<mi mathvariant=\"normal\" id=\"mi_127\">\u2207</mi><msub id=\"msub_31\"><mi mathvariant=\"bold\" id=\"mi_128\">u</mi><mi id=\"mi_129\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "grad_s_w_h",
+                    "representative_id": "msup_12",
+                    "ids_set": [
+                        "msub_33",
+                        "mi_134",
+                        "mi_135",
+                        "mi_133",
+                        "mi_132",
+                        "msup_12"
+                    ],
+                    "ids_count": 6,
+                    "mathml": "<msup id=\"msup_12\"><mi mathvariant=\"normal\" id=\"mi_132\">\u2207</mi><mi id=\"mi_133\">s</mi></msup><msub id=\"msub_33\"><mi mathvariant=\"bold\" id=\"mi_134\">w</mi><mi id=\"mi_135\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "grad_s_u_h",
+                    "representative_id": "msup_13",
+                    "ids_set": [
+                        "mi_140",
+                        "mi_137",
+                        "mi_138",
+                        "mi_139",
+                        "msub_34",
+                        "msup_13"
+                    ],
+                    "ids_count": 6,
+                    "mathml": "<msup id=\"msup_13\"><mi mathvariant=\"normal\" id=\"mi_137\">\u2207</mi><mi id=\"mi_138\">s</mi></msup><msub id=\"msub_34\"><mi mathvariant=\"bold\" id=\"mi_139\">u</mi><mi id=\"mi_140\">h</mi></msub>"
+                },
+                {
+                    "variable_name": "grad_s_u_h",
+                    "representative_id": "msup_14",
+                    "ids_set": [
+                        "msup_14",
+                        "mi_141",
+                        "mi_143",
+                        "mi_144",
+                        "mi_142",
+                        "msub_35"
+                    ],
+                    "ids_count": 6,
+                    "mathml": "<msup id=\"msup_14\"><mi mathvariant=\"normal\" id=\"mi_141\">\u2207</mi><mi id=\"mi_142\">s</mi></msup><msub id=\"msub_35\"><mi mathvariant=\"bold\" id=\"mi_143\">u</mi><mi id=\"mi_144\">h</mi></msub>"
+                }
+            ],
+            "conflicts_list": [
+                {
+                    "parent_variable_name": "grad_s_w_h",
+                    "parent_representative_id": "msup_12",
+                    "parent_mathml": "<msup id=\"msup_12\"><mi mathvariant=\"normal\" id=\"mi_132\">\u2207</mi><mi id=\"mi_133\">s</mi></msup><msub id=\"msub_33\"><mi mathvariant=\"bold\" id=\"mi_134\">w</mi><mi id=\"mi_135\">h</mi></msub>",
+                    "child_variable_name": "w_h",
+                    "child_representative_id": "msub_33",
+                    "child_mathml": "<msub id=\"msub_33\"><mi mathvariant=\"bold\" id=\"mi_134\">w</mi><mi id=\"mi_135\">h</mi></msub>"
+                },
+                {
+                    "parent_variable_name": "grad_u_h",
+                    "parent_representative_id": "mi_127",
+                    "parent_mathml": "<mi mathvariant=\"normal\" id=\"mi_127\">\u2207</mi><msub id=\"msub_31\"><mi mathvariant=\"bold\" id=\"mi_128\">u</mi><mi id=\"mi_129\">h</mi></msub>",
+                    "child_variable_name": "u_h",
+                    "child_representative_id": "msub_31",
+                    "child_mathml": "<msub id=\"msub_31\"><mi mathvariant=\"bold\" id=\"mi_128\">u</mi><mi id=\"mi_129\">h</mi></msub>"
+                },
+                {
+                    "parent_variable_name": "grad_s_u_h",
+                    "parent_representative_id": "msup_13",
+                    "parent_mathml": "<msup id=\"msup_13\"><mi mathvariant=\"normal\" id=\"mi_137\">\u2207</mi><mi id=\"mi_138\">s</mi></msup><msub id=\"msub_34\"><mi mathvariant=\"bold\" id=\"mi_139\">u</mi><mi id=\"mi_140\">h</mi></msub>",
+                    "child_variable_name": "u_h",
+                    "child_representative_id": "msub_34",
+                    "child_mathml": "<msub id=\"msub_34\"><mi mathvariant=\"bold\" id=\"mi_139\">u</mi><mi id=\"mi_140\">h</mi></msub>"
+                },
+                {
+                    "parent_variable_name": "grad_s_u_h",
+                    "parent_representative_id": "msup_14",
+                    "parent_mathml": "<msup id=\"msup_14\"><mi mathvariant=\"normal\" id=\"mi_141\">\u2207</mi><mi id=\"mi_142\">s</mi></msup><msub id=\"msub_35\"><mi mathvariant=\"bold\" id=\"mi_143\">u</mi><mi id=\"mi_144\">h</mi></msub>",
+                    "child_variable_name": "u_h",
+                    "child_representative_id": "msub_35",
+                    "child_mathml": "<msub id=\"msub_35\"><mi mathvariant=\"bold\" id=\"mi_143\">u</mi><mi id=\"mi_144\">h</mi></msub>"
+                }
+            ],
+            "conflicts_resolution": {
+                "case_1": "REMOVE",
+                "case_2": "KEEP",
+                "case_3": "REMOVE",
+                "case_4": "REMOVE"
+            },
+            "disambiguated_new_groups_dict": {
+                "grad_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_127",
+                        "stop_id": "msub_31",
+                        "primitive_symbols": [
+                            "75",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "mi_127",
+                            "msub_31"
+                        ]
+                    }
+                ],
+                "grad_s_w_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_12",
+                        "stop_id": "msub_33",
+                        "primitive_symbols": [
+                            "77",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msub_33",
+                            "mi_134",
+                            "mi_135",
+                            "mi_133",
+                            "mi_132",
+                            "msup_12"
+                        ]
+                    }
+                ],
+                "grad_s_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_13",
+                        "stop_id": "msub_34",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_140",
+                            "mi_137",
+                            "mi_138",
+                            "mi_139",
+                            "msub_34",
+                            "msup_13"
+                        ]
+                    },
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_14",
+                        "stop_id": "msub_35",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msup_14",
+                            "mi_141",
+                            "mi_143",
+                            "mi_144",
+                            "mi_142",
+                            "msub_35"
+                        ]
+                    }
+                ]
+            },
+            "disambiguated_new_occurences_dict": {
+                "w_h": [
+                    {
+                        "comp_tag_id": "msub_30",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_125",
+                            "msub_30",
+                            "mi_124"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_36",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_146",
+                            "mi_147",
+                            "msub_36"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_39",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_150",
+                            "msub_39",
+                            "mi_151"
+                        ]
+                    }
+                ],
+                "rho": [
+                    {
+                        "comp_tag_id": "mi_126",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_126"
+                        ]
+                    }
+                ],
+                "u_h": [
+                    {
+                        "comp_tag_id": "msub_31",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "msub_31"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_32",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_131",
+                            "mi_130",
+                            "msub_32"
+                        ]
+                    }
+                ],
+                "mu": [
+                    {
+                        "comp_tag_id": "mi_136",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cebc"
+                        ],
+                        "ids_set": [
+                            "mi_136"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    }
+                ],
+                "Gamma_N": [
+                    {
+                        "comp_tag_id": "msub_40",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "ce93",
+                            "4e"
+                        ],
+                        "ids_set": [
+                            "msub_40",
+                            "mi_153",
+                            "mi_154"
+                        ]
+                    }
+                ]
+            }
+        },
+        "total": {
+            "final_new_groups_dict": {
+                "grad_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_127",
+                        "stop_id": "msub_31",
+                        "primitive_symbols": [
+                            "75",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "mi_127",
+                            "msub_31"
+                        ]
+                    }
+                ],
+                "grad_s_w_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_12",
+                        "stop_id": "msub_33",
+                        "primitive_symbols": [
+                            "77",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msub_33",
+                            "mi_134",
+                            "mi_135",
+                            "mi_133",
+                            "mi_132",
+                            "msup_12"
+                        ]
+                    }
+                ],
+                "grad_s_u_h": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_13",
+                        "stop_id": "msub_34",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "mi_140",
+                            "mi_137",
+                            "mi_138",
+                            "mi_139",
+                            "msub_34",
+                            "msup_13"
+                        ]
+                    },
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "msup_14",
+                        "stop_id": "msub_35",
+                        "primitive_symbols": [
+                            "75",
+                            "73",
+                            "68",
+                            "e28887"
+                        ],
+                        "ids_set": [
+                            "msup_14",
+                            "mi_141",
+                            "mi_143",
+                            "mi_144",
+                            "mi_142",
+                            "msub_35"
+                        ]
+                    }
+                ]
+            },
+            "final_new_occurences_dict": {
+                "w_h": [
+                    {
+                        "comp_tag_id": "msub_30",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_125",
+                            "msub_30",
+                            "mi_124"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_36",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_146",
+                            "mi_147",
+                            "msub_36"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_39",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "77",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_150",
+                            "msub_39",
+                            "mi_151"
+                        ]
+                    }
+                ],
+                "rho": [
+                    {
+                        "comp_tag_id": "mi_126",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_126"
+                        ]
+                    }
+                ],
+                "u_h": [
+                    {
+                        "comp_tag_id": "msub_31",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_129",
+                            "mi_128",
+                            "msub_31"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_32",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "75",
+                            "68"
+                        ],
+                        "ids_set": [
+                            "mi_131",
+                            "mi_130",
+                            "msub_32"
+                        ]
+                    }
+                ],
+                "mu": [
+                    {
+                        "comp_tag_id": "mi_136",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cebc"
+                        ],
+                        "ids_set": [
+                            "mi_136"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    }
+                ],
+                "Gamma_N": [
+                    {
+                        "comp_tag_id": "msub_40",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "ce93",
+                            "4e"
+                        ],
+                        "ids_set": [
+                            "msub_40",
+                            "mi_153",
+                            "mi_154"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
     "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
         "segmented_symbols_list": {
             "llm_placeholder_concept_rho": {
@@ -61,96 +1010,96 @@
         },
         "concepts_list": [
             {
-                "name": "density",
+                "name": "rho",
                 "type": "VARIABLE",
-                "description": "Fluid density in the momentum and mass balance equations.",
-                "justification": "where \u03c1 is the fluid density, appearing in the balance of linear momentum and mass equations."
+                "description": "Fluid density, a scalar quantity that appears in the momentum and mass balance equations.",
+                "justification": "The symbol \u03c1 is explicitly defined as the fluid density in the problem statement and appears in both the momentum and mass equations (Eq. (1) and (2))."
             },
             {
-                "name": "viscosity",
+                "name": "mu",
                 "type": "VARIABLE",
-                "description": "Dynamic viscosity of the generalised Newtonian fluid, which may depend on the shear rate.",
-                "justification": "\u03bc is the dynamic viscosity, which may further depend on the shear rate and is used in the viscous stress tensor definition."
+                "description": "Dynamic viscosity of the fluid, which may depend on the shear rate and is a key parameter in the stress tensor formulation.",
+                "justification": "The symbol \u03bc is explicitly referred to as the dynamic viscosity and appears in the stress tensor expression (Eq. (3)) and in the Carreau model (Eq. (4))."
             },
             {
-                "name": "pseudo_traction",
+                "name": "t",
                 "type": "VARIABLE",
-                "description": "A boundary traction term used to prescribe pressure or enforce mean pressure conditions on the boundary.",
-                "justification": "t is defined as a pseudo-traction on the boundary \u0393_N, which may be set to zero or used for prescribing mean pressures."
+                "description": "Pseudo-traction vector on the Neumann boundary, representing the surface force applied on the boundary \u0393_N.",
+                "justification": "The symbol t is defined as a pseudo-traction on \u0393_N in the boundary condition (Eq. (7)) and appears in the weak formulation (Eq. (8)) as a boundary source term."
             },
             {
-                "name": "test_velocity",
+                "name": "w_h",
                 "type": "VARIABLE",
-                "description": "Test function for the velocity field in the weak formulation, used in the variational equation.",
-                "justification": "w_h appears as a test function in the weak form of the momentum equation and is used in the bilinear form with u_h."
+                "description": "Test function for the velocity field in the finite element discretization, belonging to the discrete velocity space.",
+                "justification": "The symbol w_h appears multiple times as a test function in the weak formulation (Eqs. (8) and (9)), with subscript h indicating its finite element discretized form, and is used in the inner product with u_h and p_h."
             },
             {
-                "name": "discrete_velocity",
+                "name": "u_h",
                 "type": "VARIABLE",
-                "description": "Discrete approximation of the fluid velocity field in the finite element space.",
-                "justification": "u_h is the discrete velocity field, appearing in the weak formulation as the primary unknown and in the test function pair with w_h."
+                "description": "Discretized velocity field in the finite element method, representing the approximate solution to the fluid velocity.",
+                "justification": "The symbol u_h appears repeatedly in the weak formulation (Eqs. (8) and (9)) as the primary unknown and is used in both the momentum and incompressibility equations, with subscript h denoting the finite element approximation."
             },
             {
-                "name": "discrete_pressure",
+                "name": "p_h",
                 "type": "VARIABLE",
-                "description": "Discrete approximation of the fluid pressure field in the finite element space.",
-                "justification": "p_h is the discrete pressure field, appearing in the weak formulation as the secondary unknown and in the pressure-pressure bilinear form."
+                "description": "Discretized pressure field in the finite element method, representing the approximate solution to the pressure.",
+                "justification": "The symbol p_h appears in the weak formulation (Eqs. (8) and (9)) as the pressure variable and is used in the divergence-free constraint and stabilization terms, with subscript h indicating finite element discretization."
             },
             {
-                "name": "boundary_north",
+                "name": "Gamma_N",
                 "type": "DOMAIN",
-                "description": "Part of the boundary where Neumann-type boundary conditions are applied, typically for pressure or traction.",
-                "justification": "\u0393_N is the part of the boundary where the pseudo-traction t is applied, as defined in the boundary conditions."
+                "description": "Part of the boundary \u0393 where Neumann boundary conditions are applied, corresponding to the traction boundary.",
+                "justification": "The symbol \u0393_N is explicitly defined as a part of the boundary \u0393 where Neumann boundary conditions are imposed (Eq. (7)) and appears in the weak formulation as the domain of the boundary integral."
             },
             {
-                "name": "shear_operator",
+                "name": "nabla_s",
                 "type": "OPERATOR",
-                "description": "The symmetric gradient operator used to compute the shear rate in the stress tensor.",
-                "justification": "\u2207_s is the symmetric gradient operator, used in the definition of the shear rate and the viscous stress tensor for generalised Newtonian fluids."
+                "description": "Symmetric gradient operator, defined as half the sum of the gradient and its transpose, used to compute the shear rate and stress tensor.",
+                "justification": "The symbol \u2207s appears in the definition of the shear rate (Eq. (6)) and in the stress tensor (Eq. (3)), where it is applied to the velocity field. It is explicitly defined as \u2207u + (\u2207u)^T over 2, indicating it is a symmetric gradient operator."
             }
         ],
         "concept_assignments": {
-            "rho": "density",
-            "mu": "viscosity",
-            "t": "pseudo_traction",
-            "w_h": "test_velocity",
-            "u_h": "discrete_velocity",
-            "p_h": "discrete_pressure",
-            "Gamma_N": "boundary_north",
-            "nabla_s": "shear_operator"
+            "rho": "rho",
+            "mu": "mu",
+            "t": "t",
+            "w_h": "w_h",
+            "u_h": "u_h",
+            "p_h": "p_h",
+            "Gamma_N": "Gamma_N",
+            "nabla_s": "nabla_s"
         },
         "properties_assignment": {
-            "density": {
-                "type": "defined-function",
+            "rho": {
+                "type": "numerical-variable",
                 "tensor_rank": "0"
             },
-            "viscosity": {
+            "mu": {
                 "type": "undefined-function",
                 "tensor_rank": "0"
             },
-            "pseudo_traction": {
+            "t": {
                 "type": "nodal-variable",
                 "tensor_rank": "1"
             },
-            "test_velocity": {
+            "w_h": {
                 "type": "test-function",
                 "tensor_rank": "1"
             },
-            "discrete_velocity": {
+            "u_h": {
                 "type": "trial-function",
                 "tensor_rank": "1"
             },
-            "discrete_pressure": {
-                "type": "nodal-variable",
+            "p_h": {
+                "type": "trial-function",
                 "tensor_rank": "0"
             }
         },
         "final_concepts": {
-            "density": {
-                "code_var_name": "density",
-                "description": "Fluid density in the momentum and mass balance equations.\nJUSTIFICATION:\nwhere \u03c1 is the fluid density, appearing in the balance of linear momentum and mass equations.",
+            "rho": {
+                "code_var_name": "rho",
+                "description": "Fluid density, a scalar quantity that appears in the momentum and mass balance equations.\nJUSTIFICATION:\nThe symbol \u03c1 is explicitly defined as the fluid density in the problem statement and appears in both the momentum and mass equations (Eq. (1) and (2)).",
                 "options": [
-                    "defined-function"
+                    "numerical-variable"
                 ],
                 "primitive_symbols": [
                     "cf81"
@@ -158,9 +1107,9 @@
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "viscosity": {
-                "code_var_name": "viscosity",
-                "description": "Dynamic viscosity of the generalised Newtonian fluid, which may depend on the shear rate.\nJUSTIFICATION:\n\u03bc is the dynamic viscosity, which may further depend on the shear rate and is used in the viscous stress tensor definition.",
+            "mu": {
+                "code_var_name": "mu",
+                "description": "Dynamic viscosity of the fluid, which may depend on the shear rate and is a key parameter in the stress tensor formulation.\nJUSTIFICATION:\nThe symbol \u03bc is explicitly referred to as the dynamic viscosity and appears in the stress tensor expression (Eq. (3)) and in the Carreau model (Eq. (4)).",
                 "options": [
                     "undefined-function"
                 ],
@@ -170,9 +1119,9 @@
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "pseudo_traction": {
-                "code_var_name": "pseudo_traction",
-                "description": "A boundary traction term used to prescribe pressure or enforce mean pressure conditions on the boundary.\nJUSTIFICATION:\nt is defined as a pseudo-traction on the boundary \u0393_N, which may be set to zero or used for prescribing mean pressures.",
+            "t": {
+                "code_var_name": "t",
+                "description": "Pseudo-traction vector on the Neumann boundary, representing the surface force applied on the boundary \u0393_N.\nJUSTIFICATION:\nThe symbol t is defined as a pseudo-traction on \u0393_N in the boundary condition (Eq. (7)) and appears in the weak formulation (Eq. (8)) as a boundary source term.",
                 "options": [
                     "nodal-variable"
                 ],
@@ -182,9 +1131,9 @@
                 "sog_list": [],
                 "tensor_rank": "1"
             },
-            "test_velocity": {
-                "code_var_name": "test_velocity",
-                "description": "Test function for the velocity field in the weak formulation, used in the variational equation.\nJUSTIFICATION:\nw_h appears as a test function in the weak form of the momentum equation and is used in the bilinear form with u_h.",
+            "w_h": {
+                "code_var_name": "w_h",
+                "description": "Test function for the velocity field in the finite element discretization, belonging to the discrete velocity space.\nJUSTIFICATION:\nThe symbol w_h appears multiple times as a test function in the weak formulation (Eqs. (8) and (9)), with subscript h indicating its finite element discretized form, and is used in the inner product with u_h and p_h.",
                 "options": [
                     "test-function"
                 ],
@@ -195,9 +1144,9 @@
                 "sog_list": [],
                 "tensor_rank": "1"
             },
-            "discrete_velocity": {
-                "code_var_name": "discrete_velocity",
-                "description": "Discrete approximation of the fluid velocity field in the finite element space.\nJUSTIFICATION:\nu_h is the discrete velocity field, appearing in the weak formulation as the primary unknown and in the test function pair with w_h.",
+            "u_h": {
+                "code_var_name": "u_h",
+                "description": "Discretized velocity field in the finite element method, representing the approximate solution to the fluid velocity.\nJUSTIFICATION:\nThe symbol u_h appears repeatedly in the weak formulation (Eqs. (8) and (9)) as the primary unknown and is used in both the momentum and incompressibility equations, with subscript h denoting the finite element approximation.",
                 "options": [
                     "trial-function"
                 ],
@@ -208,11 +1157,11 @@
                 "sog_list": [],
                 "tensor_rank": "1"
             },
-            "discrete_pressure": {
-                "code_var_name": "discrete_pressure",
-                "description": "Discrete approximation of the fluid pressure field in the finite element space.\nJUSTIFICATION:\np_h is the discrete pressure field, appearing in the weak formulation as the secondary unknown and in the pressure-pressure bilinear form.",
+            "p_h": {
+                "code_var_name": "p_h",
+                "description": "Discretized pressure field in the finite element method, representing the approximate solution to the pressure.\nJUSTIFICATION:\nThe symbol p_h appears in the weak formulation (Eqs. (8) and (9)) as the pressure variable and is used in the divergence-free constraint and stabilization terms, with subscript h indicating finite element discretization.",
                 "options": [
-                    "nodal-variable"
+                    "trial-function"
                 ],
                 "primitive_symbols": [
                     "70",
@@ -221,865 +1170,540 @@
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "boundary_north": {
-                "code_var_name": "boundary_north",
-                "description": "Part of the boundary where Neumann-type boundary conditions are applied, typically for pressure or traction.\nJUSTIFICATION:\n\u0393_N is the part of the boundary where the pseudo-traction t is applied, as defined in the boundary conditions.",
+            "Gamma_N": {
+                "code_var_name": "Gamma_N",
+                "description": "Part of the boundary \u0393 where Neumann boundary conditions are applied, corresponding to the traction boundary.\nJUSTIFICATION:\nThe symbol \u0393_N is explicitly defined as a part of the boundary \u0393 where Neumann boundary conditions are imposed (Eq. (7)) and appears in the weak formulation as the domain of the boundary integral.",
                 "options": [
                     "domain"
                 ],
                 "primitive_symbols": [
-                    "4e",
-                    "ce93"
+                    "ce93",
+                    "4e"
                 ],
                 "sog_list": [],
                 "tensor_rank": "0"
             },
-            "shear_operator": {
-                "code_var_name": "shear_operator",
-                "description": "The symmetric gradient operator used to compute the shear rate in the stress tensor.\nJUSTIFICATION:\n\u2207_s is the symmetric gradient operator, used in the definition of the shear rate and the viscous stress tensor for generalised Newtonian fluids.",
+            "nabla_s": {
+                "code_var_name": "nabla_s",
+                "description": "Symmetric gradient operator, defined as half the sum of the gradient and its transpose, used to compute the shear rate and stress tensor.\nJUSTIFICATION:\nThe symbol \u2207s appears in the definition of the shear rate (Eq. (6)) and in the stress tensor (Eq. (3)), where it is applied to the velocity field. It is explicitly defined as \u2207u + (\u2207u)^T over 2, indicating it is a symmetric gradient operator.",
                 "options": [
                     "operator"
                 ],
                 "primitive_symbols": [
-                    "e28887",
-                    "73"
+                    "73",
+                    "e28887"
                 ],
                 "sog_list": [],
                 "tensor_rank": "0"
             }
         },
         "final_occurrences": {
-            "mi_126": "density",
-            "mi_136": "viscosity",
-            "mi_152": "pseudo_traction",
-            "msub_30": "test_velocity",
-            "msub_33": "test_velocity",
-            "msub_36": "test_velocity",
-            "msub_39": "test_velocity",
-            "msub_31": "discrete_velocity",
-            "msub_32": "discrete_velocity",
-            "msub_34": "discrete_velocity",
-            "msub_35": "discrete_velocity",
-            "msub_37": "discrete_pressure",
-            "msub_40": "boundary_north",
-            "msup_12": "shear_operator",
-            "msup_13": "shear_operator",
-            "msup_14": "shear_operator"
+            "mi_126": "rho",
+            "mi_136": "mu",
+            "mi_152": "t",
+            "msub_30": "w_h",
+            "msub_33": "w_h",
+            "msub_36": "w_h",
+            "msub_39": "w_h",
+            "msub_31": "u_h",
+            "msub_32": "u_h",
+            "msub_34": "u_h",
+            "msub_35": "u_h",
+            "msub_37": "p_h",
+            "msub_40": "Gamma_N",
+            "msup_12": "nabla_s",
+            "msup_13": "nabla_s",
+            "msup_14": "nabla_s"
         }
     },
     "AUTO_HIGHLIGHT_SOURCES": {
-        "boundary_north": {
+        "Gamma_N": {
             "justifications": {
-                "concept_name": "boundary_north",
-                "description": "Part of the boundary where Neumann-type boundary conditions are applied, typically for pressure or traction.\n",
-                "justifications": ":\n\u0393_N is the part of the boundary where the pseudo-traction t is applied, as defined in the boundary conditions."
+                "concept_name": "Gamma_N",
+                "description": "Part of the boundary \u0393 where Neumann boundary conditions are applied, corresponding to the traction boundary.\n",
+                "justifications": ":\nThe symbol \u0393_N is explicitly defined as a part of the boundary \u0393 where Neumann boundary conditions are imposed (Eq. (7)) and appears in the weak formulation as the domain of the boundary integral."
             },
             "grounding_ids_raw": [
                 "p_10",
                 "p_12",
-                "p_13"
+                "formula_7"
             ]
         },
-        "density": {
+        "mu": {
             "justifications": {
-                "concept_name": "density",
-                "description": "Fluid density in the momentum and mass balance equations.\n",
-                "justifications": ":\nwhere \u03c1 is the fluid density, appearing in the balance of linear momentum and mass equations."
+                "concept_name": "mu",
+                "description": "Dynamic viscosity of the fluid, which may depend on the shear rate and is a key parameter in the stress tensor formulation.\n",
+                "justifications": ":\nThe symbol \u03bc is explicitly referred to as the dynamic viscosity and appears in the stress tensor expression (Eq. (3)) and in the Carreau model (Eq. (4))."
+            },
+            "grounding_ids_raw": [
+                "formula_3",
+                "formula_4"
+            ]
+        },
+        "nabla_s": {
+            "justifications": {
+                "concept_name": "nabla_s",
+                "description": "Symmetric gradient operator, defined as half the sum of the gradient and its transpose, used to compute the shear rate and stress tensor.\n",
+                "justifications": ":\nThe symbol \u2207s appears in the definition of the shear rate (Eq. (6)) and in the stress tensor (Eq. (3)), where it is applied to the velocity field. It is explicitly defined as \u2207u + (\u2207u)^T over 2, indicating it is a symmetric gradient operator."
+            },
+            "grounding_ids_raw": [
+                "p_6",
+                "formula_3"
+            ]
+        },
+        "p_h": {
+            "justifications": {
+                "concept_name": "p_h",
+                "description": "Discretized pressure field in the finite element method, representing the approximate solution to the pressure.\n",
+                "justifications": ":\nThe symbol p_h appears in the weak formulation (Eqs. (8) and (9)) as the pressure variable and is used in the divergence-free constraint and stabilization terms, with subscript h indicating finite element discretization."
+            },
+            "grounding_ids_raw": [
+                "formula_8",
+                "formula_9"
+            ]
+        },
+        "rho": {
+            "justifications": {
+                "concept_name": "rho",
+                "description": "Fluid density, a scalar quantity that appears in the momentum and mass balance equations.\n",
+                "justifications": ":\nThe symbol \u03c1 is explicitly defined as the fluid density in the problem statement and appears in both the momentum and mass equations (Eq. (1) and (2))."
             },
             "grounding_ids_raw": [
                 "p_4",
                 "formula_1"
             ]
         },
-        "discrete_pressure": {
+        "t": {
             "justifications": {
-                "concept_name": "discrete_pressure",
-                "description": "Discrete approximation of the fluid pressure field in the finite element space.\n",
-                "justifications": ":\np_h is the discrete pressure field, appearing in the weak formulation as the secondary unknown and in the pressure-pressure bilinear form."
-            },
-            "grounding_ids_raw": [
-                "p_14",
-                "formula_8",
-                "formula_9"
-            ]
-        },
-        "discrete_velocity": {
-            "justifications": {
-                "concept_name": "discrete_velocity",
-                "description": "Discrete approximation of the fluid velocity field in the finite element space.\n",
-                "justifications": ":\nu_h is the discrete velocity field, appearing in the weak formulation as the primary unknown and in the test function pair with w_h."
-            },
-            "grounding_ids_raw": [
-                "p_14",
-                "formula_8",
-                "formula_9"
-            ]
-        },
-        "pseudo_traction": {
-            "justifications": {
-                "concept_name": "pseudo_traction",
-                "description": "A boundary traction term used to prescribe pressure or enforce mean pressure conditions on the boundary.\n",
-                "justifications": ":\nt is defined as a pseudo-traction on the boundary \u0393_N, which may be set to zero or used for prescribing mean pressures."
+                "concept_name": "t",
+                "description": "Pseudo-traction vector on the Neumann boundary, representing the surface force applied on the boundary \u0393_N.\n",
+                "justifications": ":\nThe symbol t is defined as a pseudo-traction on \u0393_N in the boundary condition (Eq. (7)) and appears in the weak formulation (Eq. (8)) as a boundary source term."
             },
             "grounding_ids_raw": [
                 "p_13",
-                "p_17"
-            ]
-        },
-        "shear_operator": {
-            "justifications": {
-                "concept_name": "shear_operator",
-                "description": "The symmetric gradient operator used to compute the shear rate in the stress tensor.\n",
-                "justifications": ":\n\u2207_s is the symmetric gradient operator, used in the definition of the shear rate and the viscous stress tensor for generalised Newtonian fluids."
-            },
-            "grounding_ids_raw": [
-                "p_6",
-                "formula_3"
-            ]
-        },
-        "test_velocity": {
-            "justifications": {
-                "concept_name": "test_velocity",
-                "description": "Test function for the velocity field in the weak formulation, used in the variational equation.\n",
-                "justifications": ":\nw_h appears as a test function in the weak form of the momentum equation and is used in the bilinear form with u_h."
-            },
-            "grounding_ids_raw": [
-                "p_14",
+                "formula_7",
                 "formula_8"
             ]
         },
-        "viscosity": {
+        "u_h": {
             "justifications": {
-                "concept_name": "viscosity",
-                "description": "Dynamic viscosity of the generalised Newtonian fluid, which may depend on the shear rate.\n",
-                "justifications": ":\n\u03bc is the dynamic viscosity, which may further depend on the shear rate and is used in the viscous stress tensor definition."
+                "concept_name": "u_h",
+                "description": "Discretized velocity field in the finite element method, representing the approximate solution to the fluid velocity.\n",
+                "justifications": ":\nThe symbol u_h appears repeatedly in the weak formulation (Eqs. (8) and (9)) as the primary unknown and is used in both the momentum and incompressibility equations, with subscript h denoting the finite element approximation."
             },
             "grounding_ids_raw": [
-                "p_6",
-                "formula_3"
+                "formula_8",
+                "formula_9"
+            ]
+        },
+        "w_h": {
+            "justifications": {
+                "concept_name": "w_h",
+                "description": "Test function for the velocity field in the finite element discretization, belonging to the discrete velocity space.\n",
+                "justifications": ":\nThe symbol w_h appears multiple times as a test function in the weak formulation (Eqs. (8) and (9)), with subscript h indicating its finite element discretized form, and is used in the inner product with u_h and p_h."
+            },
+            "grounding_ids_raw": [
+                "p_14",
+                "formula_8",
+                "formula_9"
             ]
         },
         "total": {
             "matched_grounding_ids": {
-                "boundary_north": {
+                "Gamma_N": {
                     "spans": [
-                        "p_13_1",
                         "p_10_2",
-                        "p_13_2",
-                        "p_13_5",
-                        "p_13_8",
+                        "p_10_0",
                         "p_10_3",
-                        "p_13_7",
-                        "p_13_6",
-                        "p_13_4",
-                        "p_13_0",
-                        "p_10_1",
-                        "p_13_3",
-                        "p_10_0"
+                        "p_10_1"
                     ],
-                    "divs": []
+                    "divs": [
+                        "formula_7"
+                    ]
                 },
-                "density": {
+                "mu": {
+                    "spans": [],
+                    "divs": [
+                        "formula_3",
+                        "formula_4"
+                    ]
+                },
+                "nabla_s": {
+                    "spans": [
+                        "p_6_5",
+                        "p_6_4",
+                        "p_6_2",
+                        "p_6_1",
+                        "p_6_3",
+                        "p_6_0"
+                    ],
+                    "divs": [
+                        "formula_3"
+                    ]
+                },
+                "p_h": {
+                    "spans": [],
+                    "divs": [
+                        "formula_8",
+                        "formula_9"
+                    ]
+                },
+                "rho": {
                     "spans": [
                         "p_4_2",
-                        "p_4_8",
                         "p_4_9",
-                        "p_4_1",
-                        "p_4_11",
-                        "p_4_10",
-                        "p_4_4",
-                        "p_4_3",
                         "p_4_0",
+                        "p_4_8",
+                        "p_4_4",
+                        "p_4_10",
+                        "p_4_1",
                         "p_4_7",
                         "p_4_12",
+                        "p_4_3",
                         "p_4_5",
+                        "p_4_11",
                         "p_4_6"
                     ],
                     "divs": [
                         "formula_1"
                     ]
                 },
-                "discrete_pressure": {
+                "t": {
                     "spans": [
-                        "p_14_8",
-                        "p_14_12",
-                        "p_14_10",
-                        "p_14_2",
-                        "p_14_1",
-                        "p_14_3",
-                        "p_14_6",
-                        "p_14_4",
-                        "p_14_5",
-                        "p_14_11",
-                        "p_14_9",
-                        "p_14_7",
-                        "p_14_0"
-                    ],
-                    "divs": [
-                        "formula_9",
-                        "formula_8"
-                    ]
-                },
-                "discrete_velocity": {
-                    "spans": [
-                        "p_14_8",
-                        "p_14_12",
-                        "p_14_10",
-                        "p_14_2",
-                        "p_14_1",
-                        "p_14_3",
-                        "p_14_6",
-                        "p_14_4",
-                        "p_14_5",
-                        "p_14_11",
-                        "p_14_9",
-                        "p_14_7",
-                        "p_14_0"
-                    ],
-                    "divs": [
-                        "formula_9",
-                        "formula_8"
-                    ]
-                },
-                "pseudo_traction": {
-                    "spans": [
-                        "p_17_4",
-                        "p_17_3",
-                        "p_17_0",
-                        "p_17_5",
-                        "p_17_12",
-                        "p_17_10",
-                        "p_13_5",
-                        "p_17_13",
-                        "p_13_7",
-                        "p_13_0",
-                        "p_17_8",
-                        "p_17_9",
-                        "p_13_1",
-                        "p_13_2",
-                        "p_13_8",
-                        "p_13_4",
                         "p_13_3",
                         "p_13_6",
-                        "p_17_15",
-                        "p_17_6",
-                        "p_17_17",
-                        "p_17_16",
-                        "p_17_14",
-                        "p_17_1",
-                        "p_17_2",
-                        "p_17_11",
-                        "p_17_7"
-                    ],
-                    "divs": []
-                },
-                "shear_operator": {
-                    "spans": [
-                        "p_6_5",
-                        "p_6_4",
-                        "p_6_2",
-                        "p_6_0",
-                        "p_6_1",
-                        "p_6_3"
+                        "p_13_7",
+                        "p_13_5",
+                        "p_13_2",
+                        "p_13_4",
+                        "p_13_1",
+                        "p_13_0",
+                        "p_13_8"
                     ],
                     "divs": [
-                        "formula_3"
+                        "formula_8",
+                        "formula_7"
                     ]
                 },
-                "test_velocity": {
+                "u_h": {
+                    "spans": [],
+                    "divs": [
+                        "formula_8",
+                        "formula_9"
+                    ]
+                },
+                "w_h": {
                     "spans": [
-                        "p_14_8",
-                        "p_14_12",
-                        "p_14_10",
-                        "p_14_2",
-                        "p_14_1",
-                        "p_14_3",
-                        "p_14_6",
-                        "p_14_4",
-                        "p_14_5",
                         "p_14_11",
+                        "p_14_1",
+                        "p_14_5",
                         "p_14_9",
                         "p_14_7",
-                        "p_14_0"
+                        "p_14_10",
+                        "p_14_6",
+                        "p_14_2",
+                        "p_14_8",
+                        "p_14_3",
+                        "p_14_0",
+                        "p_14_4",
+                        "p_14_12"
                     ],
                     "divs": [
-                        "formula_8"
-                    ]
-                },
-                "viscosity": {
-                    "spans": [
-                        "p_6_5",
-                        "p_6_4",
-                        "p_6_2",
-                        "p_6_0",
-                        "p_6_1",
-                        "p_6_3"
-                    ],
-                    "divs": [
-                        "formula_3"
+                        "formula_8",
+                        "formula_9"
                     ]
                 }
             },
             "formal_sogs_list": [
                 {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_1-start",
-                    "stop_id": "p_13_1-end"
-                },
-                {
-                    "mc_id": "boundary_north",
+                    "mc_id": "Gamma_N",
                     "start_id": "p_10_2-start",
                     "stop_id": "p_10_2-end"
                 },
                 {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_2-start",
-                    "stop_id": "p_13_2-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_5-start",
-                    "stop_id": "p_13_5-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_8-start",
-                    "stop_id": "p_13_8-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_10_3-start",
-                    "stop_id": "p_10_3-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_7-start",
-                    "stop_id": "p_13_7-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_6-start",
-                    "stop_id": "p_13_6-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_4-start",
-                    "stop_id": "p_13_4-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_0-start",
-                    "stop_id": "p_13_0-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_10_1-start",
-                    "stop_id": "p_10_1-end"
-                },
-                {
-                    "mc_id": "boundary_north",
-                    "start_id": "p_13_3-start",
-                    "stop_id": "p_13_3-end"
-                },
-                {
-                    "mc_id": "boundary_north",
+                    "mc_id": "Gamma_N",
                     "start_id": "p_10_0-start",
                     "stop_id": "p_10_0-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "Gamma_N",
+                    "start_id": "p_10_3-start",
+                    "stop_id": "p_10_3-end"
+                },
+                {
+                    "mc_id": "Gamma_N",
+                    "start_id": "p_10_1-start",
+                    "stop_id": "p_10_1-end"
+                },
+                {
+                    "mc_id": "Gamma_N",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
+                },
+                {
+                    "mc_id": "mu",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "mu",
+                    "start_id": "formula_4",
+                    "stop_id": "formula_4"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_5-start",
+                    "stop_id": "p_6_5-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_4-start",
+                    "stop_id": "p_6_4-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_2-start",
+                    "stop_id": "p_6_2-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_1-start",
+                    "stop_id": "p_6_1-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_3-start",
+                    "stop_id": "p_6_3-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "p_6_0-start",
+                    "stop_id": "p_6_0-end"
+                },
+                {
+                    "mc_id": "nabla_s",
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3"
+                },
+                {
+                    "mc_id": "p_h",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
+                },
+                {
+                    "mc_id": "p_h",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
+                },
+                {
+                    "mc_id": "rho",
                     "start_id": "p_4_2-start",
                     "stop_id": "p_4_2-end"
                 },
                 {
-                    "mc_id": "density",
-                    "start_id": "p_4_8-start",
-                    "stop_id": "p_4_8-end"
-                },
-                {
-                    "mc_id": "density",
+                    "mc_id": "rho",
                     "start_id": "p_4_9-start",
                     "stop_id": "p_4_9-end"
                 },
                 {
-                    "mc_id": "density",
-                    "start_id": "p_4_1-start",
-                    "stop_id": "p_4_1-end"
-                },
-                {
-                    "mc_id": "density",
-                    "start_id": "p_4_11-start",
-                    "stop_id": "p_4_11-end"
-                },
-                {
-                    "mc_id": "density",
-                    "start_id": "p_4_10-start",
-                    "stop_id": "p_4_10-end"
-                },
-                {
-                    "mc_id": "density",
-                    "start_id": "p_4_4-start",
-                    "stop_id": "p_4_4-end"
-                },
-                {
-                    "mc_id": "density",
-                    "start_id": "p_4_3-start",
-                    "stop_id": "p_4_3-end"
-                },
-                {
-                    "mc_id": "density",
+                    "mc_id": "rho",
                     "start_id": "p_4_0-start",
                     "stop_id": "p_4_0-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "rho",
+                    "start_id": "p_4_8-start",
+                    "stop_id": "p_4_8-end"
+                },
+                {
+                    "mc_id": "rho",
+                    "start_id": "p_4_4-start",
+                    "stop_id": "p_4_4-end"
+                },
+                {
+                    "mc_id": "rho",
+                    "start_id": "p_4_10-start",
+                    "stop_id": "p_4_10-end"
+                },
+                {
+                    "mc_id": "rho",
+                    "start_id": "p_4_1-start",
+                    "stop_id": "p_4_1-end"
+                },
+                {
+                    "mc_id": "rho",
                     "start_id": "p_4_7-start",
                     "stop_id": "p_4_7-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "rho",
                     "start_id": "p_4_12-start",
                     "stop_id": "p_4_12-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "rho",
+                    "start_id": "p_4_3-start",
+                    "stop_id": "p_4_3-end"
+                },
+                {
+                    "mc_id": "rho",
                     "start_id": "p_4_5-start",
                     "stop_id": "p_4_5-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "rho",
+                    "start_id": "p_4_11-start",
+                    "stop_id": "p_4_11-end"
+                },
+                {
+                    "mc_id": "rho",
                     "start_id": "p_4_6-start",
                     "stop_id": "p_4_6-end"
                 },
                 {
-                    "mc_id": "density",
+                    "mc_id": "rho",
                     "start_id": "formula_1",
                     "stop_id": "formula_1"
                 },
                 {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_1-start",
-                    "stop_id": "p_14_1-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_3-start",
-                    "stop_id": "p_14_3-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "p_14_0-start",
-                    "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
-                },
-                {
-                    "mc_id": "discrete_pressure",
-                    "start_id": "formula_8",
-                    "stop_id": "formula_8"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_1-start",
-                    "stop_id": "p_14_1-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_3-start",
-                    "stop_id": "p_14_3-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "p_14_0-start",
-                    "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "formula_9",
-                    "stop_id": "formula_9"
-                },
-                {
-                    "mc_id": "discrete_velocity",
-                    "start_id": "formula_8",
-                    "stop_id": "formula_8"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_4-start",
-                    "stop_id": "p_17_4-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_3-start",
-                    "stop_id": "p_17_3-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_0-start",
-                    "stop_id": "p_17_0-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_5-start",
-                    "stop_id": "p_17_5-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_12-start",
-                    "stop_id": "p_17_12-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_10-start",
-                    "stop_id": "p_17_10-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_5-start",
-                    "stop_id": "p_13_5-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_13-start",
-                    "stop_id": "p_17_13-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_7-start",
-                    "stop_id": "p_13_7-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_0-start",
-                    "stop_id": "p_13_0-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_8-start",
-                    "stop_id": "p_17_8-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_9-start",
-                    "stop_id": "p_17_9-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_1-start",
-                    "stop_id": "p_13_1-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_2-start",
-                    "stop_id": "p_13_2-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_8-start",
-                    "stop_id": "p_13_8-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_13_4-start",
-                    "stop_id": "p_13_4-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
+                    "mc_id": "t",
                     "start_id": "p_13_3-start",
                     "stop_id": "p_13_3-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
+                    "mc_id": "t",
                     "start_id": "p_13_6-start",
                     "stop_id": "p_13_6-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_15-start",
-                    "stop_id": "p_17_15-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_7-start",
+                    "stop_id": "p_13_7-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_6-start",
-                    "stop_id": "p_17_6-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_5-start",
+                    "stop_id": "p_13_5-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_17-start",
-                    "stop_id": "p_17_17-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_2-start",
+                    "stop_id": "p_13_2-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_16-start",
-                    "stop_id": "p_17_16-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_4-start",
+                    "stop_id": "p_13_4-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_14-start",
-                    "stop_id": "p_17_14-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_1-start",
+                    "stop_id": "p_13_1-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_1-start",
-                    "stop_id": "p_17_1-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_0-start",
+                    "stop_id": "p_13_0-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_2-start",
-                    "stop_id": "p_17_2-end"
+                    "mc_id": "t",
+                    "start_id": "p_13_8-start",
+                    "stop_id": "p_13_8-end"
                 },
                 {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_11-start",
-                    "stop_id": "p_17_11-end"
-                },
-                {
-                    "mc_id": "pseudo_traction",
-                    "start_id": "p_17_7-start",
-                    "stop_id": "p_17_7-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_5-start",
-                    "stop_id": "p_6_5-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_4-start",
-                    "stop_id": "p_6_4-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_2-start",
-                    "stop_id": "p_6_2-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_0-start",
-                    "stop_id": "p_6_0-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_1-start",
-                    "stop_id": "p_6_1-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "p_6_3-start",
-                    "stop_id": "p_6_3-end"
-                },
-                {
-                    "mc_id": "shear_operator",
-                    "start_id": "formula_3",
-                    "stop_id": "formula_3"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_8-start",
-                    "stop_id": "p_14_8-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_12-start",
-                    "stop_id": "p_14_12-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_10-start",
-                    "stop_id": "p_14_10-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_2-start",
-                    "stop_id": "p_14_2-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_1-start",
-                    "stop_id": "p_14_1-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_3-start",
-                    "stop_id": "p_14_3-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_6-start",
-                    "stop_id": "p_14_6-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_4-start",
-                    "stop_id": "p_14_4-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_5-start",
-                    "stop_id": "p_14_5-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_11-start",
-                    "stop_id": "p_14_11-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_9-start",
-                    "stop_id": "p_14_9-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_7-start",
-                    "stop_id": "p_14_7-end"
-                },
-                {
-                    "mc_id": "test_velocity",
-                    "start_id": "p_14_0-start",
-                    "stop_id": "p_14_0-end"
-                },
-                {
-                    "mc_id": "test_velocity",
+                    "mc_id": "t",
                     "start_id": "formula_8",
                     "stop_id": "formula_8"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_5-start",
-                    "stop_id": "p_6_5-end"
+                    "mc_id": "t",
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_4-start",
-                    "stop_id": "p_6_4-end"
+                    "mc_id": "u_h",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_2-start",
-                    "stop_id": "p_6_2-end"
+                    "mc_id": "u_h",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_0-start",
-                    "stop_id": "p_6_0-end"
+                    "mc_id": "w_h",
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_1-start",
-                    "stop_id": "p_6_1-end"
+                    "mc_id": "w_h",
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "p_6_3-start",
-                    "stop_id": "p_6_3-end"
+                    "mc_id": "w_h",
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end"
                 },
                 {
-                    "mc_id": "viscosity",
-                    "start_id": "formula_3",
-                    "stop_id": "formula_3"
+                    "mc_id": "w_h",
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8"
+                },
+                {
+                    "mc_id": "w_h",
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9"
                 }
             ]
         }

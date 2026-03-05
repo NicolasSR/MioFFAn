@@ -43,10 +43,7 @@ def make_concept(res,taxonomy_config,sog_list = []) -> Optional[MathConcept]:
         return None, f"Description must be filled."
     
     category = res.get('concept_category')
-    if category == "symbol-placeholder" and not category in taxonomy_config.keys():
-        fields_config = {}
-    else:
-        fields_config = taxonomy_config[category].get('concept_fields', {})
+    fields_config = taxonomy_config[category].get('concept_fields', {})
 
     properties = res.get('properties')
     is_valid, error_msg = validate_properties(fields_config, properties)
@@ -197,27 +194,13 @@ class MioFFAnServer:
 
         # add data-mc-id for each annotated comp_tag element
         self.add_data_math_concept(root)
-        
-        # progress info
-        nof_sog = 0
-        for concept in self.mcdict.concepts.values():
-            for sog in concept.sog_list:
-                nof_sog += 1
-        progress_dict = {
-            'nof_eois': len(self.mcdict.eoi_dict),
-            'nof_concepts': len(self.mcdict.concepts),
-            'nof_occ': len(self.mcdict.occurences_dict),
-            'nof_sog': nof_sog
-        }
-
-        return progress_dict
 
     def index(self):
         # avoid destroying the original tree
         copied_tree = deepcopy(self.tree)
         root = copied_tree.getroot()
 
-        progress_data = self.initialize_main_pages(root)
+        self.initialize_main_pages(root)
 
         # construction
         # title = root.xpath('//head/title')[0].text
@@ -234,7 +217,6 @@ class MioFFAnServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
-            progress_data=progress_data,
             main_content=Markup(main_content),
             main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
@@ -245,7 +227,7 @@ class MioFFAnServer:
         copied_tree = deepcopy(self.tree)
         root = copied_tree.getroot()
 
-        progress_data = self.initialize_main_pages(root)
+        self.initialize_main_pages(root)
 
         # construction
         body = root.xpath('body')[0]
@@ -259,7 +241,6 @@ class MioFFAnServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
-            progress_data=progress_data,
             main_content=Markup(main_content),
             main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
@@ -295,7 +276,7 @@ class MioFFAnServer:
         copied_tree = deepcopy(self.tree)
         root = copied_tree.getroot()
 
-        progress_data = self.initialize_main_pages(root)
+        self.initialize_main_pages(root)
 
         # construction
         body = root.xpath('body')[0]
@@ -309,7 +290,6 @@ class MioFFAnServer:
             git_revision=GIT_REVISON,
             paper_id=self.paper_id,
             annotator=self.mi_anno.annotator,
-            progress_data=progress_data,
             main_content=Markup(main_content),
             main_content_style=Markup(main_content_style),
             compound_concept_tags=self.config['COMPOUND_CONCEPT_TAGS']
