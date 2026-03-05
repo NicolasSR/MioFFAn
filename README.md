@@ -68,7 +68,7 @@ To perform evaluation it is important that relevant annotation files should be c
 python -m tools.evaluate_llm
 ```
 
-By default it will evaluate all possible tasks for all possible samples. Otherwise the user may specify specific task and sample via (check help page for the tool  with -h option). The output is a stringified JSON with the different results.
+By default it will evaluate all possible tasks for all possible samples. Otherwise the user may indicate specific a task and sample to evaluate (check help page for the tool with -h option). The output is a stringified JSON with the different results.
 
 
 ## Acknowledgements
