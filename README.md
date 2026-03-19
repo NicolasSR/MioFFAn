@@ -73,10 +73,10 @@ By default it will evaluate all possible tasks for all possible samples. Otherwi
 
 ## Acknowledgements
 
-This project has been supported by .... (Anonymized)
+This project has been funded by Joan Oró 2024 (2024 FI-1 00089) scholarship from AGAUR (Catalonia, Spain).
 
 ## License
-
+Copyright 2026 Nicolas Sibuet Ruiz (NicolasSR)
 This software is licensed under [the MIT license](./LICENSE).
 
 ### Third-party software
