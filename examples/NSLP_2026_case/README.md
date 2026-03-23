@@ -7,3 +7,5 @@ Replace the sources_config.json file at root with the one in this directory. The
 python -m tools.source_samples
 ```
 After that, delete the contents in the ./data directory and copy the ones in either annotation_files/explicit_names or annotation_files/original_characters within this folder. Then proceed by running MioFFAn or the evaluation tool normally.
+
+To use the automation framework explained in the conference paper, with the original prompt files, copy the contents of the folder automation_framework/ onto the llm_implementation/ directory at the root of the project, replacing the corresponding llm_implementations file and prompts folder.
