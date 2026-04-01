@@ -16,6 +16,18 @@ from lib.llm_utilities import get_primitive_hex_set, check_if_tag_with_id_in_tre
 """
 To run this script, a vllm server needs to be running. Call it via:
 vllm serve Qwen/Qwen3-4B-Instruct-2507 --max_model_len 65536
+vllm serve google/gemma-3-4b-it --max-model-len 65536
+vllm serve nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 \
+  --served-model-name nemotron3-nano-4B-BF16\
+  --max-num-seqs 8 \
+  --tensor-parallel-size 1 \
+  --max-model-len 65536 \
+  --trust-remote-code \
+  --mamba_ssm_cache_dtype float32 \
+  --enable-auto-tool-choice \
+  --tool-call-parser qwen3_coder \
+  --reasoning-parser-plugin nano_v3_reasoning_parser.py \
+  --reasoning-parser nano_v3
 """
 
 def replace_with_unicode_name(html_snippet):
@@ -47,6 +59,24 @@ def replace_with_unicode_name(html_snippet):
         return f"{prefix}{new_content}{suffix}"
 
     return re.sub(pattern, process_content, html_snippet)
+    # return html_snippet
+
+def get_list_of_dicts(in_string):
+    # Extract the part of the string matching a generic list of dicts format
+    return re.search("\[\s*(?:{[\s\S]*})\s*\]",in_string).group(0)
+    # If values of string format are determined by " quotes, change them to ' quotes
+    # return re.sub(':\s*"(.*)"',": '\g<1>'",list_of_dicts)
+
+
+def get_dict(in_string):
+    # Extract the part of the string matching a generic dict format
+    return re.search("{[\s\S]*}", in_string).group(0)
+    # If values of string format are determined by " quotes, change them to ' quotes
+    # return re.sub(':\s*"(.*)"',": '$1'",out_dict)
+
+def get_list(in_string):
+    # Extract the part of the string matching a generic list format
+    return re.search("\[[\s\S]*\]", in_string).group(0)
 
 class SetEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -134,7 +164,19 @@ def auto_segment_symbols(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_file 
 
         time.sleep(5)
         chat_response_string = chat_response.choices[0].message.content
-        objects_list = json.loads(chat_response_string)
+        print(chat_response_string)
+        extracted_response_string = get_list_of_dicts(chat_response_string)
+        print(extracted_response_string)
+        objects_list = json.loads(extracted_response_string)
+
+        # Remove object whose name does not comply with Python variable naming rules:
+        objects_list = [o for o in objects_list if o['obj_name'].isidentifier()]
+
+        # Remove any explict id field form mathml representations:
+        for symbol_info in objects_list:
+            print(symbol_info)
+            symbol_info['mathml_representation'] = re.sub(r'id\s*=\s*\\*".*?\\*"','',symbol_info['mathml_representation'])
+            print(symbol_info)
 
         log_json[eoi_id]["initial_output"] = objects_list
 
@@ -310,9 +352,9 @@ def disambiguate_symbol_segmentation(html_text, eoi_id, weak_form_string, confli
     time.sleep(5)
 
     chat_response_string = chat_response.choices[0].message.content
-    print(chat_response_string)
+    extracted_response_string = get_dict(chat_response_string)
     try:
-        disambiguation_results_json = json.loads(chat_response_string)
+        disambiguation_results_json = json.loads(extracted_response_string)
     except:
         raise f"Conflict disambiguation: LLM output could not be casted to JSON"
     log_json[eoi_id]["conflicts_resolution"] = disambiguation_results_json
@@ -403,12 +445,17 @@ def auto_define_and_assign_concepts(dom_tree_copy, mcdict_copy, mi_anno_copy, ll
     
     # Get properties for concepts marked as "VARIABLE":
     variable_concepts_list = [deepcopy(concept) for concept in concepts_list if concept["type"]=="VARIABLE"]
+    variable_concepts_list_final = []
     for variable in variable_concepts_list:
-        corresponding_symbols = [symbol for symbol, concept in concept_assignments.items() if concept==variable["name"]]
-        del variable["type"]
-        variable["representative_mathml"] = segmented_symbols_dict[corresponding_symbols[0]]
+        corresponding_symbols = [symbol for symbol, concept in concept_assignments.items() if concept==variable["name"] and symbol in segmented_symbols_dict.keys()]
+        if corresponding_symbols:
+            del variable["type"]
+            variable["representative_mathml"] = segmented_symbols_dict[corresponding_symbols[0]]
+            variable_concepts_list_final.append(variable)
+        else:
+            continue
     
-    variable_concepts_with_properties, log_json = auto_assign_variable_properties(dom_tree_copy, variable_concepts_list, eoi_ids_list, log_json)
+    variable_concepts_with_properties, log_json = auto_assign_variable_properties(dom_tree_copy, variable_concepts_list_final, eoi_ids_list, log_json)
 
     final_output_dict = {
         "concepts_info_list": []
@@ -525,7 +572,9 @@ def auto_define_concepts(html_tree_raw, segmented_symbols_list, eoi_ids_list, lo
 
     time.sleep(5)
     chat_response_string = chat_response.choices[0].message.content
-    concepts_list = json.loads(chat_response_string)
+    extracted_response_string = get_list_of_dicts(chat_response_string)
+    print(extracted_response_string)
+    concepts_list = json.loads(extracted_response_string)
 
     print(concepts_list)
 
@@ -599,7 +648,18 @@ def auto_assign_concepts(html_tree_raw, segmented_symbols_list, concepts_list, e
 
     time.sleep(5)
     chat_response_string = chat_response.choices[0].message.content
-    concept_assignment_dict = json.loads(chat_response_string)
+    extracted_response_string = get_dict(chat_response_string)
+    concept_assignment_dict = json.loads(extracted_response_string)
+
+
+    # Remove concepts assignments that do not relate to existing placeholders:
+    invalid_assignment_keys = []
+    valid_placeholder_symbols = [s["obj_name"] for s in segmented_symbols_list]
+    for placeholder_symbool in concept_assignment_dict.keys():
+        if not placeholder_symbool in valid_placeholder_symbols:
+            invalid_assignment_keys.append(placeholder_symbool)
+    for key in invalid_assignment_keys:
+        del concept_assignment_dict[key]
 
     print(concept_assignment_dict)
     log_json["concept_assignments"] = concept_assignment_dict
@@ -671,7 +731,15 @@ def auto_assign_variable_properties(html_tree_raw, variable_concepts_list, eoi_i
 
     time.sleep(5)
     chat_response_string = chat_response.choices[0].message.content
-    properties_assignment = json.loads(chat_response_string)
+    extracted_response_string = get_dict(chat_response_string)
+    properties_assignment = json.loads(extracted_response_string)
+
+    print(properties_assignment)
+
+    for properties in properties_assignment.values():
+        if isinstance(properties['tensor_rank'],int):
+            properties['tensor_rank'] = str(properties['tensor_rank'])
+
 
     print(properties_assignment)
 
@@ -763,7 +831,10 @@ def auto_highlight_sources(dom_tree_copy, mcdict_copy, mi_anno_copy, llm_log_fil
 
             time.sleep(5)
             chat_response_string = chat_response.choices[0].message.content
-            grounding_ids_raw = json.loads(chat_response_string)
+            print(chat_response_string)
+            extracted_response_string = get_list(chat_response_string)
+            print(extracted_response_string)
+            grounding_ids_raw = json.loads(extracted_response_string)
 
             log_json[concept_id]["justifications"] = justifications_dict
             log_json[concept_id]["grounding_ids_raw"] = grounding_ids_raw

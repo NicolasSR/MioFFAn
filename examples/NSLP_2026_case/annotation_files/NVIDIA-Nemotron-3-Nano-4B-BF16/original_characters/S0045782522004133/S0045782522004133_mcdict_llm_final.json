@@ -1,0 +1,436 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "1": {
+            "code_var_name": "Omega_gradient_N",
+            "concept_category": "operator",
+            "description": "Gradient of the subdomain Ω with index N, i.e. the outer surface normal direction.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Fragment shows <mi>∂</mi>Ω<mi>N</mi> representing ∂Ω_N.",
+            "primitive_symbols": [
+                "4e",
+                "e28882",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_6_3.0-start",
+                    "stop_id": "p_6_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0.0-start",
+                    "stop_id": "p_6_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2.0-start",
+                    "stop_id": "p_6_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2-start",
+                    "stop_id": "p_6_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3-start",
+                    "stop_id": "p_6_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1-start",
+                    "stop_id": "p_6_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4-start",
+                    "stop_id": "p_6_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1.0-start",
+                    "stop_id": "p_6_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4.0-start",
+                    "stop_id": "p_6_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0-start",
+                    "stop_id": "p_6_0-end",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "H01_Omega",
+            "concept_category": "domain",
+            "description": "Hilbert space H_{0,1}(Ω) describing spatial discretization functions.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Test function w ∈ <msubsup id=\"msubsup_5\">H</msubsup><mn>0</mn><mn>1</mn><mo>(</mo><mi>Ω</mi><mo>)</mo> appears.",
+            "primitive_symbols": [
+                "48",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "rho",
+            "concept_category": "variable",
+            "description": "Positive mass per unit volume.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: ρ is described as positive mass per unit volume.",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ]
+        },
+        "4": {
+            "code_var_name": "u",
+            "concept_category": "variable",
+            "description": "Unknown solution u(t, x).\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: u is the dependent variable of the wave equation.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {
+                "tensor-rank": "2",
+                "variable-type": "trial-function"
+            },
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "w",
+            "concept_category": "variable",
+            "description": "Test function w(t, x).\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: w is a test function used in weak formulations.",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {
+                "tensor-rank": "2",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ]
+        },
+        "6": {
+            "code_var_name": "T_tensile",
+            "concept_category": "variable",
+            "description": "Positive tensile pre-stress load per unit surface area.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Paragraph identifies T as the tensile pre-stress load.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_H_0_1": {
+            "code_var_name": "H_0_1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_0_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_0_1_Omega": {
+            "code_var_name": "H_0_1_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_0_1_Omega",
+            "primitive_symbols": [
+                "48",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_1": {
+            "code_var_name": "H_1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_minus1": {
+            "code_var_name": "H_minus1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_minus1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_cal_T": {
+            "code_var_name": "cal_T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder cal_T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9",
+                "4e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_g": {
+            "code_var_name": "g",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder g",
+            "primitive_symbols": [
+                "67"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_10": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 7,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_H_1",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "mi_144": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_146": {
+            "mc_id": "llm_placeholder_concept_cal_T",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_148": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_149": {
+            "mc_id": "llm_placeholder_concept_t",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_150": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_153": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_156": {
+            "mc_id": "llm_placeholder_concept_t",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_157": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_158": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_161": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_162": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_163": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_165": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_166": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_170": {
+            "mc_id": "llm_placeholder_concept_g",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_171": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_172": {
+            "mc_id": "llm_placeholder_concept_d_Gamma",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "msubsup_6": {
+            "mc_id": "llm_placeholder_concept_H_0_1",
+            "properties": {},
+            "tag_name": "msubsup"
+        },
+        "msup_10": {
+            "mc_id": "llm_placeholder_concept_H_minus1",
+            "properties": {},
+            "tag_name": "msup"
+        }
+    }
+}

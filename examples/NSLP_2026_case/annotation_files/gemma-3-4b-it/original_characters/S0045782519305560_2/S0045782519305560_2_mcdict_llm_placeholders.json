@@ -1,0 +1,74 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "d",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d",
+            "primitive_symbols": [
+                "64"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 4,
+    "occurences_dict": {
+        "mi_102": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_105": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_88": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_91": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        }
+    }
+}

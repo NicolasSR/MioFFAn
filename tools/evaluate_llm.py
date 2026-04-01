@@ -19,11 +19,11 @@ EVALUATION_SCHEMA = {
         "llm":      "llm_placeholders",
         "llm_log":      None
     },
-    "segmentation_custom": {
-        "truth":    "true_placeholders",
-        "llm":      "llm_placeholders",
-        "llm_log":  "llm_placeholders"
-    },
+    # "segmentation_custom": {
+    #     "truth":    "true_placeholders",
+    #     "llm":      "llm_placeholders",
+    #     "llm_log":  "llm_placeholders"
+    # },
     "concepts_assignment": {
         "truth":    "true_final",
         "llm":      "llm_final",
@@ -394,7 +394,7 @@ class LLMEvaluator():
             union = llm_leaf_sog_ids.union(truth_leaf_sog_ids)
             jaccard_score = len(intersection)/len(union) if len(union) > 0 else 1.0
             jaccard_scores_dict[comp_tag_id] = jaccard_score*100
-            sdi_score = 2*jaccard_score/(1+jaccard_score) if (1+jaccard_score) > 0 else 1.0
+            sdi_score = 2*jaccard_score/(1+jaccard_score)
             sdi_scores_dict[comp_tag_id] = sdi_score*100
 
         return jaccard_scores_dict, sdi_scores_dict

@@ -1,0 +1,104 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "nabla",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder nabla",
+            "primitive_symbols": [
+                "e28887"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "mu",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "p",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder p",
+            "primitive_symbols": [
+                "70"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 6,
+    "occurences_dict": {
+        "mi_126": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_136": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_143": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_145": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_148": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        }
+    }
+}

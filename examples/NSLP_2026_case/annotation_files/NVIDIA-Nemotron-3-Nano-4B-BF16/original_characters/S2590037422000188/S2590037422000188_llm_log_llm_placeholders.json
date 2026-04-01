@@ -1,0 +1,208 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_12": {
+            "initial_output": [
+                {
+                    "obj_name": "sigma_ij",
+                    "mathml_representation": "<msub><mi>\u03c3</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "fi",
+                    "mathml_representation": "<msub><mi>f</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl",
+                    "mathml_representation": "<msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "epsilon_ij",
+                    "mathml_representation": "<msub><mi>\u03b5</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "ui",
+                    "mathml_representation": "<msub><mi>u</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "n_j",
+                    "mathml_representation": "<msub><mi>n</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "Fi",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "r",
+                    "mathml_representation": "<msup><mi>r</mi><mn>3</mn></msup>"
+                },
+                {
+                    "obj_name": "nabla",
+                    "mathml_representation": "<mi>\u2207</mi>"
+                },
+                {
+                    "obj_name": "zero",
+                    "mathml_representation": "<mn>0</mn>"
+                },
+                {
+                    "obj_name": "one",
+                    "mathml_representation": "<mn>1</mn>"
+                },
+                {
+                    "obj_name": "two",
+                    "mathml_representation": "<mn>2</mn>"
+                },
+                {
+                    "obj_name": "three",
+                    "mathml_representation": "<mn>3</mn>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "sigma_ij",
+                    "mathml_representation": "<msub><mi>\u03c3</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "fi",
+                    "mathml_representation": "<msub><mi>f</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl",
+                    "mathml_representation": "<msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "epsilon_ij",
+                    "mathml_representation": "<msub><mi>\u03b5</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "ui",
+                    "mathml_representation": "<msub><mi>u</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "n_j",
+                    "mathml_representation": "<msub><mi>n</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "Fi",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "r",
+                    "mathml_representation": "<msup><mi>r</mi><mn>3</mn></msup>"
+                },
+                {
+                    "obj_name": "nabla",
+                    "mathml_representation": "<mi>\u2207</mi>"
+                },
+                {
+                    "obj_name": "zero",
+                    "mathml_representation": "<mn>0</mn>"
+                },
+                {
+                    "obj_name": "one",
+                    "mathml_representation": "<mn>1</mn>"
+                },
+                {
+                    "obj_name": "two",
+                    "mathml_representation": "<mn>2</mn>"
+                },
+                {
+                    "obj_name": "three",
+                    "mathml_representation": "<mn>3</mn>"
+                }
+            ],
+            "new_groups_dict": {},
+            "new_occurences_dict": {
+                "fi": [
+                    {
+                        "comp_tag_id": "msub_93",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_248",
+                            "mi_249",
+                            "msub_93"
+                        ]
+                    }
+                ],
+                "Fi": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "46",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_90",
+                            "mi_241",
+                            "mi_242"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "fi",
+                    "representative_id": "msub_93",
+                    "ids_set": [
+                        "mi_248",
+                        "mi_249",
+                        "msub_93"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_93\"><mi id=\"mi_248\">f</mi><mi id=\"mi_249\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "Fi",
+                    "representative_id": "msub_90",
+                    "ids_set": [
+                        "msub_90",
+                        "mi_241",
+                        "mi_242"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_90\"><mi id=\"mi_241\">F</mi><mi id=\"mi_242\">i</mi></msub>"
+                }
+            ],
+            "conflicts_list": []
+        },
+        "total": {
+            "final_new_groups_dict": {},
+            "final_new_occurences_dict": {
+                "fi": [
+                    {
+                        "comp_tag_id": "msub_93",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_248",
+                            "mi_249",
+                            "msub_93"
+                        ]
+                    }
+                ],
+                "Fi": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "46",
+                            "69"
+                        ],
+                        "ids_set": [
+                            "msub_90",
+                            "mi_241",
+                            "mi_242"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

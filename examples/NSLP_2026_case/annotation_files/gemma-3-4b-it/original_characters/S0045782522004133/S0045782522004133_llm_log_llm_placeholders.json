@@ -1,0 +1,1313 @@
+{
+    "paper_id": "S0045782522004133",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_10": {
+            "initial_output": [
+                {
+                    "obj_name": "d_b_x",
+                    "mathml_representation": "<mi>d</mi><msub><mi>b</mi><mi>x</mi></msub>"
+                },
+                {
+                    "obj_name": "d_b_x_T",
+                    "mathml_representation": "<mi>d</mi><msubsup><mi>b</mi><mi>x</mi><mi>T</mi></msubsup>"
+                },
+                {
+                    "obj_name": "\u03a9",
+                    "mathml_representation": "<mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "R",
+                    "mathml_representation": "<mi mathvariant=\"double-struck\">R</mi>"
+                },
+                {
+                    "obj_name": "d",
+                    "mathml_representation": "<mi>d</mi>"
+                },
+                {
+                    "obj_name": "Omega_i",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "i",
+                    "mathml_representation": "<mi>i</mi>"
+                },
+                {
+                    "obj_name": "N",
+                    "mathml_representation": "<mi>N</mi>"
+                },
+                {
+                    "obj_name": "u",
+                    "mathml_representation": "<mi>u</mi>"
+                },
+                {
+                    "obj_name": "\u03c1",
+                    "mathml_representation": "<mi>\u03c1</mi>"
+                },
+                {
+                    "obj_name": "T",
+                    "mathml_representation": "<mi>T</mi>"
+                },
+                {
+                    "obj_name": "\u03bc",
+                    "mathml_representation": "<mi>\u03bc</mi>"
+                },
+                {
+                    "obj_name": "v",
+                    "mathml_representation": "<mi>v</mi>"
+                },
+                {
+                    "obj_name": "g",
+                    "mathml_representation": "<mi>g</mi>"
+                },
+                {
+                    "obj_name": "\u0393",
+                    "mathml_representation": "<mi>\u0393</mi>"
+                },
+                {
+                    "obj_name": "t",
+                    "mathml_representation": "<mi>t</mi>"
+                },
+                {
+                    "obj_name": "x",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">x</mi>"
+                },
+                {
+                    "obj_name": "n",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
+                },
+                {
+                    "obj_name": "w",
+                    "mathml_representation": "<mi>w</mi>"
+                },
+                {
+                    "obj_name": "\u03a9_D",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>D</mi></msub>"
+                },
+                {
+                    "obj_name": "\u03a9_N",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>N</mi></msub>"
+                },
+                {
+                    "obj_name": "f",
+                    "mathml_representation": "<mi>f</mi>"
+                },
+                {
+                    "obj_name": "u_IC",
+                    "mathml_representation": "<msub><mi>u</mi><mrow> <mtext>IC</mtext></mrow></msub>"
+                },
+                {
+                    "obj_name": "v_IC",
+                    "mathml_representation": "<msub><mi>v</mi><mrow> <mtext>IC</mtext></mrow></msub>"
+                },
+                {
+                    "obj_name": "g_IC",
+                    "mathml_representation": "<mi>g</mi><mtext>IC</mtext>"
+                },
+                {
+                    "obj_name": "T_nabla_u",
+                    "mathml_representation": "<mi>T</mi><mo>\u2207</mo><mi>u</mi>"
+                },
+                {
+                    "obj_name": "T_nabla_w",
+                    "mathml_representation": "<mi>T</mi><mo>\u2207</mo><mi>w</mi>"
+                },
+                {
+                    "obj_name": "tau",
+                    "mathml_representation": "<mi>\u03c4</mi>"
+                },
+                {
+                    "obj_name": "H_0_1",
+                    "mathml_representation": "<msubsup><mi>H</mi><mn>0</mn><mn>1</mn></msubsup>"
+                },
+                {
+                    "obj_name": "H_1",
+                    "mathml_representation": "<msup><mi>H</mi><mn>1</mn></msup>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "d_b_x",
+                    "mathml_representation": "<mi>d</mi><msub><mi>b</mi><mi>x</mi></msub>"
+                },
+                {
+                    "obj_name": "d_b_x_T",
+                    "mathml_representation": "<mi>d</mi><msubsup><mi>b</mi><mi>x</mi><mi>T</mi></msubsup>"
+                },
+                {
+                    "obj_name": "\u03a9",
+                    "mathml_representation": "<mi>\u03a9</mi>"
+                },
+                {
+                    "obj_name": "R",
+                    "mathml_representation": "<mi mathvariant=\"double-struck\">R</mi>"
+                },
+                {
+                    "obj_name": "d",
+                    "mathml_representation": "<mi>d</mi>"
+                },
+                {
+                    "obj_name": "Omega_i",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "i",
+                    "mathml_representation": "<mi>i</mi>"
+                },
+                {
+                    "obj_name": "N",
+                    "mathml_representation": "<mi>N</mi>"
+                },
+                {
+                    "obj_name": "u",
+                    "mathml_representation": "<mi>u</mi>"
+                },
+                {
+                    "obj_name": "\u03c1",
+                    "mathml_representation": "<mi>\u03c1</mi>"
+                },
+                {
+                    "obj_name": "T",
+                    "mathml_representation": "<mi>T</mi>"
+                },
+                {
+                    "obj_name": "\u03bc",
+                    "mathml_representation": "<mi>\u03bc</mi>"
+                },
+                {
+                    "obj_name": "v",
+                    "mathml_representation": "<mi>v</mi>"
+                },
+                {
+                    "obj_name": "g",
+                    "mathml_representation": "<mi>g</mi>"
+                },
+                {
+                    "obj_name": "\u0393",
+                    "mathml_representation": "<mi>\u0393</mi>"
+                },
+                {
+                    "obj_name": "t",
+                    "mathml_representation": "<mi>t</mi>"
+                },
+                {
+                    "obj_name": "x",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">x</mi>"
+                },
+                {
+                    "obj_name": "n",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
+                },
+                {
+                    "obj_name": "w",
+                    "mathml_representation": "<mi>w</mi>"
+                },
+                {
+                    "obj_name": "\u03a9_D",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>D</mi></msub>"
+                },
+                {
+                    "obj_name": "\u03a9_N",
+                    "mathml_representation": "<msub><mi>\u03a9</mi><mi>N</mi></msub>"
+                },
+                {
+                    "obj_name": "f",
+                    "mathml_representation": "<mi>f</mi>"
+                },
+                {
+                    "obj_name": "u_IC",
+                    "mathml_representation": "<msub><mi>u</mi><mrow> <mtext>IC</mtext></mrow></msub>"
+                },
+                {
+                    "obj_name": "v_IC",
+                    "mathml_representation": "<msub><mi>v</mi><mrow> <mtext>IC</mtext></mrow></msub>"
+                },
+                {
+                    "obj_name": "g_IC",
+                    "mathml_representation": "<mi>g</mi><mtext>IC</mtext>"
+                },
+                {
+                    "obj_name": "T_nabla_u",
+                    "mathml_representation": "<mi>T</mi><mo>\u2207</mo><mi>u</mi>"
+                },
+                {
+                    "obj_name": "T_nabla_w",
+                    "mathml_representation": "<mi>T</mi><mo>\u2207</mo><mi>w</mi>"
+                },
+                {
+                    "obj_name": "tau",
+                    "mathml_representation": "<mi>\u03c4</mi>"
+                },
+                {
+                    "obj_name": "H_0_1",
+                    "mathml_representation": "<msubsup><mi>H</mi><mn>0</mn><mn>1</mn></msubsup>"
+                },
+                {
+                    "obj_name": "H_1",
+                    "mathml_representation": "<msup><mi>H</mi><mn>1</mn></msup>"
+                }
+            ],
+            "new_groups_dict": {
+                "T_nabla_u": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_162",
+                        "stop_id": "mi_163",
+                        "primitive_symbols": [
+                            "54",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_163",
+                            "mi_162"
+                        ]
+                    }
+                ]
+            },
+            "new_occurences_dict": {
+                "\u03a9": [
+                    {
+                        "comp_tag_id": "mi_166",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_166"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_148",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_148"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_161",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_161"
+                        ]
+                    }
+                ],
+                "u": [
+                    {
+                        "comp_tag_id": "mi_144",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_144"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_157",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_157"
+                        ]
+                    }
+                ],
+                "\u03c1": [
+                    {
+                        "comp_tag_id": "mi_153",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_153"
+                        ]
+                    }
+                ],
+                "T": [
+                    {
+                        "comp_tag_id": "mi_146",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "54"
+                        ],
+                        "ids_set": [
+                            "mi_146"
+                        ]
+                    }
+                ],
+                "g": [
+                    {
+                        "comp_tag_id": "mi_170",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "67"
+                        ],
+                        "ids_set": [
+                            "mi_170"
+                        ]
+                    }
+                ],
+                "\u0393": [
+                    {
+                        "comp_tag_id": "mi_172",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "ce93"
+                        ],
+                        "ids_set": [
+                            "mi_172"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_149",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_149"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_156",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_156"
+                        ]
+                    }
+                ],
+                "w": [
+                    {
+                        "comp_tag_id": "mi_150",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_150"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_165",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_165"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_171",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_171"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_158",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_158"
+                        ]
+                    }
+                ],
+                "\u03a9_N": [
+                    {
+                        "comp_tag_id": "msub_24",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "4e",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_169",
+                            "mi_168",
+                            "msub_24"
+                        ]
+                    }
+                ],
+                "H_0_1": [
+                    {
+                        "comp_tag_id": "msubsup_5",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "mi_151",
+                            "msubsup_5"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_4",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_4",
+                            "mi_147"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_6",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_6",
+                            "mi_160"
+                        ]
+                    }
+                ],
+                "H_1": [
+                    {
+                        "comp_tag_id": "msup_7",
+                        "tag_name": "msup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msup_7",
+                            "mi_145"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "\u03a9",
+                    "representative_id": "mi_166",
+                    "ids_set": [
+                        "mi_166"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_166\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "\u03a9",
+                    "representative_id": "mi_148",
+                    "ids_set": [
+                        "mi_148"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_148\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "\u03a9",
+                    "representative_id": "mi_152",
+                    "ids_set": [
+                        "mi_152"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_152\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "\u03a9",
+                    "representative_id": "mi_161",
+                    "ids_set": [
+                        "mi_161"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_161\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "\u03a9",
+                    "representative_id": "mi_168",
+                    "ids_set": [
+                        "mi_168"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_168\">\u03a9</mi>"
+                },
+                {
+                    "variable_name": "N",
+                    "representative_id": "mi_169",
+                    "ids_set": [
+                        "mi_169"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_169\">N</mi>"
+                },
+                {
+                    "variable_name": "u",
+                    "representative_id": "mi_144",
+                    "ids_set": [
+                        "mi_144"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_144\">u</mi>"
+                },
+                {
+                    "variable_name": "u",
+                    "representative_id": "mi_163",
+                    "ids_set": [
+                        "mi_163"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_163\">u</mi>"
+                },
+                {
+                    "variable_name": "u",
+                    "representative_id": "mi_157",
+                    "ids_set": [
+                        "mi_157"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_157\">u</mi>"
+                },
+                {
+                    "variable_name": "\u03c1",
+                    "representative_id": "mi_153",
+                    "ids_set": [
+                        "mi_153"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_153\">\u03c1</mi>"
+                },
+                {
+                    "variable_name": "T",
+                    "representative_id": "mi_162",
+                    "ids_set": [
+                        "mi_162"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_162\">T</mi>"
+                },
+                {
+                    "variable_name": "T",
+                    "representative_id": "mi_146",
+                    "ids_set": [
+                        "mi_146"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi mathvariant=\"script\" id=\"mi_146\">T</mi>"
+                },
+                {
+                    "variable_name": "g",
+                    "representative_id": "mi_170",
+                    "ids_set": [
+                        "mi_170"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_170\">g</mi>"
+                },
+                {
+                    "variable_name": "\u0393",
+                    "representative_id": "mi_172",
+                    "ids_set": [
+                        "mi_172"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_172\">\u0393</mi>"
+                },
+                {
+                    "variable_name": "t",
+                    "representative_id": "mi_149",
+                    "ids_set": [
+                        "mi_149"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_149\">t</mi>"
+                },
+                {
+                    "variable_name": "t",
+                    "representative_id": "mi_156",
+                    "ids_set": [
+                        "mi_156"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_156\">t</mi>"
+                },
+                {
+                    "variable_name": "w",
+                    "representative_id": "mi_150",
+                    "ids_set": [
+                        "mi_150"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_150\">w</mi>"
+                },
+                {
+                    "variable_name": "w",
+                    "representative_id": "mi_165",
+                    "ids_set": [
+                        "mi_165"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_165\">w</mi>"
+                },
+                {
+                    "variable_name": "w",
+                    "representative_id": "mi_171",
+                    "ids_set": [
+                        "mi_171"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_171\">w</mi>"
+                },
+                {
+                    "variable_name": "w",
+                    "representative_id": "mi_158",
+                    "ids_set": [
+                        "mi_158"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_158\">w</mi>"
+                },
+                {
+                    "variable_name": "T_nabla_u",
+                    "representative_id": "mi_162",
+                    "ids_set": [
+                        "mi_163",
+                        "mi_162"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mi id=\"mi_162\">T</mi><mo>\u2207</mo><mi id=\"mi_163\">u</mi>"
+                },
+                {
+                    "variable_name": "H_0_1",
+                    "representative_id": "msubsup_5",
+                    "ids_set": [
+                        "mi_151",
+                        "msubsup_5"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<msubsup id=\"msubsup_5\"><mi id=\"mi_151\">H</mi><mn>0</mn><mn>1</mn></msubsup>"
+                },
+                {
+                    "variable_name": "H_0_1",
+                    "representative_id": "msubsup_4",
+                    "ids_set": [
+                        "msubsup_4",
+                        "mi_147"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<msubsup id=\"msubsup_4\"><mi id=\"mi_147\">H</mi><mn>0</mn><mn>1</mn></msubsup>"
+                },
+                {
+                    "variable_name": "H_0_1",
+                    "representative_id": "msubsup_6",
+                    "ids_set": [
+                        "msubsup_6",
+                        "mi_160"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<msubsup id=\"msubsup_6\"><mi id=\"mi_160\">H</mi><mn>0</mn><mn>1</mn></msubsup>"
+                },
+                {
+                    "variable_name": "H_1",
+                    "representative_id": "msup_7",
+                    "ids_set": [
+                        "msup_7",
+                        "mi_145"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<msup id=\"msup_7\"><mi id=\"mi_145\">H</mi><mn>1</mn></msup>"
+                },
+                {
+                    "variable_name": "\u03a9_N",
+                    "representative_id": "msub_24",
+                    "ids_set": [
+                        "mi_169",
+                        "mi_168",
+                        "msub_24"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_24\"><mi id=\"mi_168\">\u03a9</mi><mi id=\"mi_169\">N</mi></msub>"
+                }
+            ],
+            "conflicts_list": [
+                {
+                    "parent_variable_name": "\u03a9_N",
+                    "parent_representative_id": "msub_24",
+                    "parent_mathml": "<msub id=\"msub_24\"><mi id=\"mi_168\">\u03a9</mi><mi id=\"mi_169\">N</mi></msub>",
+                    "child_variable_name": "\u03a9",
+                    "child_representative_id": "mi_168",
+                    "child_mathml": "<mi id=\"mi_168\">\u03a9</mi>"
+                },
+                {
+                    "parent_variable_name": "\u03a9_N",
+                    "parent_representative_id": "msub_24",
+                    "parent_mathml": "<msub id=\"msub_24\"><mi id=\"mi_168\">\u03a9</mi><mi id=\"mi_169\">N</mi></msub>",
+                    "child_variable_name": "N",
+                    "child_representative_id": "mi_169",
+                    "child_mathml": "<mi id=\"mi_169\">N</mi>"
+                },
+                {
+                    "parent_variable_name": "T_nabla_u",
+                    "parent_representative_id": "mi_162",
+                    "parent_mathml": "<mi id=\"mi_162\">T</mi><mo>\u2207</mo><mi id=\"mi_163\">u</mi>",
+                    "child_variable_name": "u",
+                    "child_representative_id": "mi_163",
+                    "child_mathml": "<mi id=\"mi_163\">u</mi>"
+                },
+                {
+                    "parent_variable_name": "T_nabla_u",
+                    "parent_representative_id": "mi_162",
+                    "parent_mathml": "<mi id=\"mi_162\">T</mi><mo>\u2207</mo><mi id=\"mi_163\">u</mi>",
+                    "child_variable_name": "T",
+                    "child_representative_id": "mi_162",
+                    "child_mathml": "<mi id=\"mi_162\">T</mi>"
+                }
+            ],
+            "conflicts_resolution": {
+                "case_1": "REMOVE",
+                "case_2": "REMOVE",
+                "case_3": "REMOVE",
+                "case_4": "REMOVE"
+            },
+            "disambiguated_new_groups_dict": {
+                "T_nabla_u": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_162",
+                        "stop_id": "mi_163",
+                        "primitive_symbols": [
+                            "54",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_163",
+                            "mi_162"
+                        ]
+                    }
+                ]
+            },
+            "disambiguated_new_occurences_dict": {
+                "\u03a9": [
+                    {
+                        "comp_tag_id": "mi_166",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_166"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_148",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_148"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_161",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_161"
+                        ]
+                    }
+                ],
+                "u": [
+                    {
+                        "comp_tag_id": "mi_144",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_144"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_157",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_157"
+                        ]
+                    }
+                ],
+                "\u03c1": [
+                    {
+                        "comp_tag_id": "mi_153",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_153"
+                        ]
+                    }
+                ],
+                "T": [
+                    {
+                        "comp_tag_id": "mi_146",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "54"
+                        ],
+                        "ids_set": [
+                            "mi_146"
+                        ]
+                    }
+                ],
+                "g": [
+                    {
+                        "comp_tag_id": "mi_170",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "67"
+                        ],
+                        "ids_set": [
+                            "mi_170"
+                        ]
+                    }
+                ],
+                "\u0393": [
+                    {
+                        "comp_tag_id": "mi_172",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "ce93"
+                        ],
+                        "ids_set": [
+                            "mi_172"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_149",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_149"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_156",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_156"
+                        ]
+                    }
+                ],
+                "w": [
+                    {
+                        "comp_tag_id": "mi_150",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_150"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_165",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_165"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_171",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_171"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_158",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_158"
+                        ]
+                    }
+                ],
+                "\u03a9_N": [
+                    {
+                        "comp_tag_id": "msub_24",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "4e",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_169",
+                            "mi_168",
+                            "msub_24"
+                        ]
+                    }
+                ],
+                "H_0_1": [
+                    {
+                        "comp_tag_id": "msubsup_5",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "mi_151",
+                            "msubsup_5"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_4",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_4",
+                            "mi_147"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_6",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_6",
+                            "mi_160"
+                        ]
+                    }
+                ],
+                "H_1": [
+                    {
+                        "comp_tag_id": "msup_7",
+                        "tag_name": "msup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msup_7",
+                            "mi_145"
+                        ]
+                    }
+                ]
+            }
+        },
+        "total": {
+            "final_new_groups_dict": {
+                "T_nabla_u": [
+                    {
+                        "ancestry_level_start": 0,
+                        "ancestry_level_stop": 0,
+                        "start_id": "mi_162",
+                        "stop_id": "mi_163",
+                        "primitive_symbols": [
+                            "54",
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_163",
+                            "mi_162"
+                        ]
+                    }
+                ]
+            },
+            "final_new_occurences_dict": {
+                "\u03a9": [
+                    {
+                        "comp_tag_id": "mi_166",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_166"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_148",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_148"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_152",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_152"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_161",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_161"
+                        ]
+                    }
+                ],
+                "u": [
+                    {
+                        "comp_tag_id": "mi_144",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_144"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_157",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_157"
+                        ]
+                    }
+                ],
+                "\u03c1": [
+                    {
+                        "comp_tag_id": "mi_153",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "cf81"
+                        ],
+                        "ids_set": [
+                            "mi_153"
+                        ]
+                    }
+                ],
+                "T": [
+                    {
+                        "comp_tag_id": "mi_146",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "54"
+                        ],
+                        "ids_set": [
+                            "mi_146"
+                        ]
+                    }
+                ],
+                "g": [
+                    {
+                        "comp_tag_id": "mi_170",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "67"
+                        ],
+                        "ids_set": [
+                            "mi_170"
+                        ]
+                    }
+                ],
+                "\u0393": [
+                    {
+                        "comp_tag_id": "mi_172",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "ce93"
+                        ],
+                        "ids_set": [
+                            "mi_172"
+                        ]
+                    }
+                ],
+                "t": [
+                    {
+                        "comp_tag_id": "mi_149",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_149"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_156",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "74"
+                        ],
+                        "ids_set": [
+                            "mi_156"
+                        ]
+                    }
+                ],
+                "w": [
+                    {
+                        "comp_tag_id": "mi_150",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_150"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_165",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_165"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_171",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_171"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "mi_158",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "77"
+                        ],
+                        "ids_set": [
+                            "mi_158"
+                        ]
+                    }
+                ],
+                "\u03a9_N": [
+                    {
+                        "comp_tag_id": "msub_24",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "4e",
+                            "cea9"
+                        ],
+                        "ids_set": [
+                            "mi_169",
+                            "mi_168",
+                            "msub_24"
+                        ]
+                    }
+                ],
+                "H_0_1": [
+                    {
+                        "comp_tag_id": "msubsup_5",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "mi_151",
+                            "msubsup_5"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_4",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_4",
+                            "mi_147"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msubsup_6",
+                        "tag_name": "msubsup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msubsup_6",
+                            "mi_160"
+                        ]
+                    }
+                ],
+                "H_1": [
+                    {
+                        "comp_tag_id": "msup_7",
+                        "tag_name": "msup",
+                        "primitive_symbols": [
+                            "48"
+                        ],
+                        "ids_set": [
+                            "msup_7",
+                            "mi_145"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

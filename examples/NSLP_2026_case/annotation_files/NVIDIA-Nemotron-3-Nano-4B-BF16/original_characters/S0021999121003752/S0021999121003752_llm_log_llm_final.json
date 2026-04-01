@@ -1,0 +1,624 @@
+{
+    "paper_id": "S0021999121003752",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi id=\"mi_102\">d</mi>\n        <mi mathvariant=\"normal\" id=\"mi_103\">\u03a9</mi>\n        </mstyle>",
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi id=\"mi_108\">d</mi>\n        <mi mathvariant=\"normal\" id=\"mi_109\">\u03a9</mi>\n        </mstyle>",
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi id=\"mi_114\">d</mi>\n        <mi mathvariant=\"normal\" id=\"mi_115\">\u03a9</mi>\n        </mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi id=\"mi_125\">d</mi>\n        <mi mathvariant=\"normal\" id=\"mi_126\">\u03a9</mi>\n        </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_delta_Omega": {
+                "obj_name": "d_delta_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-4\" class=\"custom-group\"><mi id=\"mi_130\">d</mi>\n        <mo stretchy=\"false\">(</mo>\n        <mo>\u2202</mo>\n        <mi mathvariant=\"normal\" id=\"mi_131\">\u03a9</mi>\n        </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_100\">u</mi>\n          ",
+                    "<mi mathvariant=\"bold\" id=\"mi_119\">u</mi>\n          ",
+                    "<mi mathvariant=\"bold\" id=\"mi_121\">u</mi>\n            ",
+                    "<mi mathvariant=\"bold\" id=\"mi_96\">u</mi>\n            ",
+                    "<mi mathvariant=\"bold\" id=\"mi_98\">u</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_w": {
+                "obj_name": "w",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_101\">w</mi>\n        ",
+                    "<mi mathvariant=\"bold\" id=\"mi_107\">w</mi>\n        ",
+                    "<mi mathvariant=\"bold\" id=\"mi_113\">w</mi>\n        ",
+                    "<mi mathvariant=\"bold\" id=\"mi_124\">w</mi>\n        ",
+                    "<mi mathvariant=\"bold\" id=\"mi_129\">w</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"normal\" id=\"mi_104\">\u03a9</mi>\n          ",
+                    "<mi mathvariant=\"normal\" id=\"mi_110\">\u03a9</mi>\n          ",
+                    "<mi mathvariant=\"normal\" id=\"mi_116\">\u03a9</mi>\n          ",
+                    "<mi mathvariant=\"normal\" id=\"mi_94\">\u03a9</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_rho": {
+                "obj_name": "rho",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_105\">\u03c1</mi>\n        ",
+                    "<mi id=\"mi_95\">\u03c1</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_b": {
+                "obj_name": "b",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_106\">b</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_p": {
+                "obj_name": "p",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_111\">p</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_mu": {
+                "obj_name": "mu",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_117\">\u03bc</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_delta_Omega": {
+                "obj_name": "delta_Omega",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"normal\" id=\"mi_127\">\u03a9</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_T": {
+                "obj_name": "T",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_128\">T</mi>\n        "
+                ]
+            },
+            "llm_placeholder_concept_t": {
+                "obj_name": "t",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_97\">t</mi>\n            "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "omega_volume",
+                "type": "DOMAIN",
+                "description": "Fluid domain \u03a9",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Appears as the domain over which all integrals are performed."
+            },
+            {
+                "name": "omega_vol_elem",
+                "type": "INTEGRATION_VAR",
+                "description": "Volume element d\u03a9 used in the volume integrals",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: D\u03a9 is explicitly given as the differential of integration in eqs. 1, 2, 17."
+            },
+            {
+                "name": "rho",
+                "type": "VARIABLE",
+                "description": "Fluid density",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03c1 appears in continuity equations and Euler equations."
+            },
+            {
+                "name": "b",
+                "type": "VARIABLE",
+                "description": "Fluid compressibility coefficient",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: b multiplies the term \u03c1\u2202u/\u2202t in eq. 1 and defines incompressibility."
+            },
+            {
+                "name": "p",
+                "type": "VARIABLE",
+                "description": "Fluid pressure",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: p is the pressure variable in the momentum equations."
+            },
+            {
+                "name": "mu",
+                "type": "VARIABLE",
+                "description": "Fluid dynamic viscosity",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03bc appears in the stress tensor and traction definition."
+            },
+            {
+                "name": "T",
+                "type": "VARIABLE",
+                "description": "Traction vector",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: T is defined as the traction vector from Eq. (7) and used in integral representations."
+            },
+            {
+                "name": "t",
+                "type": "VARIABLE",
+                "description": "Time variable",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: t is the explicit time argument in all time\u2011derivative terms."
+            },
+            {
+                "name": "omega",
+                "type": "DOMAIN",
+                "description": "Fluid domain \u03a9",
+                "justification": "Non\u2011explicit: Same as omega_volume but uses the symbol directly in textual description."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "omega_vol_elem",
+            "Omega": "omega_volume",
+            "u": "displ_in_x",
+            "w": "displ_in_x",
+            "rho": "rho",
+            "b": "b",
+            "p": "p",
+            "mu": "mu",
+            "T": "T",
+            "t": "t"
+        },
+        "properties_assignment": {
+            "rho": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "b": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "p": {
+                "type": "nodal-variable",
+                "tensor_rank": "0"
+            },
+            "mu": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "T": {
+                "type": "defined-function",
+                "tensor_rank": "1"
+            },
+            "t": {
+                "type": "defined-function",
+                "tensor_rank": "0"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "omega_volume",
+                        "description": "Fluid domain \u03a9\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as the domain over which all integrals are performed.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "omega_vol_elem",
+                        "description": "Volume element d\u03a9 used in the volume integrals\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: D\u03a9 is explicitly given as the differential of integration in eqs. 1, 2, 17.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_rho"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "rho",
+                        "description": "Fluid density\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u03c1 appears in continuity equations and Euler equations.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_b"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "b",
+                        "description": "Fluid compressibility coefficient\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: b multiplies the term \u03c1\u2202u/\u2202t in eq. 1 and defines incompressibility.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_p"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "p",
+                        "description": "Fluid pressure\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: p is the pressure variable in the momentum equations.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "nodal-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_mu"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "mu",
+                        "description": "Fluid dynamic viscosity\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u03bc appears in the stress tensor and traction definition.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_T"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "T",
+                        "description": "Traction vector\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: T is defined as the traction vector from Eq. (7) and used in integral representations.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "defined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_t"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "t",
+                        "description": "Time variable\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: t is the explicit time argument in all time\u2011derivative terms.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "defined-function"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "omega_volume",
+                "description": "Fluid domain \u03a9\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Appears as the domain over which all integrals are performed."
+            },
+            "grounding_ids_raw": [
+                "formula_7",
+                "formula_8",
+                "formula_11",
+                "formula_12",
+                "formula_13",
+                "formula_14"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "omega_vol_elem",
+                "description": "Volume element d\u03a9 used in the volume integrals\n",
+                "justifications": ":\nNON-EXPLICIT \nS: D\u03a9 is explicitly given as the differential of integration in eqs. 1, 2, 17."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_2",
+                "formula_10"
+            ]
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "rho",
+                "description": "Fluid density\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u03c1 appears in continuity equations and Euler equations."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_10"
+            ]
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "b",
+                "description": "Fluid compressibility coefficient\n",
+                "justifications": ":\nNON-EXPLICIT \nS: b multiplies the term \u03c1\u2202u/\u2202t in eq. 1 and defines incompressibility."
+            },
+            "grounding_ids_raw": [
+                "p_20",
+                "formula_9"
+            ]
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "p",
+                "description": "Fluid pressure\n",
+                "justifications": ":\nNON-EXPLICIT \nS: p is the pressure variable in the momentum equations."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_9"
+            ]
+        },
+        "5": {
+            "justifications": {
+                "concept_name": "mu",
+                "description": "Fluid dynamic viscosity\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u03bc appears in the stress tensor and traction definition."
+            },
+            "grounding_ids_raw": [
+                "formula_6"
+            ]
+        },
+        "6": {
+            "justifications": {
+                "concept_name": "T",
+                "description": "Traction vector\n",
+                "justifications": ":\nNON-EXPLICIT \nS: T is defined as the traction vector from Eq. (7) and used in integral representations."
+            },
+            "grounding_ids_raw": [
+                "p_11",
+                "formula_7"
+            ]
+        },
+        "7": {
+            "justifications": {
+                "concept_name": "t",
+                "description": "Time variable\n",
+                "justifications": ":\nNON-EXPLICIT \nS: t is the explicit time argument in all time\u2011derivative terms."
+            },
+            "grounding_ids_raw": [
+                "p_1_0",
+                "p_2",
+                "p_4",
+                "p_19_3",
+                "p_20",
+                "formula_1",
+                "formula_2",
+                "formula_10",
+                "formula_17"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [],
+                    "divs": [
+                        "formula_7",
+                        "formula_8"
+                    ]
+                },
+                "1": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1",
+                        "formula_2",
+                        "formula_10"
+                    ]
+                },
+                "2": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1",
+                        "formula_10"
+                    ]
+                },
+                "3": {
+                    "spans": [
+                        "p_20_sub_sub.0"
+                    ],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "4": {
+                    "spans": [],
+                    "divs": [
+                        "formula_9",
+                        "formula_1"
+                    ]
+                },
+                "5": {
+                    "spans": [],
+                    "divs": [
+                        "formula_6"
+                    ]
+                },
+                "6": {
+                    "spans": [
+                        "p_11_3",
+                        "p_11_3.0",
+                        "p_11_2",
+                        "p_11_0",
+                        "p_11_2.0",
+                        "p_11_0.0",
+                        "p_11_1.0",
+                        "p_11_1"
+                    ],
+                    "divs": [
+                        "formula_7"
+                    ]
+                },
+                "7": {
+                    "spans": [
+                        "p_1_0",
+                        "p_20_sub_sub.0",
+                        "p_4_sub_sub.0",
+                        "p_19_3",
+                        "p_2_sub_sub.0"
+                    ],
+                    "divs": [
+                        "formula_1",
+                        "formula_2",
+                        "formula_10"
+                    ]
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "0",
+                        "start_id": "formula_7",
+                        "stop_id": "formula_7"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "formula_8",
+                        "stop_id": "formula_8"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_10",
+                        "stop_id": "formula_10"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_10",
+                        "stop_id": "formula_10"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_20_sub_sub.0-start",
+                        "stop_id": "p_20_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "formula_9",
+                        "stop_id": "formula_9"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_9",
+                        "stop_id": "formula_9"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "formula_6",
+                        "stop_id": "formula_6"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_3-start",
+                        "stop_id": "p_11_3-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_3.0-start",
+                        "stop_id": "p_11_3.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_2-start",
+                        "stop_id": "p_11_2-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_0-start",
+                        "stop_id": "p_11_0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_2.0-start",
+                        "stop_id": "p_11_2.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_0.0-start",
+                        "stop_id": "p_11_0.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_1.0-start",
+                        "stop_id": "p_11_1.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_11_1-start",
+                        "stop_id": "p_11_1-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "formula_7",
+                        "stop_id": "formula_7"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_1_0-start",
+                        "stop_id": "p_1_0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_20_sub_sub.0-start",
+                        "stop_id": "p_20_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_4_sub_sub.0-start",
+                        "stop_id": "p_4_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_19_3-start",
+                        "stop_id": "p_19_3-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_2_sub_sub.0-start",
+                        "stop_id": "p_2_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "formula_10",
+                        "stop_id": "formula_10"
+                    }
+                ]
+            }
+        }
+    }
+}

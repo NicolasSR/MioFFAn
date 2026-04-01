@@ -1,0 +1,542 @@
+{
+    "paper_id": "S0045782519305560_2",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_sigma_u": {
+                "obj_name": "sigma_u",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi mathvariant=\"bold-italic\" id=\"mi_85\">\u03c3</mi>\n          <mrow>\n            <mo>(</mo>\n            <mrow>\n              <mi mathvariant=\"bold-italic\" id=\"mi_86\">u</mi>\n            </mrow>\n            <mo>)</mo>\n          </mrow>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_epsilon_v": {
+                "obj_name": "epsilon_v",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi mathvariant=\"bold-italic\" id=\"mi_87\">\u03b5</mi>\n          <mrow>\n            <mo>(</mo>\n            <mrow>\n              <mi mathvariant=\"bold-italic\" id=\"mi_88\">v</mi>\n            </mrow>\n            <mo>)</mo>\n          </mrow>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_89\">d</mi>\n          <mi id=\"mi_90\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_95\">d</mi>\n          <mi id=\"mi_96\">\u03a9</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_Gamma": {
+                "obj_name": "d_Gamma",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-4\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_102\">d</mi>\n          <mi id=\"mi_103\">\u0393</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_t_bar": {
+                "obj_name": "t_bar",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_101\">t</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_v": {
+                "obj_name": "v",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_104\">v</mi>\n          ",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_88\">v</mi>\n            ",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_92\">v</mi>\n          ",
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_99\">v</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_V": {
+                "obj_name": "V",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"script\" id=\"mi_105\">V</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_84\">\u03a9</mi>\n            ",
+                    "<mi id=\"mi_91\">\u03a9</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_86\">u</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_b": {
+                "obj_name": "b",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_94\">b</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_Gamma_t": {
+                "obj_name": "Gamma_t",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_23\">\n                <mrow>\n                  <mi id=\"mi_97\">\u0393</mi>\n                </mrow>\n                <mrow>\n                  <mi mathvariant=\"normal\" id=\"mi_98\">t</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "sigma",
+                "type": "VARIABLE",
+                "description": "Cauchy stress scalar (derived as \u03c3 = C\u202f\u03b5)",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03c3 appears as a product of the constant C and the linearized strain \u03b5."
+            },
+            {
+                "name": "epsilon",
+                "type": "VARIABLE",
+                "description": "Linearized strain tensor (\u03b5 = (\u2207u + \u2207\u03b5\u202f)^\u22a4\u202f(\u2207u + \u2207\u03b5))",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03b5 is defined explicitly as the linearized strain tensor of the displacement u."
+            },
+            {
+                "name": "t",
+                "type": "VARIABLE",
+                "description": "Time index associated with time\u2011dependent interface set \u0393.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: t_bar is written as t and is used together with \u0393 to denote \u0393 evaluated at time t."
+            },
+            {
+                "name": "d_Omega",
+                "type": "INTEGRATION_VAR",
+                "description": "Integration measure d\u03a9 over the domain \u03a9.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: The symbol d\u03a9 explicitly denotes an integration over the main domain \u03a9."
+            },
+            {
+                "name": "d_Gamma",
+                "type": "INTEGRATION_VAR",
+                "description": "Integration measure d\u0393 over the interface manifold \u0393.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: The symbol d\u0393 explicitly denotes an integration over the interface set \u0393."
+            },
+            {
+                "name": "Gamma_t",
+                "type": "VARIABLE",
+                "description": "Interface set \u0393 evaluated at time t.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u0393_t is the subscripted version of \u0393 with time t, i.e., \u0393 with index t."
+            },
+            {
+                "name": "Omega",
+                "type": "DOMAIN",
+                "description": "Main computational domain \u03a9.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03a9 appears in all integration integrals as the primary domain."
+            },
+            {
+                "name": "u",
+                "type": "VARIABLE",
+                "description": "Primary variable (displacement/field) u.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: u is the variable being solved for in all weak form equations."
+            },
+            {
+                "name": "v",
+                "type": "VARIABLE",
+                "description": "Test function/vector v used in the weak form.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: v is a free test function appearing in the weak formulation."
+            },
+            {
+                "name": "V",
+                "type": "DOMAIN",
+                "description": "Function space of test vectors V.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: V is the set from which v is sampled, specified as the function space."
+            },
+            {
+                "name": "b",
+                "type": "VARIABLE",
+                "description": "Body force vector b.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: b is a constant body force appearing on the right\u2011hand side of the weak form."
+            },
+            {
+                "name": "Gamma",
+                "type": "OTHER",
+                "description": "Interface set \u0393 (multidimensional set) rather than a scalar variable.",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u0393 denotes a manifold or surface, not a scalar field or number."
+            }
+        ],
+        "concept_assignments": {
+            "sigma_u": "sigma",
+            "epsilon_v": "epsilon",
+            "d_Omega": "d_Omega",
+            "d_Gamma": "d_Gamma",
+            "t_bar": "t",
+            "v": "v",
+            "V": "V",
+            "Omega": "Omega",
+            "u": "u",
+            "b": "b",
+            "Gamma_t": "Gamma_t"
+        },
+        "properties_assignment": {
+            "sigma": {
+                "type": "symbolic-variable",
+                "tensor_rank": "0"
+            },
+            "epsilon": {
+                "type": "symbolic-variable",
+                "tensor_rank": "2"
+            },
+            "t": {
+                "type": "symbolic-variable",
+                "tensor_rank": "0"
+            },
+            "Gamma_t": {
+                "type": "symbolic-variable",
+                "tensor_rank": "0"
+            },
+            "u": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "v": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "b": {
+                "type": "numerical-variable",
+                "tensor_rank": "1"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_sigma_u"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "sigma",
+                        "description": "Cauchy stress scalar (derived as \u03c3 = C\u202f\u03b5)\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u03c3 appears as a product of the constant C and the linearized strain \u03b5.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "symbolic-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_epsilon_v"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "epsilon",
+                        "description": "Linearized strain tensor (\u03b5 = (\u2207u + \u2207\u03b5\u202f)^\u22a4\u202f(\u2207u + \u2207\u03b5))\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u03b5 is defined explicitly as the linearized strain tensor of the displacement u.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "2",
+                            "variable-type": "symbolic-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_t_bar"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "t",
+                        "description": "Time index associated with time\u2011dependent interface set \u0393.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: t_bar is written as t and is used together with \u0393 to denote \u0393 evaluated at time t.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "symbolic-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "d_Omega",
+                        "description": "Integration measure d\u03a9 over the domain \u03a9.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: The symbol d\u03a9 explicitly denotes an integration over the main domain \u03a9.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Gamma"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "d_Gamma",
+                        "description": "Integration measure d\u0393 over the interface manifold \u0393.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: The symbol d\u0393 explicitly denotes an integration over the interface set \u0393.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Gamma_t"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "Gamma_t",
+                        "description": "Interface set \u0393 evaluated at time t.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u0393_t is the subscripted version of \u0393 with time t, i.e., \u0393 with index t.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "symbolic-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "Omega",
+                        "description": "Main computational domain \u03a9.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u03a9 appears in all integration integrals as the primary domain.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "u",
+                        "description": "Primary variable (displacement/field) u.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: u is the variable being solved for in all weak form equations.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_v"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "v",
+                        "description": "Test function/vector v used in the weak form.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: v is a free test function appearing in the weak formulation.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "test-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_V"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "V",
+                        "description": "Function space of test vectors V.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: V is the set from which v is sampled, specified as the function space.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_b"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "b",
+                        "description": "Body force vector b.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: b is a constant body force appearing on the right\u2011hand side of the weak form.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "1": {
+            "justifications": {
+                "concept_name": "sigma",
+                "description": "Cauchy stress scalar (derived as \u03c3 = C\u202f\u03b5)\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u03c3 appears as a product of the constant C and the linearized strain \u03b5."
+            },
+            "grounding_ids_raw": [
+                "formula_2"
+            ]
+        },
+        "10": {
+            "justifications": {
+                "concept_name": "V",
+                "description": "Function space of test vectors V.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: V is the set from which v is sampled, specified as the function space."
+            },
+            "grounding_ids_raw": []
+        },
+        "11": {
+            "justifications": {
+                "concept_name": "b",
+                "description": "Body force vector b.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: b is a constant body force appearing on the right\u2011hand side of the weak form."
+            },
+            "grounding_ids_raw": []
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "epsilon",
+                "description": "Linearized strain tensor (\u03b5 = (\u2207u + \u2207\u03b5\u202f)^\u22a4\u202f(\u2207u + \u2207\u03b5))\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u03b5 is defined explicitly as the linearized strain tensor of the displacement u."
+            },
+            "grounding_ids_raw": []
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "t",
+                "description": "Time index associated with time\u2011dependent interface set \u0393.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: t_bar is written as t and is used together with \u0393 to denote \u0393 evaluated at time t."
+            },
+            "grounding_ids_raw": [
+                "msub_9"
+            ]
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "d_Omega",
+                "description": "Integration measure d\u03a9 over the domain \u03a9.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: The symbol d\u03a9 explicitly denotes an integration over the main domain \u03a9."
+            },
+            "grounding_ids_raw": [
+                "formula_1"
+            ]
+        },
+        "5": {
+            "justifications": {
+                "concept_name": "d_Gamma",
+                "description": "Integration measure d\u0393 over the interface manifold \u0393.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: The symbol d\u0393 explicitly denotes an integration over the interface set \u0393."
+            },
+            "grounding_ids_raw": []
+        },
+        "6": {
+            "justifications": {
+                "concept_name": "Gamma_t",
+                "description": "Interface set \u0393 evaluated at time t.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u0393_t is the subscripted version of \u0393 with time t, i.e., \u0393 with index t."
+            },
+            "grounding_ids_raw": []
+        },
+        "7": {
+            "justifications": {
+                "concept_name": "Omega",
+                "description": "Main computational domain \u03a9.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u03a9 appears in all integration integrals as the primary domain."
+            },
+            "grounding_ids_raw": []
+        },
+        "8": {
+            "justifications": {
+                "concept_name": "u",
+                "description": "Primary variable (displacement/field) u.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: u is the variable being solved for in all weak form equations."
+            },
+            "grounding_ids_raw": [
+                "p_1_21",
+                "p_1_23",
+                "p_5_9"
+            ]
+        },
+        "9": {
+            "justifications": {
+                "concept_name": "v",
+                "description": "Test function/vector v used in the weak form.\n",
+                "justifications": ":\nNON-EXPLICIT \nS: v is a free test function appearing in the weak formulation."
+            },
+            "grounding_ids_raw": [
+                "formula_2",
+                "formula_3"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "1": {
+                    "spans": [],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "10": {
+                    "spans": [],
+                    "divs": []
+                },
+                "11": {
+                    "spans": [],
+                    "divs": []
+                },
+                "2": {
+                    "spans": [],
+                    "divs": []
+                },
+                "3": {
+                    "spans": [],
+                    "divs": []
+                },
+                "4": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "5": {
+                    "spans": [],
+                    "divs": []
+                },
+                "6": {
+                    "spans": [],
+                    "divs": []
+                },
+                "7": {
+                    "spans": [],
+                    "divs": []
+                },
+                "8": {
+                    "spans": [
+                        "p_1_21",
+                        "p_1_23",
+                        "p_5_9"
+                    ],
+                    "divs": []
+                },
+                "9": {
+                    "spans": [],
+                    "divs": [
+                        "formula_3",
+                        "formula_2"
+                    ]
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_21-start",
+                        "stop_id": "p_1_21-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_23-start",
+                        "stop_id": "p_1_23-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_5_9-start",
+                        "stop_id": "p_5_9-end"
+                    },
+                    {
+                        "mc_id": "9",
+                        "start_id": "formula_3",
+                        "stop_id": "formula_3"
+                    },
+                    {
+                        "mc_id": "9",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,149 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "var_v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "var_t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "var_epsilon",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_epsilon",
+            "primitive_symbols": [
+                "ceb5"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "var_b",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "var_sigma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_sigma",
+            "primitive_symbols": [
+                "cf83"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "var_G",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_G",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "var_u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "var_o",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_o",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "8": {
+            "code_var_name": "var_V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder var_V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 9,
+    "occurences_dict": {
+        "mi_101": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_105": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_85": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_86": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_87": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_88": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_91": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_94": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_97": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        }
+    }
+}

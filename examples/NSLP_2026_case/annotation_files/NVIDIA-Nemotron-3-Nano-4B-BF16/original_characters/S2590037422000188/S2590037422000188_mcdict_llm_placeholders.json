@@ -1,0 +1,46 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "fi",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder fi",
+            "primitive_symbols": [
+                "69",
+                "66"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "Fi",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Fi",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 2,
+    "occurences_dict": {
+        "msub_90": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_93": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

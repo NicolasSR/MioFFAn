@@ -1,0 +1,1887 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "1": {
+            "code_var_name": "u",
+            "concept_category": "variable",
+            "description": "The dependent variable representing the wave displacement field\nJUSTIFICATION:\nExplicitly defined as the dependent variable in the wave equation and appears multiple times in the weak formulation.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ]
+        },
+        "10": {
+            "code_var_name": "H_minus1",
+            "concept_category": "domain",
+            "description": "Dual space of H^1_0(Ω) used in duality pairing\nJUSTIFICATION:\nAppears as the dual space of H^1_0(Ω) in the weak form, denoted as H^{-1}(Ω), in the duality pairing notation.",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "11": {
+            "code_var_name": "d_Omega",
+            "concept_category": "integration-var",
+            "description": "Differential element of integration over the spatial domain Ω\nJUSTIFICATION:\nUsed in integrals over Ω and Γ, such as ∫_Ω and ∫_Γ, indicating it is the integration variable over the domain.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12.0-start",
+                    "stop_id": "p_14_12.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8.0-start",
+                    "stop_id": "p_14_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3.0-start",
+                    "stop_id": "p_14_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_7.0-start",
+                    "stop_id": "p_14_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2.0-start",
+                    "stop_id": "p_14_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6.0-start",
+                    "stop_id": "p_14_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_17_sub_sub.0-start",
+                    "stop_id": "p_17_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9.0-start",
+                    "stop_id": "p_14_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10.0-start",
+                    "stop_id": "p_14_10.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0.0-start",
+                    "stop_id": "p_14_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4.0-start",
+                    "stop_id": "p_14_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5.0-start",
+                    "stop_id": "p_14_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1.0-start",
+                    "stop_id": "p_14_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11.0-start",
+                    "stop_id": "p_14_11.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "12": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "integration-var",
+            "description": "Differential element of integration over the interface domain Γ\nJUSTIFICATION:\nAppears in integrals over Γ, such as ∫_Γ, indicating it is the integration variable over the interface boundary.",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "13": {
+            "code_var_name": "g",
+            "concept_category": "variable",
+            "description": "Neumann boundary condition value on the Neumann part of the boundary\nJUSTIFICATION:\nDefined as the boundary value in the Neumann condition equation (4b), appearing in the weak form as a boundary term.",
+            "primitive_symbols": [
+                "67"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_8_sub_sub.0-start",
+                    "stop_id": "p_8_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_5",
+                    "stop_id": "formula_5",
+                    "type": 0
+                }
+            ]
+        },
+        "14": {
+            "code_var_name": "cal_T",
+            "concept_category": "domain",
+            "description": "Temporal domain denoted as [0, t_end]\nJUSTIFICATION:\nExplicitly defined as the temporal domain T = [0, t_end] and used in the formulation of the weak solution over time.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "w",
+            "concept_category": "variable",
+            "description": "Test function used in the weak formulation of the wave equation\nJUSTIFICATION:\nAppears repeatedly as a test function in integrals and weak form equations, with the same notation across different equations.",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "3": {
+            "code_var_name": "rho",
+            "concept_category": "variable",
+            "description": "Mass per unit volume of the medium\nJUSTIFICATION:\nDefined as the positive mass per unit volume in the linear wave equation context.",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "4": {
+            "code_var_name": "T",
+            "concept_category": "variable",
+            "description": "Tensile pre-stress load per unit surface area\nJUSTIFICATION:\nDescribed as a positive tensile pre-stress load per unit surface area in the physical description of the wave equation.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                }
+            ]
+        },
+        "5": {
+            "code_var_name": "Omega",
+            "concept_category": "domain",
+            "description": "The main spatial domain partitioned into subdomains\nJUSTIFICATION:\nReferred to as the d-dimensional spatial domain and partitioned into subdomains Ω_i; appears in integrals and boundary conditions.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_14_12.0-start",
+                    "stop_id": "p_14_12.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_7-start",
+                    "stop_id": "p_9_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6.0-start",
+                    "stop_id": "p_14_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4-start",
+                    "stop_id": "p_6_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4.0-start",
+                    "stop_id": "p_6_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0.0-start",
+                    "stop_id": "p_1_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8.0-start",
+                    "stop_id": "p_14_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3.0-start",
+                    "stop_id": "p_14_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3-start",
+                    "stop_id": "p_6_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2.0-start",
+                    "stop_id": "p_1_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_4-start",
+                    "stop_id": "p_9_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2.0-start",
+                    "stop_id": "p_6_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_1-start",
+                    "stop_id": "p_9_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_4.0-start",
+                    "stop_id": "p_9_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5.0-start",
+                    "stop_id": "p_14_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1-start",
+                    "stop_id": "p_6_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_15_sub_sub.0-start",
+                    "stop_id": "p_15_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1.0-start",
+                    "stop_id": "p_6_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3.0-start",
+                    "stop_id": "p_1_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_6-start",
+                    "stop_id": "p_9_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_7.0-start",
+                    "stop_id": "p_9_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_8-start",
+                    "stop_id": "p_9_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_0-start",
+                    "stop_id": "p_9_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2.0-start",
+                    "stop_id": "p_14_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_5.0-start",
+                    "stop_id": "p_9_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0-start",
+                    "stop_id": "p_6_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_17_sub_sub.0-start",
+                    "stop_id": "p_17_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_8.0-start",
+                    "stop_id": "p_9_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_1.0-start",
+                    "stop_id": "p_9_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10.0-start",
+                    "stop_id": "p_14_10.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0.0-start",
+                    "stop_id": "p_14_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_0.0-start",
+                    "stop_id": "p_9_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_5-start",
+                    "stop_id": "p_9_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1.0-start",
+                    "stop_id": "p_1_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_3-start",
+                    "stop_id": "p_9_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_3.0-start",
+                    "stop_id": "p_9_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_2.0-start",
+                    "stop_id": "p_9_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2-start",
+                    "stop_id": "p_6_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_7.0-start",
+                    "stop_id": "p_14_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9.0-start",
+                    "stop_id": "p_14_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0.0-start",
+                    "stop_id": "p_6_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_6.0-start",
+                    "stop_id": "p_9_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4.0-start",
+                    "stop_id": "p_14_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3.0-start",
+                    "stop_id": "p_6_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_2-start",
+                    "stop_id": "p_9_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1.0-start",
+                    "stop_id": "p_14_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11.0-start",
+                    "stop_id": "p_14_11.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "6": {
+            "code_var_name": "Gamma",
+            "concept_category": "domain",
+            "description": "The collection of interfaces between subdomains\nJUSTIFICATION:\nDefined as the collection of interfaces between subdomains Ω_i, and appears in transmission conditions and integrals over boundaries.",
+            "primitive_symbols": [
+                "4e",
+                "e28882",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_9_0.0-start",
+                    "stop_id": "p_9_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_5-start",
+                    "stop_id": "p_9_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_1-start",
+                    "stop_id": "p_9_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_8.0-start",
+                    "stop_id": "p_9_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_1.0-start",
+                    "stop_id": "p_9_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_6-start",
+                    "stop_id": "p_9_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_3-start",
+                    "stop_id": "p_9_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_7.0-start",
+                    "stop_id": "p_9_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_3.0-start",
+                    "stop_id": "p_9_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_5.0-start",
+                    "stop_id": "p_9_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_2.0-start",
+                    "stop_id": "p_9_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_6.0-start",
+                    "stop_id": "p_9_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_8-start",
+                    "stop_id": "p_9_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_7-start",
+                    "stop_id": "p_9_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_4.0-start",
+                    "stop_id": "p_9_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_2-start",
+                    "stop_id": "p_9_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_4-start",
+                    "stop_id": "p_9_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_9_0-start",
+                    "stop_id": "p_9_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                }
+            ]
+        },
+        "7": {
+            "code_var_name": "t",
+            "concept_category": "variable",
+            "description": "Temporal variable representing time\nJUSTIFICATION:\nUsed as the independent variable in time derivatives and appears in initial conditions and time-dependent formulations.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_14_7-start",
+                    "stop_id": "p_14_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1.0-start",
+                    "stop_id": "p_3_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5-start",
+                    "stop_id": "p_3_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12.0-start",
+                    "stop_id": "p_14_12.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_9.0-start",
+                    "stop_id": "p_16_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2-start",
+                    "stop_id": "p_14_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8.0-start",
+                    "stop_id": "p_14_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2-start",
+                    "stop_id": "p_3_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2.0-start",
+                    "stop_id": "p_16_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3.0-start",
+                    "stop_id": "p_14_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4.0-start",
+                    "stop_id": "p_3_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_7.0-start",
+                    "stop_id": "p_14_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0.0-start",
+                    "stop_id": "p_3_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_2.0-start",
+                    "stop_id": "p_14_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6.0-start",
+                    "stop_id": "p_14_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0-start",
+                    "stop_id": "p_14_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_3-start",
+                    "stop_id": "p_14_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5-start",
+                    "stop_id": "p_14_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9.0-start",
+                    "stop_id": "p_14_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_1-start",
+                    "stop_id": "p_3_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1.0-start",
+                    "stop_id": "p_16_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_8-start",
+                    "stop_id": "p_16_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1-start",
+                    "stop_id": "p_14_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6.0-start",
+                    "stop_id": "p_16_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6.0-start",
+                    "stop_id": "p_3_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4.0-start",
+                    "stop_id": "p_16_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_0-start",
+                    "stop_id": "p_3_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11-start",
+                    "stop_id": "p_14_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_2.0-start",
+                    "stop_id": "p_3_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_7-start",
+                    "stop_id": "p_16_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10.0-start",
+                    "stop_id": "p_14_10.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_0.0-start",
+                    "stop_id": "p_14_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4.0-start",
+                    "stop_id": "p_14_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_6-start",
+                    "stop_id": "p_14_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3-start",
+                    "stop_id": "p_3_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_9-start",
+                    "stop_id": "p_14_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_10-start",
+                    "stop_id": "p_14_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_5.0-start",
+                    "stop_id": "p_14_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0.0-start",
+                    "stop_id": "p_16_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_3.0-start",
+                    "stop_id": "p_3_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_4-start",
+                    "stop_id": "p_3_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_1.0-start",
+                    "stop_id": "p_14_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_11.0-start",
+                    "stop_id": "p_14_11.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_8-start",
+                    "stop_id": "p_14_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_12-start",
+                    "stop_id": "p_14_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_9-start",
+                    "stop_id": "p_16_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_8.0-start",
+                    "stop_id": "p_16_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_6-start",
+                    "stop_id": "p_3_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_14_4-start",
+                    "stop_id": "p_14_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5.0-start",
+                    "stop_id": "p_16_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3.0-start",
+                    "stop_id": "p_16_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_7.0-start",
+                    "stop_id": "p_16_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_5.0-start",
+                    "stop_id": "p_3_5.0-end",
+                    "type": 0
+                }
+            ]
+        },
+        "8": {
+            "code_var_name": "H_0_1_Omega",
+            "concept_category": "domain",
+            "description": "Sobolev space of functions with zero trace on the boundary of Ω\nJUSTIFICATION:\nExplicitly defined as H^1_0(Ω) and referenced in the weak formulation as the space where the solution and test functions reside.",
+            "primitive_symbols": [
+                "48",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_16_9.0-start",
+                    "stop_id": "p_16_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5-start",
+                    "stop_id": "p_16_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2-start",
+                    "stop_id": "p_16_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_2.0-start",
+                    "stop_id": "p_16_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1-start",
+                    "stop_id": "p_16_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_1.0-start",
+                    "stop_id": "p_16_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4-start",
+                    "stop_id": "p_16_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_8-start",
+                    "stop_id": "p_16_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6.0-start",
+                    "stop_id": "p_16_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_4.0-start",
+                    "stop_id": "p_16_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_7-start",
+                    "stop_id": "p_16_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0-start",
+                    "stop_id": "p_16_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_6-start",
+                    "stop_id": "p_16_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_0.0-start",
+                    "stop_id": "p_16_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_9-start",
+                    "stop_id": "p_16_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3-start",
+                    "stop_id": "p_16_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_8.0-start",
+                    "stop_id": "p_16_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_5.0-start",
+                    "stop_id": "p_16_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_3.0-start",
+                    "stop_id": "p_16_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_16_7.0-start",
+                    "stop_id": "p_16_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "9": {
+            "code_var_name": "H_1",
+            "concept_category": "domain",
+            "description": "Space of functions in H^1(Ω) over time with zero trace\nJUSTIFICATION:\nDefined as the collection of H^1_0(Ω)-valued functions in time, appearing in the weak formulation as the space of solutions.",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_17_sub_sub.0-start",
+                    "stop_id": "p_17_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_H_0_1": {
+            "code_var_name": "H_0_1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_0_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_0_1_Omega": {
+            "code_var_name": "H_0_1_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_0_1_Omega",
+            "primitive_symbols": [
+                "48",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_1": {
+            "code_var_name": "H_1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_H_minus1": {
+            "code_var_name": "H_minus1",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H_minus1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_cal_T": {
+            "code_var_name": "cal_T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder cal_T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9",
+                "4e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_g": {
+            "code_var_name": "g",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder g",
+            "primitive_symbols": [
+                "67"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_10": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 15,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_144": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_146": {
+            "mc_id": "14",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_148": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_149": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_150": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_153": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_156": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_157": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_158": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_161": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_162": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_163": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_165": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_166": {
+            "mc_id": "11",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_170": {
+            "mc_id": "13",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_171": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_172": {
+            "mc_id": "12",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "msubsup_6": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "msubsup"
+        },
+        "msup_10": {
+            "mc_id": "10",
+            "properties": [],
+            "tag_name": "msup"
+        }
+    }
+}

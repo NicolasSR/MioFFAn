@@ -1,0 +1,384 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "1": {
+            "code_var_name": "sigma",
+            "concept_category": "variable",
+            "description": "Cauchy stress scalar (derived as σ = C ε)\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: σ appears as a product of the constant C and the linearized strain ε.",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ]
+        },
+        "10": {
+            "code_var_name": "V",
+            "concept_category": "domain",
+            "description": "Function space of test vectors V.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: V is the set from which v is sampled, specified as the function space.",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "11": {
+            "code_var_name": "b",
+            "concept_category": "variable",
+            "description": "Body force vector b.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: b is a constant body force appearing on the right‑hand side of the weak form.",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "epsilon",
+            "concept_category": "variable",
+            "description": "Linearized strain tensor (ε = (∇u + ∇ε )^⊤ (∇u + ∇ε))\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: ε is defined explicitly as the linearized strain tensor of the displacement u.",
+            "primitive_symbols": [
+                "76",
+                "ceb5"
+            ],
+            "properties": {
+                "tensor-rank": "2",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "t",
+            "concept_category": "variable",
+            "description": "Time index associated with time‑dependent interface set Γ.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: t_bar is written as t and is used together with Γ to denote Γ evaluated at time t.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "d_Omega",
+            "concept_category": "integration-var",
+            "description": "Integration measure dΩ over the domain Ω.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: The symbol dΩ explicitly denotes an integration over the main domain Ω.",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ]
+        },
+        "5": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "integration-var",
+            "description": "Integration measure dΓ over the interface manifold Γ.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: The symbol dΓ explicitly denotes an integration over the interface set Γ.",
+            "primitive_symbols": [
+                "ce93",
+                "64"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "Gamma_t",
+            "concept_category": "variable",
+            "description": "Interface set Γ evaluated at time t.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Γ_t is the subscripted version of Γ with time t, i.e., Γ with index t.",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "Omega",
+            "concept_category": "domain",
+            "description": "Main computational domain Ω.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Ω appears in all integration integrals as the primary domain.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "8": {
+            "code_var_name": "u",
+            "concept_category": "variable",
+            "description": "Primary variable (displacement/field) u.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: u is the variable being solved for in all weak form equations.",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_5_9-start",
+                    "stop_id": "p_5_9-end",
+                    "type": 0
+                }
+            ]
+        },
+        "9": {
+            "code_var_name": "v",
+            "concept_category": "variable",
+            "description": "Test function/vector v used in the weak form.\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: v is a free test function appearing in the weak formulation.",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_Gamma_t": {
+            "code_var_name": "Gamma_t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma_t",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_V": {
+            "code_var_name": "V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_epsilon_v": {
+            "code_var_name": "epsilon_v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder epsilon_v",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_sigma_u": {
+            "code_var_name": "sigma_u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder sigma_u",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t_bar": {
+            "code_var_name": "t_bar",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t_bar",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_v": {
+            "code_var_name": "v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 12,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_101": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_104": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_105": {
+            "mc_id": "10",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_84": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_86": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_88": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_91": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_92": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_94": {
+            "mc_id": "11",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_99": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "msub_23": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

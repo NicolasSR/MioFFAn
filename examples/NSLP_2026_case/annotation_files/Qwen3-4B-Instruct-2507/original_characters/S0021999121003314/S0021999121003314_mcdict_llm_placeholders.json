@@ -1,0 +1,196 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "mu",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "Gamma_N",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma_N",
+            "primitive_symbols": [
+                "4e",
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "10": {
+            "code_var_name": "Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "p_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder p_h",
+            "primitive_symbols": [
+                "68",
+                "70"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_h",
+            "primitive_symbols": [
+                "68",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "w_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w_h",
+            "primitive_symbols": [
+                "68",
+                "77"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "grad_u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder grad_u_h",
+            "primitive_symbols": [
+                "68",
+                "e28887",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "grad_s_w",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder grad_s_w",
+            "primitive_symbols": [
+                "68",
+                "77",
+                "e28887",
+                "73"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "grad_s_u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder grad_s_u_h",
+            "primitive_symbols": [
+                "68",
+                "e28887",
+                "73",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "8": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "9": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 11,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_126": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_136": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_153": {
+            "mc_id": "10",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "msub_32": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_37": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_39": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_40": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

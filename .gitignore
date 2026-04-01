@@ -118,7 +118,11 @@ extra
 libextra
 /templates
 
+examples/NSLP_2026_case/*/*/*/results.json
+
 orig_to_new_parser.py
+format_eval_results.py
+examples/NSLP_2026_case/annotation_files/OLD_Qwen3-4B-Instruct-2507/
 
 # DO NOT REMOVE - Ignore credentials file 
 credentials.json

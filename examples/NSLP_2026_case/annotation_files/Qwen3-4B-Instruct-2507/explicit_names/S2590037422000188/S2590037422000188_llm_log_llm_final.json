@@ -1,0 +1,1121 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi id=\"mi_237\">d</mi>\n          <mi id=\"mi_238\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi id=\"mi_245\">d</mi>\n          <mi id=\"mi_246\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi id=\"mi_252\">d</mi>\n          <mi id=\"mi_253\">\u03a9</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_delta_Omega": {
+                "obj_name": "delta_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi id=\"mi_239\">\u2202</mi>\n              <mi id=\"mi_240\">\u03a9</mi>\n            </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_222\">\u03a9</mi>\n            ",
+                    "<mi id=\"mi_247\">\u03a9</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_C_i_j_k_l": {
+                "obj_name": "C_i_j_k_l",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_85\">\n                <mrow>\n                  <mi id=\"mi_223\">C</mi>\n                </mrow>\n                <mrow>\n                  <mi id=\"mi_224\">i</mi>\n                  <mi id=\"mi_225\">j</mi>\n                  <mi id=\"mi_226\">k</mi>\n                  <mi id=\"mi_227\">l</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_u_k_l": {
+                "obj_name": "u_k_l",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_86\">\n              <mrow>\n                <mi id=\"mi_228\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_229\">k</mi>\n                <mo>,</mo>\n                <mi id=\"mi_230\">l</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_u_l_k": {
+                "obj_name": "u_l_k",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_87\">\n              <mrow>\n                <mi id=\"mi_231\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_232\">l</mi>\n                <mo>,</mo>\n                <mi id=\"mi_233\">k</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_v_i_j": {
+                "obj_name": "v_i_j",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_88\">\n            <mrow>\n              <mi id=\"mi_234\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_235\">i</mi>\n              <mo>,</mo>\n              <mi id=\"mi_236\">j</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_F_i": {
+                "obj_name": "F_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_90\">\n            <mrow>\n              <mi id=\"mi_241\">F</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_242\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_v_i": {
+                "obj_name": "v_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_91\">\n            <mrow>\n              <mi id=\"mi_243\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_244\">i</mi>\n            </mrow>\n          </msub>\n          ",
+                    "<msub id=\"msub_94\">\n            <mrow>\n              <mi id=\"mi_250\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_251\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_f_i": {
+                "obj_name": "f_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_93\">\n            <mrow>\n              <mi id=\"mi_248\">f</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_249\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "displacement_vector",
+                "type": "VARIABLE",
+                "description": "Spine displacement components in three-dimensional space",
+                "justification": "The symbol u is explicitly referred to as the components of the spine displacement in the text, and appears in strain-displacement relations and stress-displacement equations."
+            },
+            {
+                "name": "stress_tensor",
+                "type": "VARIABLE",
+                "description": "Tensor representing internal forces within the lumbar spine material",
+                "justification": "The symbol \u03c3 is described as the components of the stress tensor in the text and appears in the stress equilibrium and stress-displacement relations."
+            },
+            {
+                "name": "strain_tensor",
+                "type": "VARIABLE",
+                "description": "Tensor representing deformation of the spine material due to applied loads",
+                "justification": "The symbol \u03b5 is defined as the components of the strain tensor in the strain-displacement relation (1c)."
+            },
+            {
+                "name": "body_force_vector",
+                "type": "VARIABLE",
+                "description": "External body forces acting on the lumbar spine",
+                "justification": "The symbol f is described as the components of the body force in the text and appears in the stress equilibrium equation."
+            },
+            {
+                "name": "stiffness_tensor",
+                "type": "VARIABLE",
+                "description": "Material property tensor relating stress to strain in the spine",
+                "justification": "The symbol C is described as the components of the stiffness tensor of the spine in the text and appears in the generalized Hooke's law relation (1b)."
+            },
+            {
+                "name": "weight_function",
+                "type": "VARIABLE",
+                "description": "Test function used in the variational formulation of the finite element method",
+                "justification": "The symbol v is referred to as the weight function in the text and is used in the variational statement (Eq. 3)."
+            },
+            {
+                "name": "boundary_force_vector",
+                "type": "VARIABLE",
+                "description": "External forces applied on the boundary of the lumbar spine domain",
+                "justification": "The symbol F is introduced as the body force applied on the boundary and is expressed in terms of the stress tensor via the normal vector."
+            },
+            {
+                "name": "domain_boundary",
+                "type": "DOMAIN",
+                "description": "The surface of the lumbar spine domain over which boundary integrals are evaluated",
+                "justification": "The symbol \u03a9 is used to denote the computational domain and \u2202\u03a9 is used for its boundary, as explicitly stated in the text when discussing boundary conditions and integrals."
+            },
+            {
+                "name": "domain",
+                "type": "DOMAIN",
+                "description": "The three-dimensional computational domain representing the lumbar spine structure",
+                "justification": "The symbol \u03a9 appears multiple times in the context of volume and surface integrals, representing the domain of the spine model."
+            },
+            {
+                "name": "normal_vector",
+                "type": "VARIABLE",
+                "description": "Outward unit normal vector to the boundary of the domain",
+                "justification": "The symbol n is defined as the outward unit normal vector to the domain boundary in the text, and is used in the boundary force expression (Eq. 7)."
+            },
+            {
+                "name": "integration_domain",
+                "type": "INTEGRATION_VAR",
+                "description": "Volume integral over the domain \u03a9 used in the finite element formulation",
+                "justification": "The symbol d\u03a9 appears in volume integrals (e.g., in Eq. 3, 5, 8, 10), representing integration over the domain \u03a9."
+            },
+            {
+                "name": "boundary_integration",
+                "type": "INTEGRATION_VAR",
+                "description": "Surface integral over the boundary \u2202\u03a9 used in the finite element formulation",
+                "justification": "The symbol \u2202\u03a9 appears in surface integrals (e.g., in Eq. 6, 8, 10), representing integration over the boundary of the domain."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "integration_domain",
+            "delta_Omega": "boundary_integration",
+            "Omega": "domain",
+            "C_i_j_k_l": "stiffness_tensor",
+            "u_k_l": "strain_tensor",
+            "u_l_k": "strain_tensor",
+            "v_i_j": "weight_function",
+            "F_i": "boundary_force_vector",
+            "v_i": "weight_function",
+            "f_i": "body_force_vector"
+        },
+        "properties_assignment": {
+            "strain_tensor": {
+                "type": "trial-function",
+                "tensor_rank": "2"
+            },
+            "body_force_vector": {
+                "type": "numerical-variable",
+                "tensor_rank": "1"
+            },
+            "stiffness_tensor": {
+                "type": "defined-function",
+                "tensor_rank": "4"
+            },
+            "weight_function": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "boundary_force_vector": {
+                "type": "undefined-function",
+                "tensor_rank": "1"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u_k_l",
+                        "llm_placeholder_concept_u_l_k"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "strain_tensor",
+                        "description": "Tensor representing deformation of the spine material due to applied loads\nJUSTIFICATION:\nThe symbol \u03b5 is defined as the components of the strain tensor in the strain-displacement relation (1c).",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "2",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_f_i"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "body_force_vector",
+                        "description": "External body forces acting on the lumbar spine\nJUSTIFICATION:\nThe symbol f is described as the components of the body force in the text and appears in the stress equilibrium equation.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_C_i_j_k_l"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "stiffness_tensor",
+                        "description": "Material property tensor relating stress to strain in the spine\nJUSTIFICATION:\nThe symbol C is described as the components of the stiffness tensor of the spine in the text and appears in the generalized Hooke's law relation (1b).",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "4",
+                            "variable-type": "defined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_v_i_j",
+                        "llm_placeholder_concept_v_i"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "weight_function",
+                        "description": "Test function used in the variational formulation of the finite element method\nJUSTIFICATION:\nThe symbol v is referred to as the weight function in the text and is used in the variational statement (Eq. 3).",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "test-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_F_i"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "boundary_force_vector",
+                        "description": "External forces applied on the boundary of the lumbar spine domain\nJUSTIFICATION:\nThe symbol F is introduced as the body force applied on the boundary and is expressed in terms of the stress tensor via the normal vector.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "undefined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "domain",
+                        "description": "The three-dimensional computational domain representing the lumbar spine structure\nJUSTIFICATION:\nThe symbol \u03a9 appears multiple times in the context of volume and surface integrals, representing the domain of the spine model.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "integration_domain",
+                        "description": "Volume integral over the domain \u03a9 used in the finite element formulation\nJUSTIFICATION:\nThe symbol d\u03a9 appears in volume integrals (e.g., in Eq. 3, 5, 8, 10), representing integration over the domain \u03a9.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_delta_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "boundary_integration",
+                        "description": "Surface integral over the boundary \u2202\u03a9 used in the finite element formulation\nJUSTIFICATION:\nThe symbol \u2202\u03a9 appears in surface integrals (e.g., in Eq. 6, 8, 10), representing integration over the boundary of the domain.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "strain_tensor",
+                "description": "Tensor representing deformation of the spine material due to applied loads\n",
+                "justifications": ":\nThe symbol \u03b5 is defined as the components of the strain tensor in the strain-displacement relation (1c)."
+            },
+            "grounding_ids_raw": [
+                "p_4",
+                "formula_3"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "body_force_vector",
+                "description": "External body forces acting on the lumbar spine\n",
+                "justifications": ":\nThe symbol f is described as the components of the body force in the text and appears in the stress equilibrium equation."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "p_20"
+            ]
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "stiffness_tensor",
+                "description": "Material property tensor relating stress to strain in the spine\n",
+                "justifications": ":\nThe symbol C is described as the components of the stiffness tensor of the spine in the text and appears in the generalized Hooke's law relation (1b)."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_2"
+            ]
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "weight_function",
+                "description": "Test function used in the variational formulation of the finite element method\n",
+                "justifications": ":\nThe symbol v is referred to as the weight function in the text and is used in the variational statement (Eq. 3)."
+            },
+            "grounding_ids_raw": [
+                "p_8",
+                "formula_5"
+            ]
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "boundary_force_vector",
+                "description": "External forces applied on the boundary of the lumbar spine domain\n",
+                "justifications": ":\nThe symbol F is introduced as the body force applied on the boundary and is expressed in terms of the stress tensor via the normal vector."
+            },
+            "grounding_ids_raw": [
+                "p_16",
+                "formula_9"
+            ]
+        },
+        "5": {
+            "justifications": {
+                "concept_name": "domain",
+                "description": "The three-dimensional computational domain representing the lumbar spine structure\n",
+                "justifications": ":\nThe symbol \u03a9 appears multiple times in the context of volume and surface integrals, representing the domain of the spine model."
+            },
+            "grounding_ids_raw": [
+                "p_16",
+                "p_15",
+                "p_14",
+                "p_13",
+                "p_12",
+                "p_11",
+                "p_10",
+                "p_9",
+                "p_8",
+                "p_7",
+                "p_6"
+            ]
+        },
+        "6": {
+            "justifications": {
+                "concept_name": "integration_domain",
+                "description": "Volume integral over the domain \u03a9 used in the finite element formulation\n",
+                "justifications": ":\nThe symbol d\u03a9 appears in volume integrals (e.g., in Eq. 3, 5, 8, 10), representing integration over the domain \u03a9."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_13",
+                "p_15",
+                "p_19"
+            ]
+        },
+        "7": {
+            "justifications": {
+                "concept_name": "boundary_integration",
+                "description": "Surface integral over the boundary \u2202\u03a9 used in the finite element formulation\n",
+                "justifications": ":\nThe symbol \u2202\u03a9 appears in surface integrals (e.g., in Eq. 6, 8, 10), representing integration over the boundary of the domain."
+            },
+            "grounding_ids_raw": [
+                "p_14",
+                "p_15",
+                "p_19",
+                "p_23"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [
+                        "p_4_sub_sub.0"
+                    ],
+                    "divs": [
+                        "formula_3"
+                    ]
+                },
+                "1": {
+                    "spans": [
+                        "p_20_0.0",
+                        "p_20_4.0",
+                        "p_20_2",
+                        "p_5_5.0",
+                        "p_20_2.0",
+                        "p_5_3",
+                        "p_5_3.0",
+                        "p_20_3",
+                        "p_5_0",
+                        "p_20_1.0",
+                        "p_20_0",
+                        "p_20_3.0",
+                        "p_20_1",
+                        "p_5_1",
+                        "p_5_2",
+                        "p_5_5",
+                        "p_5_1.0",
+                        "p_5_4",
+                        "p_5_0.0",
+                        "p_5_2.0",
+                        "p_20_4",
+                        "p_5_4.0"
+                    ],
+                    "divs": []
+                },
+                "2": {
+                    "spans": [
+                        "p_5_3",
+                        "p_5_3.0",
+                        "p_5_0.0",
+                        "p_5_2.0",
+                        "p_5_5.0",
+                        "p_5_4.0",
+                        "p_5_1",
+                        "p_5_0",
+                        "p_5_2",
+                        "p_5_5",
+                        "p_5_1.0",
+                        "p_5_4"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "3": {
+                    "spans": [
+                        "p_8_1.0",
+                        "p_8_0.0",
+                        "p_8_0",
+                        "p_8_1"
+                    ],
+                    "divs": [
+                        "formula_5"
+                    ]
+                },
+                "4": {
+                    "spans": [
+                        "p_16_3.0",
+                        "p_16_2",
+                        "p_16_6",
+                        "p_16_4",
+                        "p_16_2.0",
+                        "p_16_3",
+                        "p_16_1.0",
+                        "p_16_5.0",
+                        "p_16_6.0",
+                        "p_16_4.0",
+                        "p_16_5",
+                        "p_16_0.0",
+                        "p_16_1",
+                        "p_16_0"
+                    ],
+                    "divs": [
+                        "formula_9"
+                    ]
+                },
+                "5": {
+                    "spans": [
+                        "p_16_3.0",
+                        "p_8_1.0",
+                        "p_16_4",
+                        "p_16_1.0",
+                        "p_14_2",
+                        "p_16_6.0",
+                        "p_7_sub_sub.0",
+                        "p_11_sub_sub.0",
+                        "p_16_4.0",
+                        "p_14_2.0",
+                        "p_16_5",
+                        "p_16_2",
+                        "p_10_0",
+                        "p_12_0.0",
+                        "p_16_3",
+                        "p_6_1",
+                        "p_12_1",
+                        "p_9_sub_sub.0",
+                        "p_8_1",
+                        "p_16_0.0",
+                        "p_15_sub_sub.0",
+                        "p_16_1",
+                        "p_10_0.0",
+                        "p_13_sub_sub.0",
+                        "p_14_1",
+                        "p_14_1.0",
+                        "p_16_2.0",
+                        "p_6_1.0",
+                        "p_8_0.0",
+                        "p_14_0",
+                        "p_12_0",
+                        "p_6_2",
+                        "p_8_0",
+                        "p_16_6",
+                        "p_16_5.0",
+                        "p_6_0",
+                        "p_6_0.0",
+                        "p_12_2",
+                        "p_14_0.0",
+                        "p_6_2.0",
+                        "p_12_2.0",
+                        "p_12_1.0",
+                        "p_16_0"
+                    ],
+                    "divs": []
+                },
+                "6": {
+                    "spans": [
+                        "p_13_sub_sub.0",
+                        "p_15_sub_sub.0",
+                        "p_3_sub_sub.0",
+                        "p_19_sub_sub.0"
+                    ],
+                    "divs": []
+                },
+                "7": {
+                    "spans": [
+                        "p_14_1",
+                        "p_14_1.0",
+                        "p_23_sub_sub.0",
+                        "p_14_2",
+                        "p_14_0.0",
+                        "p_19_sub_sub.0",
+                        "p_14_2.0",
+                        "p_14_0",
+                        "p_15_sub_sub.0"
+                    ],
+                    "divs": []
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_4_sub_sub.0-start",
+                        "stop_id": "p_4_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "formula_3",
+                        "stop_id": "formula_3"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_0.0-start",
+                        "stop_id": "p_20_0.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_4.0-start",
+                        "stop_id": "p_20_4.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_2-start",
+                        "stop_id": "p_20_2-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_5.0-start",
+                        "stop_id": "p_5_5.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_2.0-start",
+                        "stop_id": "p_20_2.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_3-start",
+                        "stop_id": "p_5_3-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_3.0-start",
+                        "stop_id": "p_5_3.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_3-start",
+                        "stop_id": "p_20_3-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_0-start",
+                        "stop_id": "p_5_0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_1.0-start",
+                        "stop_id": "p_20_1.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_0-start",
+                        "stop_id": "p_20_0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_3.0-start",
+                        "stop_id": "p_20_3.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_1-start",
+                        "stop_id": "p_20_1-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_1-start",
+                        "stop_id": "p_5_1-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_2-start",
+                        "stop_id": "p_5_2-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_5-start",
+                        "stop_id": "p_5_5-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_1.0-start",
+                        "stop_id": "p_5_1.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_4-start",
+                        "stop_id": "p_5_4-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_0.0-start",
+                        "stop_id": "p_5_0.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_2.0-start",
+                        "stop_id": "p_5_2.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_20_4-start",
+                        "stop_id": "p_20_4-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_5_4.0-start",
+                        "stop_id": "p_5_4.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_3-start",
+                        "stop_id": "p_5_3-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_3.0-start",
+                        "stop_id": "p_5_3.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_0.0-start",
+                        "stop_id": "p_5_0.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_2.0-start",
+                        "stop_id": "p_5_2.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_5.0-start",
+                        "stop_id": "p_5_5.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_4.0-start",
+                        "stop_id": "p_5_4.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_1-start",
+                        "stop_id": "p_5_1-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_0-start",
+                        "stop_id": "p_5_0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_2-start",
+                        "stop_id": "p_5_2-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_5-start",
+                        "stop_id": "p_5_5-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_1.0-start",
+                        "stop_id": "p_5_1.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_4-start",
+                        "stop_id": "p_5_4-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_8_1.0-start",
+                        "stop_id": "p_8_1.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_8_0.0-start",
+                        "stop_id": "p_8_0.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_8_0-start",
+                        "stop_id": "p_8_0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_8_1-start",
+                        "stop_id": "p_8_1-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "formula_5",
+                        "stop_id": "formula_5"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_3.0-start",
+                        "stop_id": "p_16_3.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_2-start",
+                        "stop_id": "p_16_2-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_6-start",
+                        "stop_id": "p_16_6-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_4-start",
+                        "stop_id": "p_16_4-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_2.0-start",
+                        "stop_id": "p_16_2.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_3-start",
+                        "stop_id": "p_16_3-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_1.0-start",
+                        "stop_id": "p_16_1.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_5.0-start",
+                        "stop_id": "p_16_5.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_6.0-start",
+                        "stop_id": "p_16_6.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_4.0-start",
+                        "stop_id": "p_16_4.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_5-start",
+                        "stop_id": "p_16_5-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_0.0-start",
+                        "stop_id": "p_16_0.0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_1-start",
+                        "stop_id": "p_16_1-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_16_0-start",
+                        "stop_id": "p_16_0-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_9",
+                        "stop_id": "formula_9"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_3.0-start",
+                        "stop_id": "p_16_3.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_8_1.0-start",
+                        "stop_id": "p_8_1.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_4-start",
+                        "stop_id": "p_16_4-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_1.0-start",
+                        "stop_id": "p_16_1.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_2-start",
+                        "stop_id": "p_14_2-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_6.0-start",
+                        "stop_id": "p_16_6.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_7_sub_sub.0-start",
+                        "stop_id": "p_7_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_11_sub_sub.0-start",
+                        "stop_id": "p_11_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_4.0-start",
+                        "stop_id": "p_16_4.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_2.0-start",
+                        "stop_id": "p_14_2.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_5-start",
+                        "stop_id": "p_16_5-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_2-start",
+                        "stop_id": "p_16_2-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_10_0-start",
+                        "stop_id": "p_10_0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_0.0-start",
+                        "stop_id": "p_12_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_3-start",
+                        "stop_id": "p_16_3-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_1-start",
+                        "stop_id": "p_6_1-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_1-start",
+                        "stop_id": "p_12_1-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_9_sub_sub.0-start",
+                        "stop_id": "p_9_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_8_1-start",
+                        "stop_id": "p_8_1-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_0.0-start",
+                        "stop_id": "p_16_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_15_sub_sub.0-start",
+                        "stop_id": "p_15_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_1-start",
+                        "stop_id": "p_16_1-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_10_0.0-start",
+                        "stop_id": "p_10_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_13_sub_sub.0-start",
+                        "stop_id": "p_13_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_1-start",
+                        "stop_id": "p_14_1-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_1.0-start",
+                        "stop_id": "p_14_1.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_2.0-start",
+                        "stop_id": "p_16_2.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_1.0-start",
+                        "stop_id": "p_6_1.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_8_0.0-start",
+                        "stop_id": "p_8_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_0-start",
+                        "stop_id": "p_14_0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_0-start",
+                        "stop_id": "p_12_0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_2-start",
+                        "stop_id": "p_6_2-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_8_0-start",
+                        "stop_id": "p_8_0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_6-start",
+                        "stop_id": "p_16_6-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_5.0-start",
+                        "stop_id": "p_16_5.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_0-start",
+                        "stop_id": "p_6_0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_0.0-start",
+                        "stop_id": "p_6_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_2-start",
+                        "stop_id": "p_12_2-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_14_0.0-start",
+                        "stop_id": "p_14_0.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_6_2.0-start",
+                        "stop_id": "p_6_2.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_2.0-start",
+                        "stop_id": "p_12_2.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_12_1.0-start",
+                        "stop_id": "p_12_1.0-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_16_0-start",
+                        "stop_id": "p_16_0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_13_sub_sub.0-start",
+                        "stop_id": "p_13_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_15_sub_sub.0-start",
+                        "stop_id": "p_15_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_3_sub_sub.0-start",
+                        "stop_id": "p_3_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_19_sub_sub.0-start",
+                        "stop_id": "p_19_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_1-start",
+                        "stop_id": "p_14_1-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_1.0-start",
+                        "stop_id": "p_14_1.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_23_sub_sub.0-start",
+                        "stop_id": "p_23_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_2-start",
+                        "stop_id": "p_14_2-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_0.0-start",
+                        "stop_id": "p_14_0.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_19_sub_sub.0-start",
+                        "stop_id": "p_19_sub_sub.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_2.0-start",
+                        "stop_id": "p_14_2.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_14_0-start",
+                        "stop_id": "p_14_0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_15_sub_sub.0-start",
+                        "stop_id": "p_15_sub_sub.0-end"
+                    }
+                ]
+            }
+        }
+    }
+}

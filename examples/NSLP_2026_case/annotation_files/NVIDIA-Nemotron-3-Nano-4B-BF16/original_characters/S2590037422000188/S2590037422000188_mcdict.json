@@ -1,0 +1,310 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "C_i_j_k_l",
+            "concept_category": "variable",
+            "description": "3rd‑order stiffness tensor component\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Defined as Cₖʟᵢⱼ in Hooke’s law relation (eq. 9).",
+            "primitive_symbols": [
+                "43",
+                "6b",
+                "6a",
+                "69",
+                "6c"
+            ],
+            "properties": {
+                "tensor-rank": "4",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_11",
+                    "stop_id": "formula_11",
+                    "type": 0
+                }
+            ]
+        },
+        "1": {
+            "code_var_name": "u_k_l",
+            "concept_category": "variable",
+            "description": "Displacement component uₖ,ₗ\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as subscript pair (k, l) in the Hooke‑law term of eq. 9.",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_11",
+                    "stop_id": "formula_11",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "u_l_k",
+            "concept_category": "variable",
+            "description": "Alternative ordering of displacement components uₗₖ\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Symmetric to uₖ,ₗ, used in the same buckling relation (eq. 9).",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_11",
+                    "stop_id": "formula_11",
+                    "type": 0
+                }
+            ]
+        },
+        "3": {
+            "code_var_name": "v_i_j",
+            "concept_category": "variable",
+            "description": "Integration factor/variational weight function\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Subscripted function vᵢⱼ integrates against the stiffness term in eq. 10.",
+            "primitive_symbols": [
+                "6a",
+                "69",
+                "76"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_11",
+                    "stop_id": "formula_11",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_12",
+                    "stop_id": "formula_12",
+                    "type": 0
+                }
+            ]
+        },
+        "4": {
+            "code_var_name": "F_i",
+            "concept_category": "variable",
+            "description": "Component of body force vector\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Eq. 8 shows Fᵢ as a third component of the body force Fᵢ𝑖.",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_C_i_j_k_l": {
+            "code_var_name": "C_i_j_k_l",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder C_i_j_k_l",
+            "primitive_symbols": [
+                "43",
+                "69",
+                "6a",
+                "6b",
+                "6c"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_F_i": {
+            "code_var_name": "F_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder F_i",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_f_i": {
+            "code_var_name": "f_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder f_i",
+            "primitive_symbols": [
+                "66",
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u_k_l": {
+            "code_var_name": "u_k_l",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_k_l",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u_l_k": {
+            "code_var_name": "u_l_k",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_l_k",
+            "primitive_symbols": [
+                "75",
+                "6c",
+                "6b"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_v_i": {
+            "code_var_name": "v_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v_i",
+            "primitive_symbols": [
+                "76",
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_v_i_j": {
+            "code_var_name": "v_i_j",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v_i_j",
+            "primitive_symbols": [
+                "76",
+                "69",
+                "6a"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 5,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "llm_placeholder_concept_delta_Omega",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "mi_222": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_247": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "msub_85": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_86": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_87": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_88": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_90": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_91": {
+            "mc_id": "llm_placeholder_concept_v_i",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_93": {
+            "mc_id": "llm_placeholder_concept_f_i",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_94": {
+            "mc_id": "llm_placeholder_concept_v_i",
+            "properties": {},
+            "tag_name": "msub"
+        }
+    }
+}

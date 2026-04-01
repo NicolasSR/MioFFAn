@@ -1,0 +1,525 @@
+{
+    "paper_id": "S0045782519305560_1",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_60\">d</mi>\n          <mi id=\"mi_61\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_65\">d</mi>\n          <mi id=\"mi_66\">\u03a9</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_Gamma": {
+                "obj_name": "d_Gamma",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_71\">d</mi>\n          <mi id=\"mi_72\">\u0393</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_53\">\u03a9</mi>\n            ",
+                    "<mi id=\"mi_62\">\u03a9</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_v": {
+                "obj_name": "v",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_55\">v</mi>\n          ",
+                    "<mi id=\"mi_63\">v</mi>\n          ",
+                    "<mi id=\"mi_69\">v</mi>\n          ",
+                    "<mi id=\"mi_73\">v</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_kappa": {
+                "obj_name": "kappa",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_57\">\u03ba</mi>\n              "
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_59\">u</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_f": {
+                "obj_name": "f",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_64\">f</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_q_bar": {
+                "obj_name": "q_bar",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_70\">q</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_V": {
+                "obj_name": "V",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_Gamma_t": {
+                "obj_name": "Gamma_t",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_18\">\n                <mrow>\n                  <mi id=\"mi_67\">\u0393</mi>\n                </mrow>\n                <mrow>\n                  <mi mathvariant=\"normal\" id=\"mi_68\">t</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "Omega",
+                "type": "DOMAIN",
+                "description": "Main computational domain",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Appears as \u222b_\u03a9 and as the overall region \u03a9 in the formulation."
+            },
+            {
+                "name": "Gamma",
+                "type": "DOMAIN",
+                "description": "Boundary (interface) set for subdomains",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Used repeatedly as \u0393_i, \u0393_{i,j} to denote interfaces."
+            },
+            {
+                "name": "v",
+                "type": "VARIABLE",
+                "description": "Test function (gauge function)",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Functions v in V, \u2200 v\u2208V in (3) and as test function in variational form."
+            },
+            {
+                "name": "u",
+                "type": "VARIABLE",
+                "description": "Unknown field (displacement, temperature)",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Appears as unknown u in the equations of form \u2207v\u00b7\u03ba\u2207u etc."
+            },
+            {
+                "name": "kappa",
+                "type": "VARIABLE",
+                "description": "Thermal conductivity",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Parameter \u03ba constant in the heat equation."
+            },
+            {
+                "name": "f",
+                "type": "VARIABLE",
+                "description": "Internal heat source",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Provides forcing f in the weak form."
+            },
+            {
+                "name": "q_bar",
+                "type": "VARIABLE",
+                "description": "Heat flux",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Boundary condition q\u0304 (\u2264) used in energy balance."
+            },
+            {
+                "name": "V",
+                "type": "DOMAIN",
+                "description": "Gauge function space of admissible v",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: V is the function space where v is evaluated."
+            },
+            {
+                "name": "Gamma_t",
+                "type": "VARIABLE",
+                "description": "Interface variable parameterizing interfacial interaction",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u0393t denotes time\u2011varying interface \u03b3_i."
+            },
+            {
+                "name": "B",
+                "type": "OTHER",
+                "description": "Bilinear form operator",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: B(u, v) = \u222b_\u03a9 k \u2207u\u00b7\u2207v d\u03a9."
+            },
+            {
+                "name": "L",
+                "type": "OTHER",
+                "description": "Linear form",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: L(v) = \u222b_\u03a9 v f d\u03a9 + \u222b_{\u0393t} q\u0304\u00b7v dt."
+            },
+            {
+                "name": "Sigma",
+                "type": "OTHER",
+                "description": "Stress tensor",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03c3 = C \u03b5 is stress in elastostatics."
+            },
+            {
+                "name": "C",
+                "type": "OTHER",
+                "description": "Cauchy stress tensor constant",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Defined as 1/2[\u2207u + (\u2207u)^T]."
+            },
+            {
+                "name": "epsilon",
+                "type": "OTHER",
+                "description": "Strain tensor",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03b5 = d u."
+            },
+            {
+                "name": "integral_d_Omega",
+                "type": "INTEGRATION_VAR",
+                "description": "Differential element for domain integration",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: d in \u222b_\u03a9 d\u03a9 denotes the integration variable."
+            },
+            {
+                "name": "integral_d_Gamma",
+                "type": "INTEGRATION_VAR",
+                "description": "Differential element for interface integration",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: d in \u222b_{\u0393t} d\u0393t denotes the integration variable on the interface."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "integral_d_Omega",
+            "d_Gamma": "integral_d_Gamma",
+            "Omega": "Omega",
+            "v": "v",
+            "kappa": "kappa",
+            "u": "u",
+            "f": "f",
+            "q_bar": "q_bar",
+            "V": "V",
+            "Gamma_t": "Gamma_t"
+        },
+        "properties_assignment": {
+            "v": {
+                "type": "test-function",
+                "tensor_rank": "0"
+            },
+            "u": {
+                "type": "trial-function",
+                "tensor_rank": "0"
+            },
+            "kappa": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "f": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "q_bar": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "Gamma_t": {
+                "type": "trial-function",
+                "tensor_rank": "0"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "Omega",
+                        "description": "Main computational domain\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as \u222b_\u03a9 and as the overall region \u03a9 in the formulation.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_v"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "v",
+                        "description": "Test function (gauge function)\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Functions v in V, \u2200 v\u2208V in (3) and as test function in variational form.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "test-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "u",
+                        "description": "Unknown field (displacement, temperature)\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as unknown u in the equations of form \u2207v\u00b7\u03ba\u2207u etc.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_kappa"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "kappa",
+                        "description": "Thermal conductivity\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Parameter \u03ba constant in the heat equation.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_f"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "f",
+                        "description": "Internal heat source\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Provides forcing f in the weak form.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_q_bar"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "q_bar",
+                        "description": "Heat flux\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Boundary condition q\u0304 (\u2264) used in energy balance.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_V"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "V",
+                        "description": "Gauge function space of admissible v\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: V is the function space where v is evaluated.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Gamma_t"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "Gamma_t",
+                        "description": "Interface variable parameterizing interfacial interaction\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: \u0393t denotes time\u2011varying interface \u03b3_i.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "integral_d_Omega",
+                        "description": "Differential element for domain integration\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: d in \u222b_\u03a9 d\u03a9 denotes the integration variable.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Gamma"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "integral_d_Gamma",
+                        "description": "Differential element for interface integration\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: d in \u222b_{\u0393t} d\u0393t denotes the integration variable on the interface.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "Omega",
+                "description": "Main computational domain\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Appears as \u222b_\u03a9 and as the overall region \u03a9 in the formulation."
+            },
+            "grounding_ids_raw": [
+                "d1e1341",
+                "d1e1652",
+                "d1e1804"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "v",
+                "description": "Test function (gauge function)\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Functions v in V, \u2200 v\u2208V in (3) and as test function in variational form."
+            },
+            "grounding_ids_raw": []
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "u",
+                "description": "Unknown field (displacement, temperature)\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Appears as unknown u in the equations of form \u2207v\u00b7\u03ba\u2207u etc."
+            },
+            "grounding_ids_raw": []
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "kappa",
+                "description": "Thermal conductivity\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Parameter \u03ba constant in the heat equation."
+            },
+            "grounding_ids_raw": []
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "f",
+                "description": "Internal heat source\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Provides forcing f in the weak form."
+            },
+            "grounding_ids_raw": [
+                "p_1_20",
+                "formula_1"
+            ]
+        },
+        "5": {
+            "justifications": {
+                "concept_name": "q_bar",
+                "description": "Heat flux\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Boundary condition q\u0304 (\u2264) used in energy balance."
+            },
+            "grounding_ids_raw": [
+                "p_1_20",
+                "p_1_21"
+            ]
+        },
+        "6": {
+            "justifications": {
+                "concept_name": "V",
+                "description": "Gauge function space of admissible v\n",
+                "justifications": ":\nNON-EXPLICIT \nS: V is the function space where v is evaluated."
+            },
+            "grounding_ids_raw": []
+        },
+        "7": {
+            "justifications": {
+                "concept_name": "Gamma_t",
+                "description": "Interface variable parameterizing interfacial interaction\n",
+                "justifications": ":\nNON-EXPLICIT \nS: \u0393t denotes time\u2011varying interface \u03b3_i."
+            },
+            "grounding_ids_raw": []
+        },
+        "8": {
+            "justifications": {
+                "concept_name": "integral_d_Omega",
+                "description": "Differential element for domain integration\n",
+                "justifications": ":\nNON-EXPLICIT \nS: d in \u222b_\u03a9 d\u03a9 denotes the integration variable."
+            },
+            "grounding_ids_raw": [
+                "formula_1"
+            ]
+        },
+        "9": {
+            "justifications": {
+                "concept_name": "integral_d_Gamma",
+                "description": "Differential element for interface integration\n",
+                "justifications": ":\nNON-EXPLICIT \nS: d in \u222b_{\u0393t} d\u0393t denotes the integration variable on the interface."
+            },
+            "grounding_ids_raw": [
+                "formula_2"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [],
+                    "divs": []
+                },
+                "1": {
+                    "spans": [],
+                    "divs": []
+                },
+                "2": {
+                    "spans": [],
+                    "divs": []
+                },
+                "3": {
+                    "spans": [],
+                    "divs": []
+                },
+                "4": {
+                    "spans": [
+                        "p_1_20"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "5": {
+                    "spans": [
+                        "p_1_21",
+                        "p_1_20"
+                    ],
+                    "divs": []
+                },
+                "6": {
+                    "spans": [],
+                    "divs": []
+                },
+                "7": {
+                    "spans": [],
+                    "divs": []
+                },
+                "8": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "9": {
+                    "spans": [],
+                    "divs": [
+                        "formula_2"
+                    ]
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "4",
+                        "start_id": "p_1_20-start",
+                        "stop_id": "p_1_20-end"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_1_21-start",
+                        "stop_id": "p_1_21-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_1_20-start",
+                        "stop_id": "p_1_20-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "9",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    }
+                ]
+            }
+        }
+    }
+}

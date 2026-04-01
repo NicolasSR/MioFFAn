@@ -1,0 +1,1655 @@
+{
+    "paper_id": "S0045782519305560_1",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_60\">d</mi>\n          <mi id=\"mi_61\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_65\">d</mi>\n          <mi id=\"mi_66\">\u03a9</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_d_Gamma": {
+                "obj_name": "d_Gamma",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi mathvariant=\"normal\" id=\"mi_71\">d</mi>\n          <mi id=\"mi_72\">\u0393</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_53\">\u03a9</mi>\n            ",
+                    "<mi id=\"mi_62\">\u03a9</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_v": {
+                "obj_name": "v",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_55\">v</mi>\n          ",
+                    "<mi id=\"mi_63\">v</mi>\n          ",
+                    "<mi id=\"mi_69\">v</mi>\n          ",
+                    "<mi id=\"mi_73\">v</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_kappa": {
+                "obj_name": "kappa",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold-italic\" id=\"mi_57\">\u03ba</mi>\n              "
+                ]
+            },
+            "llm_placeholder_concept_u": {
+                "obj_name": "u",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_59\">u</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_f": {
+                "obj_name": "f",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_64\">f</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_q_bar": {
+                "obj_name": "q_bar",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_70\">q</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_V": {
+                "obj_name": "V",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>\n          "
+                ]
+            },
+            "llm_placeholder_concept_Gamma_t": {
+                "obj_name": "Gamma_t",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_18\">\n                <mrow>\n                  <mi id=\"mi_67\">\u0393</mi>\n                </mrow>\n                <mrow>\n                  <mi mathvariant=\"normal\" id=\"mi_68\">t</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "domain_Omega",
+                "type": "DOMAIN",
+                "description": "The main computational domain in the physical space",
+                "justification": "The domain of interest is defined as a region \u03a9 \u2282 R^d, and it is described as the region of interest in the problem setup."
+            },
+            {
+                "name": "boundary_Gamma",
+                "type": "DOMAIN",
+                "description": "The boundary of the domain \u03a9, composed of Dirichlet and Neumann parts",
+                "justification": "The domain boundary \u2202\u03a9 \u2261 \u0393 is introduced and decomposed into \u0393_u and \u0393_t, representing different types of boundary conditions."
+            },
+            {
+                "name": "d_Omega",
+                "type": "INTEGRATION_VAR",
+                "description": "Differential element of volume integration over the domain \u03a9",
+                "justification": "Appears in integrals over \u03a9 as 'd\u03a9' in both the thermal and elastostatics weak forms."
+            },
+            {
+                "name": "d_Gamma",
+                "type": "INTEGRATION_VAR",
+                "description": "Differential element of surface integration over the boundary \u0393",
+                "justification": "Appears in integrals over \u0393_t as 'd\u0393' in the boundary conditions for heat flux and traction."
+            },
+            {
+                "name": "displacement_field_u",
+                "type": "VARIABLE",
+                "description": "Primal unknown field, representing temperature or displacement depending on the problem context",
+                "justification": "The variable u is used to denote the temperature field in thermal problems and displacement in elastostatics, and is the unknown to be found in both cases."
+            },
+            {
+                "name": "thermal_conductivity_kappa",
+                "type": "VARIABLE",
+                "description": "Material property representing thermal conductivity",
+                "justification": "Defined as \u03ba, used in the thermal conductivity term \u2207\u03ba\u2207u in the weak form."
+            },
+            {
+                "name": "heat_source_f",
+                "type": "VARIABLE",
+                "description": "Volume heat source term in the thermal problem",
+                "justification": "The heat source f appears in the right-hand side of the weak form as \u222b_\u03a9 v f d\u03a9."
+            },
+            {
+                "name": "heat_flux_q_bar",
+                "type": "VARIABLE",
+                "description": "Prescribed heat flux on the Neumann boundary \u0393_t",
+                "justification": "The heat flux q\u0304 is prescribed on \u0393_t and appears in the boundary integral term \u222b_{\u0393_t} v q\u0304 d\u0393."
+            },
+            {
+                "name": "function_space_V",
+                "type": "DOMAIN",
+                "description": "Test function space for the weak formulation",
+                "justification": "V is the space of test functions used in the weak form, with v \u2208 V as the test function in both equations (1) and (2)."
+            },
+            {
+                "name": "neumann_boundary_Gamma_t",
+                "type": "DOMAIN",
+                "description": "Part of the boundary where Neumann boundary conditions are prescribed",
+                "justification": "\u0393_t is explicitly defined as the boundary where Neumann conditions (e.g., heat flux or traction) are prescribed."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "d_Omega",
+            "d_Gamma": "d_Gamma",
+            "Omega": "domain_Omega",
+            "v": "function_space_V",
+            "kappa": "thermal_conductivity_kappa",
+            "u": "displacement_field_u",
+            "f": "heat_source_f",
+            "q_bar": "heat_flux_q_bar",
+            "V": "function_space_V",
+            "Gamma_t": "neumann_boundary_Gamma_t"
+        },
+        "properties_assignment": {
+            "displacement_field_u": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "thermal_conductivity_kappa": {
+                "type": "defined-function",
+                "tensor_rank": "2"
+            },
+            "heat_source_f": {
+                "type": "numerical-variable",
+                "tensor_rank": "0"
+            },
+            "heat_flux_q_bar": {
+                "type": "undefined-function",
+                "tensor_rank": "1"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "domain_Omega",
+                        "description": "The main computational domain in the physical space\nJUSTIFICATION:\nThe domain of interest is defined as a region \u03a9 \u2282 R^d, and it is described as the region of interest in the problem setup.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Omega"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "d_Omega",
+                        "description": "Differential element of volume integration over the domain \u03a9\nJUSTIFICATION:\nAppears in integrals over \u03a9 as 'd\u03a9' in both the thermal and elastostatics weak forms.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_d_Gamma"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "d_Gamma",
+                        "description": "Differential element of surface integration over the boundary \u0393\nJUSTIFICATION:\nAppears in integrals over \u0393_t as 'd\u0393' in the boundary conditions for heat flux and traction.",
+                        "concept_category": "integration-var",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "displacement_field_u",
+                        "description": "Primal unknown field, representing temperature or displacement depending on the problem context\nJUSTIFICATION:\nThe variable u is used to denote the temperature field in thermal problems and displacement in elastostatics, and is the unknown to be found in both cases.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_kappa"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "thermal_conductivity_kappa",
+                        "description": "Material property representing thermal conductivity\nJUSTIFICATION:\nDefined as \u03ba, used in the thermal conductivity term \u2207\u03ba\u2207u in the weak form.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "2",
+                            "variable-type": "defined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_f"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "heat_source_f",
+                        "description": "Volume heat source term in the thermal problem\nJUSTIFICATION:\nThe heat source f appears in the right-hand side of the weak form as \u222b_\u03a9 v f d\u03a9.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_q_bar"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "heat_flux_q_bar",
+                        "description": "Prescribed heat flux on the Neumann boundary \u0393_t\nJUSTIFICATION:\nThe heat flux q\u0304 is prescribed on \u0393_t and appears in the boundary integral term \u222b_{\u0393_t} v q\u0304 d\u0393.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "undefined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_v",
+                        "llm_placeholder_concept_V"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "function_space_V",
+                        "description": "Test function space for the weak formulation\nJUSTIFICATION:\nV is the space of test functions used in the weak form, with v \u2208 V as the test function in both equations (1) and (2).",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_Gamma_t"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "neumann_boundary_Gamma_t",
+                        "description": "Part of the boundary where Neumann boundary conditions are prescribed\nJUSTIFICATION:\n\u0393_t is explicitly defined as the boundary where Neumann conditions (e.g., heat flux or traction) are prescribed.",
+                        "concept_category": "domain",
+                        "properties": {}
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "domain_Omega",
+                "description": "The main computational domain in the physical space\n",
+                "justifications": ":\nThe domain of interest is defined as a region \u03a9 \u2282 R^d, and it is described as the region of interest in the problem setup."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "formula_1"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "d_Omega",
+                "description": "Differential element of volume integration over the domain \u03a9\n",
+                "justifications": ":\nAppears in integrals over \u03a9 as 'd\u03a9' in both the thermal and elastostatics weak forms."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_2"
+            ]
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "d_Gamma",
+                "description": "Differential element of surface integration over the boundary \u0393\n",
+                "justifications": ":\nAppears in integrals over \u0393_t as 'd\u0393' in the boundary conditions for heat flux and traction."
+            },
+            "grounding_ids_raw": [
+                "formula_1",
+                "formula_2",
+                "p_5"
+            ]
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "displacement_field_u",
+                "description": "Primal unknown field, representing temperature or displacement depending on the problem context\n",
+                "justifications": ":\nThe variable u is used to denote the temperature field in thermal problems and displacement in elastostatics, and is the unknown to be found in both cases."
+            },
+            "grounding_ids_raw": [
+                "p_5",
+                "formula_2"
+            ]
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "thermal_conductivity_kappa",
+                "description": "Material property representing thermal conductivity\n",
+                "justifications": ":\nDefined as \u03ba, used in the thermal conductivity term \u2207\u03ba\u2207u in the weak form."
+            },
+            "grounding_ids_raw": [
+                "formula_1"
+            ]
+        },
+        "5": {
+            "justifications": {
+                "concept_name": "heat_source_f",
+                "description": "Volume heat source term in the thermal problem\n",
+                "justifications": ":\nThe heat source f appears in the right-hand side of the weak form as \u222b_\u03a9 v f d\u03a9."
+            },
+            "grounding_ids_raw": [
+                "p_1_20",
+                "formula_1"
+            ]
+        },
+        "6": {
+            "justifications": {
+                "concept_name": "heat_flux_q_bar",
+                "description": "Prescribed heat flux on the Neumann boundary \u0393_t\n",
+                "justifications": ":\nThe heat flux q\u0304 is prescribed on \u0393_t and appears in the boundary integral term \u222b_{\u0393_t} v q\u0304 d\u0393."
+            },
+            "grounding_ids_raw": [
+                "p_1_21",
+                "formula_1",
+                "p_3_5",
+                "formula_2"
+            ]
+        },
+        "7": {
+            "justifications": {
+                "concept_name": "function_space_V",
+                "description": "Test function space for the weak formulation\n",
+                "justifications": ":\nV is the space of test functions used in the weak form, with v \u2208 V as the test function in both equations (1) and (2)."
+            },
+            "grounding_ids_raw": [
+                "p_3",
+                "p_5",
+                "formula_2"
+            ]
+        },
+        "8": {
+            "justifications": {
+                "concept_name": "neumann_boundary_Gamma_t",
+                "description": "Part of the boundary where Neumann boundary conditions are prescribed\n",
+                "justifications": ":\n\u0393_t is explicitly defined as the boundary where Neumann conditions (e.g., heat flux or traction) are prescribed."
+            },
+            "grounding_ids_raw": [
+                "p_1",
+                "p_3"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [
+                        "p_1_18",
+                        "p_1_13",
+                        "p_1_21",
+                        "p_1_9.0",
+                        "p_1_1",
+                        "p_1_6",
+                        "p_1_5",
+                        "p_1_4.0",
+                        "p_1_12",
+                        "p_1_15.0",
+                        "p_1_19.0",
+                        "p_1_9",
+                        "p_1_22.0",
+                        "p_1_1.0",
+                        "p_1_0",
+                        "p_1_3.0",
+                        "p_1_17.0",
+                        "p_1_16",
+                        "p_1_7",
+                        "p_1_20.0",
+                        "p_1_11",
+                        "p_1_22",
+                        "p_1_14.0",
+                        "p_1_8.0",
+                        "p_1_7.0",
+                        "p_1_11.0",
+                        "p_1_2",
+                        "p_1_6.0",
+                        "p_1_12.0",
+                        "p_1_3",
+                        "p_1_2.0",
+                        "p_1_18.0",
+                        "p_1_14",
+                        "p_1_21.0",
+                        "p_1_0.0",
+                        "p_1_16.0",
+                        "p_1_19",
+                        "p_1_10.0",
+                        "p_1_17",
+                        "p_1_5.0",
+                        "p_1_13.0",
+                        "p_1_8",
+                        "p_1_10",
+                        "p_1_23",
+                        "p_1_20",
+                        "p_1_23.0",
+                        "p_1_4",
+                        "p_1_15"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "1": {
+                    "spans": [],
+                    "divs": [
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "2": {
+                    "spans": [
+                        "p_5_6",
+                        "p_5_4.0",
+                        "p_5_3",
+                        "p_5_9",
+                        "p_5_3.0",
+                        "p_5_9.0",
+                        "p_5_5",
+                        "p_5_8.0",
+                        "p_5_2.0",
+                        "p_5_7.0",
+                        "p_5_1",
+                        "p_5_0.0",
+                        "p_5_1.0",
+                        "p_5_4",
+                        "p_5_5.0",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_5_6.0",
+                        "p_5_0",
+                        "p_5_8"
+                    ],
+                    "divs": [
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "3": {
+                    "spans": [
+                        "p_5_6",
+                        "p_5_4.0",
+                        "p_5_3",
+                        "p_5_9",
+                        "p_5_3.0",
+                        "p_5_9.0",
+                        "p_5_5",
+                        "p_5_8.0",
+                        "p_5_2.0",
+                        "p_5_7.0",
+                        "p_5_1",
+                        "p_5_0.0",
+                        "p_5_1.0",
+                        "p_5_4",
+                        "p_5_5.0",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_5_6.0",
+                        "p_5_0",
+                        "p_5_8"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "4": {
+                    "spans": [],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "5": {
+                    "spans": [
+                        "p_1_20"
+                    ],
+                    "divs": [
+                        "formula_1"
+                    ]
+                },
+                "6": {
+                    "spans": [
+                        "p_3_5",
+                        "p_1_21"
+                    ],
+                    "divs": [
+                        "formula_2",
+                        "formula_1"
+                    ]
+                },
+                "7": {
+                    "spans": [
+                        "p_5_6",
+                        "p_5_8",
+                        "p_5_4.0",
+                        "p_5_3",
+                        "p_3_2",
+                        "p_3_7.0",
+                        "p_5_9",
+                        "p_5_3.0",
+                        "p_5_9.0",
+                        "p_5_5",
+                        "p_3_5",
+                        "p_3_4",
+                        "p_3_5.0",
+                        "p_3_6.0",
+                        "p_5_8.0",
+                        "p_3_0.0",
+                        "p_3_4.0",
+                        "p_5_2.0",
+                        "p_5_7.0",
+                        "p_3_1",
+                        "p_3_3",
+                        "p_3_7",
+                        "p_5_1",
+                        "p_5_0.0",
+                        "p_3_0",
+                        "p_3_3.0",
+                        "p_5_1.0",
+                        "p_3_6",
+                        "p_3_2.0",
+                        "p_5_4",
+                        "p_5_5.0",
+                        "p_5_2",
+                        "p_5_7",
+                        "p_3_1.0",
+                        "p_5_0",
+                        "p_5_6.0"
+                    ],
+                    "divs": [
+                        "formula_2"
+                    ]
+                },
+                "8": {
+                    "spans": [
+                        "p_1_18",
+                        "p_1_13",
+                        "p_1_21",
+                        "p_1_9.0",
+                        "p_1_1",
+                        "p_1_6",
+                        "p_1_5",
+                        "p_1_4.0",
+                        "p_1_12",
+                        "p_1_15.0",
+                        "p_1_19.0",
+                        "p_3_2",
+                        "p_3_7.0",
+                        "p_1_9",
+                        "p_1_22.0",
+                        "p_1_1.0",
+                        "p_3_5",
+                        "p_1_0",
+                        "p_1_3.0",
+                        "p_1_17.0",
+                        "p_1_16",
+                        "p_1_7",
+                        "p_3_4",
+                        "p_1_20.0",
+                        "p_1_11",
+                        "p_3_5.0",
+                        "p_3_6.0",
+                        "p_1_22",
+                        "p_3_0.0",
+                        "p_1_14.0",
+                        "p_1_8.0",
+                        "p_3_4.0",
+                        "p_3_1",
+                        "p_1_7.0",
+                        "p_3_3",
+                        "p_1_11.0",
+                        "p_3_7",
+                        "p_1_2",
+                        "p_3_0",
+                        "p_3_3.0",
+                        "p_1_6.0",
+                        "p_1_12.0",
+                        "p_1_3",
+                        "p_1_2.0",
+                        "p_1_18.0",
+                        "p_1_14",
+                        "p_1_21.0",
+                        "p_1_0.0",
+                        "p_1_16.0",
+                        "p_3_6",
+                        "p_1_19",
+                        "p_3_2.0",
+                        "p_1_10.0",
+                        "p_1_17",
+                        "p_1_5.0",
+                        "p_1_13.0",
+                        "p_1_8",
+                        "p_1_10",
+                        "p_1_23",
+                        "p_1_20",
+                        "p_1_23.0",
+                        "p_3_1.0",
+                        "p_1_4",
+                        "p_1_15"
+                    ],
+                    "divs": []
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_18-start",
+                        "stop_id": "p_1_18-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_13-start",
+                        "stop_id": "p_1_13-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_21-start",
+                        "stop_id": "p_1_21-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_9.0-start",
+                        "stop_id": "p_1_9.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_1-start",
+                        "stop_id": "p_1_1-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_6-start",
+                        "stop_id": "p_1_6-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_5-start",
+                        "stop_id": "p_1_5-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_4.0-start",
+                        "stop_id": "p_1_4.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_12-start",
+                        "stop_id": "p_1_12-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_15.0-start",
+                        "stop_id": "p_1_15.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_19.0-start",
+                        "stop_id": "p_1_19.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_9-start",
+                        "stop_id": "p_1_9-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_22.0-start",
+                        "stop_id": "p_1_22.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_1.0-start",
+                        "stop_id": "p_1_1.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_0-start",
+                        "stop_id": "p_1_0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_3.0-start",
+                        "stop_id": "p_1_3.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_17.0-start",
+                        "stop_id": "p_1_17.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_16-start",
+                        "stop_id": "p_1_16-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_7-start",
+                        "stop_id": "p_1_7-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_20.0-start",
+                        "stop_id": "p_1_20.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_11-start",
+                        "stop_id": "p_1_11-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_22-start",
+                        "stop_id": "p_1_22-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_14.0-start",
+                        "stop_id": "p_1_14.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_8.0-start",
+                        "stop_id": "p_1_8.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_7.0-start",
+                        "stop_id": "p_1_7.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_11.0-start",
+                        "stop_id": "p_1_11.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_2-start",
+                        "stop_id": "p_1_2-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_6.0-start",
+                        "stop_id": "p_1_6.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_12.0-start",
+                        "stop_id": "p_1_12.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_3-start",
+                        "stop_id": "p_1_3-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_2.0-start",
+                        "stop_id": "p_1_2.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_18.0-start",
+                        "stop_id": "p_1_18.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_14-start",
+                        "stop_id": "p_1_14-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_21.0-start",
+                        "stop_id": "p_1_21.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_0.0-start",
+                        "stop_id": "p_1_0.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_16.0-start",
+                        "stop_id": "p_1_16.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_19-start",
+                        "stop_id": "p_1_19-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_10.0-start",
+                        "stop_id": "p_1_10.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_17-start",
+                        "stop_id": "p_1_17-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_5.0-start",
+                        "stop_id": "p_1_5.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_13.0-start",
+                        "stop_id": "p_1_13.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_8-start",
+                        "stop_id": "p_1_8-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_10-start",
+                        "stop_id": "p_1_10-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_23-start",
+                        "stop_id": "p_1_23-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_20-start",
+                        "stop_id": "p_1_20-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_23.0-start",
+                        "stop_id": "p_1_23.0-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_4-start",
+                        "stop_id": "p_1_4-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_1_15-start",
+                        "stop_id": "p_1_15-end"
+                    },
+                    {
+                        "mc_id": "0",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_6-start",
+                        "stop_id": "p_5_6-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_4.0-start",
+                        "stop_id": "p_5_4.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_3-start",
+                        "stop_id": "p_5_3-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_9-start",
+                        "stop_id": "p_5_9-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_3.0-start",
+                        "stop_id": "p_5_3.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_9.0-start",
+                        "stop_id": "p_5_9.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_5-start",
+                        "stop_id": "p_5_5-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_8.0-start",
+                        "stop_id": "p_5_8.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_2.0-start",
+                        "stop_id": "p_5_2.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_7.0-start",
+                        "stop_id": "p_5_7.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_1-start",
+                        "stop_id": "p_5_1-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_0.0-start",
+                        "stop_id": "p_5_0.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_1.0-start",
+                        "stop_id": "p_5_1.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_4-start",
+                        "stop_id": "p_5_4-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_5.0-start",
+                        "stop_id": "p_5_5.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_2-start",
+                        "stop_id": "p_5_2-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_7-start",
+                        "stop_id": "p_5_7-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_6.0-start",
+                        "stop_id": "p_5_6.0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_0-start",
+                        "stop_id": "p_5_0-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "p_5_8-start",
+                        "stop_id": "p_5_8-end"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_6-start",
+                        "stop_id": "p_5_6-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_4.0-start",
+                        "stop_id": "p_5_4.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_3-start",
+                        "stop_id": "p_5_3-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_9-start",
+                        "stop_id": "p_5_9-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_3.0-start",
+                        "stop_id": "p_5_3.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_9.0-start",
+                        "stop_id": "p_5_9.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_5-start",
+                        "stop_id": "p_5_5-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_8.0-start",
+                        "stop_id": "p_5_8.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_2.0-start",
+                        "stop_id": "p_5_2.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_7.0-start",
+                        "stop_id": "p_5_7.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_1-start",
+                        "stop_id": "p_5_1-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_0.0-start",
+                        "stop_id": "p_5_0.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_1.0-start",
+                        "stop_id": "p_5_1.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_4-start",
+                        "stop_id": "p_5_4-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_5.0-start",
+                        "stop_id": "p_5_5.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_2-start",
+                        "stop_id": "p_5_2-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_7-start",
+                        "stop_id": "p_5_7-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_6.0-start",
+                        "stop_id": "p_5_6.0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_0-start",
+                        "stop_id": "p_5_0-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "p_5_8-start",
+                        "stop_id": "p_5_8-end"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "p_1_20-start",
+                        "stop_id": "p_1_20-end"
+                    },
+                    {
+                        "mc_id": "5",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_3_5-start",
+                        "stop_id": "p_3_5-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "p_1_21-start",
+                        "stop_id": "p_1_21-end"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "6",
+                        "start_id": "formula_1",
+                        "stop_id": "formula_1"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_6-start",
+                        "stop_id": "p_5_6-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_8-start",
+                        "stop_id": "p_5_8-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_4.0-start",
+                        "stop_id": "p_5_4.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_3-start",
+                        "stop_id": "p_5_3-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_2-start",
+                        "stop_id": "p_3_2-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_7.0-start",
+                        "stop_id": "p_3_7.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_9-start",
+                        "stop_id": "p_5_9-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_3.0-start",
+                        "stop_id": "p_5_3.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_9.0-start",
+                        "stop_id": "p_5_9.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_5-start",
+                        "stop_id": "p_5_5-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_5-start",
+                        "stop_id": "p_3_5-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_4-start",
+                        "stop_id": "p_3_4-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_5.0-start",
+                        "stop_id": "p_3_5.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_6.0-start",
+                        "stop_id": "p_3_6.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_8.0-start",
+                        "stop_id": "p_5_8.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_0.0-start",
+                        "stop_id": "p_3_0.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_4.0-start",
+                        "stop_id": "p_3_4.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_2.0-start",
+                        "stop_id": "p_5_2.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_7.0-start",
+                        "stop_id": "p_5_7.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_1-start",
+                        "stop_id": "p_3_1-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_3-start",
+                        "stop_id": "p_3_3-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_7-start",
+                        "stop_id": "p_3_7-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_1-start",
+                        "stop_id": "p_5_1-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_0.0-start",
+                        "stop_id": "p_5_0.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_0-start",
+                        "stop_id": "p_3_0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_3.0-start",
+                        "stop_id": "p_3_3.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_1.0-start",
+                        "stop_id": "p_5_1.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_6-start",
+                        "stop_id": "p_3_6-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_2.0-start",
+                        "stop_id": "p_3_2.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_4-start",
+                        "stop_id": "p_5_4-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_5.0-start",
+                        "stop_id": "p_5_5.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_2-start",
+                        "stop_id": "p_5_2-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_7-start",
+                        "stop_id": "p_5_7-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_3_1.0-start",
+                        "stop_id": "p_3_1.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_0-start",
+                        "stop_id": "p_5_0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "p_5_6.0-start",
+                        "stop_id": "p_5_6.0-end"
+                    },
+                    {
+                        "mc_id": "7",
+                        "start_id": "formula_2",
+                        "stop_id": "formula_2"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_18-start",
+                        "stop_id": "p_1_18-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_13-start",
+                        "stop_id": "p_1_13-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_21-start",
+                        "stop_id": "p_1_21-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_9.0-start",
+                        "stop_id": "p_1_9.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_1-start",
+                        "stop_id": "p_1_1-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_6-start",
+                        "stop_id": "p_1_6-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_5-start",
+                        "stop_id": "p_1_5-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_4.0-start",
+                        "stop_id": "p_1_4.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_12-start",
+                        "stop_id": "p_1_12-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_15.0-start",
+                        "stop_id": "p_1_15.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_19.0-start",
+                        "stop_id": "p_1_19.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_2-start",
+                        "stop_id": "p_3_2-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_7.0-start",
+                        "stop_id": "p_3_7.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_9-start",
+                        "stop_id": "p_1_9-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_22.0-start",
+                        "stop_id": "p_1_22.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_1.0-start",
+                        "stop_id": "p_1_1.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_5-start",
+                        "stop_id": "p_3_5-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_0-start",
+                        "stop_id": "p_1_0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_3.0-start",
+                        "stop_id": "p_1_3.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_17.0-start",
+                        "stop_id": "p_1_17.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_16-start",
+                        "stop_id": "p_1_16-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_7-start",
+                        "stop_id": "p_1_7-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_4-start",
+                        "stop_id": "p_3_4-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_20.0-start",
+                        "stop_id": "p_1_20.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_11-start",
+                        "stop_id": "p_1_11-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_5.0-start",
+                        "stop_id": "p_3_5.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_6.0-start",
+                        "stop_id": "p_3_6.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_22-start",
+                        "stop_id": "p_1_22-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_0.0-start",
+                        "stop_id": "p_3_0.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_14.0-start",
+                        "stop_id": "p_1_14.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_8.0-start",
+                        "stop_id": "p_1_8.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_4.0-start",
+                        "stop_id": "p_3_4.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_1-start",
+                        "stop_id": "p_3_1-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_7.0-start",
+                        "stop_id": "p_1_7.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_3-start",
+                        "stop_id": "p_3_3-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_11.0-start",
+                        "stop_id": "p_1_11.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_7-start",
+                        "stop_id": "p_3_7-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_2-start",
+                        "stop_id": "p_1_2-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_0-start",
+                        "stop_id": "p_3_0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_3.0-start",
+                        "stop_id": "p_3_3.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_6.0-start",
+                        "stop_id": "p_1_6.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_12.0-start",
+                        "stop_id": "p_1_12.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_3-start",
+                        "stop_id": "p_1_3-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_2.0-start",
+                        "stop_id": "p_1_2.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_18.0-start",
+                        "stop_id": "p_1_18.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_14-start",
+                        "stop_id": "p_1_14-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_21.0-start",
+                        "stop_id": "p_1_21.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_0.0-start",
+                        "stop_id": "p_1_0.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_16.0-start",
+                        "stop_id": "p_1_16.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_6-start",
+                        "stop_id": "p_3_6-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_19-start",
+                        "stop_id": "p_1_19-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_2.0-start",
+                        "stop_id": "p_3_2.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_10.0-start",
+                        "stop_id": "p_1_10.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_17-start",
+                        "stop_id": "p_1_17-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_5.0-start",
+                        "stop_id": "p_1_5.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_13.0-start",
+                        "stop_id": "p_1_13.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_8-start",
+                        "stop_id": "p_1_8-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_10-start",
+                        "stop_id": "p_1_10-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_23-start",
+                        "stop_id": "p_1_23-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_20-start",
+                        "stop_id": "p_1_20-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_23.0-start",
+                        "stop_id": "p_1_23.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_3_1.0-start",
+                        "stop_id": "p_3_1.0-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_4-start",
+                        "stop_id": "p_1_4-end"
+                    },
+                    {
+                        "mc_id": "8",
+                        "start_id": "p_1_15-start",
+                        "stop_id": "p_1_15-end"
+                    }
+                ]
+            }
+        }
+    }
+}

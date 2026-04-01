@@ -1,0 +1,164 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "Γ",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Γ",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "H",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder H",
+            "primitive_symbols": [
+                "48"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "Ω",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Ω",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "u_D",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_D",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "w",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "ρ",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder ρ",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "8": {
+            "code_var_name": "N",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder N",
+            "primitive_symbols": [
+                "4e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "9": {
+            "code_var_name": "g",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder g",
+            "primitive_symbols": [
+                "67"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_10": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 10,
+    "occurences_dict": {
+        "mi_146": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_153": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_156": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_157": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_158": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_160": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_168": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_169": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_170": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_172": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        }
+    }
+}

@@ -1,0 +1,150 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "Nabla_u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Nabla_u_h",
+            "primitive_symbols": [
+                "75",
+                "e28887",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "Nabla_s_w_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Nabla_s_w_h",
+            "primitive_symbols": [
+                "73",
+                "77",
+                "e28887",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "Nabla_s_u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Nabla_s_u_h",
+            "primitive_symbols": [
+                "75",
+                "73",
+                "e28887",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "Nabla",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Nabla",
+            "primitive_symbols": [
+                "e28887"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "p_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder p_h",
+            "primitive_symbols": [
+                "70",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "w_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w_h",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_h",
+            "primitive_symbols": [
+                "75",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 8,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_145": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "msub_32": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_37": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_39": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

@@ -1,0 +1,313 @@
+{
+    "paper_id": "S0021999121003314",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_rho": {
+                "obj_name": "rho",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_126\">\u03c1</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_mu": {
+                "obj_name": "mu",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_136\">\u03bc</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_t": {
+                "obj_name": "t",
+                "mathml_representations_list": [
+                    "<mi mathvariant=\"bold\" id=\"mi_152\">t</mi>\n              "
+                ]
+            },
+            "llm_placeholder_concept_w_h": {
+                "obj_name": "w_h",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_30\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_124\">w</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_125\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_33\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_134\">w</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_135\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_36\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_146\">w</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_147\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_39\">\n                <mrow>\n                  <mi mathvariant=\"bold\" id=\"mi_150\">w</mi>\n                </mrow>\n                <mrow>\n                  <mi id=\"mi_151\">h</mi>\n                </mrow>\n              </msub>\n              "
+                ]
+            },
+            "llm_placeholder_concept_u_h": {
+                "obj_name": "u_h",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_31\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_128\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_129\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_32\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_130\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_131\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_34\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_139\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_140\">h</mi>\n              </mrow>\n            </msub>\n            ",
+                    "<msub id=\"msub_35\">\n              <mrow>\n                <mi mathvariant=\"bold\" id=\"mi_143\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_144\">h</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_p_h": {
+                "obj_name": "p_h",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_37\">\n              <mrow>\n                <mi id=\"mi_148\">p</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_149\">h</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_Gamma_N": {
+                "obj_name": "Gamma_N",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_40\">\n                <mrow>\n                  <mi mathvariant=\"normal\" id=\"mi_153\">\u0393</mi>\n                </mrow>\n                <mrow>\n                  <mi id=\"mi_154\">N</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_nabla_s": {
+                "obj_name": "nabla_s",
+                "mathml_representations_list": [
+                    "<msup id=\"msup_12\">\n              <mrow>\n                <mi mathvariant=\"normal\" id=\"mi_132\">\u2207</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_133\">s</mi>\n              </mrow>\n            </msup>\n            ",
+                    "<msup id=\"msup_13\">\n              <mrow>\n                <mi mathvariant=\"normal\" id=\"mi_137\">\u2207</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_138\">s</mi>\n              </mrow>\n            </msup>\n            ",
+                    "<msup id=\"msup_14\">\n              <mrow>\n                <mi mathvariant=\"normal\" id=\"mi_141\">\u2207</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_142\">s</mi>\n              </mrow>\n            </msup>\n            "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "rho",
+                "type": "VARIABLE",
+                "description": "fluid density",
+                "justification": "appears as \u03c1 in momentum equation (1) and continuity. Explicitly defined as variable in \u00a71."
+            },
+            {
+                "name": "u",
+                "type": "VARIABLE",
+                "description": "fluid velocity field",
+                "justification": "defined throughout as vector field u(x,t) with components referenced in the system."
+            },
+            {
+                "name": "p",
+                "type": "VARIABLE",
+                "description": "pressure field",
+                "justification": "present as scalar p in momentum equation (1)."
+            },
+            {
+                "name": "mu",
+                "type": "VARIABLE",
+                "description": "dynamic viscosity",
+                "justification": "\u03bc is the fluid dynamic viscosity, described in the non\u2011Newtonian model."
+            },
+            {
+                "name": "gamma",
+                "type": "VARIABLE",
+                "description": "shear\u2011rate",
+                "justification": "\u03b3\u02d9 is the shear\u2011rate appearing in the Carreau model for viscosity."
+            },
+            {
+                "name": "zeta",
+                "type": "VARIABLE",
+                "description": "auxiliary parameter (0 \u2264 \u03b6 \u2264 1)",
+                "justification": "\u03b6 appears in the viscosity model, limited to [0,1] as a design parameter."
+            },
+            {
+                "name": "S",
+                "type": "VARIABLE",
+                "description": "viscous stress tensor",
+                "justification": "S = 2\u03bc\u2207s**u, as given in Eq.(3)."
+            },
+            {
+                "name": "Omega",
+                "type": "DOMAIN",
+                "description": "fluid domain",
+                "justification": "\u03a9 is the bounded region of integration where the equations hold."
+            },
+            {
+                "name": "Gamma",
+                "type": "VARIABLE",
+                "description": "unit normal vector on boundary",
+                "justification": "\u0393 is the outward unit normal defined as \u2202\u03a9, used in traction conditions."
+            },
+            {
+                "name": "Nelements",
+                "type": "VARIABLE",
+                "description": "number of elements in the mesh",
+                "justification": "N is defined as count of elements (e) in the mesh."
+            },
+            {
+                "name": "h",
+                "type": "VARIABLE",
+                "description": "element size",
+                "justification": "h = max_e h_e, controls element size and stability."
+            },
+            {
+                "name": "delta",
+                "type": "VARIABLE",
+                "description": "mesh\u2011size dependent scalar parameter",
+                "justification": "\u03b4_e is the per\u2011element distance parameter used in stabilisation."
+            },
+            {
+                "name": "X",
+                "type": "DOMAIN",
+                "description": "unit tangent plane of boundary X",
+                "justification": "X is a continuous finite element space, a domain of (u,t) functions."
+            }
+        ],
+        "concept_assignments": {
+            "rho": "rho",
+            "mu": "mu",
+            "t": "time",
+            "w_h": "w_h",
+            "u_h": "u_h",
+            "p_h": "p_h",
+            "Gamma_N": "Gamma_N",
+            "nabla_s": "nabla_s"
+        },
+        "properties_assignment": {
+            "rho": {
+                "type": "nodal-variable",
+                "tensor_rank": "0"
+            },
+            "mu": {
+                "type": "symbolic-variable",
+                "tensor_rank": "0"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_rho"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "rho",
+                        "description": "fluid density\nJUSTIFICATION:\nappears as \u03c1 in momentum equation (1) and continuity. Explicitly defined as variable in \u00a71.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "nodal-variable"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_mu"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "mu",
+                        "description": "dynamic viscosity\nJUSTIFICATION:\n\u03bc is the fluid dynamic viscosity, described in the non\u2011Newtonian model.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "0",
+                            "variable-type": "symbolic-variable"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "rho",
+                "description": "fluid density\n",
+                "justifications": ":\nappears as \u03c1 in momentum equation (1) and continuity. Explicitly defined as variable in \u00a71."
+            },
+            "grounding_ids_raw": [
+                "p_4_5"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "mu",
+                "description": "dynamic viscosity\n",
+                "justifications": ":\n\u03bc is the fluid dynamic viscosity, described in the non\u2011Newtonian model."
+            },
+            "grounding_ids_raw": [
+                "p_6"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [
+                        "p_4_5"
+                    ],
+                    "divs": []
+                },
+                "1": {
+                    "spans": [
+                        "p_6_1",
+                        "p_6_0.0",
+                        "p_6_5",
+                        "p_6_3",
+                        "p_6_5.0",
+                        "p_6_4.0",
+                        "p_6_2.0",
+                        "p_6_2",
+                        "p_6_3.0",
+                        "p_6_0",
+                        "p_6_1.0",
+                        "p_6_4"
+                    ],
+                    "divs": []
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "0",
+                        "start_id": "p_4_5-start",
+                        "stop_id": "p_4_5-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_1-start",
+                        "stop_id": "p_6_1-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_0.0-start",
+                        "stop_id": "p_6_0.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_5-start",
+                        "stop_id": "p_6_5-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_3-start",
+                        "stop_id": "p_6_3-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_5.0-start",
+                        "stop_id": "p_6_5.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_4.0-start",
+                        "stop_id": "p_6_4.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_2.0-start",
+                        "stop_id": "p_6_2.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_2-start",
+                        "stop_id": "p_6_2-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_3.0-start",
+                        "stop_id": "p_6_3.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_0-start",
+                        "stop_id": "p_6_0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_1.0-start",
+                        "stop_id": "p_6_1.0-end"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "p_6_4-start",
+                        "stop_id": "p_6_4-end"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,134 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "f",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder f",
+            "primitive_symbols": [
+                "66"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "q_bar",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder q_bar",
+            "primitive_symbols": [
+                "71"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "kappa",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder kappa",
+            "primitive_symbols": [
+                "ceba"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "d",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d",
+            "primitive_symbols": [
+                "64"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_1": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 8,
+    "occurences_dict": {
+        "mi_57": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_62": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_64": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_67": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_71": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_73": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_74": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mover_8": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mover"
+        }
+    }
+}

@@ -1,0 +1,287 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_H_0_1": {
+            "code_var_name": "H_0_1",
+            "description": "Placeholder H_0_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_0_1_Omega": {
+            "code_var_name": "H_0_1_Omega",
+            "description": "Placeholder H_0_1_Omega",
+            "primitive_symbols": [
+                "48",
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_1": {
+            "code_var_name": "H_1",
+            "description": "Placeholder H_1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_H_minus1": {
+            "code_var_name": "H_minus1",
+            "description": "Placeholder H_minus1",
+            "primitive_symbols": [
+                "48"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_cal_T": {
+            "code_var_name": "cal_T",
+            "description": "Placeholder cal_T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "ce93"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "e28882",
+                "cea9",
+                "4e"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_g": {
+            "code_var_name": "g",
+            "description": "Placeholder g",
+            "primitive_symbols": [
+                "67"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        }
+    },
+    "eoi_dict": {
+        "formula_10": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 1,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "llm_placeholder_concept_delta_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-1": {
+            "mc_id": "llm_placeholder_concept_H_0_1_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-2": {
+            "mc_id": "llm_placeholder_concept_H_0_1_Omega",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "custom-group-3": {
+            "mc_id": "llm_placeholder_concept_H_1",
+            "tag_name": "mstyle",
+            "properties": {}
+        },
+        "mi_144": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_146": {
+            "mc_id": "llm_placeholder_concept_cal_T",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_148": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_149": {
+            "mc_id": "llm_placeholder_concept_t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_150": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_153": {
+            "mc_id": "llm_placeholder_concept_rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_156": {
+            "mc_id": "llm_placeholder_concept_t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_157": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_158": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_161": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_162": {
+            "mc_id": "llm_placeholder_concept_T",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_163": {
+            "mc_id": "llm_placeholder_concept_u",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_165": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_166": {
+            "mc_id": "llm_placeholder_concept_d_Omega",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_170": {
+            "mc_id": "llm_placeholder_concept_g",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_171": {
+            "mc_id": "llm_placeholder_concept_w",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_172": {
+            "mc_id": "llm_placeholder_concept_d_Gamma",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msubsup_6": {
+            "mc_id": "llm_placeholder_concept_H_0_1",
+            "tag_name": "msubsup",
+            "properties": {}
+        },
+        "msup_10": {
+            "mc_id": "llm_placeholder_concept_H_minus1",
+            "tag_name": "msup",
+            "properties": {}
+        }
+    }
+}

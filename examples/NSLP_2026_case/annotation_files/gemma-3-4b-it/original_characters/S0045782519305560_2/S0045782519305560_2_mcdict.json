@@ -1,0 +1,729 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "1": {
+            "code_var_name": "sigma_u",
+            "concept_category": "variable",
+            "description": "Cauchy stress tensor acting on the displacement field u\nJUSTIFICATION:\nDefined as C*epsilon_v.  The formula states: ∫(∇v⋅(κ∇u))dΩ = ∫v*f dΩ + ∫Γ_t v*q̄ dΓ.",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "properties": {
+                "tensor-rank": "4",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_1_18.0-start",
+                    "stop_id": "p_1_18.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_3",
+                    "stop_id": "formula_3",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "epsilon_v",
+            "concept_category": "variable",
+            "description": "Linearized strain tensor evaluated at the function v\nJUSTIFICATION:\nDefined as (1/2)*(∇u + ∇u^T). The formula states: ∫(∇v⋅(κ∇u))dΩ = ∫v*f dΩ + ∫Γ_t v*q̄ dΓ.",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "properties": {
+                "tensor-rank": "2",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                }
+            ]
+        },
+        "3": {
+            "code_var_name": "Omega_domain",
+            "concept_category": "domain",
+            "description": "Main computational domain\nJUSTIFICATION:\nExplicitly stated as Ω⊂R^d. Non-EXPLICIT REASONING: Commonly used notation for the domain of interest.",
+            "primitive_symbols": [
+                "cea9",
+                "64"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16.0-start",
+                    "stop_id": "p_1_16.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17.0-start",
+                    "stop_id": "p_1_17.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3-start",
+                    "stop_id": "p_1_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8.0-start",
+                    "stop_id": "p_1_8.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13.0-start",
+                    "stop_id": "p_1_13.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23.0-start",
+                    "stop_id": "p_1_23.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4.0-start",
+                    "stop_id": "p_1_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_3.0-start",
+                    "stop_id": "p_1_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0.0-start",
+                    "stop_id": "p_1_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7.0-start",
+                    "stop_id": "p_1_7.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12.0-start",
+                    "stop_id": "p_1_12.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18.0-start",
+                    "stop_id": "p_1_18.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10.0-start",
+                    "stop_id": "p_1_10.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1.0-start",
+                    "stop_id": "p_1_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_21.0-start",
+                    "stop_id": "p_1_21.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22.0-start",
+                    "stop_id": "p_1_22.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2.0-start",
+                    "stop_id": "p_1_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6.0-start",
+                    "stop_id": "p_1_6.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9.0-start",
+                    "stop_id": "p_1_9.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14.0-start",
+                    "stop_id": "p_1_14.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15.0-start",
+                    "stop_id": "p_1_15.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20.0-start",
+                    "stop_id": "p_1_20.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5.0-start",
+                    "stop_id": "p_1_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_1-start",
+                    "stop_id": "p_1_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19.0-start",
+                    "stop_id": "p_1_19.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_2-start",
+                    "stop_id": "p_1_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11.0-start",
+                    "stop_id": "p_1_11.0-end",
+                    "type": 0
+                }
+            ]
+        },
+        "4": {
+            "code_var_name": "Gamma_boundary",
+            "concept_category": "domain",
+            "description": "Boundary of the domain\nJUSTIFICATION:\nDefined as Γ≡Ω̄∖Ω, with outward unit normal n. Non-EXPLICIT REASONING: Standard notation for the boundary of a domain.",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_4-start",
+                    "stop_id": "p_1_4-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                }
+            ]
+        },
+        "5": {
+            "code_var_name": "n_normal",
+            "concept_category": "operator",
+            "description": "Outward unit normal vector\nJUSTIFICATION:\nExplicitly stated as the outward unit normal. Non-EXPLICIT REASONING: Standard notation for the outward unit normal vector.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "p_1_21-start",
+                    "stop_id": "p_1_21-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_8-start",
+                    "stop_id": "p_1_8-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_17-start",
+                    "stop_id": "p_1_17-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_23-start",
+                    "stop_id": "p_1_23-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_12-start",
+                    "stop_id": "p_1_12-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_10-start",
+                    "stop_id": "p_1_10-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_7-start",
+                    "stop_id": "p_1_7-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_20-start",
+                    "stop_id": "p_1_20-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_19-start",
+                    "stop_id": "p_1_19-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_9-start",
+                    "stop_id": "p_1_9-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_11-start",
+                    "stop_id": "p_1_11-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_6-start",
+                    "stop_id": "p_1_6-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_16-start",
+                    "stop_id": "p_1_16-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_18-start",
+                    "stop_id": "p_1_18-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_14-start",
+                    "stop_id": "p_1_14-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_15-start",
+                    "stop_id": "p_1_15-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_13-start",
+                    "stop_id": "p_1_13-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_5-start",
+                    "stop_id": "p_1_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_1_22-start",
+                    "stop_id": "p_1_22-end",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_Gamma_t": {
+            "code_var_name": "Gamma_t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma_t",
+            "primitive_symbols": [
+                "ce93",
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_V": {
+            "code_var_name": "V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Gamma": {
+            "code_var_name": "d_Gamma",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Gamma",
+            "primitive_symbols": [
+                "64",
+                "ce93"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_epsilon_v": {
+            "code_var_name": "epsilon_v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder epsilon_v",
+            "primitive_symbols": [
+                "ceb5",
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_sigma_u": {
+            "code_var_name": "sigma_u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder sigma_u",
+            "primitive_symbols": [
+                "cf83",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t_bar": {
+            "code_var_name": "t_bar",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t_bar",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_v": {
+            "code_var_name": "v",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v",
+            "primitive_symbols": [
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_2": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 6,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_101": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_104": {
+            "mc_id": "llm_placeholder_concept_v",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_105": {
+            "mc_id": "llm_placeholder_concept_V",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_84": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_86": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_88": {
+            "mc_id": "llm_placeholder_concept_v",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_91": {
+            "mc_id": "llm_placeholder_concept_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_92": {
+            "mc_id": "llm_placeholder_concept_v",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_94": {
+            "mc_id": "llm_placeholder_concept_b",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_99": {
+            "mc_id": "llm_placeholder_concept_v",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "msub_23": {
+            "mc_id": "llm_placeholder_concept_Gamma_t",
+            "properties": {},
+            "tag_name": "msub"
+        }
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "f_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder f_i",
+            "primitive_symbols": [
+                "69",
+                "66"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "v_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v_i",
+            "primitive_symbols": [
+                "69",
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "F_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder F_i",
+            "primitive_symbols": [
+                "69",
+                "46"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 3,
+    "occurences_dict": {
+        "msub_90": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_93": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_94": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

@@ -1,0 +1,398 @@
+{
+    "paper_id": "S0045782519305560_1",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_1": {
+            "initial_output": [
+                {
+                    "obj_name": "Omega",
+                    "mathml_representation": "<mi mathvariant=\"normal\">GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "R_d",
+                    "mathml_representation": "<msup><mi mathvariant=\"double-struck\">R</mi><mi>d</mi></msup>"
+                },
+                {
+                    "obj_name": "Gamma",
+                    "mathml_representation": "<mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi>"
+                },
+                {
+                    "obj_name": "Gamma_u",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">u</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_t",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">t</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_i",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">i</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_ij",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "kappa",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER KAPPA</mi>"
+                },
+                {
+                    "obj_name": "f",
+                    "mathml_representation": "<mi>f</mi>"
+                },
+                {
+                    "obj_name": "q_bar",
+                    "mathml_representation": "<mover><mi>q</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "u",
+                    "mathml_representation": "<mi>u</mi>"
+                },
+                {
+                    "obj_name": "U",
+                    "mathml_representation": "<mi mathvariant=\"script\">U</mi>"
+                },
+                {
+                    "obj_name": "V",
+                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
+                },
+                {
+                    "obj_name": "u_bar",
+                    "mathml_representation": "<mover><mi>u</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "b",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">b</mi>"
+                },
+                {
+                    "obj_name": "t_bar",
+                    "mathml_representation": "<mover><mi mathvariant=\"bold-italic\">t</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "sigma",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER SIGMA</mi>"
+                },
+                {
+                    "obj_name": "C",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">C</mi>"
+                },
+                {
+                    "obj_name": "epsilon",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER EPSILON</mi>"
+                },
+                {
+                    "obj_name": "epsilon_u",
+                    "mathml_representation": "<mrow><mi mathvariant=\"bold-italic\">GREEK SMALL LETTER EPSILON</mi><mo>(</mo><mi mathvariant=\"bold-italic\">u</mi><mo>)</mo></mrow>"
+                },
+                {
+                    "obj_name": "B",
+                    "mathml_representation": "<mi mathvariant=\"script\">B</mi>"
+                },
+                {
+                    "obj_name": "L",
+                    "mathml_representation": "<mi mathvariant=\"script\">L</mi>"
+                },
+                {
+                    "obj_name": "U_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"script\">U</mi><mi>h</mi></msup>"
+                },
+                {
+                    "obj_name": "V_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"script\">V</mi><mi>h</mi></msup>"
+                },
+                {
+                    "obj_name": "n",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
+                },
+                {
+                    "obj_name": "n_i",
+                    "mathml_representation": "<msub><mi mathvariant=\"bold-italic\">n</mi><mi>i</mi></msub>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "Omega",
+                    "mathml_representation": "<mi mathvariant=\"normal\">GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "R_d",
+                    "mathml_representation": "<msup><mi mathvariant=\"double-struck\">R</mi><mi>d</mi></msup>"
+                },
+                {
+                    "obj_name": "Gamma",
+                    "mathml_representation": "<mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi>"
+                },
+                {
+                    "obj_name": "Gamma_u",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">u</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_t",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">t</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_i",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi mathvariant=\"normal\">i</mi></msub>"
+                },
+                {
+                    "obj_name": "Gamma_ij",
+                    "mathml_representation": "<msub><mi mathvariant=\"normal\">GREEK CAPITAL LETTER GAMMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "kappa",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER KAPPA</mi>"
+                },
+                {
+                    "obj_name": "f",
+                    "mathml_representation": "<mi>f</mi>"
+                },
+                {
+                    "obj_name": "q_bar",
+                    "mathml_representation": "<mover><mi>q</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "u",
+                    "mathml_representation": "<mi>u</mi>"
+                },
+                {
+                    "obj_name": "U",
+                    "mathml_representation": "<mi mathvariant=\"script\">U</mi>"
+                },
+                {
+                    "obj_name": "V",
+                    "mathml_representation": "<mi mathvariant=\"script\">V</mi>"
+                },
+                {
+                    "obj_name": "u_bar",
+                    "mathml_representation": "<mover><mi>u</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "b",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">b</mi>"
+                },
+                {
+                    "obj_name": "t_bar",
+                    "mathml_representation": "<mover><mi mathvariant=\"bold-italic\">t</mi><mo>COMBINING MACRON</mo></mover>"
+                },
+                {
+                    "obj_name": "sigma",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER SIGMA</mi>"
+                },
+                {
+                    "obj_name": "C",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">C</mi>"
+                },
+                {
+                    "obj_name": "epsilon",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">GREEK SMALL LETTER EPSILON</mi>"
+                },
+                {
+                    "obj_name": "epsilon_u",
+                    "mathml_representation": "<mrow><mi mathvariant=\"bold-italic\">GREEK SMALL LETTER EPSILON</mi><mo>(</mo><mi mathvariant=\"bold-italic\">u</mi><mo>)</mo></mrow>"
+                },
+                {
+                    "obj_name": "B",
+                    "mathml_representation": "<mi mathvariant=\"script\">B</mi>"
+                },
+                {
+                    "obj_name": "L",
+                    "mathml_representation": "<mi mathvariant=\"script\">L</mi>"
+                },
+                {
+                    "obj_name": "U_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"script\">U</mi><mi>h</mi></msup>"
+                },
+                {
+                    "obj_name": "V_h",
+                    "mathml_representation": "<msup><mi mathvariant=\"script\">V</mi><mi>h</mi></msup>"
+                },
+                {
+                    "obj_name": "n",
+                    "mathml_representation": "<mi mathvariant=\"bold-italic\">n</mi>"
+                },
+                {
+                    "obj_name": "n_i",
+                    "mathml_representation": "<msub><mi mathvariant=\"bold-italic\">n</mi><mi>i</mi></msub>"
+                }
+            ],
+            "new_groups_dict": {},
+            "new_occurences_dict": {
+                "kappa": [
+                    {
+                        "comp_tag_id": "mi_57",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "ceba"
+                        ],
+                        "ids_set": [
+                            "mi_57"
+                        ]
+                    }
+                ],
+                "f": [
+                    {
+                        "comp_tag_id": "mi_64",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_64"
+                        ]
+                    }
+                ],
+                "q_bar": [
+                    {
+                        "comp_tag_id": "mover_8",
+                        "tag_name": "mover",
+                        "primitive_symbols": [
+                            "71"
+                        ],
+                        "ids_set": [
+                            "mi_70",
+                            "mover_8"
+                        ]
+                    }
+                ],
+                "u": [
+                    {
+                        "comp_tag_id": "mi_59",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_59"
+                        ]
+                    }
+                ],
+                "V": [
+                    {
+                        "comp_tag_id": "mi_74",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "56"
+                        ],
+                        "ids_set": [
+                            "mi_74"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "kappa",
+                    "representative_id": "mi_57",
+                    "ids_set": [
+                        "mi_57"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi mathvariant=\"bold-italic\" id=\"mi_57\">GREEK SMALL LETTER KAPPA</mi>"
+                },
+                {
+                    "variable_name": "f",
+                    "representative_id": "mi_64",
+                    "ids_set": [
+                        "mi_64"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_64\">f</mi>"
+                },
+                {
+                    "variable_name": "u",
+                    "representative_id": "mi_59",
+                    "ids_set": [
+                        "mi_59"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi id=\"mi_59\">u</mi>"
+                },
+                {
+                    "variable_name": "V",
+                    "representative_id": "mi_74",
+                    "ids_set": [
+                        "mi_74"
+                    ],
+                    "ids_count": 1,
+                    "mathml": "<mi mathvariant=\"script\" id=\"mi_74\">V</mi>"
+                },
+                {
+                    "variable_name": "q_bar",
+                    "representative_id": "mover_8",
+                    "ids_set": [
+                        "mi_70",
+                        "mover_8"
+                    ],
+                    "ids_count": 2,
+                    "mathml": "<mover accent=\"true\" id=\"mover_8\"><mi id=\"mi_70\">q</mi><mo>COMBINING MACRON</mo></mover>"
+                }
+            ],
+            "conflicts_list": []
+        },
+        "total": {
+            "final_new_groups_dict": {},
+            "final_new_occurences_dict": {
+                "kappa": [
+                    {
+                        "comp_tag_id": "mi_57",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "ceba"
+                        ],
+                        "ids_set": [
+                            "mi_57"
+                        ]
+                    }
+                ],
+                "f": [
+                    {
+                        "comp_tag_id": "mi_64",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_64"
+                        ]
+                    }
+                ],
+                "q_bar": [
+                    {
+                        "comp_tag_id": "mover_8",
+                        "tag_name": "mover",
+                        "primitive_symbols": [
+                            "71"
+                        ],
+                        "ids_set": [
+                            "mi_70",
+                            "mover_8"
+                        ]
+                    }
+                ],
+                "u": [
+                    {
+                        "comp_tag_id": "mi_59",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "75"
+                        ],
+                        "ids_set": [
+                            "mi_59"
+                        ]
+                    }
+                ],
+                "V": [
+                    {
+                        "comp_tag_id": "mi_74",
+                        "tag_name": "mi",
+                        "primitive_symbols": [
+                            "56"
+                        ],
+                        "ids_set": [
+                            "mi_74"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

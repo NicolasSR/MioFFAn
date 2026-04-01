@@ -1,0 +1,162 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "u_lk",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_lk",
+            "primitive_symbols": [
+                "75",
+                "6b",
+                "6c"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "v_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v_i",
+            "primitive_symbols": [
+                "69",
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "f_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder f_i",
+            "primitive_symbols": [
+                "69",
+                "66"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "v_i_j",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder v_i_j",
+            "primitive_symbols": [
+                "6a",
+                "69",
+                "76"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "F_i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder F_i",
+            "primitive_symbols": [
+                "46",
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "i",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder i",
+            "primitive_symbols": [
+                "69"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "6": {
+            "code_var_name": "C_ijkl",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder C_ijkl",
+            "primitive_symbols": [
+                "6b",
+                "6a",
+                "69",
+                "43",
+                "6c"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "7": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "8": {
+            "code_var_name": "u_kl",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_kl",
+            "primitive_symbols": [
+                "6b",
+                "6c",
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_12": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 9,
+    "occurences_dict": {
+        "mi_247": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_251": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "msub_85": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_86": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_87": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_88": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_90": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_93": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "msub"
+        },
+        "msub_94": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "msub"
+        }
+    }
+}

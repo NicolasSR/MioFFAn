@@ -1,0 +1,179 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "description": "Placeholder Gamma_N",
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_nabla_s": {
+            "code_var_name": "nabla_s",
+            "description": "Placeholder nabla_s",
+            "primitive_symbols": [
+                "e28887",
+                "73"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_p_h": {
+            "code_var_name": "p_h",
+            "description": "Placeholder p_h",
+            "primitive_symbols": [
+                "70",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_u_h": {
+            "code_var_name": "u_h",
+            "description": "Placeholder u_h",
+            "primitive_symbols": [
+                "75",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        },
+        "llm_placeholder_concept_w_h": {
+            "code_var_name": "w_h",
+            "description": "Placeholder w_h",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "sog_list": [],
+            "properties": {},
+            "concept_category": "symbol-placeholder"
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 0,
+    "occurences_dict": {
+        "mi_126": {
+            "mc_id": "llm_placeholder_concept_rho",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_136": {
+            "mc_id": "llm_placeholder_concept_mu",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_t",
+            "tag_name": "mi",
+            "properties": {}
+        },
+        "msub_30": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_31": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_32": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_33": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_34": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_35": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_36": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_37": {
+            "mc_id": "llm_placeholder_concept_p_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_39": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msub_40": {
+            "mc_id": "llm_placeholder_concept_Gamma_N",
+            "tag_name": "msub",
+            "properties": {}
+        },
+        "msup_12": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        },
+        "msup_13": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        },
+        "msup_14": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "tag_name": "msup",
+            "properties": {}
+        }
+    }
+}

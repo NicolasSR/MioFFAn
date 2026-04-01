@@ -1,0 +1,366 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_DEFINE_AND_ASSIGN_CONCEPTS": {
+        "segmented_symbols_list": {
+            "llm_placeholder_concept_d_Omega": {
+                "obj_name": "d_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-0\" class=\"custom-group\"><mi id=\"mi_237\">d</mi>\n          <mi id=\"mi_238\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-2\" class=\"custom-group\"><mi id=\"mi_245\">d</mi>\n          <mi id=\"mi_246\">\u03a9</mi>\n          </mstyle>",
+                    "<mstyle id=\"custom-group-3\" class=\"custom-group\"><mi id=\"mi_252\">d</mi>\n          <mi id=\"mi_253\">\u03a9</mi>\n          </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_delta_Omega": {
+                "obj_name": "delta_Omega",
+                "mathml_representations_list": [
+                    "<mstyle id=\"custom-group-1\" class=\"custom-group\"><mi id=\"mi_239\">\u2202</mi>\n              <mi id=\"mi_240\">\u03a9</mi>\n            </mstyle>"
+                ]
+            },
+            "llm_placeholder_concept_Omega": {
+                "obj_name": "Omega",
+                "mathml_representations_list": [
+                    "<mi id=\"mi_222\">\u03a9</mi>\n            ",
+                    "<mi id=\"mi_247\">\u03a9</mi>\n            "
+                ]
+            },
+            "llm_placeholder_concept_C_i_j_k_l": {
+                "obj_name": "C_i_j_k_l",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_85\">\n                <mrow>\n                  <mi id=\"mi_223\">C</mi>\n                </mrow>\n                <mrow>\n                  <mi id=\"mi_224\">i</mi>\n                  <mi id=\"mi_225\">j</mi>\n                  <mi id=\"mi_226\">k</mi>\n                  <mi id=\"mi_227\">l</mi>\n                </mrow>\n              </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_u_k_l": {
+                "obj_name": "u_k_l",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_86\">\n              <mrow>\n                <mi id=\"mi_228\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_229\">k</mi>\n                <mo>,</mo>\n                <mi id=\"mi_230\">l</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_u_l_k": {
+                "obj_name": "u_l_k",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_87\">\n              <mrow>\n                <mi id=\"mi_231\">u</mi>\n              </mrow>\n              <mrow>\n                <mi id=\"mi_232\">l</mi>\n                <mo>,</mo>\n                <mi id=\"mi_233\">k</mi>\n              </mrow>\n            </msub>\n            "
+                ]
+            },
+            "llm_placeholder_concept_v_i_j": {
+                "obj_name": "v_i_j",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_88\">\n            <mrow>\n              <mi id=\"mi_234\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_235\">i</mi>\n              <mo>,</mo>\n              <mi id=\"mi_236\">j</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_F_i": {
+                "obj_name": "F_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_90\">\n            <mrow>\n              <mi id=\"mi_241\">F</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_242\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_v_i": {
+                "obj_name": "v_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_91\">\n            <mrow>\n              <mi id=\"mi_243\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_244\">i</mi>\n            </mrow>\n          </msub>\n          ",
+                    "<msub id=\"msub_94\">\n            <mrow>\n              <mi id=\"mi_250\">v</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_251\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            },
+            "llm_placeholder_concept_f_i": {
+                "obj_name": "f_i",
+                "mathml_representations_list": [
+                    "<msub id=\"msub_93\">\n            <mrow>\n              <mi id=\"mi_248\">f</mi>\n            </mrow>\n            <mrow>\n              <mi id=\"mi_249\">i</mi>\n            </mrow>\n          </msub>\n          "
+                ]
+            }
+        },
+        "concepts_list": [
+            {
+                "name": "Omega",
+                "type": "DOMAIN",
+                "description": "Computational domain region",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Appears in integral expressions defining the physical space \u03a9."
+            },
+            {
+                "name": "d_Omega",
+                "type": "INTEGRATION_VAR",
+                "description": "Differential volume element for integration over the domain",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: The symbol \"d \u03a9\" is used as the integration differential in several \u222b\u03a9 integrals."
+            },
+            {
+                "name": "delta_Omega",
+                "type": "DOMAIN",
+                "description": "Derivative of the domain boundary normal vector",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: The symbol \u2202\u03a9 appears in divergence\u2011theorem forms, indicating a derivative on the domain boundary."
+            },
+            {
+                "name": "C_i_j_k_l",
+                "type": "VARIABLE",
+                "description": "3rd\u2011order stiffness tensor component",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Defined as C\u2096\u029f\u1d62\u2c7c in Hooke\u2019s law relation (eq.\u202f9)."
+            },
+            {
+                "name": "u_k_l",
+                "type": "VARIABLE",
+                "description": "Displacement component u\u2096,\u2097",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Appears as subscript pair (k,\u202fl) in the Hooke\u2011law term of eq.\u202f9."
+            },
+            {
+                "name": "u_l_k",
+                "type": "VARIABLE",
+                "description": "Alternative ordering of displacement components u\u2097\u2096",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Symmetric to u\u2096,\u2097, used in the same buckling relation (eq.\u202f9)."
+            },
+            {
+                "name": "v_i_j",
+                "type": "VARIABLE",
+                "description": "Integration factor/variational weight function",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Subscripted function v\u1d62\u2c7c integrates against the stiffness term in eq.\u202f10."
+            },
+            {
+                "name": "F_i",
+                "type": "VARIABLE",
+                "description": "Component of body force vector",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Eq.\u202f8 shows F\u1d62 as a third component of the body force F\u1d62\ud835\udc56."
+            },
+            {
+                "name": "sigma_i_j",
+                "type": "VARIABLE",
+                "description": "Stress tensor component",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u03c3\u1d62\u2c7c is the i,j entry of the stress matrix in the equilibrium equation."
+            },
+            {
+                "name": "n",
+                "type": "VARIABLE",
+                "description": "Outward unit normal vector on \u03a9",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: Eq.\u202f5 defines n as the outward unit normal to the domain boundary."
+            },
+            {
+                "name": "partial_Omega",
+                "type": "DOMAIN",
+                "description": "Gradient of the domain boundary (\u2207\u03a9)",
+                "justification": "NON-EXPLICIT JUSTIFICATIONS: \u2202\u03a9 in eq.\u202f5 denotes the gradient of the domain boundary."
+            }
+        ],
+        "concept_assignments": {
+            "d_Omega": "INTEGRATION_VAR",
+            "Omega": "DOMAIN",
+            "C_i_j_k_l": "C_i_j_k_l",
+            "u_k_l": "u_k_l",
+            "u_l_k": "u_l_k",
+            "v_i_j": "v_i_j",
+            "F_i": "F_i"
+        },
+        "properties_assignment": {
+            "C_i_j_k_l": {
+                "type": "defined-function",
+                "tensor_rank": "4"
+            },
+            "u_k_l": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "u_l_k": {
+                "type": "trial-function",
+                "tensor_rank": "1"
+            },
+            "v_i_j": {
+                "type": "test-function",
+                "tensor_rank": "1"
+            },
+            "F_i": {
+                "type": "numerical-variable",
+                "tensor_rank": "1"
+            }
+        },
+        "final_output_dict": {
+            "concepts_info_list": [
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_C_i_j_k_l"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "C_i_j_k_l",
+                        "description": "3rd\u2011order stiffness tensor component\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Defined as C\u2096\u029f\u1d62\u2c7c in Hooke\u2019s law relation (eq.\u202f9).",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "4",
+                            "variable-type": "defined-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u_k_l"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "u_k_l",
+                        "description": "Displacement component u\u2096,\u2097\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as subscript pair (k,\u202fl) in the Hooke\u2011law term of eq.\u202f9.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_u_l_k"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "u_l_k",
+                        "description": "Alternative ordering of displacement components u\u2097\u2096\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Symmetric to u\u2096,\u2097, used in the same buckling relation (eq.\u202f9).",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "trial-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_v_i_j"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "v_i_j",
+                        "description": "Integration factor/variational weight function\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Subscripted function v\u1d62\u2c7c integrates against the stiffness term in eq.\u202f10.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "test-function"
+                        }
+                    }
+                },
+                {
+                    "original_mc_ids": [
+                        "llm_placeholder_concept_F_i"
+                    ],
+                    "new_concept_info": {
+                        "code_var_name": "F_i",
+                        "description": "Component of body force vector\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Eq.\u202f8 shows F\u1d62 as a third component of the body force F\u1d62\ud835\udc56.",
+                        "concept_category": "variable",
+                        "properties": {
+                            "tensor-rank": "1",
+                            "variable-type": "numerical-variable"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "AUTO_HIGHLIGHT_SOURCES": {
+        "0": {
+            "justifications": {
+                "concept_name": "C_i_j_k_l",
+                "description": "3rd\u2011order stiffness tensor component\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Defined as C\u2096\u029f\u1d62\u2c7c in Hooke\u2019s law relation (eq.\u202f9)."
+            },
+            "grounding_ids_raw": [
+                "formula_11"
+            ]
+        },
+        "1": {
+            "justifications": {
+                "concept_name": "u_k_l",
+                "description": "Displacement component u\u2096,\u2097\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Appears as subscript pair (k,\u202fl) in the Hooke\u2011law term of eq.\u202f9."
+            },
+            "grounding_ids_raw": [
+                "formula_11"
+            ]
+        },
+        "2": {
+            "justifications": {
+                "concept_name": "u_l_k",
+                "description": "Alternative ordering of displacement components u\u2097\u2096\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Symmetric to u\u2096,\u2097, used in the same buckling relation (eq.\u202f9)."
+            },
+            "grounding_ids_raw": [
+                "formula_11"
+            ]
+        },
+        "3": {
+            "justifications": {
+                "concept_name": "v_i_j",
+                "description": "Integration factor/variational weight function\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Subscripted function v\u1d62\u2c7c integrates against the stiffness term in eq.\u202f10."
+            },
+            "grounding_ids_raw": [
+                "formula_11",
+                "formula_12"
+            ]
+        },
+        "4": {
+            "justifications": {
+                "concept_name": "F_i",
+                "description": "Component of body force vector\n",
+                "justifications": ":\nNON-EXPLICIT \nS: Eq.\u202f8 shows F\u1d62 as a third component of the body force F\u1d62\ud835\udc56."
+            },
+            "grounding_ids_raw": [
+                "formula_8"
+            ]
+        },
+        "total": {
+            "matched_grounding_ids": {
+                "0": {
+                    "spans": [],
+                    "divs": [
+                        "formula_11"
+                    ]
+                },
+                "1": {
+                    "spans": [],
+                    "divs": [
+                        "formula_11"
+                    ]
+                },
+                "2": {
+                    "spans": [],
+                    "divs": [
+                        "formula_11"
+                    ]
+                },
+                "3": {
+                    "spans": [],
+                    "divs": [
+                        "formula_11",
+                        "formula_12"
+                    ]
+                },
+                "4": {
+                    "spans": [],
+                    "divs": [
+                        "formula_8"
+                    ]
+                }
+            },
+            "final_output_dict": {
+                "sogs_info_list": [
+                    {
+                        "mc_id": "0",
+                        "start_id": "formula_11",
+                        "stop_id": "formula_11"
+                    },
+                    {
+                        "mc_id": "1",
+                        "start_id": "formula_11",
+                        "stop_id": "formula_11"
+                    },
+                    {
+                        "mc_id": "2",
+                        "start_id": "formula_11",
+                        "stop_id": "formula_11"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "formula_11",
+                        "stop_id": "formula_11"
+                    },
+                    {
+                        "mc_id": "3",
+                        "start_id": "formula_12",
+                        "stop_id": "formula_12"
+                    },
+                    {
+                        "mc_id": "4",
+                        "start_id": "formula_8",
+                        "stop_id": "formula_8"
+                    }
+                ]
+            }
+        }
+    }
+}

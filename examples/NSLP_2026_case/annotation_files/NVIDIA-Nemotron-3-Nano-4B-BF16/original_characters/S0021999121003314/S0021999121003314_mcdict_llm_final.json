@@ -1,0 +1,272 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "rho",
+            "concept_category": "variable",
+            "description": "fluid density\nJUSTIFICATION:\nappears as ρ in momentum equation (1) and continuity. Explicitly defined as variable in §1.",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_4_5-start",
+                    "stop_id": "p_4_5-end",
+                    "type": 0
+                }
+            ]
+        },
+        "1": {
+            "code_var_name": "mu",
+            "concept_category": "variable",
+            "description": "dynamic viscosity\nJUSTIFICATION:\nμ is the fluid dynamic viscosity, described in the non‑Newtonian model.",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_6_1-start",
+                    "stop_id": "p_6_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0.0-start",
+                    "stop_id": "p_6_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_5-start",
+                    "stop_id": "p_6_5-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3-start",
+                    "stop_id": "p_6_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_5.0-start",
+                    "stop_id": "p_6_5.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4.0-start",
+                    "stop_id": "p_6_4.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2.0-start",
+                    "stop_id": "p_6_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_2-start",
+                    "stop_id": "p_6_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_3.0-start",
+                    "stop_id": "p_6_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_0-start",
+                    "stop_id": "p_6_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_1.0-start",
+                    "stop_id": "p_6_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_6_4-start",
+                    "stop_id": "p_6_4-end",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_Gamma_N": {
+            "code_var_name": "Gamma_N",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Gamma_N",
+            "primitive_symbols": [
+                "ce93",
+                "4e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_nabla_s": {
+            "code_var_name": "nabla_s",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder nabla_s",
+            "primitive_symbols": [
+                "e28887",
+                "73"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_p_h": {
+            "code_var_name": "p_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder p_h",
+            "primitive_symbols": [
+                "70",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u_h": {
+            "code_var_name": "u_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u_h",
+            "primitive_symbols": [
+                "75",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_w_h": {
+            "code_var_name": "w_h",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w_h",
+            "primitive_symbols": [
+                "77",
+                "68"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_8": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 2,
+    "occurences_dict": {
+        "mi_126": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_136": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_152": {
+            "mc_id": "llm_placeholder_concept_t",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "msub_30": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_31": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_32": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_33": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_34": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_35": {
+            "mc_id": "llm_placeholder_concept_u_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_36": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_37": {
+            "mc_id": "llm_placeholder_concept_p_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_39": {
+            "mc_id": "llm_placeholder_concept_w_h",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msub_40": {
+            "mc_id": "llm_placeholder_concept_Gamma_N",
+            "properties": {},
+            "tag_name": "msub"
+        },
+        "msup_12": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "properties": {},
+            "tag_name": "msup"
+        },
+        "msup_13": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "properties": {},
+            "tag_name": "msup"
+        },
+        "msup_14": {
+            "mc_id": "llm_placeholder_concept_nabla_s",
+            "properties": {},
+            "tag_name": "msup"
+        }
+    }
+}

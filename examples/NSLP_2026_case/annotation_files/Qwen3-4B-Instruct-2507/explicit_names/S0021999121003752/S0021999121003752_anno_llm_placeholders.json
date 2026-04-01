@@ -1,0 +1,135 @@
+{
+    "_anno_version": "1.0",
+    "_annotator": "YOUR NAME",
+    "groups": {
+        "custom-group-0": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_98",
+            "stop_id": "mi_100"
+        },
+        "custom-group-1": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_111",
+            "stop_id": "mi_113"
+        },
+        "custom-group-2": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_128",
+            "stop_id": "mi_129"
+        }
+    },
+    "next_available_group_id": 3,
+    "primitive_symbols": {
+        "41": {
+            "text": "A",
+            "unicode_name": "LATIN CAPITAL LETTER A"
+        },
+        "44": {
+            "text": "D",
+            "unicode_name": "LATIN CAPITAL LETTER D"
+        },
+        "48": {
+            "text": "H",
+            "unicode_name": "LATIN CAPITAL LETTER H"
+        },
+        "49": {
+            "text": "I",
+            "unicode_name": "LATIN CAPITAL LETTER I"
+        },
+        "4c": {
+            "text": "L",
+            "unicode_name": "LATIN CAPITAL LETTER L"
+        },
+        "4e": {
+            "text": "N",
+            "unicode_name": "LATIN CAPITAL LETTER N"
+        },
+        "52": {
+            "text": "R",
+            "unicode_name": "LATIN CAPITAL LETTER R"
+        },
+        "54": {
+            "text": "T",
+            "unicode_name": "LATIN CAPITAL LETTER T"
+        },
+        "62": {
+            "text": "b",
+            "unicode_name": "LATIN SMALL LETTER B"
+        },
+        "64": {
+            "text": "d",
+            "unicode_name": "LATIN SMALL LETTER D"
+        },
+        "69": {
+            "text": "i",
+            "unicode_name": "LATIN SMALL LETTER I"
+        },
+        "6e": {
+            "text": "n",
+            "unicode_name": "LATIN SMALL LETTER N"
+        },
+        "70": {
+            "text": "p",
+            "unicode_name": "LATIN SMALL LETTER P"
+        },
+        "71": {
+            "text": "q",
+            "unicode_name": "LATIN SMALL LETTER Q"
+        },
+        "73": {
+            "text": "s",
+            "unicode_name": "LATIN SMALL LETTER S"
+        },
+        "74": {
+            "text": "t",
+            "unicode_name": "LATIN SMALL LETTER T"
+        },
+        "75": {
+            "text": "u",
+            "unicode_name": "LATIN SMALL LETTER U"
+        },
+        "77": {
+            "text": "w",
+            "unicode_name": "LATIN SMALL LETTER W"
+        },
+        "78": {
+            "text": "x",
+            "unicode_name": "LATIN SMALL LETTER X"
+        },
+        "ce93": {
+            "text": "Γ",
+            "unicode_name": "GREEK CAPITAL LETTER GAMMA"
+        },
+        "cea9": {
+            "text": "Ω",
+            "unicode_name": "GREEK CAPITAL LETTER OMEGA"
+        },
+        "ceb3": {
+            "text": "γ",
+            "unicode_name": "GREEK SMALL LETTER GAMMA"
+        },
+        "ceba": {
+            "text": "κ",
+            "unicode_name": "GREEK SMALL LETTER KAPPA"
+        },
+        "cebc": {
+            "text": "μ",
+            "unicode_name": "GREEK SMALL LETTER MU"
+        },
+        "cf81": {
+            "text": "ρ",
+            "unicode_name": "GREEK SMALL LETTER RHO"
+        },
+        "cf83": {
+            "text": "σ",
+            "unicode_name": "GREEK SMALL LETTER SIGMA"
+        },
+        "e28887": {
+            "text": "∇",
+            "unicode_name": "NABLA"
+        }
+    }
+}

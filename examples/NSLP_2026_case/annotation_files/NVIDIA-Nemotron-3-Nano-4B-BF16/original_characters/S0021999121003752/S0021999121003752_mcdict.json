@@ -1,0 +1,523 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "omega_volume",
+            "concept_category": "domain",
+            "description": "Fluid domain Ω\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: Appears as the domain over which all integrals are performed.",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_8",
+                    "stop_id": "formula_8",
+                    "type": 0
+                }
+            ]
+        },
+        "1": {
+            "code_var_name": "omega_vol_elem",
+            "concept_category": "integration-var",
+            "description": "Volume element dΩ used in the volume integrals\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: DΩ is explicitly given as the differential of integration in eqs. 1, 2, 17.",
+            "primitive_symbols": [
+                "cea9",
+                "64"
+            ],
+            "properties": {},
+            "sog_list": [
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "rho",
+            "concept_category": "variable",
+            "description": "Fluid density\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: ρ appears in continuity equations and Euler equations.",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "3": {
+            "code_var_name": "b",
+            "concept_category": "variable",
+            "description": "Fluid compressibility coefficient\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: b multiplies the term ρ∂u/∂t in eq. 1 and defines incompressibility.",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_20_sub_sub.0-start",
+                    "stop_id": "p_20_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                }
+            ]
+        },
+        "4": {
+            "code_var_name": "p",
+            "concept_category": "variable",
+            "description": "Fluid pressure\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: p is the pressure variable in the momentum equations.",
+            "primitive_symbols": [
+                "70"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_9",
+                    "stop_id": "formula_9",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                }
+            ]
+        },
+        "5": {
+            "code_var_name": "mu",
+            "concept_category": "variable",
+            "description": "Fluid dynamic viscosity\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: μ appears in the stress tensor and traction definition.",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "numerical-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_6",
+                    "stop_id": "formula_6",
+                    "type": 0
+                }
+            ]
+        },
+        "6": {
+            "code_var_name": "T",
+            "concept_category": "variable",
+            "description": "Traction vector\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: T is defined as the traction vector from Eq. (7) and used in integral representations.",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_11_3-start",
+                    "stop_id": "p_11_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_3.0-start",
+                    "stop_id": "p_11_3.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_2-start",
+                    "stop_id": "p_11_2-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_0-start",
+                    "stop_id": "p_11_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_2.0-start",
+                    "stop_id": "p_11_2.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_0.0-start",
+                    "stop_id": "p_11_0.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_1.0-start",
+                    "stop_id": "p_11_1.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_11_1-start",
+                    "stop_id": "p_11_1-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_7",
+                    "stop_id": "formula_7",
+                    "type": 0
+                }
+            ]
+        },
+        "7": {
+            "code_var_name": "t",
+            "concept_category": "variable",
+            "description": "Time variable\nJUSTIFICATION:\nNON-EXPLICIT JUSTIFICATIONS: t is the explicit time argument in all time‑derivative terms.",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {
+                "tensor-rank": "0",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_1_0-start",
+                    "stop_id": "p_1_0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_20_sub_sub.0-start",
+                    "stop_id": "p_20_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_4_sub_sub.0-start",
+                    "stop_id": "p_4_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_19_3-start",
+                    "stop_id": "p_19_3-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_2_sub_sub.0-start",
+                    "stop_id": "p_2_sub_sub.0-end",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_1",
+                    "stop_id": "formula_1",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_2",
+                    "stop_id": "formula_2",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_10",
+                    "stop_id": "formula_10",
+                    "type": 0
+                }
+            ]
+        },
+        "llm_placeholder_concept_Omega": {
+            "code_var_name": "Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_T": {
+            "code_var_name": "T",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder T",
+            "primitive_symbols": [
+                "54"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_b": {
+            "code_var_name": "b",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder b",
+            "primitive_symbols": [
+                "62"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_Omega": {
+            "code_var_name": "d_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_d_delta_Omega": {
+            "code_var_name": "d_delta_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder d_delta_Omega",
+            "primitive_symbols": [
+                "64",
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_delta_Omega": {
+            "code_var_name": "delta_Omega",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder delta_Omega",
+            "primitive_symbols": [
+                "cea9"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_mu": {
+            "code_var_name": "mu",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder mu",
+            "primitive_symbols": [
+                "cebc"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_p": {
+            "code_var_name": "p",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder p",
+            "primitive_symbols": [
+                "70"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_rho": {
+            "code_var_name": "rho",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder rho",
+            "primitive_symbols": [
+                "cf81"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_t": {
+            "code_var_name": "t",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder t",
+            "primitive_symbols": [
+                "74"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_u": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "llm_placeholder_concept_w": {
+            "code_var_name": "w",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder w",
+            "primitive_symbols": [
+                "77"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_9": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 8,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-2": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "llm_placeholder_concept_d_delta_Omega",
+            "properties": {},
+            "tag_name": "mstyle"
+        },
+        "mi_100": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_101": {
+            "mc_id": "llm_placeholder_concept_w",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_104": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_105": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_106": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_107": {
+            "mc_id": "llm_placeholder_concept_w",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_110": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_111": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_113": {
+            "mc_id": "llm_placeholder_concept_w",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_116": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_117": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_119": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_121": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_124": {
+            "mc_id": "llm_placeholder_concept_w",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_127": {
+            "mc_id": "llm_placeholder_concept_delta_Omega",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_128": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_129": {
+            "mc_id": "llm_placeholder_concept_w",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_94": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_95": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_96": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        },
+        "mi_97": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_98": {
+            "mc_id": "llm_placeholder_concept_u",
+            "properties": {},
+            "tag_name": "mi"
+        }
+    }
+}

@@ -1,0 +1,179 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_12": {
+            "initial_output": [
+                {
+                    "obj_name": "sigma_i_j_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "C_i_j_k_l",
+                    "mathml_representation": "<mi>C</mi><msub >i</mi><mi>j</mi><mi>k</mi><mi>l</mi>"
+                },
+                {
+                    "obj_name": "epsilon_k_l",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >k</mi><mi>l</mi>"
+                },
+                {
+                    "obj_name": "u_i_j",
+                    "mathml_representation": "<mi>u</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<mi>v</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "epsilon_i_j",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "u_i",
+                    "mathml_representation": "<mi>u</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "n_i",
+                    "mathml_representation": "<mi>n</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<mi>F</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "epsilon_i_j",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "epsilon_i_j",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "u_i_j",
+                    "mathml_representation": "<mi>u</mi><msub >i</mi><mi>j</mi>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "sigma_i_j_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<mi>f</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "sigma_i_j",
+                    "mathml_representation": "<mi>\u03c3</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "C_i_j_k_l",
+                    "mathml_representation": "<mi>C</mi><msub >i</mi><mi>j</mi><mi>k</mi><mi>l</mi>"
+                },
+                {
+                    "obj_name": "epsilon_k_l",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >k</mi><mi>l</mi>"
+                },
+                {
+                    "obj_name": "u_i_j",
+                    "mathml_representation": "<mi>u</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<mi>v</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "epsilon_i_j",
+                    "mathml_representation": "<mi>\u03b5</mi><msub >i</mi><mi>j</mi>"
+                },
+                {
+                    "obj_name": "u_i",
+                    "mathml_representation": "<mi>u</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "n_i",
+                    "mathml_representation": "<mi>n</mi><msub >i</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<mi>F</mi><msub >i</mi>"
+                }
+            ],
+            "new_groups_dict": {},
+            "new_occurences_dict": {},
+            "all_id_sets": [],
+            "conflicts_list": []
+        },
+        "total": {
+            "final_new_groups_dict": {},
+            "final_new_occurences_dict": {}
+        }
+    }
+}

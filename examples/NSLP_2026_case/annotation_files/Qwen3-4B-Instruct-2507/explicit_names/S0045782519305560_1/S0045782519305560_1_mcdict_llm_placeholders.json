@@ -1,0 +1,89 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "f",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder f",
+            "primitive_symbols": [
+                "66"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "1": {
+            "code_var_name": "V",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder V",
+            "primitive_symbols": [
+                "56"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "2": {
+            "code_var_name": "kappa",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder kappa",
+            "primitive_symbols": [
+                "ceba"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "3": {
+            "code_var_name": "u",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder u",
+            "primitive_symbols": [
+                "75"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "q_bar",
+            "concept_category": "symbol-placeholder",
+            "description": "Placeholder q_bar",
+            "primitive_symbols": [
+                "71"
+            ],
+            "properties": {},
+            "sog_list": []
+        }
+    },
+    "eoi_dict": {
+        "formula_1": {
+            "symbolic_code": ""
+        }
+    },
+    "next_available_mc_id": 5,
+    "occurences_dict": {
+        "mi_57": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_59": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_64": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_74": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mover_8": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mover"
+        }
+    }
+}

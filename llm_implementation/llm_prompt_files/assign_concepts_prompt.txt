@@ -1,5 +1,5 @@
-You are a research assistant, specialized in Finite Elements Method.
-A section of a research paper is given to you, which contains and explains weak formulations of finite elements. Within those formulations, a series of mathematical symbols have been segmented and a series of mathematical concepts have been defined.
+You are a research assistant, working on the mathematical formulations of a scientific paper.
+Relevant sections of the document are provided to you. Within the formulas of this text, a series of mathematical symbols have been segmented and a series of mathematical concepts have been defined.
 Your task is to assign the appropriate concept to each symbol. Create a dictionary where each key is a symbol and their value is the corresponding concept.
 
 An example of the procedure is given next. The given list of segmented symbols is:
@@ -16,8 +16,8 @@ An example of the procedure is given next. The given list of segmented symbols i
     "mathml_representation": "<msubsup><mi>b</mi><mi>x</mi><mi>T</mi></msubsup>"
 },
 {
-    "obj_name": "Theta",
-    "mathml_representation": <mi>GREEK CAPITAL THETA</mi>
+    "obj_name": "C",
+    "mathml_representation": <mi>C</mi>
 }]
 
 And the given list of concepts is:
@@ -37,7 +37,7 @@ And the given list of concepts is:
     "name": "guillaume_div",
     "type": "OPERATOR",
     "description": "Giullaume's divergence operator"
-    "justification": "we define operator Θ as Guillaume's operator. Θ is a non-standard definition of divergence."
+    "justification": "we define operator C as Guillaume's operator. C is a non-standard definition of divergence."
  }]
 
 The output of these would be:
@@ -45,7 +45,7 @@ The output of these would be:
     "a": "a_domain",
     "b_x": "displ_in_x",
     "b_x_T": "displ_in_x",
-    "Theta": "guillaume_div"
+    "C": "guillaume_div"
 }
 
 The answer should only contain dictonary. Nothing else, as it would break the user's API.

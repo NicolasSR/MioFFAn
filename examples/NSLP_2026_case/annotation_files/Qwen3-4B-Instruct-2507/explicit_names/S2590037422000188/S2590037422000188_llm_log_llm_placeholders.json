@@ -1,0 +1,346 @@
+{
+    "paper_id": "S2590037422000188",
+    "AUTO_SEGMENT_SYMBOLS": {
+        "formula_12": {
+            "initial_output": [
+                {
+                    "obj_name": "sigma_ij",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<msub><mi>f</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl",
+                    "mathml_representation": "<msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "epsilon_kl",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER EPSILON</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_i",
+                    "mathml_representation": "<msub><mi>u</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j_v_i",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub><msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j_v_i_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "f_i_v_i_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>f</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "F_i_v_i_boundary",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>PARTIAL DIFFERENTIAL</mi><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>F</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "C_ijkl_half",
+                    "mathml_representation": "<mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_k_l",
+                    "mathml_representation": "<msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_l_k",
+                    "mathml_representation": "<msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k",
+                    "mathml_representation": "<mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k_v_i_j",
+                    "mathml_representation": "<mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow><msub><mi>v</mi><mi>i</mi><mo>,</mo><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k_v_i_j_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow><msub><mi>v</mi><mi>i</mi><mo>,</mo><mi>j</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "F_i_v_i_boundary_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>PARTIAL DIFFERENTIAL</mi><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>F</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "f_i_v_i_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>f</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                }
+            ],
+            "deduplicated_list": [
+                {
+                    "obj_name": "sigma_ij",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "f_i",
+                    "mathml_representation": "<msub><mi>f</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl",
+                    "mathml_representation": "<msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "epsilon_kl",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER EPSILON</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_i",
+                    "mathml_representation": "<msub><mi>u</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "v_i",
+                    "mathml_representation": "<msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j_v_i",
+                    "mathml_representation": "<msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub><msub><mi>v</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "sigma_ij_com_j_v_i_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>GREEK SMALL LETTER SIGMA</mi><mi>i</mi><mi>j</mi><mo>,</mo><mi>j</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "f_i_v_i_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>f</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "F_i",
+                    "mathml_representation": "<msub><mi>F</mi><mi>i</mi></msub>"
+                },
+                {
+                    "obj_name": "F_i_v_i_boundary",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>PARTIAL DIFFERENTIAL</mi><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>F</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "C_ijkl_half",
+                    "mathml_representation": "<mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_k_l",
+                    "mathml_representation": "<msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub>"
+                },
+                {
+                    "obj_name": "u_l_k",
+                    "mathml_representation": "<msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k",
+                    "mathml_representation": "<mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k_v_i_j",
+                    "mathml_representation": "<mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow><msub><mi>v</mi><mi>i</mi><mo>,</mo><mi>j</mi></msub>"
+                },
+                {
+                    "obj_name": "C_ijkl_half_u_k_l_plus_u_l_k_v_i_j_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><mfrac><msub><mi>C</mi><mi>i</mi><mi>j</mi><mi>k</mi><mi>l</mi></msub><mn>2</mn></mfrac><mrow><mo>(</mo><msub><mi>u</mi><mi>k</mi><mo>,</mo><mi>l</mi></msub><mo>+</mo><msub><mi>u</mi><mi>l</mi><mo>,</mo><mi>k</mi></msub><mo>)</mo></mrow><msub><mi>v</mi><mi>i</mi><mo>,</mo><mi>j</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                },
+                {
+                    "obj_name": "F_i_v_i_boundary_integral",
+                    "mathml_representation": "<msub><mo linebreak=\"badbreak\">INTEGRAL</mo><mi>PARTIAL DIFFERENTIAL</mi><mi>GREEK CAPITAL LETTER OMEGA</mi></msub><msub><mi>F</mi><mi>i</mi></msub><msub><mi>v</mi><mi>i</mi></msub><mi>d</mi><mi>GREEK CAPITAL LETTER OMEGA</mi>"
+                }
+            ],
+            "new_groups_dict": {},
+            "new_occurences_dict": {
+                "f_i": [
+                    {
+                        "comp_tag_id": "msub_93",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_249",
+                            "msub_93",
+                            "mi_248"
+                        ]
+                    }
+                ],
+                "v_i": [
+                    {
+                        "comp_tag_id": "msub_91",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "76"
+                        ],
+                        "ids_set": [
+                            "msub_91",
+                            "mi_243",
+                            "mi_244"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_94",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "76"
+                        ],
+                        "ids_set": [
+                            "mi_250",
+                            "mi_251",
+                            "msub_94"
+                        ]
+                    }
+                ],
+                "F_i": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "46"
+                        ],
+                        "ids_set": [
+                            "msub_90",
+                            "mi_241",
+                            "mi_242"
+                        ]
+                    }
+                ]
+            },
+            "all_id_sets": [
+                {
+                    "variable_name": "f_i",
+                    "representative_id": "msub_93",
+                    "ids_set": [
+                        "mi_249",
+                        "msub_93",
+                        "mi_248"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_93\"><mi id=\"mi_248\">f</mi><mi id=\"mi_249\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "v_i",
+                    "representative_id": "msub_91",
+                    "ids_set": [
+                        "msub_91",
+                        "mi_243",
+                        "mi_244"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_91\"><mi id=\"mi_243\">v</mi><mi id=\"mi_244\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "v_i",
+                    "representative_id": "msub_94",
+                    "ids_set": [
+                        "mi_250",
+                        "mi_251",
+                        "msub_94"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_94\"><mi id=\"mi_250\">v</mi><mi id=\"mi_251\">i</mi></msub>"
+                },
+                {
+                    "variable_name": "F_i",
+                    "representative_id": "msub_90",
+                    "ids_set": [
+                        "msub_90",
+                        "mi_241",
+                        "mi_242"
+                    ],
+                    "ids_count": 3,
+                    "mathml": "<msub id=\"msub_90\"><mi id=\"mi_241\">F</mi><mi id=\"mi_242\">i</mi></msub>"
+                }
+            ],
+            "conflicts_list": []
+        },
+        "total": {
+            "final_new_groups_dict": {},
+            "final_new_occurences_dict": {
+                "f_i": [
+                    {
+                        "comp_tag_id": "msub_93",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "66"
+                        ],
+                        "ids_set": [
+                            "mi_249",
+                            "msub_93",
+                            "mi_248"
+                        ]
+                    }
+                ],
+                "v_i": [
+                    {
+                        "comp_tag_id": "msub_91",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "76"
+                        ],
+                        "ids_set": [
+                            "msub_91",
+                            "mi_243",
+                            "mi_244"
+                        ]
+                    },
+                    {
+                        "comp_tag_id": "msub_94",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "76"
+                        ],
+                        "ids_set": [
+                            "mi_250",
+                            "mi_251",
+                            "msub_94"
+                        ]
+                    }
+                ],
+                "F_i": [
+                    {
+                        "comp_tag_id": "msub_90",
+                        "tag_name": "msub",
+                        "primitive_symbols": [
+                            "69",
+                            "46"
+                        ],
+                        "ids_set": [
+                            "msub_90",
+                            "mi_241",
+                            "mi_242"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
