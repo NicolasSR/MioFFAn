@@ -125,5 +125,10 @@ orig_to_new_parser.py
 format_eval_results.py
 examples/NSLP_2026_case/annotation_files/OLD_Qwen3-4B-Instruct-2507/
 
+latex_doc.tex
+latexml_error_log.txt
+temprorary_latex_file.tex
+temporary_latexml_file.txt
+
 # DO NOT REMOVE - Ignore credentials file 
 credentials.json

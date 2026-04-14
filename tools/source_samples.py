@@ -8,6 +8,7 @@ from lxml import etree
 from lib.version import VERSION
 from lib.logger import main_logger
 from tools.preprocess import preprocess_html
+from lib.ocr_utilities import apply_chandra_ocr_on_pdf, preprocess_equation_tags, substitute_expressions
 
 # meta
 PROG_NAME = "tools.source_samples"
@@ -231,8 +232,6 @@ def xml_to_html(xml_tree, source_type):
                 div = etree.SubElement(html_parent, "div", attrib={"class": "formula"})
                 # Inline math stays in the current paragraph
                 strip_ns(child, div)
-                # # For nested formulas, we use a fresh context inside the div
-                # transform_node(child, div, context={"current_p": div})
                 reset_p() # Ensure text after formula starts a new p
                 
                 
@@ -246,7 +245,6 @@ def xml_to_html(xml_tree, source_type):
                 h1 = etree.SubElement(html_parent, "h1")
                 span = etree.SubElement(h1, "span", attrib={"class": "article-title"})
                 span.text = ''.join(child.itertext())
-                # transform_node(child, span, context={"current_p": span})
                 reset_p()
 
             elif c_local == "label":
@@ -254,23 +252,21 @@ def xml_to_html(xml_tree, source_type):
                     reset_p()
                     h2 = etree.SubElement(html_parent, "h2")
                     span = etree.SubElement(h2, "span", attrib={"class": "section-label"})
-                    transform_node(child, span, context={"current_p": span})
+                    transform_node_sciencedirect(child, span, context={"current_p": span})
                     set_p(h2)
                 else:
                     reset_p()
                     span = etree.SubElement(get_p(), "span", attrib={"class": "formula-label"})
-                    transform_node(child, span, context={"current_p": span})
+                    transform_node_sciencedirect(child, span, context={"current_p": span})
                     reset_p()
 
             elif c_local == "section-title":
                 if get_p().tag == "h2":
                     span = etree.SubElement(get_p(), "span", attrib={"class": "section-title"})
-                    # transform_node(child, span, context={"current_p": span})
                 else:
                     reset_p()
                     h2 = etree.SubElement(html_parent, "h2")
                     span = etree.SubElement(h2, "span", attrib={"class": "section-title"})
-                    # transform_node(child, span, context={"current_p": span})
                 span.text = ''.join(child.itertext())
                 reset_p()
 
@@ -278,11 +274,11 @@ def xml_to_html(xml_tree, source_type):
             elif c_local in ["section", "para", "sections", "body"]:
                 # If it's a structural container, we don't reset p yet, 
                 # we just let the children decide.
-                transform_node(child, html_parent, context)
+                transform_node_sciencedirect(child, html_parent, context)
 
             # DEFAULT (Unknown tags)
             else:
-                transform_node(child, html_parent, context)
+                transform_node_sciencedirect(child, html_parent, context)
 
             # --- 3. HANDLE TAIL TEXT (Text after a child) ---
             if child.tail and child.tail.strip():
@@ -328,18 +324,14 @@ def xml_to_html(xml_tree, source_type):
             if c_local=="div" and "class" in child.attrib and child.attrib["class"]=="c-article-equation__content":
                 reset_p() # Formulas are block, so close the paragraph
                 div = etree.SubElement(html_parent, "div", attrib={"class": "formula"})
-                transform_node(child, div, context={"current_p": div})
+                transform_node_manual_springernature(child, div, context={"current_p": div})
                 reset_p() # Ensure text after formula starts a new p
 
             elif c_local=="div" and "class" in child.attrib and child.attrib["class"]=="c-article-equation__number":
                 reset_p()
                 span = etree.SubElement(get_p(), "span", attrib={"class": "formula-label"})
-                transform_node(child, span, context={"current_p": span})
+                transform_node_manual_springernature(child, span, context={"current_p": span})
                 reset_p()
-                # reset_p() # Formulas are block, so close the paragraph
-                # div = etree.SubElement(html_parent, "div", attrib={"class": "formula-label"})
-                # transform_node(child, div, context={"current_p": div})
-                # reset_p() # Ensure text after formula starts a new p
 
             # INLINE MATH
             elif c_local == "math":
@@ -365,7 +357,85 @@ def xml_to_html(xml_tree, source_type):
 
             # DEFAULT (Unknown tags)
             else:
-                transform_node(child, html_parent, context)
+                transform_node_manual_springernature(child, html_parent, context)
+
+            # --- 3. HANDLE TAIL TEXT (Text after a child) ---
+            if child.tail and child.tail.strip():
+                # Tail text always belongs in a paragraph
+                span = etree.SubElement(get_p(), "span", attrib={"class": "gd_text"})
+                span.text = child.tail
+
+    def transform_node_chandra_ocr(xml_node, html_parent, context=None):
+        """
+        context: A dictionary to keep track of the 'current_p' bucket 
+                within the current parent level.
+        """
+        if context is None:
+            context = {"current_p": None}
+
+        local = etree.QName(xml_node).localname
+        
+        # Helper to get/create a paragraph bucket
+        def get_p():
+            if context["current_p"] is None:
+                context["current_p"] = etree.SubElement(html_parent, "p")
+            return context["current_p"]
+        
+        def set_p(parent_element):
+            context["current_p"] = parent_element
+
+        # Helper to reset bucket (when hitting block elements)
+        def reset_p():
+            context["current_p"] = None
+
+        # --- 1. HANDLE TEXT (Start of Node) ---
+        if xml_node.text and xml_node.text.strip():
+            if get_p().tag == "span":
+                get_p().text = xml_node.text
+            else:
+                span = etree.SubElement(get_p(), "span", attrib={"class": "gd_text"})
+                span.text = xml_node.text
+
+        # --- 2. HANDLE CHILDREN ---
+        for i, child in enumerate(xml_node):
+            c_local = etree.QName(child).localname
+
+            if c_local=="div" and "class" in child.attrib and child.attrib["class"]=="formula":
+                reset_p()
+                strip_ns(child, get_p())
+                reset_p()
+
+            elif c_local=="div" and "class" in child.attrib and child.attrib["class"]=="formula-label":
+                reset_p()
+                span = etree.SubElement(get_p(), "span", attrib={"class": "formula-label"})
+                transform_node_chandra_ocr(child, span, context={"current_p": span})
+                reset_p()
+
+            # INLINE MATH
+            elif c_local == "math":
+                # Inline math stays in the current paragraph
+                strip_ns(child, get_p())
+
+            elif c_local == "h1":                
+                reset_p()
+                h1 = etree.SubElement(html_parent, "h1")
+                span = etree.SubElement(h1, "span", attrib={"class": "article-title"})
+                span.text = ''.join(child.itertext())
+                reset_p()
+
+            elif c_local == "h2":
+                reset_p()
+                h2 = etree.SubElement(html_parent, "h2")
+                span = etree.SubElement(h2, "span", attrib={"class": "section-title"})
+                span.text = ''.join(child.itertext())
+                reset_p()
+
+            elif c_local == "script":
+                continue
+
+            # DEFAULT (Unknown tags)
+            else:
+                transform_node_chandra_ocr(child, html_parent, context)
 
             # --- 3. HANDLE TAIL TEXT (Text after a child) ---
             if child.tail and child.tail.strip():
@@ -396,6 +466,8 @@ def xml_to_html(xml_tree, source_type):
         transform_node = transform_node_sciencedirect
     elif source_type == "manual_springernature":
         transform_node = transform_node_manual_springernature
+    elif source_type == "manual_pdf":
+        transform_node = transform_node_chandra_ocr
     transform_node(xml_root, body)
     
     return html_root
@@ -478,6 +550,26 @@ def main():
         logger.info('Processing HTML')
         preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir, overwrite)
 
+    for sample_name, sample_info in sources_config["manual_pdf"]["samples"].items():
+        sample_file_name = sample_info["filename"]
+        pdf_path = Path(f"manual_sources/{sample_file_name}.pdf")
+        out_html_path = Path(f"manual_sources/{sample_file_name}.html")
+
+        if out_html_path.exists():
+            logger.info(f"HTML file {out_html_path} already exists. Skipping OCR.")
+        else:
+            apply_chandra_ocr_on_pdf(out_html_path, pdf_path)
+
+        with open(out_html_path, "r") as f:
+            html_string = f.read()
+        html_string = preprocess_equation_tags(html_string)
+        html_string = substitute_expressions(html_string)
+
+        raw_html_tree = etree.fromstring(html_string, parser = etree.HTMLParser(encoding='utf-8', remove_blank_text=True))
+        html_tree = xml_to_html(raw_html_tree, "manual_pdf")
+        
+        logger.info('Processing HTML')
+        preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir, overwrite)
 
 if __name__ == '__main__':
     main()

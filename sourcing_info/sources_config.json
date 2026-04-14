@@ -1,5 +1,8 @@
 {
-        "science_direct": {
+    "science_direct": {
+        "samples": {}
+    },
+    "science_direct_": {
         "samples": {
             "S0045782519305560_2": {
                 "pii":"S0045782519305560",
@@ -20,6 +23,9 @@
         "samples": {}
     },
     "manual_html": {
+        "samples": {}
+    },
+    "manual_html_": {
         "samples": {
             "10.1007.s00466-014-1078-1": {
                 "filename": "sn_10.1007.s00466-014-1078-1",
@@ -32,6 +38,13 @@
                         "attr": {"class":"c-article-section"}
                     }
                 ]
+            }
+        }
+    },
+    "manual_pdf": {
+        "samples": {
+            "oñate_updated-lagrangian": {
+                "filename": "oñate_updated-lagrangian"
             }
         }
     }

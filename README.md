@@ -62,6 +62,15 @@ python -m server
 ```
 And access the client via web browser at http://localhost:4100/
 
+## OCR for PDF files
+
+The sample preprocessing routine accepts papers in PDF format. It converts them to html format via OCR (https://huggingface.co/datalab-to/chandra-ocr-2), and may require some manual tweaking on the resulting HTML file.
+To use this functionality, a vLLM server needs to be hosted with the chandra model. Run:
+```shell
+vllm serve datalab-to/chandra-ocr-2 --served-model-name=chandra
+```
+Then, place the corresponding PDF file in the manual_sources/ directory and specify the sample info within key "manual_pdf" of the sources_config.json file. Finally, run the source samplic tool normaly.
+
 ## Evaluation
 To perform evaluation it is important that relevant annotation files should be checkpointed using the tags schema within EVALUATION_SCHEMA in ./tools/evaluate_llm.py. Once the relevant checkpoints for the tasks to evaluate have been created, the user may proceed by running:
 ```shell
