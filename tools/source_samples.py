@@ -46,6 +46,16 @@ def get_xml_from_sciencedirect(api_key, article_pii):
     article_xml_content = article_request_result.content.decode()
     return True, article_xml_content
 
+def get_xml_from_springernature(api_key, article_doi):
+    # SpringerNature has an Openaccess API to retrieve Full Text of open access papers from DOI (or other query parameters)
+    # article_request_url = f'https://api.springernature.com/openaccess/jats?api_key={api_key}&q=doi:{article_doi}'
+    # They also have a FullText API to do so with closed access content, however we do not have access to it in order to test it
+
+    # Furthermore, the XML versions of the papers (at least from the Openaccess API) have their mathematical expressions written in LaTeX.
+    # So further processing will be needed.
+
+    False, f"Sourcing from Springer Nature is not implemented yet"
+
 def get_node_by_index_path(root_node, path_str):
     """Navigates children by index. '1.3' -> second child, then its fourth child."""
     current = root_node
@@ -56,12 +66,8 @@ def get_node_by_index_path(root_node, path_str):
         return current
     except (IndexError, ValueError):
         return None
-
-def prune_xml(tree, references_dict):
-    namespaces={
-        "ce": "http://www.elsevier.com/xml/common/dtd"
-    }
-
+    
+def prune_xml(tree, references_list, namespaces):
     def select_nodes_to_keep(xpath_query, sub_paths, keep_nodes):
         refs = tree.xpath(xpath_query, namespaces=namespaces)
         for ref in refs:
@@ -84,23 +90,41 @@ def prune_xml(tree, references_dict):
 
     keep_nodes = set()
 
-    for tag_name, ids_map in references_dict.items():
+    for ref in references_list:
+        tag_name = ref["tag"]
         print(tag_name)
-        if not ids_map:
-            xpath_query = f"//{tag_name}"
-            select_nodes_to_keep(xpath_query, [], keep_nodes)
-        
-        for target_id, sub_paths in ids_map.items():
-            # 1. Find the reference node
-            xpath_query = f"//{tag_name}[@id='{target_id}']"
-            select_nodes_to_keep(xpath_query, sub_paths, keep_nodes)
+        attr_strings_list = []
+        for k,v in ref.get("attr",{}).items():
+            if v is None:
+                attr_strings_list.append(f"@{k}")
+            else:
+                attr_strings_list.append(f"@{k}='{v}'")
+        if attr_strings_list:
+            attr_string = " and ".join(attr_strings_list)
+            attr_string = f"[{attr_string}]"
+        else:
+            attr_string = ""
+
+        xpath_query = f"//{tag_name}{attr_string}"
+        sub_paths = ref.get("sub_paths", [])
+        select_nodes_to_keep(xpath_query, sub_paths, keep_nodes)
 
     # 2. Final Pruning
     for element in tree.xpath('//*'):
         if element not in keep_nodes and element.getparent() is not None:
             element.getparent().remove(element)
 
-def xml_to_html(xml_tree):
+def prune_sciencedirect_xml(tree, references_dict):
+    namespaces={
+        "ce": "http://www.elsevier.com/xml/common/dtd"
+    }
+    prune_xml(tree, references_dict, namespaces)
+
+def prune_manual_html(tree, references_dict):
+    namespaces={}
+    prune_xml(tree, references_dict, namespaces)
+
+def xml_to_html(xml_tree, source_type):
     xml_root = xml_tree.getroot() if hasattr(xml_tree, 'getroot') else xml_tree
 
     # Use no namespace map for the HTML root to keep it clean for HTML5
@@ -167,7 +191,7 @@ def xml_to_html(xml_tree):
     
     body = etree.SubElement(html_root, "body")
 
-    def transform_node(xml_node, html_parent, context=None):
+    def transform_node_sciencedirect(xml_node, html_parent, context=None):
         """
         context: A dictionary to keep track of the 'current_p' bucket 
                 within the current parent level.
@@ -266,6 +290,89 @@ def xml_to_html(xml_tree):
                 span = etree.SubElement(get_p(), "span", attrib={"class": "gd_text"})
                 span.text = child.tail
 
+    def transform_node_manual_springernature(xml_node, html_parent, context=None):
+        """
+        context: A dictionary to keep track of the 'current_p' bucket 
+                within the current parent level.
+        """
+        if context is None:
+            context = {"current_p": None}
+
+        local = etree.QName(xml_node).localname
+        
+        # Helper to get/create a paragraph bucket
+        def get_p():
+            if context["current_p"] is None:
+                context["current_p"] = etree.SubElement(html_parent, "p")
+            return context["current_p"]
+        
+        def set_p(parent_element):
+            context["current_p"] = parent_element
+
+        # Helper to reset bucket (when hitting block elements)
+        def reset_p():
+            context["current_p"] = None
+
+        # --- 1. HANDLE TEXT (Start of Node) ---
+        if xml_node.text and xml_node.text.strip():
+            if get_p().tag == "span":
+                get_p().text = xml_node.text
+            else:
+                span = etree.SubElement(get_p(), "span", attrib={"class": "gd_text"})
+                span.text = xml_node.text
+
+        # --- 2. HANDLE CHILDREN ---
+        for i, child in enumerate(xml_node):
+            c_local = etree.QName(child).localname
+
+            if c_local=="div" and "class" in child.attrib and child.attrib["class"]=="c-article-equation__content":
+                reset_p() # Formulas are block, so close the paragraph
+                div = etree.SubElement(html_parent, "div", attrib={"class": "formula"})
+                transform_node(child, div, context={"current_p": div})
+                reset_p() # Ensure text after formula starts a new p
+
+            elif c_local=="div" and "class" in child.attrib and child.attrib["class"]=="c-article-equation__number":
+                reset_p()
+                span = etree.SubElement(get_p(), "span", attrib={"class": "formula-label"})
+                transform_node(child, span, context={"current_p": span})
+                reset_p()
+                # reset_p() # Formulas are block, so close the paragraph
+                # div = etree.SubElement(html_parent, "div", attrib={"class": "formula-label"})
+                # transform_node(child, div, context={"current_p": div})
+                # reset_p() # Ensure text after formula starts a new p
+
+            # INLINE MATH
+            elif c_local == "math":
+                # Inline math stays in the current paragraph
+                strip_ns(child, get_p())
+
+            elif c_local == "h1":                
+                reset_p()
+                h1 = etree.SubElement(html_parent, "h1")
+                span = etree.SubElement(h1, "span", attrib={"class": "article-title"})
+                span.text = ''.join(child.itertext())
+                reset_p()
+
+            elif c_local == "h2":
+                reset_p()
+                h2 = etree.SubElement(html_parent, "h2")
+                span = etree.SubElement(h2, "span", attrib={"class": "section-title"})
+                span.text = ''.join(child.itertext())
+                reset_p()
+
+            elif c_local == "script":
+                continue
+
+            # DEFAULT (Unknown tags)
+            else:
+                transform_node(child, html_parent, context)
+
+            # --- 3. HANDLE TAIL TEXT (Text after a child) ---
+            if child.tail and child.tail.strip():
+                # Tail text always belongs in a paragraph
+                span = etree.SubElement(get_p(), "span", attrib={"class": "gd_text"})
+                span.text = child.tail
+
     def strip_ns(node, parent):
         """Cleanly copies MathML while stripping prefixes and handling mfenced."""
         local = etree.QName(node).localname
@@ -285,9 +392,15 @@ def xml_to_html(xml_tree):
                 strip_ns(child, new_node)
             # Note: We do NOT handle tail here because the parent logic handles it
 
+    if source_type == "science_direct":
+        transform_node = transform_node_sciencedirect
+    elif source_type == "manual_springernature":
+        transform_node = transform_node_manual_springernature
     transform_node(xml_root, body)
     
     return html_root
+
+
 
 
 
@@ -307,6 +420,7 @@ def main():
     with open('credentials.json', 'r') as credentials_file:
         credentials_config = json.load(credentials_file)
     sd_api_key = credentials_config["science_direct_api"]["key"]
+    sn_api_key = credentials_config["springer_nature_api"]["key"]
     with open('sourcing_info/sources_config.json', 'r') as sources_config_file:
         sources_config = json.load(sources_config_file)
 
@@ -323,22 +437,47 @@ def main():
         xml_content = data
 
         xml_tree = etree.fromstring(xml_content, parser = etree.XMLParser(remove_blank_text=True))
-        if sample_info.get("pruning_config", None) is not None:
-            pruning_config = sample_info["pruning_config"]
+        if sample_info.get("pruning_references", None) is not None:
+            pruning_config = sample_info["pruning_references"]
         else:
-            pruning_config = {
-                "ce:title": {},
-                "ce:sections": {}
-            }
+            pruning_config = [
+                {"tag": "ce:title"},
+                {"tag": "ce:sections"}
+            ]
         
         logger.info('Pruning XML content')
-        prune_xml(xml_tree, pruning_config)
+        prune_sciencedirect_xml(xml_tree, pruning_config)
 
         logger.info('Converting XML to HTML')
-        raw_html_tree = xml_to_html(xml_tree)
+        raw_html_tree = xml_to_html(xml_tree, "science_direct")
 
         logger.info('Processing HTML')
         preprocess_html(sample_name, raw_html_tree, data_dir, templates_dir, sources_dir, overwrite)
+
+    for sample_name, sample_info in sources_config["springer_nature"]["samples"].items():
+        logger.info('Processing sample with name: {}'.format(sample_name))
+        article_doi = sample_info["doi"]
+
+        # now prepare for the preprocess
+        logger.info('Obtaining XML for Springer Nature DOI: "{}"'.format(article_doi))
+
+        success, data = get_xml_from_springernature(sn_api_key, article_doi)
+
+        if not success:
+            raise f"Error: {data}"
+        
+    for sample_name, sample_info in sources_config["manual_html"]["samples"].items():
+        sample_file_name = sample_info["filename"]
+        pruning_references = sample_info["pruning_references"]
+        with open(f"manual_sources/{sample_file_name}.html", "r") as f:
+            raw_html_tree = etree.parse(f, parser = etree.HTMLParser(encoding='utf-8', remove_blank_text=True))
+        prune_manual_html(raw_html_tree, pruning_references)
+
+        html_tree = xml_to_html(raw_html_tree, "manual_springernature")
+
+        logger.info('Processing HTML')
+        preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir, overwrite)
+
 
 if __name__ == '__main__':
     main()

@@ -117,6 +117,7 @@ results/
 extra
 libextra
 /templates
+manual_sources/
 
 examples/NSLP_2026_case/*/*/*/results.json
 
