@@ -256,6 +256,7 @@ ${mc_candidate.description} <span style="color: #808080;">[${args_info}]</span>
             } else {
                 if (data.action === 'reload') {
                     alert(data.message);
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload(); // Manually trigger the reload here
                 }
                 console.error("Error:", data.message);
@@ -327,10 +328,12 @@ function submit_assign_concept(comp_tag_id: string, mc_id: string) {
         const data = await response.json();
         if (response.ok) {
             // Just reload the page
+            localStorage['scroll_top'] = $(window).scrollTop();
             window.location.reload();
         } else {
             if (data.action === 'reload') {
                 alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
                 window.location.reload(); // Manually trigger the reload here
             }
             console.error("Error:", data.message);
@@ -463,6 +466,7 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
                     await fetch_mcdict_json_data();
                     onSuccess(assigned_mc_id); // Run the assignment here!
                     $this.dialog('close');
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 }
             },
@@ -567,6 +571,7 @@ function render_occurrence_dialog(comp_tag_id: string) {
                 if (success) {
                     await fetch_mcdict_json_data();
                     $this.dialog('close');
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 } else {
                     alert("Unsuccessful Occurrence Properties Submission")
@@ -627,10 +632,12 @@ function submit_change_sog_type(sog_mc_id: string, sog_start_id: string, sog_sto
         const data = await response.json();
         if (response.ok) {
             // Just reload the page
+            localStorage['scroll_top'] = $(window).scrollTop();
             window.location.reload();
         } else {
             if (data.action === 'reload') {
                 alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
                 window.location.reload(); // Manually trigger the reload here
             }
             console.error("Error:", data.message);
@@ -693,8 +700,6 @@ $(function () {
 
                         const mc_id = get_mc_id_from_query($('#' + escape_selector(comp_tag_id)))
 
-                        localStorage['scroll_top'] = $(window).scrollTop();
-
                         fetch('/_add_sog', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
@@ -708,10 +713,12 @@ $(function () {
                             const data = await response.json();
                             if (response.ok) {
                                 // Just reload the page
+                                localStorage['scroll_top'] = $(window).scrollTop();
                                 window.location.reload();
                             } else {
                                 if (data.action === 'reload') {
                                     alert(data.message);
+                                    localStorage['scroll_top'] = $(window).scrollTop();
                                     window.location.reload(); // Manually trigger the reload here
                                 }
                                 console.error("Error:", data.message);
@@ -813,8 +820,6 @@ $(function () {
                     if (parent == undefined)
                         return;
 
-                    localStorage['scroll_top'] = $(window).scrollTop();
-
                     fetch('/_delete_sog', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
@@ -828,10 +833,12 @@ $(function () {
                         const data = await response.json();
                         if (response.ok) {
                             // Just reload the page
+                            localStorage['scroll_top'] = $(window).scrollTop();
                             window.location.reload();
                         } else {
                             if (data.action === 'reload') {
                                 alert(data.message);
+                                localStorage['scroll_top'] = $(window).scrollTop();
                                 window.location.reload(); // Manually trigger the reload here
                             }
                             console.error("Error:", data.message);
@@ -1009,7 +1016,6 @@ $(function () {
     dataLoadingPromise.then(() => {
         $('button#auto_segment_symbols').button();
         $('button#auto_segment_symbols').on('click', function () {
-            localStorage['scroll_top'] = $(window).scrollTop();
             fetch('/_auto_segment_symbols', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -1021,10 +1027,12 @@ $(function () {
                 const data = await response.json();
                 if (response.ok) {
                     // Just reload the page
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 } else {
                     if (data.action === 'reload') {
                         alert(data.message);
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         window.location.reload(); // Manually trigger the reload here
                     }
                     console.error("Error:", data.message);
@@ -1038,7 +1046,6 @@ $(function () {
 
         $('button#auto_assign_concepts').button();
         $('button#auto_assign_concepts').on('click', function () {
-            localStorage['scroll_top'] = $(window).scrollTop();
             fetch('/_auto_assign_concepts', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -1050,10 +1057,12 @@ $(function () {
                 const data = await response.json();
                 if (response.ok) {
                     // Just reload the page
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 } else {
                     if (data.action === 'reload') {
                         alert(data.message);
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         window.location.reload(); // Manually trigger the reload here
                     }
                     console.error("Error:", data.message);
@@ -1067,7 +1076,6 @@ $(function () {
 
         $('button#auto_highlight_sources').button();
         $('button#auto_highlight_sources').on('click', function () {
-            localStorage['scroll_top'] = $(window).scrollTop();
             fetch('/_auto_highlight_sources', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -1079,10 +1087,12 @@ $(function () {
                 const data = await response.json();
                 if (response.ok) {
                     // Just reload the page
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 } else {
                     if (data.action === 'reload') {
                         alert(data.message);
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         window.location.reload(); // Manually trigger the reload here
                     }
                     console.error("Error:", data.message);
@@ -1120,10 +1130,12 @@ $(function () {
                 $form.find(`[name="checkpoint-tag"]`).val("");
                 if (response.ok) {
                     // Just reload the page
+                    localStorage['scroll_top'] = $(window).scrollTop();
                     window.location.reload();
                 } else {
                     if (data.action === 'reload') {
                         alert(data.message);
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         window.location.reload(); // Manually trigger the reload here
                     }
                     console.error("Error:", data.message);

@@ -96,6 +96,7 @@ $(function () {
                     }).then(response => {
                         if (response.ok) {
                             // Optionally handle success (e.g., notify user, refresh page)
+                            localStorage['scroll_top'] = $(window).scrollTop()
                             window.location.reload();
                         } else {
                             // Optionally handle error (e.g., notify user)
@@ -126,6 +127,7 @@ $(function () {
                     }).then(response => {
                         if (response.ok) {
                             // Optionally handle success (e.g., notify user, refresh page)
+                            localStorage['scroll_top'] = $(window).scrollTop()
                             window.location.reload();
                         } else {
                             // Optionally handle error (e.g., notify user)

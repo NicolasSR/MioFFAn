@@ -162,10 +162,12 @@ function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<
     }).then(async (response) => {
         const data = await response.json();
         if (response.ok) {
+            localStorage['scroll_top'] = $(window).scrollTop();
             window.location.reload();
         } else {
             if (data.action === 'reload') {
                 alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
                 window.location.reload(); // Manually trigger the reload here
             }
             console.error("Error:", data.message);
@@ -199,7 +201,6 @@ function edit_symbolic_code(eoi_id: string) {
         width: 500,
         buttons: {
             'OK': function () {
-                localStorage['scroll_top'] = $(window).scrollTop();
                 submit_edit_symbolic_code(eoi_id, symbolic_code_dialog)
             },
             'Cancel': function () {

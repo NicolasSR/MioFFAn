@@ -9,6 +9,7 @@
 window.initializeNavButtons = function()  {
     $('button#edit-equations-of-interest').button();
     $('button#edit-equations-of-interest').on('click', function () {
+        localStorage['scroll_top'] = $(window).scrollTop();
         let form = $('#edit-equations-of-interest-form');
         form.attr('action', '/equations_of_interest_selector');
         form.trigger("submit");
@@ -16,6 +17,7 @@ window.initializeNavButtons = function()  {
 
     $('button#edit-concepts').button();
     $('button#edit-concepts').on('click', function () {
+        localStorage['scroll_top'] = $(window).scrollTop();
         let form = $('#edit-concepts-form');
         form.attr('action', '/');
         form.trigger("submit");
@@ -23,6 +25,7 @@ window.initializeNavButtons = function()  {
 
     $('button#create-concept-group').button();
     $('button#create-concept-group').on('click', function () {
+        localStorage['scroll_top'] = $(window).scrollTop();
         let form = $('#create-concept-group-form');
         form.attr('action', '/group_creator');
         form.trigger("submit");
@@ -30,6 +33,7 @@ window.initializeNavButtons = function()  {
 
     $('button#edit-symbolic-code').button();
     $('button#edit-symbolic-code').on('click', function () {
+        localStorage['scroll_top'] = $(window).scrollTop();
         let form = $('#edit-symbolic-code-form');
         form.attr('action', '/symbolic-code-assigner');
         form.trigger("submit");
@@ -37,6 +41,7 @@ window.initializeNavButtons = function()  {
     
     $('button#edit-mcdict').button();
     $('button#edit-mcdict').on('click', function () {
+        localStorage['scroll_top'] = $(window).scrollTop();
         let form = $('#edit-mcdict-form');
         form.attr('action', '/edit_mcdict');
         form.trigger("submit");

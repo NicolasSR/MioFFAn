@@ -84,6 +84,7 @@ $(function () {
                     anno_box.html(button_remove + form_remove)
                     $('button#remove-eoi').button();
                     $('button#remove-eoi').on('click', function () {
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         let form = anno_box.find(`#form-remove-eoi`);;
                         form.attr('action', '/_remove_eoi');
                         form.trigger("submit");
@@ -94,6 +95,7 @@ $(function () {
                     anno_box.html(button_add + form_add)
                     $('button#add-eoi').button();
                     $('button#add-eoi').on('click', function () {
+                        localStorage['scroll_top'] = $(window).scrollTop();
                         let form = anno_box.find(`#form-add-eoi`);
                         form.attr('action', '/_add_eoi');
                         form.trigger("submit");
