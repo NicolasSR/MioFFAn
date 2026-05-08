@@ -1,0 +1,534 @@
+{
+    "_author": "YOUR NAME",
+    "_mcdict_version": "1.0",
+    "concepts": {
+        "0": {
+            "code_var_name": "dens_curr",
+            "concept_category": "variable",
+            "description": "Density scalar field in current frame",
+            "primitive_symbols": [
+                "cf81",
+                "6e"
+            ],
+            "properties": {
+                "positive": "on",
+                "tensor-rank": "0",
+                "variable-type": "symbolic-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_38_2-12",
+                    "stop_id": "p_38_5-28",
+                    "type": 0
+                }
+            ]
+        },
+        "1": {
+            "code_var_name": "domain_curr",
+            "concept_category": "domain",
+            "description": "Volume domain in the current frame",
+            "primitive_symbols": [
+                "56",
+                "6e"
+            ],
+            "properties": {
+                "domain-type": "whole"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_68_2-0",
+                    "stop_id": "p_68_3-1",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-2",
+                    "stop_id": "p_3_11-2",
+                    "type": 0
+                }
+            ]
+        },
+        "10": {
+            "code_var_name": "domain_upd",
+            "concept_category": "domain",
+            "description": "Volume domain in the updated frame",
+            "primitive_symbols": [
+                "56",
+                "6e"
+            ],
+            "properties": {
+                "domain-type": "whole"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_129_6-end",
+                    "stop_id": "p_129_7-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_43_9-42",
+                    "stop_id": "p_43_10-0",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_3_7-2",
+                    "stop_id": "p_3_8-1",
+                    "type": 0
+                }
+            ]
+        },
+        "11": {
+            "code_var_name": "body_upd",
+            "concept_category": "variable",
+            "description": "Body forces vector in the updated reference.",
+            "primitive_symbols": [
+                "f09d909b",
+                "6e"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_54_0-0",
+                    "stop_id": "p_54_3-128",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_19",
+                    "stop_id": "formula_19",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_34_0-19",
+                    "stop_id": "p_34_1-1",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_34_3-2",
+                    "stop_id": "p_34_5-start",
+                    "type": 0
+                }
+            ]
+        },
+        "12": {
+            "code_var_name": "d_domain_upd",
+            "concept_category": "integration-var",
+            "description": "Integration variable for the volume domain in updated frame",
+            "primitive_symbols": [
+                "64",
+                "56",
+                "6e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "13": {
+            "code_var_name": "bound_tract_upd",
+            "concept_category": "domain",
+            "description": "Volume domain boundary where external tractions  are applied. Expressed in the updated frame",
+            "primitive_symbols": [
+                "ce93",
+                "74",
+                "6e"
+            ],
+            "properties": {
+                "domain-type": "boundary"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_34_0-19",
+                    "stop_id": "p_34_1-1",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_34_3-2",
+                    "stop_id": "p_34_3-25",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_34_5-5",
+                    "stop_id": "p_34_8-start",
+                    "type": 0
+                }
+            ]
+        },
+        "14": {
+            "code_var_name": "d_bound_tract_upd",
+            "concept_category": "integration-var",
+            "description": "Integration variable for the tractions boundary of the volume domain. Expressed in updated frame",
+            "primitive_symbols": [
+                "64",
+                "ce93",
+                "6e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "15": {
+            "code_var_name": "tract_upd",
+            "concept_category": "variable",
+            "description": "Traction vectors in the updated frame",
+            "primitive_symbols": [
+                "f09d90ad",
+                "6e"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_54_0-0",
+                    "stop_id": "p_54_3-128",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_19",
+                    "stop_id": "formula_19",
+                    "type": 0
+                }
+            ]
+        },
+        "2": {
+            "code_var_name": "virt_vel",
+            "concept_category": "variable",
+            "description": "Virtual velocity vector field. Acts as the test function for the velocity",
+            "primitive_symbols": [
+                "ceb4",
+                "f09d90af",
+                "54"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "test-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_54_0-0",
+                    "stop_id": "p_54_3-128",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_19",
+                    "stop_id": "formula_19",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_60_0-0",
+                    "stop_id": "p_60_2-28",
+                    "type": 0
+                }
+            ]
+        },
+        "3": {
+            "code_var_name": "accel_upd",
+            "concept_category": "variable",
+            "description": "Acceleration vector field in the updated frame",
+            "primitive_symbols": [
+                "f09d909a",
+                "6e"
+            ],
+            "properties": {
+                "tensor-rank": "1",
+                "variable-type": "nodal-variable"
+            },
+            "sog_list": []
+        },
+        "4": {
+            "code_var_name": "d_domain_curr",
+            "concept_category": "integration-var",
+            "description": "Integration variable for the volume domain in current frame",
+            "primitive_symbols": [
+                "64",
+                "56",
+                "6e"
+            ],
+            "properties": {},
+            "sog_list": []
+        },
+        "5": {
+            "code_var_name": "virt_mat_strain_rate_tens",
+            "concept_category": "variable",
+            "description": "Virtual material strain rate tensor. Computed from the virtual velocities.",
+            "primitive_symbols": [
+                "ceb4",
+                "f09d9084",
+                "54"
+            ],
+            "properties": {
+                "function-implementation": "",
+                "tensor-rank": "2",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_132_0-0",
+                    "stop_id": "p_132_2-13",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_46",
+                    "stop_id": "formula_46",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_94_0-0",
+                    "stop_id": "p_94_0-18",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_33",
+                    "stop_id": "formula_33",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_97_0-0",
+                    "stop_id": "p_97_0-0",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_34",
+                    "stop_id": "formula_34",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_73_0-0",
+                    "stop_id": "p_73_2-91",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_79_0-0",
+                    "stop_id": "p_79_1-20",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_28",
+                    "stop_id": "formula_28",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_85_2-2",
+                    "stop_id": "p_85_4-32",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_30",
+                    "stop_id": "formula_30",
+                    "type": 0
+                }
+            ]
+        },
+        "6": {
+            "code_var_name": "dev_S_stress_tens",
+            "concept_category": "variable",
+            "description": "Deviatoric second Piola–Kirchhoff stress tensor",
+            "primitive_symbols": [
+                "f09d9092"
+            ],
+            "properties": {
+                "function-implementation": "",
+                "tensor-rank": "2",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "formula_42",
+                    "stop_id": "formula_42",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_123_0-0",
+                    "stop_id": "p_123_6-start",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_44",
+                    "stop_id": "formula_44",
+                    "type": 0
+                }
+            ]
+        },
+        "7": {
+            "code_var_name": "jacob_det",
+            "concept_category": "variable",
+            "description": "Determinant of the Jacobian (also called deformation gradient) F.",
+            "primitive_symbols": [
+                "4a"
+            ],
+            "properties": {
+                "function-implementation": "",
+                "tensor-rank": "0",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_76_1-29",
+                    "stop_id": "p_76_2-39",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_27",
+                    "stop_id": "formula_27",
+                    "type": 0
+                }
+            ]
+        },
+        "8": {
+            "code_var_name": "virt_vol_mat_strain_rate_tens",
+            "concept_category": "variable",
+            "description": "Virtual volumetric material strain rate tensor. Computed from the virtual velocities",
+            "primitive_symbols": [
+                "ceb4",
+                "45",
+                "76"
+            ],
+            "properties": {
+                "function-implementation": "",
+                "tensor-rank": "0",
+                "variable-type": "defined-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_112_0-0",
+                    "stop_id": "p_112_1-35",
+                    "type": 0
+                },
+                {
+                    "start_id": "formula_38",
+                    "stop_id": "formula_38",
+                    "type": 0
+                }
+            ]
+        },
+        "9": {
+            "code_var_name": "press_upd",
+            "concept_category": "variable",
+            "description": "Pressure scalar field in the updated frame. Acts as a trial function.",
+            "primitive_symbols": [
+                "70"
+            ],
+            "properties": {
+                "positive": "on",
+                "tensor-rank": "0",
+                "variable-type": "trial-function"
+            },
+            "sog_list": [
+                {
+                    "start_id": "p_100_1-5",
+                    "stop_id": "p_100_2-1",
+                    "type": 0
+                },
+                {
+                    "start_id": "p_103_3-0",
+                    "stop_id": "p_103_6-0",
+                    "type": 0
+                }
+            ]
+        }
+    },
+    "eoi_dict": {},
+    "next_available_mc_id": 16,
+    "occurences_dict": {
+        "custom-group-0": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-1": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-3": {
+            "mc_id": "8",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-4": {
+            "mc_id": "4",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-5": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-6": {
+            "mc_id": "12",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-7": {
+            "mc_id": "2",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "custom-group-8": {
+            "mc_id": "14",
+            "properties": [],
+            "tag_name": "mstyle"
+        },
+        "mi_938": {
+            "mc_id": "7",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mi_942": {
+            "mc_id": "9",
+            "properties": [],
+            "tag_name": "mi"
+        },
+        "mmultiscripts_194": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_195": {
+            "mc_id": "0",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_196": {
+            "mc_id": "3",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_198": {
+            "mc_id": "1",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_200": {
+            "mc_id": "10",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_201": {
+            "mc_id": "11",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_203": {
+            "mc_id": "13",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "mmultiscripts_204": {
+            "mc_id": "15",
+            "properties": [],
+            "tag_name": "mmultiscripts"
+        },
+        "msup_63": {
+            "mc_id": "5",
+            "properties": [],
+            "tag_name": "msup"
+        },
+        "msup_64": {
+            "mc_id": "6",
+            "properties": [],
+            "tag_name": "msup"
+        }
+    }
+}

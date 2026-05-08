@@ -123,6 +123,10 @@ def remove_embed_floats(root, paper_id):
 
 
 def embed_multiword_spans(e, p):
+    if e.tag == 'span' and 'class' in e.attrib and e.attrib['class'] == 'gd_text':
+        # already processed
+        return
+
     # Define a utility function to check if text is meaningful
     def is_meaningful_text(text):
         if text:

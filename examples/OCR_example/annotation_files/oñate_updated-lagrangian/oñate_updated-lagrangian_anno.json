@@ -1,0 +1,419 @@
+{
+    "_anno_version": "1.0",
+    "_annotator": "YOUR NAME",
+    "groups": {
+        "custom-group-0": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_922",
+            "stop_id": "mi_923"
+        },
+        "custom-group-1": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_929",
+            "stop_id": "mi_930"
+        },
+        "custom-group-2": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 0,
+            "start_id": "mi_934",
+            "stop_id": "mover_37"
+        },
+        "custom-group-3": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_939",
+            "stop_id": "mover_38"
+        },
+        "custom-group-4": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_943",
+            "stop_id": "mi_944"
+        },
+        "custom-group-5": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_948",
+            "stop_id": "mi_949"
+        },
+        "custom-group-6": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_953",
+            "stop_id": "mi_954"
+        },
+        "custom-group-7": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_959",
+            "stop_id": "mi_960"
+        },
+        "custom-group-8": {
+            "ancestry_level_start": 0,
+            "ancestry_level_stop": 1,
+            "start_id": "mi_964",
+            "stop_id": "mi_965"
+        }
+    },
+    "next_available_group_id": 9,
+    "primitive_symbols": {
+        "41": {
+            "text": "A",
+            "unicode_name": "LATIN CAPITAL LETTER A"
+        },
+        "42": {
+            "text": "B",
+            "unicode_name": "LATIN CAPITAL LETTER B"
+        },
+        "43": {
+            "text": "C",
+            "unicode_name": "LATIN CAPITAL LETTER C"
+        },
+        "44": {
+            "text": "D",
+            "unicode_name": "LATIN CAPITAL LETTER D"
+        },
+        "45": {
+            "text": "E",
+            "unicode_name": "LATIN CAPITAL LETTER E"
+        },
+        "46": {
+            "text": "F",
+            "unicode_name": "LATIN CAPITAL LETTER F"
+        },
+        "49": {
+            "text": "I",
+            "unicode_name": "LATIN CAPITAL LETTER I"
+        },
+        "4a": {
+            "text": "J",
+            "unicode_name": "LATIN CAPITAL LETTER J"
+        },
+        "4c": {
+            "text": "L",
+            "unicode_name": "LATIN CAPITAL LETTER L"
+        },
+        "4d": {
+            "text": "M",
+            "unicode_name": "LATIN CAPITAL LETTER M"
+        },
+        "4e": {
+            "text": "N",
+            "unicode_name": "LATIN CAPITAL LETTER N"
+        },
+        "52": {
+            "text": "R",
+            "unicode_name": "LATIN CAPITAL LETTER R"
+        },
+        "53": {
+            "text": "S",
+            "unicode_name": "LATIN CAPITAL LETTER S"
+        },
+        "54": {
+            "text": "T",
+            "unicode_name": "LATIN CAPITAL LETTER T"
+        },
+        "55": {
+            "text": "U",
+            "unicode_name": "LATIN CAPITAL LETTER U"
+        },
+        "56": {
+            "text": "V",
+            "unicode_name": "LATIN CAPITAL LETTER V"
+        },
+        "57": {
+            "text": "W",
+            "unicode_name": "LATIN CAPITAL LETTER W"
+        },
+        "61": {
+            "text": "a",
+            "unicode_name": "LATIN SMALL LETTER A"
+        },
+        "62": {
+            "text": "b",
+            "unicode_name": "LATIN SMALL LETTER B"
+        },
+        "63": {
+            "text": "c",
+            "unicode_name": "LATIN SMALL LETTER C"
+        },
+        "64": {
+            "text": "d",
+            "unicode_name": "LATIN SMALL LETTER D"
+        },
+        "65": {
+            "text": "e",
+            "unicode_name": "LATIN SMALL LETTER E"
+        },
+        "69": {
+            "text": "i",
+            "unicode_name": "LATIN SMALL LETTER I"
+        },
+        "6a": {
+            "text": "j",
+            "unicode_name": "LATIN SMALL LETTER J"
+        },
+        "6b": {
+            "text": "k",
+            "unicode_name": "LATIN SMALL LETTER K"
+        },
+        "6c": {
+            "text": "l",
+            "unicode_name": "LATIN SMALL LETTER L"
+        },
+        "6d": {
+            "text": "m",
+            "unicode_name": "LATIN SMALL LETTER M"
+        },
+        "6e": {
+            "text": "n",
+            "unicode_name": "LATIN SMALL LETTER N"
+        },
+        "70": {
+            "text": "p",
+            "unicode_name": "LATIN SMALL LETTER P"
+        },
+        "71": {
+            "text": "q",
+            "unicode_name": "LATIN SMALL LETTER Q"
+        },
+        "72": {
+            "text": "r",
+            "unicode_name": "LATIN SMALL LETTER R"
+        },
+        "73": {
+            "text": "s",
+            "unicode_name": "LATIN SMALL LETTER S"
+        },
+        "74": {
+            "text": "t",
+            "unicode_name": "LATIN SMALL LETTER T"
+        },
+        "75": {
+            "text": "u",
+            "unicode_name": "LATIN SMALL LETTER U"
+        },
+        "76": {
+            "text": "v",
+            "unicode_name": "LATIN SMALL LETTER V"
+        },
+        "78": {
+            "text": "x",
+            "unicode_name": "LATIN SMALL LETTER X"
+        },
+        "ce93": {
+            "text": "Γ",
+            "unicode_name": "GREEK CAPITAL LETTER GAMMA"
+        },
+        "ce94": {
+            "text": "Δ",
+            "unicode_name": "GREEK CAPITAL LETTER DELTA"
+        },
+        "cea9": {
+            "text": "Ω",
+            "unicode_name": "GREEK CAPITAL LETTER OMEGA"
+        },
+        "ceb1": {
+            "text": "α",
+            "unicode_name": "GREEK SMALL LETTER ALPHA"
+        },
+        "ceb4": {
+            "text": "δ",
+            "unicode_name": "GREEK SMALL LETTER DELTA"
+        },
+        "ceb8": {
+            "text": "θ",
+            "unicode_name": "GREEK SMALL LETTER THETA"
+        },
+        "ceba": {
+            "text": "κ",
+            "unicode_name": "GREEK SMALL LETTER KAPPA"
+        },
+        "cebc": {
+            "text": "μ",
+            "unicode_name": "GREEK SMALL LETTER MU"
+        },
+        "cebd": {
+            "text": "ν",
+            "unicode_name": "GREEK SMALL LETTER NU"
+        },
+        "cf81": {
+            "text": "ρ",
+            "unicode_name": "GREEK SMALL LETTER RHO"
+        },
+        "cf83": {
+            "text": "σ",
+            "unicode_name": "GREEK SMALL LETTER SIGMA"
+        },
+        "cf84": {
+            "text": "τ",
+            "unicode_name": "GREEK SMALL LETTER TAU"
+        },
+        "cf95": {
+            "text": "ϕ",
+            "unicode_name": "GREEK PHI SYMBOL"
+        },
+        "cfb5": {
+            "text": "ϵ",
+            "unicode_name": "GREEK LUNATE EPSILON SYMBOL"
+        },
+        "e28490": {
+            "text": "ℐ",
+            "unicode_name": "SCRIPT CAPITAL I"
+        },
+        "e2889e": {
+            "text": "∞",
+            "unicode_name": "INFINITY"
+        },
+        "f09d9080": {
+            "text": "𝐀",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL A"
+        },
+        "f09d9081": {
+            "text": "𝐁",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL B"
+        },
+        "f09d9082": {
+            "text": "𝐂",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL C"
+        },
+        "f09d9083": {
+            "text": "𝐃",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL D"
+        },
+        "f09d9083f09d9085": {
+            "text": "𝐃𝐅",
+            "unicode_name": null
+        },
+        "f09d9084": {
+            "text": "𝐄",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL E"
+        },
+        "f09d9085": {
+            "text": "𝐅",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL F"
+        },
+        "f09d9086": {
+            "text": "𝐆",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL G"
+        },
+        "f09d9087": {
+            "text": "𝐇",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL H"
+        },
+        "f09d9088": {
+            "text": "𝐈",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL I"
+        },
+        "f09d9089f09d9082": {
+            "text": "𝐉𝐂",
+            "unicode_name": null
+        },
+        "f09d9089f09d9085": {
+            "text": "𝐉𝐅",
+            "unicode_name": null
+        },
+        "f09d908a": {
+            "text": "𝐊",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL K"
+        },
+        "f09d908b": {
+            "text": "𝐋",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL L"
+        },
+        "f09d908c": {
+            "text": "𝐌",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL M"
+        },
+        "f09d908d": {
+            "text": "𝐍",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL N"
+        },
+        "f09d9090": {
+            "text": "𝐐",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL Q"
+        },
+        "f09d9090f09d908c": {
+            "text": "𝐐𝐌",
+            "unicode_name": null
+        },
+        "f09d9092": {
+            "text": "𝐒",
+            "unicode_name": "MATHEMATICAL BOLD CAPITAL S"
+        },
+        "f09d909a": {
+            "text": "𝐚",
+            "unicode_name": "MATHEMATICAL BOLD SMALL A"
+        },
+        "f09d909b": {
+            "text": "𝐛",
+            "unicode_name": "MATHEMATICAL BOLD SMALL B"
+        },
+        "f09d909c": {
+            "text": "𝐜",
+            "unicode_name": "MATHEMATICAL BOLD SMALL C"
+        },
+        "f09d909f": {
+            "text": "𝐟",
+            "unicode_name": "MATHEMATICAL BOLD SMALL F"
+        },
+        "f09d90a0": {
+            "text": "𝐠",
+            "unicode_name": "MATHEMATICAL BOLD SMALL G"
+        },
+        "f09d90a6": {
+            "text": "𝐦",
+            "unicode_name": "MATHEMATICAL BOLD SMALL M"
+        },
+        "f09d90a6f09d908d": {
+            "text": "𝐦𝐍",
+            "unicode_name": null
+        },
+        "f09d90a9": {
+            "text": "𝐩",
+            "unicode_name": "MATHEMATICAL BOLD SMALL P"
+        },
+        "f09d90aa": {
+            "text": "𝐪",
+            "unicode_name": "MATHEMATICAL BOLD SMALL Q"
+        },
+        "f09d90ab": {
+            "text": "𝐫",
+            "unicode_name": "MATHEMATICAL BOLD SMALL R"
+        },
+        "f09d90ad": {
+            "text": "𝐭",
+            "unicode_name": "MATHEMATICAL BOLD SMALL T"
+        },
+        "f09d90ae": {
+            "text": "𝐮",
+            "unicode_name": "MATHEMATICAL BOLD SMALL U"
+        },
+        "f09d90af": {
+            "text": "𝐯",
+            "unicode_name": "MATHEMATICAL BOLD SMALL V"
+        },
+        "f09d90b1": {
+            "text": "𝐱",
+            "unicode_name": "MATHEMATICAL BOLD SMALL X"
+        },
+        "f09d929e": {
+            "text": "𝒞",
+            "unicode_name": "MATHEMATICAL SCRIPT CAPITAL C"
+        },
+        "f09d92ae": {
+            "text": "𝒮",
+            "unicode_name": "MATHEMATICAL SCRIPT CAPITAL S"
+        },
+        "f09d92b1": {
+            "text": "𝒱",
+            "unicode_name": "MATHEMATICAL SCRIPT CAPITAL V"
+        },
+        "f09d9d88": {
+            "text": "𝝈",
+            "unicode_name": "MATHEMATICAL BOLD ITALIC SMALL SIGMA"
+        }
+    }
+}

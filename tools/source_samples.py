@@ -429,6 +429,13 @@ def xml_to_html(xml_tree, source_type):
                 span = etree.SubElement(h2, "span", attrib={"class": "section-title"})
                 span.text = ''.join(child.itertext())
                 reset_p()
+            
+            elif c_local == "h3":
+                reset_p()
+                h3 = etree.SubElement(html_parent, "h3")
+                span = etree.SubElement(h3, "span", attrib={"class": "section-title"})
+                span.text = ''.join(child.itertext())
+                reset_p()
 
             elif c_local == "script":
                 continue
@@ -567,7 +574,6 @@ def main():
 
         raw_html_tree = etree.fromstring(html_string, parser = etree.HTMLParser(encoding='utf-8', remove_blank_text=True))
         html_tree = xml_to_html(raw_html_tree, "manual_pdf")
-        
         logger.info('Processing HTML')
         preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir, overwrite)
 

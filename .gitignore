@@ -121,6 +121,8 @@ manual_sources/
 
 examples/NSLP_2026_case/*/*/*/results.json
 
+examples/SimplePapers/
+
 orig_to_new_parser.py
 format_eval_results.py
 examples/NSLP_2026_case/annotation_files/OLD_Qwen3-4B-Instruct-2507/

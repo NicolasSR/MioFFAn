@@ -1,0 +1,18 @@
+{
+    "science_direct": {
+        "samples": {}
+    },
+    "springer_nature":{
+        "samples": {}
+    },
+    "manual_html": {
+        "samples": {}
+    },
+    "manual_pdf": {
+        "samples": {
+            "oñate_updated-lagrangian": {
+                "filename": "oñate_updated-lagrangian"
+            }
+        }
+    }
+}
