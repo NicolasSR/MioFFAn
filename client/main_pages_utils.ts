@@ -183,7 +183,7 @@ function getAncestryLevel($inner: JQuery, $outer: JQuery): number {
 export function give_eoi_borders() {
   for(let eoi_id in eoi_dict) {
     let eoi_query = $('#'+eoi_id);
-    eoi_query.attr('style', 'border: solid 4px #dcf9fa; padding: 10px;')
+    eoi_query.attr('style', 'border: solid 4px #ff0000a4; padding: 10px;')
   }
 }
 

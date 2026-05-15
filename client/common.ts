@@ -38,6 +38,13 @@ export interface Occurence {
     properties: { [key: string]: string };
 }
 
+export interface OperatorInfo {
+    operator: string;
+    name: string;
+    arity: number;
+    code_token: string;
+}
+
 // --------------------------
 // Internal functions
 // --------------------------
@@ -166,6 +173,9 @@ export let occurences_dict = {} as { [key: string]: Occurence };
 export let eoi_dict = {} as { [key: string]: EoI };
 // export let occdict = {} as { [key: string]: Occurence };
 
+// load operator info from the external json file
+export let operators_info_list: OperatorInfo[] = [];
+
 // Load data immediately when the app starts. Assign the promise to
 // a variable so that other modules can await it.
 export const dataLoadingPromise = (async () => {
@@ -173,6 +183,7 @@ export const dataLoadingPromise = (async () => {
     await fetch_mcdict_json_data();
     await fetch_mi_anno_json_data();
     await fetch_sample_json_data();
+    await fetch_operator_info_json_data();
     console.log("Data loading complete!");
 
     let cnt = 0;
@@ -265,6 +276,34 @@ export function fetch_sample_json_data(onSuccess?: () => void) {
     });
 }
 
+export function fetch_operator_info_json_data(onSuccess?: () => void) {
+    operators_info_list = [
+        { operator: "gradient_op", name: "Gradient Operator", arity: 1, code_token: "grad" },
+        { operator: "divergence_op", name: "Divergence Operator", arity: 1, code_token: "div" }
+    ];
+    // return $.ajax({
+    //     url: '/get_operator_info_data.json',
+    //     dataType: 'json',
+    //     async: false,
+    //     success: function (data) {
+    //         operators_info_list = data['operators_info_list'];
+    //         console.log("Operator info data gathered successfully!");
+
+    //         // CRITICAL STEP: 
+    //         // Updating variables doesn't automatically update the HTML.
+    //         // You must call your render function here.
+    //         if (onSuccess) {
+    //             onSuccess();
+    //         } else {
+    //             // If you have a global render function, call it here:
+    //             // updateUI(); 
+    //         }
+    //     },
+    //     error: function(err) {
+    //         console.error("Failed to fetch operator info", err);
+    //     }
+    // });
+}
 
 // // load sog from the external json file
 // export let sog = {} as { sog: Source[] };

@@ -4,9 +4,10 @@
 import { post } from "jquery";
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, mcdict, mcdict_edit_id, eoi_dict,
-    escape_selector, get_mc_id_from_query
+    escape_selector, get_mc_id_from_query, operators_info_list
 } from "./common";
 import { give_eoi_borders } from "./main_pages_utils"
+import { createSymbolicCodeLexer,tokenizeSymbolicCode, evaluateSymbolicCode } from "./ast_parser";
 
 import projectConfig from '../config.json';
 
@@ -24,6 +25,9 @@ $(function () {
     dataLoadingPromise.then(() => {
         // Mark borders of EoI
         give_eoi_borders()
+
+        // generate the symbolic code lexer after the operator info is loaded
+        createSymbolicCodeLexer(operators_info_list);
     });
 });
 
@@ -200,6 +204,25 @@ function edit_symbolic_code(eoi_id: string) {
         title: 'Edit Code',
         width: 500,
         buttons: {
+            'Tokenize': function () {
+                const code = $symbolic_code_node.val() as string;
+                try {
+                    const tokens = tokenizeSymbolicCode(code);
+                    alert("Tokens:\n" + tokens.map(t => `${t.image} (${t.tokenType.name})`).join("\n"));
+                } catch (error: any) {
+                    alert("Error tokenizing code: " + error.message);
+                }
+            },
+            'Evaluate': function () {
+                const code = $symbolic_code_node.val() as string;
+                try {
+                    const evaluation_result = evaluateSymbolicCode(code);
+                    alert("Evaluation result:\n" + evaluation_result.toString());
+                    console.log("Evaluation result:", evaluation_result);
+                } catch (error: any) {
+                    alert("Error evaluating code: " + error.message);
+                }
+            },
             'OK': function () {
                 submit_edit_symbolic_code(eoi_id, symbolic_code_dialog)
             },
