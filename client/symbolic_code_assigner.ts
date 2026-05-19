@@ -4,10 +4,10 @@
 import { post } from "jquery";
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, mcdict, mcdict_edit_id, eoi_dict,
-    escape_selector, get_mc_id_from_query, operators_info_list
+    escape_selector, get_mc_id_from_query, OperatorInfo
 } from "./common";
 import { give_eoi_borders } from "./main_pages_utils"
-import { createSymbolicCodeLexer,tokenizeSymbolicCode, evaluateSymbolicCode } from "./ast_parser";
+import { createSymbolicCodeLexer, evaluateSymbolicCode } from "./ast_parser";
 
 import projectConfig from '../config.json';
 
@@ -24,9 +24,18 @@ const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 $(function () {
     dataLoadingPromise.then(() => {
         // Mark borders of EoI
-        give_eoi_borders()
+        give_eoi_borders();
 
         // generate the symbolic code lexer after the operator info is loaded
+        let operators_info_list: OperatorInfo[] = [];
+        for (const [key, value] of Object.entries(projectConfig.OPERATORS_LIST)) {
+            operators_info_list.push({
+                operator: key,
+                name: key,
+                arity: value.arity,
+                code_token: value.label
+            });
+        }
         createSymbolicCodeLexer(operators_info_list);
     });
 });
@@ -124,10 +133,17 @@ $(function () {
                 let anno_box = $('#anno-box')
 
                 let button_edit_symbolic_code = '<p><button id="edit-symbolic-code">Edit code</button></p>';
-                anno_box.html(button_edit_symbolic_code)
+                let button_generate_output_file = '<p><button id="generate-output-file">Generate Output File</button></p>';
+                anno_box.html(button_edit_symbolic_code + button_generate_output_file)
+
                 $('button#edit-symbolic-code').button();
                 $('button#edit-symbolic-code').on('click', function () {
                     edit_symbolic_code(current_equation_id!)
+                });
+
+                $('button#generate-output-file').button();
+                $('button#generate-output-file').on('click', function () {
+                    generate_output_file(current_equation_id!)
                 });
             } else {
                 console.warn("Selected equation does not have an ID")
@@ -154,6 +170,8 @@ $(function () {
 function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<HTMLElement>) {
 
     const symbolic_code = symbolic_code_dialog.find('textarea[name="symbolic-code"]').val();
+    const ast = symbolic_code_dialog.find('pre[id="ast-visualization"]').text();
+    const ast_variables = symbolic_code_dialog.find('p[id="ast-variables-list"]').text();
 
     fetch('/_edit_symbolic_code', {
         method: 'POST',
@@ -161,7 +179,9 @@ function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<
         body: JSON.stringify({
             mcdict_edit_id: mcdict_edit_id,
             eoi_id: eoi_id,
-            symbolic_code: symbolic_code
+            symbolic_code: symbolic_code,
+            ast: ast,
+            ast_variables: ast_variables
         }),
     }).then(async (response) => {
         const data = await response.json();
@@ -195,32 +215,34 @@ function edit_symbolic_code(eoi_id: string) {
     const $var_container = symbolic_code_dialog.find('div[id=var-list-container]');
     const $op_container = symbolic_code_dialog.find('div[id=op-list-container]');
     initEquationBuilder($symbolic_code_node, $var_container, $op_container);
+    const $ast_visualization_node = symbolic_code_dialog.find('pre[id=ast-visualization]');
+    const $ast_variables_list_node = symbolic_code_dialog.find('p[id=ast-variables-list]');
 
     // put the current values
     $symbolic_code_node.text(eoi.symbolic_code);
+    $ast_visualization_node.text(eoi.ast);
+    $ast_variables_list_node.text(eoi.ast_variables.join(", "));
 
     symbolic_code_dialog.dialog({
         modal: true,
         title: 'Edit Code',
         width: 500,
         buttons: {
-            'Tokenize': function () {
-                const code = $symbolic_code_node.val() as string;
-                try {
-                    const tokens = tokenizeSymbolicCode(code);
-                    alert("Tokens:\n" + tokens.map(t => `${t.image} (${t.tokenType.name})`).join("\n"));
-                } catch (error: any) {
-                    alert("Error tokenizing code: " + error.message);
-                }
-            },
             'Evaluate': function () {
                 const code = $symbolic_code_node.val() as string;
                 try {
                     const evaluation_result = evaluateSymbolicCode(code);
-                    alert("Evaluation result:\n" + evaluation_result.toString());
-                    console.log("Evaluation result:", evaluation_result);
+                    const ast_strings_list = evaluation_result.ast_list.map((ast: any) => JSON.stringify(ast));
+                    const identifier_token_strings = evaluation_result.identifier_token_strings;
+                    // const stringified_result = JSON.stringify(ast, null, 2);
+                    const stringified_result = ast_strings_list.join("\n");
+                    const ast_variables = filter_variables_in_ast(identifier_token_strings);
+                    $ast_visualization_node.text(stringified_result);
+                    $ast_visualization_node.css('color', 'black');
+                    $ast_variables_list_node.text(ast_variables.join(", "));
                 } catch (error: any) {
-                    alert("Error evaluating code: " + error.message);
+                    $ast_visualization_node.text("ERROR: " + error.message);
+                    $ast_visualization_node.css('color', 'red');
                 }
             },
             'OK': function () {
@@ -231,6 +253,42 @@ function edit_symbolic_code(eoi_id: string) {
             }
         }
     });
+}
+
+function filter_variables_in_ast(identifier_token_strings: string[]): string[] {
+    let filtered_variables: string[] = [];
+    for (let token_str of identifier_token_strings) {
+        for (let mc_id in mcdict) {
+            const concept = mcdict[mc_id]
+            if (concept.code_var_name === token_str) {
+                filtered_variables.push(mc_id);
+            }
+        }
+    }
+    return filtered_variables;
+}
+
+function generate_output_file(eoi_id: string) {
+    // Implementation for generating output file
+    fetch('/_generate_output_file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            eoi_id: eoi_id
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            alert("Output file generated successfully!");
+        } else {
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error generating output file:', error);
+    }); 
 }
 
 /**

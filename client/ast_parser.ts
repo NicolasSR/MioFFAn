@@ -1,4 +1,4 @@
-import { createToken, Lexer, CstParser, TokenType, tokenMatcher, IRecognitionException } from "chevrotain";
+import { createToken, Lexer, CstParser, TokenType, tokenMatcher, IRecognitionException, IToken } from "chevrotain";
 import { OperatorInfo } from "./common";
 
 const Identifier = createToken({ name: "Identifier", pattern: /[a-zA-Z_][a-zA-Z0-9_]*/ });
@@ -90,7 +90,7 @@ function parse(tokenized_code: any, startRuleName: keyof SymbolicCodeParser) {
     symbolic_code_parser.input = tokenized_code;
     const rule = symbolic_code_parser[startRuleName];
     if (typeof rule === "function") {
-        let value = rule.call(symbolic_code_parser);
+        const value = rule.call(symbolic_code_parser);
         return { value: value, errors: symbolic_code_parser.errors };
     } else {
         throw new Error(`Start rule "${startRuleName}" does not exist in the parser.`);
@@ -101,13 +101,32 @@ export function evaluateSymbolicCode(code: string) {
     if (!symbolic_code_interpreter) {
         throw new Error("SymbolicCodeInterpreter is not initialized. Please call createSymbolicCodeLexer with the operator info list before evaluating code.");
     }
-    let tokenized_code = tokenizeSymbolicCode(code);
-    let parseResult = parse(tokenized_code, "assignment_statement");
-    if (parseResult.errors.length > 0) {
-        return new Error(parseResult.errors.map((error: IRecognitionException) => error.message).join("\n"));
+    let ast_list = [];
+    let total_identifier_token_strings: string[] = [];
+    const code_lines = code.split("\n");
+    for (const line of code_lines) {
+        if (line.trim().length === 0) {
+            continue; // skip empty lines
+        }
+        let tokenized_code = tokenizeSymbolicCode(line);
+        let identifier_tokens: IToken[] = tokenized_code;
+        let identifier_token_strings: string[];
+        identifier_tokens = identifier_tokens.filter(token => tokenMatcher(token, Identifier)); // Match by token type name
+        identifier_token_strings = identifier_tokens.map(token => token.image);
+        for (const identifier_token_string of identifier_token_strings) {
+            if (!total_identifier_token_strings.includes(identifier_token_string)) {
+                total_identifier_token_strings.push(identifier_token_string);
+            }
+        }
+        let parseResult = parse(tokenized_code, "assignment_statement");
+        if (parseResult.errors.length > 0) {
+            throw new Error(parseResult.errors.map((error: IRecognitionException) => error.message).join("\n"));
+        }
+        let ast = symbolic_code_interpreter.visit(parseResult.value);
+        ast_list.push(ast);
     }
-    let result = symbolic_code_interpreter.visit(parseResult.value);
-    return result;
+    const output = { ast_list: ast_list, identifier_token_strings: total_identifier_token_strings };
+    return output;
 }
 
 class SymbolicCodeParser extends CstParser {
@@ -117,8 +136,6 @@ class SymbolicCodeParser extends CstParser {
         this.CONSUME(Equal);
         this.SUBRULE(this.expression);
     });
-
-
 
     public expression = this.RULE("expression", () => {
       this.OR([

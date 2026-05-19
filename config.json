@@ -39,6 +39,11 @@
           "type": "boolean",
           "display_rule": {"==": [{"var":"tensor-rank"}, 0]}
         },
+        "value": {
+          "label": "Value",
+          "type": "code",
+          "display_rule": {"==": [{"var":"variable-type"}, "numerical-variable"]}
+        },
         "function-implementation": {
           "label": "Function Implementation",
           "type": "code",
@@ -48,6 +53,11 @@
           "label": "Function Dependencies",
           "type": "code",
           "display_rule": {"==": [{"var":"variable-type"}, "undefined-function"]}
+        },
+        "associated_trial_function": {
+          "label": "Associated Trial Function",
+          "type": "code",
+          "display_rule": {"==": [{"var":"variable-type"}, "test-function"]}
         }
       },
       "occurrence_fields": {

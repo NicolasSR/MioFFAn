@@ -166,3 +166,10 @@ table[class*="ltx_eqn_table"]  {
 table[class*="ltx_eqn_table"] td  {
     padding-bottom: 12px;
 }
+
+.ast-visualization{
+    overflow-x:scroll;
+    overflow-y: scroll;
+    max-height: 100px;
+    max-width: 100%;
+}

@@ -35,6 +35,8 @@ class Group:
 @dataclass
 class EoI:
     symbolic_code: str
+    ast: str
+    ast_variables: list[str]
 
 @dataclass
 class Occurence:

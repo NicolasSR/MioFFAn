@@ -167,6 +167,10 @@ def routing_functions(server):
     def clear_annotation_data():
         return server.clear_annotation_data()
     
+    @app.route('/_generate_output_file', methods=['POST'])
+    def generate_output_file():
+        return server.generate_output_file()
+    
     
 
 def main():

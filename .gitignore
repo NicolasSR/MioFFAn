@@ -118,6 +118,7 @@ extra
 libextra
 /templates
 manual_sources/
+output/
 
 examples/NSLP_2026_case/*/*/*/results.json
 

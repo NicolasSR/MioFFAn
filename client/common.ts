@@ -30,6 +30,8 @@ export interface Concept {
 
 export interface EoI {
     symbolic_code: string;
+    ast: string;
+    ast_variables: string[];
 }
 
 export interface Occurence {
@@ -183,7 +185,6 @@ export const dataLoadingPromise = (async () => {
     await fetch_mcdict_json_data();
     await fetch_mi_anno_json_data();
     await fetch_sample_json_data();
-    await fetch_operator_info_json_data();
     console.log("Data loading complete!");
 
     let cnt = 0;
@@ -274,35 +275,6 @@ export function fetch_sample_json_data(onSuccess?: () => void) {
             console.error("Failed to fetch sample data", err);
         }
     });
-}
-
-export function fetch_operator_info_json_data(onSuccess?: () => void) {
-    operators_info_list = [
-        { operator: "gradient_op", name: "Gradient Operator", arity: 1, code_token: "grad" },
-        { operator: "divergence_op", name: "Divergence Operator", arity: 1, code_token: "div" }
-    ];
-    // return $.ajax({
-    //     url: '/get_operator_info_data.json',
-    //     dataType: 'json',
-    //     async: false,
-    //     success: function (data) {
-    //         operators_info_list = data['operators_info_list'];
-    //         console.log("Operator info data gathered successfully!");
-
-    //         // CRITICAL STEP: 
-    //         // Updating variables doesn't automatically update the HTML.
-    //         // You must call your render function here.
-    //         if (onSuccess) {
-    //             onSuccess();
-    //         } else {
-    //             // If you have a global render function, call it here:
-    //             // updateUI(); 
-    //         }
-    //     },
-    //     error: function(err) {
-    //         console.error("Failed to fetch operator info", err);
-    //     }
-    // });
 }
 
 // // load sog from the external json file
