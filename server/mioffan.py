@@ -537,7 +537,7 @@ class MioFFAnServer:
 
         equation_id = res['equation_id']
         if not equation_id in self.mcdict.eoi_dict.keys():
-            self.mcdict.eoi_dict[equation_id] = EoI(symbolic_code="")
+            self.mcdict.eoi_dict[equation_id] = EoI(symbolic_code="", ast="", ast_variables=[])
         else:
             flash('Equation ID was already in the list of EoI.')
         self.mcdict.dump()

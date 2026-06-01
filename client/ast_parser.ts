@@ -11,10 +11,10 @@ const WhiteSpace = createToken({ name: "WhiteSpace", pattern: /\s+/, group: Lexe
 const AdditionOperator = createToken({ name: "AdditionOperator", pattern: Lexer.NA });
 const Plus = createToken({ name: "Plus", pattern: /\+/, categories: AdditionOperator});
 const Minus = createToken({ name: "Minus", pattern: /-/, categories: AdditionOperator});
+const Power = createToken({ name: "Power", pattern: /\*\*/ });
 const MultiplicationOperator = createToken({ name: "MultiplicationOperator", pattern: Lexer.NA });
 const Multiply = createToken({ name: "Multiply", pattern: /\*/, categories: MultiplicationOperator});
 const Divide = createToken({ name: "Divide", pattern: /\//, categories: MultiplicationOperator});
-const Power = createToken({ name: "Power", pattern: /\*\*/ });
 const Equal = createToken({ name: "Equal", pattern: /=/ });
 const UnaryOperator = createToken({ name: "UnaryOperator", pattern: Lexer.NA });
 const BinaryOperator = createToken({ name: "BinaryOperator", pattern: Lexer.NA });
@@ -29,6 +29,7 @@ const genericTokens = [
         Integer,
         Plus,
         Minus,
+        Power,
         Multiply,
         Divide,
         Equal,

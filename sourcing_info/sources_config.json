@@ -12,6 +12,18 @@
                         "attr": {}
                     }
                 ]
+            },
+            "total_lagrangian_mixed_volumetric_strain_element": {
+                "pii":"S0045782523002001",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
             }
         }
     },
