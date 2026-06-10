@@ -16,11 +16,13 @@ const MultiplicationOperator = createToken({ name: "MultiplicationOperator", pat
 const Multiply = createToken({ name: "Multiply", pattern: /\*/, categories: MultiplicationOperator});
 const Divide = createToken({ name: "Divide", pattern: /\//, categories: MultiplicationOperator});
 const Equal = createToken({ name: "Equal", pattern: /=/ });
-const UnaryOperator = createToken({ name: "UnaryOperator", pattern: Lexer.NA });
-const BinaryOperator = createToken({ name: "BinaryOperator", pattern: Lexer.NA });
+const UnaryOperator = createToken({ name: "UnaryOperator", pattern: Lexer.NA});
+const BinaryOperator = createToken({ name: "BinaryOperator", pattern: Lexer.NA});
+const If = createToken({ name: "If", pattern: /if/, longer_alt: Identifier });
 
 const genericTokens = [
         WhiteSpace,
+        If,
         Identifier,
         LParen,
         RParen,
@@ -51,9 +53,9 @@ export function createSymbolicCodeLexer(operators_info_list: OperatorInfo[]) {
 
     for (const operator of operators_info_list) {
         if (operator.arity == 1) {
-            unary_operator_tokens.push(createToken({ name: operator.code_token, pattern: new RegExp(`${operator.code_token}`), categories: UnaryOperator }));
+            unary_operator_tokens.push(createToken({ name: operator.code_token, pattern: new RegExp(`${operator.code_token}`), categories: UnaryOperator, longer_alt: Identifier }));
         } else if (operator.arity == 2) {
-            binary_operator_tokens.push(createToken({ name: operator.code_token, pattern: new RegExp(`${operator.code_token}`), categories: BinaryOperator }));
+            binary_operator_tokens.push(createToken({ name: operator.code_token, pattern: new RegExp(`${operator.code_token}`), categories: BinaryOperator, longer_alt: Identifier }));
         } else {
             console.warn(`Unsupported operator arity ${operator.arity} for operator ${operator.operator}. Skipping this operator.`);
         }
@@ -186,7 +188,8 @@ class SymbolicCodeParser extends CstParser {
     public operator_expression = this.RULE("operator_expression", () => {
         this.OR([
             { ALT: () => this.SUBRULE(this.unary_operator_expression) },
-            { ALT: () => this.SUBRULE(this.binary_operator_expression) }
+            { ALT: () => this.SUBRULE(this.binary_operator_expression) },
+            { ALT: () => this.SUBRULE(this.if_expression) }
         ]);
     });
 
@@ -203,6 +206,17 @@ class SymbolicCodeParser extends CstParser {
         this.SUBRULE(this.expression, { LABEL: "left" });
         this.CONSUME(Comma);
         this.SUBRULE2(this.expression, { LABEL: "right" });
+        this.CONSUME(RParen);
+    });
+
+    public if_expression = this.RULE("if_expression", () => {
+        this.CONSUME(If);
+        this.CONSUME(LParen);
+        this.CONSUME(Identifier, { LABEL: "condition" });
+        this.CONSUME(Comma);
+        this.SUBRULE2(this.expression, { LABEL: "true" });
+        this.CONSUME2(Comma);
+        this.SUBRULE3(this.expression, { LABEL: "false" });
         this.CONSUME(RParen);
     });
 
@@ -326,6 +340,8 @@ function generateInterpreter(parser: SymbolicCodeParser) {
                 return this.visit(ctx.unary_operator_expression);
             } else if (ctx.binary_operator_expression) {
                 return this.visit(ctx.binary_operator_expression);
+            } else if (ctx.if_expression) {
+                return this.visit(ctx.if_expression);
             } else {
                 throw new Error("Unsupported operator expression type");
             }
@@ -342,6 +358,13 @@ function generateInterpreter(parser: SymbolicCodeParser) {
             const left = this.visit(ctx.left);
             const right = this.visit(ctx.right);
             return { op: operator_name, args: [left, right] };
+        }
+
+        if_expression(ctx: any) {
+            const condition = ctx.condition[0].image;
+            const true_value = this.visit(ctx.true);
+            const false_value = this.visit(ctx.false);
+            return { op: "if", args: [condition, true_value, false_value] };
         }
 
         parenthesized_expression(ctx: any) {

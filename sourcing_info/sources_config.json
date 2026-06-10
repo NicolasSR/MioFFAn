@@ -31,7 +31,17 @@
         "samples": {}
     },
     "manual_html": {
-        "samples": {}
+        "samples": {
+            "weakly_compressible_navier_stokes": {
+                "filename": "weakly_compressible_navier_stokes",
+                "pruning_references": [
+                    {
+                        "tag": "body",
+                        "attr": {}
+                    }
+                ]
+            }      
+        }
     },
     "manual_pdf": {
         "samples": {}
