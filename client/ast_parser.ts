@@ -142,17 +142,19 @@ class SymbolicCodeParser extends CstParser {
 
     public expression = this.RULE("expression", () => {
       this.OR([
-        { ALT: () => this.SUBRULE(this.unary_minus_expression) },
         { ALT: () => this.SUBRULE(this.addition_expression) }
       ]);
     });
 
-    public unary_minus_expression = this.RULE("unary_minus_expression", () => {
-      this.CONSUME(Minus);
-      this.SUBRULE(this.expression);
-    });
+    // public unary_minus_expression = this.RULE("unary_minus_expression", () => {
+    //   this.CONSUME(Minus);
+    //   this.SUBRULE(this.multiplication_expression);
+    // });
 
     public addition_expression = this.RULE("addition_expression", () => {
+        this.OPTION(() => {
+            this.CONSUME(Minus, { LABEL: "first_term_negative" });
+        });
         this.SUBRULE(this.multiplication_expression, { LABEL: "left" });
         this.MANY(() => {
             this.CONSUME(AdditionOperator);
@@ -260,20 +262,23 @@ function generateInterpreter(parser: SymbolicCodeParser) {
         expression(ctx: any) {
             if (ctx.addition_expression) {
                 return this.visit(ctx.addition_expression);
-            } else if (ctx.unary_minus_expression) {
-                return this.visit(ctx.unary_minus_expression);
+            // } else if (ctx.unary_minus_expression) {
+            //     return this.visit(ctx.unary_minus_expression);
             } else {
                 throw new Error("Unsupported expression type");
             }
         }
 
-        unary_minus_expression(ctx: any) {
-            const operand = this.visit(ctx.expression);
-            return { op: "unary_minus", args: [operand] };
-        }
+        // unary_minus_expression(ctx: any) {
+        //     const operand = this.visit(ctx.expression);
+        //     return { op: "unary_minus", args: [operand] };
+        // }
         
         addition_expression(ctx: any) {
             let left = this.visit(ctx.left);
+            if (ctx.first_term_negative) {
+                left = { op: "unary_minus", args: [left] };
+            }
 
             // "rhs" key may be undefined as the grammar defines it as optional (MANY === zero or more).
             if (ctx.right) {
@@ -304,7 +309,7 @@ function generateInterpreter(parser: SymbolicCodeParser) {
                     left = { op: "mult", args: [left, right] }
                     } else {
                     // Divide
-                    left = { op: "div", args: [left, right] };
+                    left = { op: "divide", args: [left, right] };
                     }
                 });
             }

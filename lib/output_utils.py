@@ -4,20 +4,37 @@ def generate_FE_compiler_output(ast, ast_mc_dict):
     
     vars_dict = {
         "unknown_vars":[],
-        "additional_nodal_tensors": [],
-        "additional_function_tensors": [],
-        "additional_symbolic_tensors": [],
-        "numerical_tensors": [],
+        "nodal_vars": [],
+        "undefined_functions": [],
+        "symbolic_vars": [],
+        "numerical_vars": [],
         "defined_functions": []
     }
     
     sorted_mc_lists = {}
+    config_settings_dict = {}
     for mc_id, concept in ast_mc_dict.items():
         if concept.concept_category=="variable":
             var_type = concept.properties.get("variable-type", None)
             if var_type not in sorted_mc_lists:
                 sorted_mc_lists[var_type] = []
             sorted_mc_lists[var_type].append(concept)
+
+        elif concept.concept_category=="config_setting":
+            config_type = concept.properties.get("config-type", None)
+            if config_type == "bool":
+                if concept.properties.get("bool-value", None) == "on":
+                    value = True
+                else:
+                    value = False
+            elif config_type == "string":
+                value = concept.properties.get("string-value", None)
+            elif config_type == "number":
+                value = concept.properties.get("number-value", None)
+            else:
+                raise ValueError(f"Unsupported config type: {config_type}")
+            config_settings_dict[concept.code_var_name] = value
+
 
     for trial_func in sorted_mc_lists.get("trial-function", []):
         unknown_info = {
@@ -37,7 +54,7 @@ def generate_FE_compiler_output(ast, ast_mc_dict):
         vars_dict["unknown_vars"].append(unknown_info)
     
     for concept in sorted_mc_lists.get("nodal-variable", []):
-        vars_dict["additional_nodal_tensors"].append({
+        vars_dict["nodal_vars"].append({
             "symbol": concept.code_var_name,
             "tensor_rank": concept.properties.get("tensor-rank", None)
         })
@@ -51,10 +68,10 @@ def generate_FE_compiler_output(ast, ast_mc_dict):
             concept_info["positive"] = True
         if "symmetric" in concept.properties and concept.properties["symmetric"]=="on":
             concept_info["symmetric"] = True
-        vars_dict["additional_symbolic_tensors"].append(concept_info)
+        vars_dict["symbolic_vars"].append(concept_info)
 
     for concept in sorted_mc_lists.get("numerical-variable", []):
-        vars_dict["numerical_tensors"].append({
+        vars_dict["numerical_vars"].append({
             "symbol": concept.code_var_name,
             "tensor_rank": concept.properties.get("tensor-rank", None),
             "value": concept.properties.get("value", None)
@@ -68,7 +85,7 @@ def generate_FE_compiler_output(ast, ast_mc_dict):
         })
 
     for concept in sorted_mc_lists.get("undefined-function", []):
-        vars_dict["additional_function_tensors"].append({
+        vars_dict["undefined_functions"].append({
             "symbol": concept.code_var_name,
             "tensor_rank": concept.properties.get("tensor-rank", None),
             "dependencies": concept.properties.get("function-dependencies", [])
@@ -85,13 +102,14 @@ def generate_FE_compiler_output(ast, ast_mc_dict):
         new_var_name = ssa["args"][0]
         inner_ast = ssa["args"][1]
         functional_ssa.append({
-            "assigned_variable": new_var_name,
-            "ast": inner_ast
+            "name": new_var_name,
+            "AST": inner_ast
         })
 
     output = {
         "quantities": vars_dict,
-        "functional_ssa": functional_ssa
+        "functional_ssa": functional_ssa,
+        "config_settings": config_settings_dict,
     }
 
     return output

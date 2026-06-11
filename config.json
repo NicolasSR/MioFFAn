@@ -134,6 +134,36 @@
       "name": "Other",
       "concept_fields": {},
       "occurrence_fields": {}
+    },
+    "config_setting": {
+      "name": "Configuration Setting",
+      "concept_fields": {
+        "config-type": {
+          "label": "Type",
+          "type": "categorical",
+          "values": [
+            {"value": "bool", "label": "Boolean"},
+            {"value": "string", "label": "String"},
+            {"value": "number", "label": "number"}
+          ]
+        },
+        "bool-value": {
+          "label": "True (uncheck to set to false)",
+          "type": "boolean",
+          "display_rule": {"==": [{"var":"config-type"}, "bool"]}
+        },
+        "string-value": {
+          "label": "Value",
+          "type": "string",
+          "display_rule": {"==": [{"var":"config-type"}, "string"]}
+        },
+        "number-value": {
+          "label": "Value",
+          "type": "number",
+          "display_rule": {"==": [{"var":"config-type"}, "number"]}
+        }
+      },
+      "occurrence_fields": {}
     }
   },
 
@@ -147,7 +177,7 @@
     "contract": {"label": "contract", "arity": 2},
     "double_contract": {"label": "double_contract", "arity": 2},
     "grad": {"label": "grad", "arity": 1},
-    "sym_grad": {"label": "sym_grad", "arity": 1},
+    "symgrad": {"label": "symgrad", "arity": 1},
     "div": {"label": "div", "arity": 1},
     "matrix_prod": {"label": "matrix_prod", "arity": 2},
     "matrix_transpose": {"label": "matrix_transpose", "arity": 1},

@@ -40,7 +40,16 @@
                         "attr": {}
                     }
                 ]
-            }      
+            },
+            "weakly_compressible_stokes": {
+                "filename": "weakly_compressible_stokes",
+                "pruning_references": [
+                    {
+                        "tag": "body",
+                        "attr": {}
+                    }
+                ]
+            }   
         }
     },
     "manual_pdf": {
