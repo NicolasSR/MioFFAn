@@ -37,6 +37,7 @@ class EoI:
     symbolic_code: str
     ast: str
     ast_variables: list[str]
+    substitutions_dict: str
 
 @dataclass
 class Occurence:
@@ -44,6 +45,11 @@ class Occurence:
     mc_id: str
     tag_name: str
     properties: Dict[str,str]
+
+@dataclass
+class EnvironmentSetting:
+    name: str
+    value: str
 
 
     

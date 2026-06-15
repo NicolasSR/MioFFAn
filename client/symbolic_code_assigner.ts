@@ -4,7 +4,7 @@
 import { post } from "jquery";
 import {
     COMPOUND_CONCEPT_TAGS, dataLoadingPromise, mcdict, mcdict_edit_id, eoi_dict,
-    escape_selector, get_mc_id_from_query, OperatorInfo
+    escape_selector, get_mc_id_from_query, OperatorInfo, environment_settings_list
 } from "./common";
 import { give_eoi_borders } from "./main_pages_utils"
 import { createSymbolicCodeLexer, evaluateSymbolicCode } from "./ast_parser";
@@ -134,7 +134,8 @@ $(function () {
 
                 let button_edit_symbolic_code = '<p><button id="edit-symbolic-code">Edit code</button></p>';
                 let button_generate_output_file = '<p><button id="generate-output-file">Generate Output File</button></p>';
-                anno_box.html(button_edit_symbolic_code + button_generate_output_file)
+                let button_run_cas = '<p><button id="run-cas">Run CAS</button></p>';
+                anno_box.html(button_edit_symbolic_code + button_generate_output_file + button_run_cas)
 
                 $('button#edit-symbolic-code').button();
                 $('button#edit-symbolic-code').on('click', function () {
@@ -145,10 +146,20 @@ $(function () {
                 $('button#generate-output-file').on('click', function () {
                     generate_output_file(current_equation_id!)
                 });
+
+                $('button#run-cas').button();
+                $('button#run-cas').on('click', function () {
+                    run_cas(current_equation_id!)
+                });
             } else {
                 console.warn("Selected equation does not have an ID")
             }
         }
+
+        $('button#edit-environment-settings').button();
+        $('button#edit-environment-settings').on('click', function () {
+            edit_environment_settings()
+        });
 
         $('math').on('click', function () {
             // if already selected, remove it
@@ -167,11 +178,94 @@ $(function () {
     });
 });
 
+function edit_environment_settings() {
+    let $environment_settings_dialog = $('#environment-settings-dialog-template').clone();
+    $environment_settings_dialog.removeAttr('id');
+
+    function create_setting_html_row(index: number, name: string = "", value: string = ""): string {
+        return `<div id="environment-setting-${index}">
+                    <input type="text" name="setting_name" value="${name}">: 
+                    <input type="text" name="setting_value" value="${value}">
+                </div><br/>`;
+    }
+
+    let current_settings_html = "";
+
+    for (let i = 0; i < environment_settings_list.length; i++) {
+        current_settings_html += create_setting_html_row(i, environment_settings_list[i].name, environment_settings_list[i].value);
+    }
+    const $settings_list_container = $environment_settings_dialog.find('div[id=environment-settings-list]');
+    $settings_list_container.html(current_settings_html);
+
+    let settings_counter = environment_settings_list.length
+
+    const $add_setting_button = $environment_settings_dialog.find('button#add-environment-setting');
+    $add_setting_button.button();
+    $add_setting_button.on('click', function () {
+        const new_setting_row = create_setting_html_row(settings_counter);
+        $settings_list_container.append(new_setting_row);
+        settings_counter++;
+    });
+
+    $environment_settings_dialog.dialog({
+        modal: true,
+        title: 'Edit Environment Settings',
+        width: 500,
+        buttons: {
+            'OK': function () {
+                // Collect names and values from input fields
+                let settings: any[] = [];
+                $environment_settings_dialog.find('div[id^="environment-setting-"]').each(function() {
+                    const name = $(this).find('input[name="setting_name"]').val();
+                    const value = $(this).find('input[name="setting_value"]').val();
+                    if (name && value) {
+                        settings.push({"name": name, "value": value });
+                    }
+                });
+                submit_edit_environment_settings(settings);
+            },
+            'Cancel': function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+function submit_edit_environment_settings(settings: any[]) {
+
+    fetch('/_edit_environment_settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            environment_settings: settings
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            localStorage['scroll_top'] = $(window).scrollTop();
+            window.location.reload();
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error creating concept:', error);
+    });
+}
+
 function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<HTMLElement>) {
 
     const symbolic_code = symbolic_code_dialog.find('textarea[name="symbolic-code"]').val();
     const ast = symbolic_code_dialog.find('pre[id="ast-visualization"]').text();
     const ast_variables = symbolic_code_dialog.find('p[id="ast-variables-list"]').text();
+    const substitutions_dict = symbolic_code_dialog.find('textarea[name="substitutions-dict"]').val();
 
     fetch('/_edit_symbolic_code', {
         method: 'POST',
@@ -181,7 +275,8 @@ function submit_edit_symbolic_code(eoi_id: string, symbolic_code_dialog: JQuery<
             eoi_id: eoi_id,
             symbolic_code: symbolic_code,
             ast: ast,
-            ast_variables: ast_variables
+            ast_variables: ast_variables,
+            substitutions_dict: substitutions_dict
         }),
     }).then(async (response) => {
         const data = await response.json();
@@ -217,11 +312,13 @@ function edit_symbolic_code(eoi_id: string) {
     initEquationBuilder($symbolic_code_node, $var_container, $op_container);
     const $ast_visualization_node = symbolic_code_dialog.find('pre[id=ast-visualization]');
     const $ast_variables_list_node = symbolic_code_dialog.find('p[id=ast-variables-list]');
+    const $substitutions_dict_node = symbolic_code_dialog.find('textarea[name="substitutions-dict"]');
 
     // put the current values
     $symbolic_code_node.text(eoi.symbolic_code);
     $ast_visualization_node.text(eoi.ast);
     $ast_variables_list_node.text(eoi.ast_variables.join(", "));
+    $substitutions_dict_node.text(eoi.substitutions_dict);
 
     symbolic_code_dialog.dialog({
         modal: true,
@@ -252,6 +349,35 @@ function edit_symbolic_code(eoi_id: string) {
                 $(this).dialog('close');
             }
         }
+    });
+}
+
+function run_cas(eoi_id: string) {
+    // Implementation for running CAS
+    fetch('/_run_cas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            mcdict_edit_id: mcdict_edit_id,
+            eoi_id: eoi_id
+        }),
+    }).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            localStorage['scroll_top'] = $(window).scrollTop();
+            window.location.reload();
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error running CAS:', error);
     });
 }
 
@@ -383,6 +509,8 @@ function prepare_op_list(): string[][]{
     }
     return operators_list;
 }
+
+
 
 // --------------------------
 // Keybord shortcuts

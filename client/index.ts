@@ -423,10 +423,14 @@ function render_concept_dialog(primitive_symbols: string[], onSuccess: (mc_id: s
 
         if (previous_properties && init) {
             for (const [key, value] of Object.entries(previous_properties)) {
+                const $field_container = $(`#field-container-${key}`);
+                $field_container.show();
                 const $input = $propertiesForm.find(`[name="${key}"]`);
                 if ($input.length > 0) {
                     if ($input.attr('type') === 'checkbox' && value === "on") {
                         $input.prop('checked', 'on');
+                        $input.val('on');
+                        $input.prop('disabled', false)
                     } else {
                         $input.val(value);
                     }

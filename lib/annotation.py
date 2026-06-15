@@ -4,7 +4,7 @@ from pathlib import Path
 from logging import Logger
 from dataclasses import asdict
 
-from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG, EoI
+from lib.datatypes import PrimitiveSymbol, MathConcept, Group, Occurence, SoG, EoI, EnvironmentSetting
 from lib.concept_properties import validate_properties
 
 from lib.logger import main_logger
@@ -111,6 +111,7 @@ class McDict:
 
         self.eoi_dict: dict[str, EoI] = cast_dicts_to_dataclass(data['eoi_dict'], EoI)
 
+        self.environment_settings_list = [EnvironmentSetting(**setting) for setting in data['environment_settings_list']]
 
     def dump(self, checkpoint_tag = None):
         if checkpoint_tag is None:
@@ -125,7 +126,8 @@ class McDict:
                     'concepts': cast_dataclass_to_dicts(self.concepts),
                     'next_available_mc_id': self.next_available_mc_id,
                     'occurences_dict': cast_dataclass_to_dicts(self.occurences_dict),
-                    'eoi_dict': cast_dataclass_to_dicts(self.eoi_dict)
+                    'eoi_dict': cast_dataclass_to_dicts(self.eoi_dict),
+                    'environment_settings_list': [asdict(setting) for setting in self.environment_settings_list]
                 },
                 f,
             )

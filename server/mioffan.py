@@ -19,12 +19,13 @@ from pydantic import BaseModel
 
 from lib.version import VERSION
 from lib.annotation import MiAnno, McDict
-from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI
+from lib.datatypes import MathConcept, Occurence, SoG, Group, EoI, EnvironmentSetting
 from lib.util import wrap_custom_group, check_missing_variables, check_document_edit_id, PostRequestError
 from lib.concept_properties import validate_properties
 from llm_implementation.llm_implementations import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
 from lib.llm_utilities import validate_llm_output_schema, get_or_create_llm_log_file, process_auto_segment_symbol_data
 from lib.output_utils import generate_FE_compiler_output
+from lib.cas_plugins_interface import CASPluginInterface
 
 # get git revision
 try:
@@ -520,6 +521,7 @@ class MioFFAnServer:
         data['mcdict'] = preprocess_mcdict(self.mcdict.concepts)
         data['eoi_dict'] = {eoi_id: asdict(eoi_obj) for eoi_id, eoi_obj in self.mcdict.eoi_dict.items()}
         data['occurences_dict'] = {comp_tag_id: asdict(occ_obj) for comp_tag_id, occ_obj in self.mcdict.occurences_dict.items()}
+        data['environment_settings_list'] = [asdict(setting) for setting in self.mcdict.environment_settings_list]
         extended_data = [str(self.mcdict_edit_id), data]
         return json.dumps(extended_data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
     
@@ -537,7 +539,7 @@ class MioFFAnServer:
 
         equation_id = res['equation_id']
         if not equation_id in self.mcdict.eoi_dict.keys():
-            self.mcdict.eoi_dict[equation_id] = EoI(symbolic_code="", ast="", ast_variables=[])
+            self.mcdict.eoi_dict[equation_id] = EoI(symbolic_code="", ast="", ast_variables=[], substitutions_dict="")
         else:
             flash('Equation ID was already in the list of EoI.')
         self.mcdict.dump()
@@ -651,12 +653,15 @@ class MioFFAnServer:
             symbolic_code = res.get('symbolic_code')
             ast = res.get('ast')
             ast_variables = res.get('ast_variables')
-            check_missing_variables(eoi_id=eoi_id,symbolic_code=symbolic_code,ast=ast,ast_variables=ast_variables)
+            substitutions_dict = res.get('substitutions_dict')
+
+            check_missing_variables(eoi_id=eoi_id,symbolic_code=symbolic_code,ast=ast,ast_variables=ast_variables, substitutions_dict=substitutions_dict)
 
             if eoi_id in self.mcdict.eoi_dict.keys():
                 self.mcdict.eoi_dict[eoi_id].symbolic_code = symbolic_code
                 self.mcdict.eoi_dict[eoi_id].ast = ast
                 self.mcdict.eoi_dict[eoi_id].ast_variables = ast_variables.split(", ")
+                self.mcdict.eoi_dict[eoi_id].substitutions_dict = substitutions_dict
                 self.mcdict.dump()
             else:
                 flash('Equation ID was not found in the list of EoI.')
@@ -666,6 +671,29 @@ class MioFFAnServer:
             success_message = {
                 "status": "success",
                 "message": "Symbolic code updated successfully."
+            }
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+    def edit_environment_settings(self):
+        try:
+            res = request.json
+
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+
+            environment_settings = res.get('environment_settings')
+            check_missing_variables(environment_settings=environment_settings)
+
+            self.mcdict.environment_settings_list = [EnvironmentSetting(**setting) for setting in environment_settings]
+            self.mcdict.dump()
+
+            self.update_mcdict_edit_id()
+
+            success_message = {
+                "status": "success",
+                "message": "Environment settings updated successfully."
             }
             return json.dumps(success_message), 200
         
@@ -846,7 +874,7 @@ class MioFFAnServer:
             ast_mc_ids = eoi.ast_variables
             ast_mc_dict = {mc_id: self.mcdict.concepts[mc_id] for mc_id in ast_mc_ids}
 
-            out = generate_FE_compiler_output(ast, ast_mc_dict)
+            out = generate_FE_compiler_output(ast, ast_mc_dict, self.mcdict.environment_settings_list, eoi.substitutions_dict)
 
             with open('output/{}_{}.json'.format(self.paper_id, eoi_id), 'w', encoding='utf-8') as f:
                 json.dump(out, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
@@ -1092,6 +1120,30 @@ class MioFFAnServer:
                     "message": "Automatic assignment of concepts successful.",
                 }
             
+            return json.dumps(success_message), 200
+        
+        except PostRequestError as e:
+            return json.dumps(e.to_dict()), e.http_status
+        
+    #############################
+    # CAS UTILITIES
+    #############################
+    def run_cas(self):
+        try:
+            res = request.json
+
+            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
+
+            eoi_id = res.get('eoi_id')
+            check_missing_variables(eoi_id=eoi_id)
+
+            cas_interface = CASPluginInterface.create(self.paper_id, eoi_id)
+            cas_interface.execute()
+
+            success_message = {
+                "status": "success",
+                "message": "Environment settings updated successfully."
+            }
             return json.dumps(success_message), 200
         
         except PostRequestError as e:

@@ -20,6 +20,7 @@
             {"value": "test-function", "label": "Test Function"},
             {"value": "nodal-variable", "label": "Nodal Variable"},
             {"value": "symbolic-variable", "label": "Symbolic Variable"},
+            {"value": "constant-variable", "label": "Spatially Constant Variable"},
             {"value": "numerical-variable", "label": "Numerical Variable"},
             {"value": "defined-function", "label": "Defined Function"},
             {"value": "undefined-function", "label": "Undefined Function"}
@@ -34,6 +35,22 @@
           "type": "boolean",
           "display_rule": {">=": [{"var":"tensor-rank"}, 2]}
         },
+        "third_symmetry": {
+          "label": "Third Symmetry",
+          "type": "boolean",
+          "display_rule": {"and": [
+            {"==": [{"var":"tensor-rank"}, 4]},
+            {"==": [{"var":"symmetric"}, "on"]}
+          ]}
+        },
+        "use_voigt_notation": {
+          "label": "Use Voigt Notation",
+          "type": "boolean",
+          "display_rule": {"or": [
+            {"and": [{"==": [{"var":"tensor-rank"}, 2]}, {"==": [{"var":"symmetric"}, "on"]}]},
+            {"and": [{"==": [{"var":"tensor-rank"}, 4]}, {"==": [{"var":"third_symmetry"}, "on"]}]}
+          ]}
+        },
         "positive": {
           "label": "Positive",
           "type": "boolean",
@@ -43,11 +60,6 @@
           "label": "Value",
           "type": "code",
           "display_rule": {"==": [{"var":"variable-type"}, "numerical-variable"]}
-        },
-        "function-implementation": {
-          "label": "Function Implementation",
-          "type": "code",
-          "display_rule": {"==": [{"var":"variable-type"}, "defined-function"]}
         },
         "function-dependencies": {
           "label": "Function Dependencies",
@@ -66,7 +78,7 @@
           "type": "boolean",
           "display_rule": {"and": [
             {"or": [{"==": [{"var":"tensor-rank"}, 2]}, {"==": [{"var":"tensor-rank"}, 4]}]},
-            {"==": [{"var":"symmetric"}, true]}
+            {"==": [{"var":"symmetric"}, "on"]}
           ]}
         },
         "exponent": {
@@ -134,36 +146,6 @@
       "name": "Other",
       "concept_fields": {},
       "occurrence_fields": {}
-    },
-    "config_setting": {
-      "name": "Configuration Setting",
-      "concept_fields": {
-        "config-type": {
-          "label": "Type",
-          "type": "categorical",
-          "values": [
-            {"value": "bool", "label": "Boolean"},
-            {"value": "string", "label": "String"},
-            {"value": "number", "label": "number"}
-          ]
-        },
-        "bool-value": {
-          "label": "True (uncheck to set to false)",
-          "type": "boolean",
-          "display_rule": {"==": [{"var":"config-type"}, "bool"]}
-        },
-        "string-value": {
-          "label": "Value",
-          "type": "string",
-          "display_rule": {"==": [{"var":"config-type"}, "string"]}
-        },
-        "number-value": {
-          "label": "Value",
-          "type": "number",
-          "display_rule": {"==": [{"var":"config-type"}, "number"]}
-        }
-      },
-      "occurrence_fields": {}
     }
   },
 
@@ -187,5 +169,11 @@
     "matrix_cofactor": {"label": "matrix_cofactor", "arity": 1},
     "vector_cross_prod": {"label": "vector_cross_prod", "arity": 2},
     "vector_outer_prod": {"label": "vector_outer_prod", "arity": 2}
+  },
+  "CAS_PLUGIN_CONFIG": {
+    "plugin_name": "kratos_fe_compiler",
+    "cases_dir": "/home/nsibuet/Documents/KratosFECompiler/cases",
+    "cas_dir": "/home/nsibuet/Documents/KratosFECompiler",
+    "conda_env": "fe_compiler"
   }
 }

@@ -32,6 +32,7 @@ export interface EoI {
     symbolic_code: string;
     ast: string;
     ast_variables: string[];
+    substitutions_dict: string;
 }
 
 export interface Occurence {
@@ -45,6 +46,11 @@ export interface OperatorInfo {
     name: string;
     arity: number;
     code_token: string;
+}
+
+export interface EnvironmentSetting {
+    name: string;
+    value: string;
 }
 
 // --------------------------
@@ -173,6 +179,7 @@ export let mcdict_edit_id: number = 0;
 export let mcdict = {} as { [key: string]: Concept };
 export let occurences_dict = {} as { [key: string]: Occurence };
 export let eoi_dict = {} as { [key: string]: EoI };
+export let environment_settings_list: EnvironmentSetting[] = [];
 // export let occdict = {} as { [key: string]: Occurence };
 
 // load operator info from the external json file
@@ -205,6 +212,7 @@ export function fetch_mcdict_json_data(onSuccess?: () => void) {
             mcdict = data[1]['mcdict'];
             occurences_dict = data[1]['occurences_dict'];
             eoi_dict = data[1]['eoi_dict'];
+            environment_settings_list = data[1]['environment_settings_list'];
             console.log("MCDict refreshed successfully!");
             
             // CRITICAL STEP: 

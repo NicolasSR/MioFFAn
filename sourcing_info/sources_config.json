@@ -41,8 +41,26 @@
                     }
                 ]
             },
+            "weakly_compressible_navier_stokes_picard": {
+                "filename": "weakly_compressible_navier_stokes_picard",
+                "pruning_references": [
+                    {
+                        "tag": "body",
+                        "attr": {}
+                    }
+                ]
+            },
             "weakly_compressible_stokes": {
                 "filename": "weakly_compressible_stokes",
+                "pruning_references": [
+                    {
+                        "tag": "body",
+                        "attr": {}
+                    }
+                ]
+            },
+            "two_fluid_stokes": {
+                "filename": "two_fluid_stokes",
                 "pruning_references": [
                     {
                         "tag": "body",

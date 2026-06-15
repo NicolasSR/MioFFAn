@@ -107,6 +107,10 @@ def routing_functions(server):
     def edit_symbolic_code():
         return server.edit_symbolic_code()
     
+    @app.route('/_edit_environment_settings', methods=['POST'])
+    def edit_environment_settings():
+        return server.edit_environment_settings()
+
     @app.route('/hex_to_mc_map.json', methods=['GET'])
     def hex_to_mc_map():
         return server.gen_hex_to_mc_map()
@@ -170,6 +174,10 @@ def routing_functions(server):
     @app.route('/_generate_output_file', methods=['POST'])
     def generate_output_file():
         return server.generate_output_file()
+    
+    @app.route('/_run_cas', methods=['POST'])
+    def run_cas():
+        return server.run_cas()
     
     
 

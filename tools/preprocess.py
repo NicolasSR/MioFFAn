@@ -353,7 +353,8 @@ def preprocess_html(sample_name, html_tree, data_dir, templates_dir, sources_dir
         'concepts': {},
         'next_available_mc_id': 0,
         'occurences_dict': {},
-        'eoi_dict': {}
+        'eoi_dict': {},
+        'environment_settings_list': []
     }
     with open(data_mcdict_path, 'w') as f:
         dump_json(mcdict_json,f)

@@ -62,6 +62,18 @@
                     <small>Variables:</small>
                     <p id="ast-variables-list" class="ast-variables-list"></p>
                 </div>
+
+                <div class="substitutions-dict-container">
+                    <small>Substitutions:</small>
+                    <textarea id="substitutions-dict-input" name="substitutions-dict" rows="3" cols="40"></textarea>
+                </div>
+            </div>
+
+            <div id="environment-settings-dialog-template" class="environment-settings-dialog">
+                <div id="environment-settings-list" class="environment-settings-list"></div>
+                <p>
+                    <button id="add-environment-setting">+</button>
+                </p>
             </div>
 
             <div id="error-dialog" class="error-dialog">
@@ -105,6 +117,11 @@
                             <button id="jump-to-next-eoi">Jump to Next</button>
                             <button id="jump-to-prev-eoi">Jump to Prev</button>
                             <button id="back-to-selected-eoi">Back to Selected</button>
+                        </p>
+                    </div>
+                    <div class="tab-content">
+                        <p>
+                        <button id="edit-environment-settings">Edit Environment Settings</button>
                         </p>
                     </div>
                     <div id="anno-box" class="tab-content">
