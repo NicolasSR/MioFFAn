@@ -23,6 +23,14 @@ import projectConfig from '../config.json';
 const compound_tags_selector = COMPOUND_CONCEPT_TAGS.join(', ');
 
 // --------------------------
+// Index page options
+// --------------------------
+
+let index_options = {
+    show_all_concepts: false
+}
+
+// --------------------------
 // Mark EoIs and SoGs
 // --------------------------
 
@@ -31,6 +39,25 @@ $(function () {
         // Mark borders of EoI
         give_eoi_borders()
         give_sog_highlight();
+
+        let $input_show_all_concepts = $('#option-show-all-concepts')
+
+        if(localStorage['option-show-all-concepts'] == 'true') {
+            $input_show_all_concepts.prop('checked', true);
+            index_options.show_all_concepts = true
+        } else {
+            index_options.show_all_concepts = false
+        }
+
+        $input_show_all_concepts.on('click', function() {
+            if($(this).prop('checked')) {
+                localStorage['option-show-all-concepts'] = 'true';
+                index_options.show_all_concepts = true
+            } else {
+                localStorage['option-show-all-concepts'] = 'false';
+                index_options.show_all_concepts = false
+            }
+        });
     });
 });
 
@@ -289,7 +316,13 @@ function show_anno_box($comp_tag_node: JQuery) {
     $comp_tag_node.css({'border': 'dotted 2px #000000', 'padding': '10px'});
 
     // Get candidate concepts
-    let concept_cand = get_concept_cand($comp_tag_node);
+    let concept_cand: string[] = [];
+    if (index_options.show_all_concepts) {
+        // If show_all_concepts is true, show all concepts
+        concept_cand = Object.keys(mcdict);
+    } else {
+        concept_cand = get_concept_cand($comp_tag_node);
+    }
     console.log('concept_cand', concept_cand)
 
     // draw the annotation box

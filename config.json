@@ -153,7 +153,7 @@
     "add": {"label": "add", "arity": -1},
     "sub": {"label": "sub", "arity": 2},
     "neg": {"label": "neg", "arity": 1},
-    "scalar-prod": {"label": "scalar_prod", "arity": 2},
+    "inner_prod": {"label": "inner_prod", "arity": 2},
     "norm": {"label": "norm", "arity": 1},
     "dot_prod": {"label": "dot_prod", "arity": 2},
     "contract": {"label": "contract", "arity": 2},
@@ -167,8 +167,13 @@
     "matrix_determinant": {"label": "matrix_determinant", "arity": 1},
     "matrix_inverse": {"label": "matrix_inverse", "arity": 1},
     "matrix_cofactor": {"label": "matrix_cofactor", "arity": 1},
-    "vector_cross_prod": {"label": "vector_cross_prod", "arity": 2},
-    "vector_outer_prod": {"label": "vector_outer_prod", "arity": 2}
+    "vector_outer_prod": {"label": "vector_outer_prod", "arity": 2},
+    "curl": {"label": "curl", "arity": 1},
+    "curl_3d": {"label": "curl_3d", "arity": 1},
+    "curl_2d": {"label": "curl_2d", "arity": 1},
+    "cross_prod": {"label": "cross_prod", "arity": 2},
+    "cross_prod_3d": {"label": "cross_prod_3d", "arity": 2},
+    "cross_prod_2d": {"label": "cross_prod_2d", "arity": 2}
   },
   "CAS_PLUGIN_CONFIG": {
     "plugin_name": "kratos_fe_compiler",

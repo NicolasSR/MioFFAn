@@ -171,9 +171,13 @@ def routing_functions(server):
     def clear_annotation_data():
         return server.clear_annotation_data()
     
-    @app.route('/_generate_output_file', methods=['POST'])
-    def generate_output_file():
-        return server.generate_output_file()
+    @app.route('/_submit_template_file', methods=['POST'])
+    def submit_template_file():
+        return server.submit_template_file()
+    
+    @app.route('/_download_output_file', methods=['GET'])
+    def download_output_file():
+        return server.download_output_file()
     
     @app.route('/_run_cas', methods=['POST'])
     def run_cas():

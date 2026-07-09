@@ -7,9 +7,10 @@ from copy import deepcopy
 import traceback
 import shutil
 from pathlib import Path
+import io
 
 # The server implementation for MioGatto
-from flask import request, redirect, flash, render_template, jsonify, Markup
+from flask import request, redirect, flash, render_template, jsonify, Markup, send_file
 import lxml
 from lxml import etree
 import subprocess
@@ -24,7 +25,6 @@ from lib.util import wrap_custom_group, check_missing_variables, check_document_
 from lib.concept_properties import validate_properties
 from llm_implementation.llm_implementations import auto_segment_symbols, auto_define_and_assign_concepts, auto_highlight_sources
 from lib.llm_utilities import validate_llm_output_schema, get_or_create_llm_log_file, process_auto_segment_symbol_data
-from lib.output_utils import generate_FE_compiler_output
 from lib.cas_plugins_interface import CASPluginInterface
 
 # get git revision
@@ -132,6 +132,10 @@ class MioFFAnServer:
         # Start with 0 (can be considered as the number of times the mcdict is edited)
         self.mi_anno_edit_id = 0
         self.mcdict_edit_id = 0
+
+        # Should be moved to the kratos plugin
+        self.kratos_templates = dict()
+        self.kratos_output_files = dict()
 
     def list_sample_ids(self):
         data = {'available_ids': self.available_ids}
@@ -848,46 +852,64 @@ class MioFFAnServer:
             return json.dumps(e.to_dict()), e.http_status
         
 
-    def generate_output_file(self):
+    #############################
+    # KRATOS INPUT AND OUTPUT FILE UTILITIES   # It should be moved to the kratos plugin
+    #############################
+
+    def submit_template_file(self):
+        """
+        This method takes in a file given by the user, that should be the C++ template file for either
+        the element or the condition. Then it stores it for later usage.
+        """
+
         try:
-            res = request.json
+            type = request.form.get('type')
+            check_missing_variables(type=type)
 
-            check_document_edit_id(self.mcdict_edit_id, res.get('mcdict_edit_id'))
-
-            eoi_id = res.get('eoi_id')
-            check_missing_variables(eoi_id=eoi_id)
-            if eoi_id not in self.mcdict.eoi_dict:
+            if 'file' not in request.files:
                 raise PostRequestError(
-                    code="INVALID_IDENTIFIER",
-                    message=f"Identifier eoi_id: {eoi_id} missing in internal EOI dictionary.",
-                    http_status=404
+                    code="MISSING_FILE",
+                    message=f"No file was obtained",
+                    http_status=400
                 )
-            eoi = self.mcdict.eoi_dict.get(eoi_id, None)
-            if eoi is None:
-                raise PostRequestError(
-                    code="INVALID_IDENTIFIER",
-                    message=f"Identifier eoi_id: {eoi_id} did not yield a valid eoi object.",
-                    http_status=404
-                )
-            ast = eoi.ast
+            file = request.files['file']
 
-            ast_mc_ids = eoi.ast_variables
-            ast_mc_dict = {mc_id: self.mcdict.concepts[mc_id] for mc_id in ast_mc_ids}
-
-            out = generate_FE_compiler_output(ast, ast_mc_dict, self.mcdict.environment_settings_list, eoi.substitutions_dict)
-
-            with open('output/{}_{}.json'.format(self.paper_id, eoi_id), 'w', encoding='utf-8') as f:
-                json.dump(out, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
-
-            success_message = {
-                    "status": "success",
-                    "message": "Output file generation successful.",
-                }
-            return json.dumps(success_message), 200
+            self.kratos_templates[type] = io.BytesIO(file.read()).getvalue().decode('utf-8')
             
+            success_message = {
+                        "status": "success",
+                        "message": "Template file successfully obtained.",
+                    }
+            return json.dumps(success_message), 200
+
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+        except Exception as e:
+            traceback.print_exc()
+            error = PostRequestError(
+                code="UNKNOWN",
+                message=f"Error during Template File Input",
+                http_status=400)
+            return json.dumps(error.to_dict()), error.http_status
+        
+    def download_output_file(self):
+        type = request.args.get('type')
+        check_missing_variables(type=type)
 
+        file_text = self.kratos_output_files[type]
+
+        in_memory_file = io.BytesIO(file_text.encode('utf-8'))
+        
+        # Rewind the stream pointer to the beginning before sending
+        in_memory_file.seek(0)
+        
+        # Stream it straight back to jQuery without ever saving to a hard drive
+        return send_file(
+            in_memory_file, 
+            mimetype="application/octet-stream",
+            as_attachment=True,
+            download_name=f"{type}.cpp"
+        )
     
     
     #############################
@@ -1137,8 +1159,20 @@ class MioFFAnServer:
             eoi_id = res.get('eoi_id')
             check_missing_variables(eoi_id=eoi_id)
 
+            if not ("element" in self.kratos_templates.keys() and "condition" in self.kratos_templates):
+                raise PostRequestError(
+                    code="INALID_DATA",
+                    message=f"Kratos template for either element or condition not available.",
+                    http_status=404
+                )
+            
             cas_interface = CASPluginInterface.create(self.paper_id, eoi_id)
-            cas_interface.execute()
+            fe_definition_dict = self._generate_fe_definition_dict(eoi_id, cas_interface)
+            compiler_execute_input = {
+                "fe_definition_dict": fe_definition_dict,
+                "template_files_content": self.kratos_templates
+            }
+            self.kratos_output_files = cas_interface.execute(compiler_execute_input)
 
             success_message = {
                 "status": "success",
@@ -1148,6 +1182,30 @@ class MioFFAnServer:
         
         except PostRequestError as e:
             return json.dumps(e.to_dict()), e.http_status
+    
+    def _generate_fe_definition_dict(self, eoi_id, cas_interface):
+        if eoi_id not in self.mcdict.eoi_dict:
+            raise PostRequestError(
+                code="INVALID_IDENTIFIER",
+                message=f"Identifier eoi_id: {eoi_id} missing in internal EOI dictionary.",
+                http_status=404
+            )
+        eoi = self.mcdict.eoi_dict.get(eoi_id, None)
+        if eoi is None:
+            raise PostRequestError(
+                code="INVALID_IDENTIFIER",
+                message=f"Identifier eoi_id: {eoi_id} did not yield a valid eoi object.",
+                http_status=404
+            )
+        ast = eoi.ast
+
+        ast_mc_ids = eoi.ast_variables
+        ast_mc_dict = {mc_id: self.mcdict.concepts[mc_id] for mc_id in ast_mc_ids}
+
+        out = cas_interface.generate_fe_definition_dict(ast, ast_mc_dict, self.mcdict.environment_settings_list, eoi.substitutions_dict)
+
+        return out
+        
 
 
     #############################

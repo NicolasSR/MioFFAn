@@ -1,7 +1,43 @@
 {
     "science_direct": {
         "samples": {
+            "first_order_stokes_variable_viscosity_bvs_gl": {
+                "pii":"S0898122125001087",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
             "gener_stokes_with_var_viscosity": {
+                "pii":"S0898122125001087",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
+            "gener_stokes_with_var_viscosity_SD": {
+                "pii":"S0898122125001087",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
+            "gener_stokes_with_var_viscosity_condition": {
                 "pii":"S0898122125001087",
                 "pruning_references": [
                     {
@@ -15,6 +51,30 @@
             },
             "total_lagrangian_mixed_volumetric_strain_element": {
                 "pii":"S0045782523002001",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
+            "robust_stabilized_fem_solvers_for_generalized_newtonian_fluids": {
+                "pii":"S0021999121003314",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
+            "low_order_LS_nonconforming_characteristics_MFEM_for_2D_burgers": {
+                "pii":"S0096300313005717",
                 "pruning_references": [
                     {
                         "tag": "ce:title",

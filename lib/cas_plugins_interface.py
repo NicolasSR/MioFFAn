@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 class CASPluginInterface(ABC):
     
     @abstractmethod
-    def execute(self):
+    def execute(self, input_data):
         """Every plugin must implement this method."""
         pass
 

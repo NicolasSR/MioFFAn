@@ -133,23 +133,34 @@ $(function () {
                 let anno_box = $('#anno-box')
 
                 let button_edit_symbolic_code = '<p><button id="edit-symbolic-code">Edit code</button></p>';
-                let button_generate_output_file = '<p><button id="generate-output-file">Generate Output File</button></p>';
+                let button_input_element_template_file ='<p><label id="label-input-element-template" for="input-element-template">Choose Element Template</label><input type="file" id="input-element-template" name="element-template-file"></p>';
+                let button_input_condition_template_file ='<p><label id="label-input-condition-template" for="input-condition-template">Choose Condition Template</label><input type="file" id="input-condition-template" name="condition-template-file"></p>';
                 let button_run_cas = '<p><button id="run-cas">Run CAS</button></p>';
-                anno_box.html(button_edit_symbolic_code + button_generate_output_file + button_run_cas)
+                anno_box.html(button_edit_symbolic_code + button_input_element_template_file + button_input_condition_template_file + button_run_cas)
 
                 $('button#edit-symbolic-code').button();
                 $('button#edit-symbolic-code').on('click', function () {
                     edit_symbolic_code(current_equation_id!)
                 });
-
-                $('button#generate-output-file').button();
-                $('button#generate-output-file').on('click', function () {
-                    generate_output_file(current_equation_id!)
+                
+                let $input_element_template = $('input#input-element-template');
+                $input_element_template.on('change', function(event) {
+                    const target = event.target as HTMLInputElement;
+                    const file = target.files?.[0];
+                    if (!file) return;
+                    submit_template_file('element', file, $('label#label-input-element-template'));
+                });
+                let $input_condition_template = $('input#input-condition-template');
+                $input_condition_template.on('change', function(event) {
+                    const target = event.target as HTMLInputElement;
+                    const file = target.files?.[0];
+                    if (!file) return;
+                    submit_template_file('condition', file, $('label#label-input-condition-template'));
                 });
 
                 $('button#run-cas').button();
                 $('button#run-cas').on('click', function () {
-                    run_cas(current_equation_id!)
+                    run_cas(current_equation_id!,anno_box)
                 });
             } else {
                 console.warn("Selected equation does not have an ID")
@@ -228,6 +239,33 @@ function edit_environment_settings() {
                 $(this).dialog('close');
             }
         }
+    });
+}
+
+function submit_template_file(type: string, file: Blob, $label_node: JQuery) {
+    const formData = new FormData;
+    formData.append('file', file);
+    formData.append('type', type);
+    fetch('/_submit_template_file', {
+        method: 'POST',
+        body: formData
+    }
+    ).then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+            $label_node.text("Template for " + type + "OK")
+        } else {
+            if (data.action === 'reload') {
+                alert(data.message);
+                localStorage['scroll_top'] = $(window).scrollTop();
+                window.location.reload(); // Manually trigger the reload here
+            }
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+            return;
+        }
+    }).catch(error => {
+        console.error('Error inputting template file:', error);
     });
 }
 
@@ -352,7 +390,7 @@ function edit_symbolic_code(eoi_id: string) {
     });
 }
 
-function run_cas(eoi_id: string) {
+function run_cas(eoi_id: string, $anno_box: JQuery) {
     // Implementation for running CAS
     fetch('/_run_cas', {
         method: 'POST',
@@ -364,8 +402,22 @@ function run_cas(eoi_id: string) {
     }).then(async (response) => {
         const data = await response.json();
         if (response.ok) {
-            localStorage['scroll_top'] = $(window).scrollTop();
-            window.location.reload();
+            // localStorage['scroll_top'] = $(window).scrollTop();
+            // window.location.reload();
+            let button_download_element_file = '<p><button id="download-element-file">Download Element File</button></p>';
+            let button_download_condition_file = '<p><button id="download-condition-file">Download Condition File</button></p>';
+            $anno_box.append(button_download_element_file + button_download_condition_file)
+
+            $anno_box.find('button#download-element-file').button();
+            $anno_box.find('button#download-element-file').on('click', function () {
+                download_output_file("element");
+            });
+
+            $anno_box.find('button#download-condition-file').button();
+            $anno_box.find('button#download-condition-file').on('click', function () {
+                download_output_file("condition");
+            });
+
         } else {
             if (data.action === 'reload') {
                 alert(data.message);
@@ -394,26 +446,37 @@ function filter_variables_in_ast(identifier_token_strings: string[]): string[] {
     return filtered_variables;
 }
 
-function generate_output_file(eoi_id: string) {
+function download_output_file(type: string) {
     // Implementation for generating output file
-    fetch('/_generate_output_file', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            mcdict_edit_id: mcdict_edit_id,
-            eoi_id: eoi_id
-        }),
-    }).then(async (response) => {
-        const data = await response.json();
+    fetch('/_download_output_file?type='+type, {
+        method: 'GET'
+    }
+    ).then(async (response) => {
+        const blob = await response.blob();
         if (response.ok) {
-            alert("Output file generated successfully!");
+
+            // Create a temporary download URL in the browser
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            
+            // Suggest a filename
+            link.download = `${type}.cpp`; 
+            document.body.appendChild(link);
+            
+            // Trigger the download UI
+            link.click();
+            
+            // Clean up browser memory
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(downloadUrl);
         } else {
-            console.error("Error:", data.message);
-            alert("Error: " + data.message);
+            console.error("Error obtaining output file. Status:", response.status);
+            alert("Error obtaining output file. Status:" + response.status);
             return;
         }
     }).catch(error => {
-        console.error('Error generating output file:', error);
+        console.error('Error obtaining output file:', error);
     }); 
 }
 
