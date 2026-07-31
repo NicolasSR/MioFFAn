@@ -113,8 +113,6 @@ export function get_mc_id_from_query($elem: JQuery<any>):string | undefined {
 
 export function get_concept_cand(elem: JQuery<any>) {
     const primitive_hex_list = get_primitive_hex_list(elem);
-    console.log('primitive_hex_list', primitive_hex_list)
-    console.log('hextocmcmap', hextocmcmap)
     let candidates_set: Set<string> = new Set();
     for (const primitive_hex of primitive_hex_list) {
         if (hextocmcmap[primitive_hex] !== undefined) {
@@ -123,7 +121,6 @@ export function get_concept_cand(elem: JQuery<any>) {
             }
         }
     }
-    console.log('candidates', Array.from(candidates_set.values()))
     return Array.from(candidates_set.values());
 }
 

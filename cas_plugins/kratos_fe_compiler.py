@@ -151,6 +151,8 @@ class KratosFECompilerPlugin(CASPluginInterface):
             "numerical_vars": [],
             "defined_functions": []
         }
+
+        default_element_space_name = "def"
         
         sorted_mc_lists = {}
         for mc_id, concept in ast_mc_dict.items():
@@ -161,9 +163,15 @@ class KratosFECompilerPlugin(CASPluginInterface):
                 sorted_mc_lists[var_type].append(concept)
 
         for trial_func in sorted_mc_lists.get("trial-function", []):
+            element_space_name = trial_func.properties.get("element_space_name", "")
+            if element_space_name == default_element_space_name:
+                raise ValueError("Trial function must have an element space name different from default ('def')")
+            elif element_space_name == "":
+                element_space_name = default_element_space_name
             unknown_info = {
                 "symbol": trial_func.code_var_name,
-                "tensor_rank": trial_func.properties.get("tensor-rank", None)
+                "tensor_rank": trial_func.properties.get("tensor-rank", None),
+                "element_space_name": element_space_name
             }
             for test_func in sorted_mc_lists.get("test-function", []):
                 matched = False
@@ -178,9 +186,15 @@ class KratosFECompilerPlugin(CASPluginInterface):
             vars_dict["unknown_vars"].append(unknown_info)
         
         for concept in sorted_mc_lists.get("nodal-variable", []):
+            element_space_name = concept.properties.get("element_space_name", "")
+            if element_space_name == default_element_space_name:
+                raise ValueError("Nodal variable must have an element space name different from default ('def')")
+            elif element_space_name == "":
+                element_space_name = default_element_space_name
             vars_dict["nodal_vars"].append({
                 "symbol": concept.code_var_name,
-                "tensor_rank": concept.properties.get("tensor-rank", None)
+                "tensor_rank": concept.properties.get("tensor-rank", None),
+                "element_space_name": element_space_name
             })
 
         for concept in sorted_mc_lists.get("symbolic-variable", []):

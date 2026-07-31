@@ -8,6 +8,7 @@ module.exports = {
     'group_creator': './group_creator.ts',
     'nav': './nav.ts',
     'sample_nav': './sample_nav.ts',
+    'concept_edition_utils': './concept_edition_utils.ts'
   },
   output: {
     filename: '[name].js',

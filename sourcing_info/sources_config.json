@@ -1,7 +1,31 @@
 {
     "science_direct": {
         "samples": {
+            "thermally_driven_active_fluid": {
+                "pii": "S0168927426000899",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
             "first_order_stokes_variable_viscosity_bvs_gl": {
+                "pii":"S0898122125001087",
+                "pruning_references": [
+                    {
+                        "tag": "ce:title",
+                        "attr": {}
+                    }, {
+                        "tag": "ce:section",
+                        "attr": {}
+                    }
+                ]
+            },
+            "first_order_stokes_variable_viscosity_pspg_sd": {
                 "pii":"S0898122125001087",
                 "pruning_references": [
                     {

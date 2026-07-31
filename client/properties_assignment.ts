@@ -61,8 +61,6 @@ export function renderPropertiesForm($form: JQuery, config: any, priorData: {[ke
         $form.append(html);
     });
 
-    console.log('Form', $form.html());
-
     // Run the logic immediately to hide fields that shouldn't be there at start
     refreshFormLogic($form, config, priorData);
 }

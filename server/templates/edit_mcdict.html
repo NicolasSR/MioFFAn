@@ -22,23 +22,15 @@
             <form id="back-to-index-form" method="GET"></form>
             </p>
 
+            <p>
+                <button id="add-new-concept">Add New Concept</button>
+            </p>
+
             <div id="edit-mcdict-box" class="tab-content">
                 <p>Edit mcdict!!!!!!!!!!!!</p>
             </div>
 
-            <div id="concept-dialog-template" class="concept-dialog">
-                <form id="concept-form" method="POST">
-                    <p>Description:<br />
-                        <textarea name="description" rows="3" cols="40"></textarea>
-                    </p>
-                    <p>Tensor Rank: <input type="number" name="tensor-rank" value="0" /></p>
-                    <p>Properties:<br />
-                    <div id="concept-properties-options-box">
-                        <p>No content found</p>
-                    </div>
-                </p>
-                </form>
-            </div>
+            <div id="concept-dialog-template" class="concept-dialog"></div>
 
             <div id="error-dialog" class="error-dialog">
                 <p id="error-message">{% for message in get_flashed_messages() %}

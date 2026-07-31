@@ -70,6 +70,11 @@
           "label": "Associated Trial Function",
           "type": "code",
           "display_rule": {"==": [{"var":"variable-type"}, "test-function"]}
+        },
+        "element_space_index": {
+          "label": "Element Space Name",
+          "type": "code",
+          "display_rule": {"or": [{"==": [{"var":"variable-type"}, "trial-function"]}, {"==": [{"var":"variable-type"}, "nodal-variable"]}]}
         }
       },
       "occurrence_fields": {
@@ -173,7 +178,8 @@
     "curl_2d": {"label": "curl_2d", "arity": 1},
     "cross_prod": {"label": "cross_prod", "arity": 2},
     "cross_prod_3d": {"label": "cross_prod_3d", "arity": 2},
-    "cross_prod_2d": {"label": "cross_prod_2d", "arity": 2}
+    "cross_prod_2d": {"label": "cross_prod_2d", "arity": 2},
+    "convective_op": {"label": "convective_op", "arity": 2}
   },
   "CAS_PLUGIN_CONFIG": {
     "plugin_name": "kratos_fe_compiler",

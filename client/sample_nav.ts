@@ -29,7 +29,6 @@ window.initializeSampleNavButtons = function()  {
             })
             .then(data => {
                 const available_ids: string[] = data.available_ids;
-                console.log(available_ids);
 
                 let html = '<h4>Select Sample:</h4><ul>';
                 if (Array.isArray(available_ids)) {
