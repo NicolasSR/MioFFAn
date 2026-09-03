@@ -79,9 +79,7 @@ python -m tools.evaluate_llm
 
 By default it will evaluate all possible tasks for all possible samples. Otherwise the user may indicate specific a task and sample to evaluate (check help page for the tool with -h option). The output is a stringified JSON with the different results.
 
-
 ## Acknowledgements
-
 This project has been funded by Joan Oró 2024 (2024 FI-1 00089) scholarship from AGAUR (Catalonia, Spain).
 
 ## License
@@ -93,3 +91,6 @@ This software is licensed under [the MIT license](./LICENSE).
 * [jQuery](https://jquery.org/): Copyright JS Foundation and other contributors. Licensed under [the MIT license](https://jquery.org/license).
 * [jQuery UI](https://jqueryui.com/): Copyright jQuery Foundation and other contributors. Licensed under [the MIT license](https://github.com/jquery/jquery-ui/blob/HEAD/LICENSE.txt).
 
+## How to cite
+Please, use the following reference when citing MioFFAn in your work.
+- [Sibuet Ruiz, N., Saggion, H., & Rossi, R. (2026). MioFFAn: An Annotation Software for Formula Formalization with LLM Automation Capabilities . In Proceedings of Natural Scientific Language Processing (NSLP) @ LREC 2026 (pp. 206–217). European Language Resources Association (ELRA). https://doi.org/10.63317/4s56b6f4i3u9.](https://doi.org/10.63317/4s56b6f4i3u9)
