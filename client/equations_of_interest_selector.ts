@@ -24,7 +24,7 @@ $(function () {
 function give_eoi_highlight() {
     for (let eoi_id in eoi_dict) {
         let eoi_query = $('#' + escape_selector(eoi_id));
-        eoi_query.css('background-color', `rgba(#dcf9fa,0.3)`);
+        eoi_query.css('background-color', `rgba(#a6fcff,1)`);
     }
 }
 

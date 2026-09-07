@@ -18,7 +18,7 @@ $(function () {
         }
 
         // Highlight existing groups
-        $('mstyle.custom-group').css('background-color', 'rgba(#f9dcfa,0.3)');
+        $('mstyle.custom-group').css('background-color', 'rgba(#f3cbf5,1.0)');
     });
 });
 
