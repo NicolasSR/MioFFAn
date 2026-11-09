@@ -63,52 +63,49 @@ class MioFFAnServer:
         self.kratos_output_files = dict()
 
         # Instantiate services
+        self._init_services()
+
+    def _init_services(self):
         self.annotation_svc = AnnotationService(
-            mi_anno=mi_anno,
-            mcdict=mcdict,
+            mi_anno=self.mi_anno,
+            mcdict=self.mcdict,
             config=self.config,
             mi_anno_edit_id_getter=lambda: self.mi_anno_edit_id,
             mcdict_edit_id_getter=lambda: self.mcdict_edit_id,
             mi_anno_edit_id_incrementer=self.update_mi_anno_edit_id,
             mcdict_edit_id_incrementer=self.update_mcdict_edit_id,
         )
-
         self.llm_svc = LLMService(
-            mi_anno=mi_anno,
-            mcdict=mcdict,
-            tree=tree,
+            mi_anno=self.mi_anno,
+            mcdict=self.mcdict,
+            tree=self.tree,
             config=self.config,
-            paper_id=paper_id,
+            paper_id=self.paper_id,
             annotation_service=self.annotation_svc,
         )
-
         self.cas_svc = CASService(
             kratos_templates=self.kratos_templates,
             kratos_output_files=self.kratos_output_files,
-            mcdict=mcdict,
-            paper_id=paper_id,
+            mcdict=self.mcdict,
+            paper_id=self.paper_id,
         )
-
         self.checkpoint_svc = CheckpointService(
-            mi_anno=mi_anno,
-            mcdict=mcdict,
+            mi_anno=self.mi_anno,
+            mcdict=self.mcdict,
         )
-
         self.render_svc = RenderService(
-            tree=tree,
-            mi_anno=mi_anno,
-            mcdict=mcdict,
+            tree=self.tree,
+            mi_anno=self.mi_anno,
+            mcdict=self.mcdict,
             config=self.config,
-            paper_id=paper_id,
+            paper_id=self.paper_id,
         )
-
         self.validation_svc = ValidationService(
-            mcdict=mcdict,
+            mcdict=self.mcdict,
             config=self.config,
         )
 
     # ---- Sample switching ----
-
     def list_sample_ids(self):
         data = {'available_ids': self.available_ids}
         return json.dumps(data, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
@@ -132,49 +129,9 @@ class MioFFAnServer:
         self.mcdict_edit_id = 0
 
         # Re-instantiate services with new state
-        self._reinit_services()
+        self._init_services()
 
         return redirect('/')
-
-    def _reinit_services(self):
-        self.annotation_svc = AnnotationService(
-            mi_anno=self.mi_anno,
-            mcdict=self.mcdict,
-            config=self.config,
-            mi_anno_edit_id_getter=lambda: self.mi_anno_edit_id,
-            mcdict_edit_id_getter=lambda: self.mcdict_edit_id,
-            mi_anno_edit_id_incrementer=self.update_mi_anno_edit_id,
-            mcdict_edit_id_incrementer=self.update_mcdict_edit_id,
-        )
-        self.llm_svc = LLMService(
-            mi_anno=self.mi_anno,
-            mcdict=self.mcdict,
-            tree=self.tree,
-            config=self.config,
-            paper_id=self.paper_id,
-            annotation_service=self.annotation_svc,
-        )
-        self.cas_svc = CASService(
-            kratos_templates=self.kratos_templates,
-            kratos_output_files=self.kratos_output_files,
-            mcdict=self.mcdict,
-            paper_id=self.paper_id,
-        )
-        self.checkpoint_svc = CheckpointService(
-            mi_anno=self.mi_anno,
-            mcdict=self.mcdict,
-        )
-        self.render_svc = RenderService(
-            tree=self.tree,
-            mi_anno=self.mi_anno,
-            mcdict=self.mcdict,
-            config=self.config,
-            paper_id=self.paper_id,
-        )
-        self.validation_svc = ValidationService(
-            mcdict=self.mcdict,
-            config=self.config,
-        )
 
     def annotate_file(self, filename):
         samples_source_folder = self.config["SAMPLE_SOURCE_FOLDER"]
